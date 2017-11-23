@@ -4,7 +4,7 @@
 ## 说明
 编译配置文件为 fis-conf.js
 举个例子
-src/js/lou/lou_main.js 会根据打包自己依赖的js,css,最终生成一个总的js,发布目录为
+src/js/lou/louselect_main.js 会根据打包自己依赖的js,css,最终生成一个总的js,发布目录为
 fangapp-release/src/js/mod/poplib/lou.js（可参照fis-conf.js 的配置文件）
 
 这个模块，对外提供一些api,模块中，不依赖任何业务中的东西，业务调用他，就像调 native 协议一样使用

@@ -3,7 +3,7 @@ var DataApi = (function () {
     var server = {
         apiurl: "https://housepostbaseapi.58.com/wuyedizhi/tip",
         // apiurl: "https://pwebapp.58.com/wuyedizhi/tip",
-        // lou: "https://tmp.ghy58.com/lmock/lou.json",
+        // louselect: "https://tmp.ghy58.com/lmock/lou.json",
         // danyuan: "https://tmp.ghy58.com/lmock/danyuan.json",
         // men: "https://tmp.ghy58.com/lmock/men.json",
     }
@@ -93,7 +93,7 @@ var DataApi = (function () {
             var result;
             $.ajax ({
                 url: url,
-                // url: "/lmock/lou.json",
+                // url: "/lmock/louselect.json",
                 data: (param),
                 dataType: "jsonp",
                 error: function (jqXHR, textStatus, errorThrown) {

@@ -5,12 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "fis3 release -w -c -d ./build",
-    "server": "fis3 server start -p 8902 && fis3 release -w",
-    "lou": "fis3 release lou_dev -w",
-    "shiming": "fis3 release shiming_dev -w",
-    "shenfen": "fis3 release shenfen_dev -w",
-    "shenfenpop": "fis3 release shenfenpop_dev -w"
+    "build": "fis3 release -w -c -d ./api"
   },
   "author": "FangFE",
   "license": "ISC",

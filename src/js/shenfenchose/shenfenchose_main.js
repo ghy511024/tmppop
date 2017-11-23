@@ -1,8 +1,8 @@
 /**
  * Created by ghy on 2017/10/17.
  */
-__inline('../../view/shenfen.tpl');
-__inline('shenfen_rp.js');
+__inline('shenfenchose.tpl');
+__inline('shenfenchose_rp.js');
 var myselect;
 var call_list = [];
 var err_fun = function () {
@@ -31,27 +31,27 @@ var SF = {
         for (var i = 0; i < list.length; i++) {
             var option = list[i]
             var item = $(TPL.getTpl("shenfenitem") || ""); // 获取字符串
-            $(item).attr("shenfen-id", option["value"]);
-            $(item).find(".shenfen-title").html(option["text"]);
+            $(item).attr("shenfenchose-id", option["value"]);
+            $(item).find(".shenfenchose-title").html(option["text"]);
             // 获取描述
             var desc = _this.getDesc(option["text"])
-            $(item).find(".shenfen-desc").html(desc);
-            $(".shenfen-list ul").append($(item));
+            $(item).find(".shenfenchose-desc").html(desc);
+            $(".shenfenchose-list ul").append($(item));
         }
     },
     _initEvent: function () {
         var _this = this;
-        $(".shenfen-list li").on("click", function () {
-            var type = $(this).attr("shenfen-id");
-            $("#shenfen-next").removeClass("disable");
+        $(".shenfenchose-list li").on("click", function () {
+            var type = $(this).attr("shenfenchose-id");
+            $("#shenfenchose-next").removeClass("disable");
             SFRP.rp(type);// 埋点
             if (_this.ctype != type) {
-                $(".shenfen-list li").removeClass("active");
+                $(".shenfenchose-list li").removeClass("active");
                 $(this).addClass("active");
                 _this.ctype = type;
             }
         })
-        $("#shenfen-next").on("click", function () {
+        $("#shenfenchose-next").on("click", function () {
             var type = _this.ctype;
 
             if (type == null) {
@@ -117,11 +117,11 @@ var SF = {
     },
     show: function () {
         SFRP.rp("show");// 埋点
-        $(".shenfen-page").show();
+        $(".shenfenchose-page").show();
         $("html,body").css({overflow: "hidden", height: "100vh"});
     },
     _close: function (ret, sfid) {
-        $(".shenfen-page").hide();
+        $(".shenfenchose-page").hide();
         for (var i = 0; i < call_list.length; i++) {
             var fun = call_list[i];
             if (typeof fun == "function") {

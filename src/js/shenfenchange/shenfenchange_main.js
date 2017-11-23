@@ -2,8 +2,8 @@
  * Created by ghy on 2017/10/19.
  */
 
-__inline('../../view/shenfenPop.tpl');
-__inline('shenfenpop_rp.js');
+__inline('shenfenchange.tpl');
+__inline('shenfenchange_rp.js');
 var call_list = [];
 
 var chose_call = function () {
@@ -23,7 +23,7 @@ var SFPOP = {
 
     layout: function (list) {
         var _this = this;
-        $(".shenfenPop-page").on("touchmove", function (e) {
+        $(".shenfenchange-page").on("touchmove", function (e) {
             e.preventDefault();
         });
         //
@@ -33,7 +33,7 @@ var SFPOP = {
             var item = $(TPL.getTpl("shenfenitem") || ""); // 获取字符串
             var desc = _this.getDesc(option["text"])
 
-            $(item).attr("shenfen-id", option["value"]);
+            $(item).attr("shenfenchose-id", option["value"]);
             $(item).find(".pop-info").html(option["text"]);
             $(item).find(".pop-desc").html(desc);
 
@@ -59,7 +59,7 @@ var SFPOP = {
             _this.close(2);
         })
         $(".pop-list li").on("click", function () {
-            var _id = $(this).attr("shenfen-id");
+            var _id = $(this).attr("shenfenchose-id");
             _this.chose_id = _id;
             _this.chose_name = $(this).find(".pop-info").html();
             $(".pop-list li").removeClass("active");
@@ -67,21 +67,21 @@ var SFPOP = {
             SFPOPRP.rp(_id);
             chose_call(_id);
         })
-        $(".pop-wrap", ".shenfenPop-page").on("click", function (e) {
+        $(".pop-wrap", ".shenfenchange-page").on("click", function (e) {
             e.stopPropagation();
         })
-        $(".shenfenPop-page").on("click", function () {
+        $(".shenfenchange-page").on("click", function () {
             _this.close(2);
         })
     },
     show: function () {
         SFPOPRP.rp("show");
-        $(".shenfenPop-page").addClass("beforeActive");
+        $(".shenfenchange-page").addClass("beforeActive");
         setTimeout(function () {
-            $(".shenfenPop-page").addClass("active");
+            $(".shenfenchange-page").addClass("active");
         }, 10)
 
-        // $(".shenfenPop-page").show();
+        // $(".shenfenchange-page").show();
     },
     changeSF: function () {
 
@@ -94,9 +94,9 @@ var SFPOP = {
      * **/
     close: function (ret, _id) {
 
-        $(".shenfenPop-page").removeClass("active");
+        $(".shenfenchange-page").removeClass("active");
         setTimeout(function () {
-            $(".shenfenPop-page").removeClass("beforeActive");
+            $(".shenfenchange-page").removeClass("beforeActive");
         }, 600)
 
         this.init_id = null;
@@ -144,7 +144,7 @@ var SFPOP_API = {
         SFPOP.chose_id = sfid;
         SFPOP.init_id = sfid;
         $(".pop-list li").removeClass("active");
-        $(".pop-list li[shenfen-id='" + sfid + "']").addClass("active");
+        $(".pop-list li[shenfenchose-id='" + sfid + "']").addClass("active");
         SFPOP.show();
     },
     registCall: function (fun) {

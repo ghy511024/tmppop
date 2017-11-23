@@ -81,7 +81,7 @@ var LSAPI = (function () {
             })
 
             // 输入事件
-            $ ("body").find (".lou-ipt").forEach (function (item) {
+            $ ("body").find (".louselect-ipt").forEach (function (item) {
                 $ (item)[0].oninput = function () {
                     var type = $ (this).attr ("loutype");
                     var value = $ (this).val ().replace (/\s/gi, "");
@@ -230,10 +230,10 @@ var LSAPI = (function () {
 // 完成
         finish: function (isfinish) {
             loudata.isshow = false;
-            $ (".lou-select-wrap").removeClass ("active");
+            $ (".louselect-select-wrap").removeClass ("active");
 
             setTimeout (function () {
-                $ (".lou-select-wrap").removeClass ("beforeActive");
+                $ (".louselect-select-wrap").removeClass ("beforeActive");
                 $ (".louselect-item").removeClass ("active").removeClass ("beforeActive");
             }, 600)
             // 重置数据
@@ -268,9 +268,9 @@ var LSAPI = (function () {
 // 初始化调用
         action: function (xiaoquId) {
             // xiaoquId = "1747";
-            $ (".lou-select-wrap").addClass ("beforeActive");
+            $ (".louselect-select-wrap").addClass ("beforeActive");
             setTimeout (function () {
-                $ (".lou-select-wrap").addClass ("active");
+                $ (".louselect-select-wrap").addClass ("active");
             }, 0)
 
             loudata.isshow = true;
@@ -308,7 +308,7 @@ var LSAPI = (function () {
         isshow: function () {
             var isshow = false;
             if (loudata.isshow) {
-                isshow = $ (".lou-select-wrap").hasClass ("active");
+                isshow = $ (".louselect-select-wrap").hasClass ("active");
             }
             return isshow;
         },
