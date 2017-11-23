@@ -1,0 +1,122 @@
+@import "../fn";
+
+.shenfenPop-page {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  display: none;
+  top: 0px;
+  transition: all 0.4s ease;
+  .pop-wrap {
+    transition: all 0.4s ease;
+    position: absolute;
+    width: 100%;
+    bottom: 0px;
+    background: #ffffff;
+  }
+
+  .pop-title {
+    height: rem(90px);
+    //border-top: 1px solid #e3e3e4;
+    //border-bottom: 1px solid #e3e3e4;
+    background: #f9fafc;
+    text-align: center;
+    font-size: rem(28px);
+    color: #999999;
+    line-height: rem(90px);
+    position: relative;
+    //@include border1px(top bottom, 0, e3e3e4);
+    &:after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      border: 1px solid #e3e3e4;
+      -webkit-box-sizing: border-box;
+      box-sizing: border-box;
+      width: 200%;
+      height: 200%;
+      -webkit-transform: scale(0.5);
+      transform: scale(0.5);
+      -webkit-transform-origin: left top;
+      transform-origin: left top;
+    }
+    .pop-sure, .pop-cancel {
+      position: absolute;
+      z-index: 1;
+      width: rem(120px);
+      height: rem(90px);
+      line-height: rem(92px);
+      color: #ff552e;
+      top: 0px;
+      right: 0px;
+      &.pop-cancel {
+        right: auto;
+        left: 0px;
+        color: #7b7b7b;
+      }
+    }
+
+  }
+
+  .pop-list {
+    widtH: 100%;
+    ul {
+      width: rem(700px);
+      margin: 0 auto;
+      li {
+        width: 100%;
+        height: rem(140px);
+        position: relative;
+        //border-bottom: 1px solid #f1f1f1;
+        &:after {
+          @include border-1px(1px, #f1f1f1, 0px, bottom)
+        }
+        .pop-info {
+          position: absolute;
+          top: rem(30px);
+          font-size: rem(34px);
+          color: #333333;
+          left: rem(5px);
+        }
+        .pop-desc {
+          font-size: rem(24px);
+          position: absolute;
+          left: rem(5px);
+          top: rem(74px);
+          color: #7b7b7b;
+        }
+        .pop-arrow {
+          position: absolute;
+          right: rem(20px);
+          width: 22px;
+          height: 22px;
+          top: 50%;
+          margin-top: -11px;
+          background-image: url("img/selector_unselected@2x.png?__inline");
+          background-size: cover;
+        }
+        &.active {
+          .pop-arrow {
+            background-image: url("img/selector_selected@2x.png?__inline");
+          }
+        }
+      }
+    }
+  }
+  // ==========交互====
+  &.beforeActive {
+    display: block;
+    background: rgba(0, 0, 0, 0);
+    .pop-wrap {
+      transform: translateY(100%);
+    }
+  }
+
+  &.active {
+    background: rgba(0, 0, 0, 0.7);
+    .pop-wrap {
+      transform: translateY(0);
+    }
+  }
+}

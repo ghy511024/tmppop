@@ -1,0 +1,135 @@
+@function rem($px) {
+  @return $px / 75px * 1rem;
+}
+
+@mixin scrollbar($thickness, $thumbColor, $trackColor, $radius: 3px) {
+  &::-webkit-scrollbar {
+    width: $thickness;
+    height: $thickness;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: $thumbColor;
+    border-radius: $radius;
+    &:vertical {
+      height: $thickness;
+      background-color: $thumbColor;
+    }
+  }
+
+  &::-webkit-scrollbar-track {
+    background-color: $trackColor;
+  }
+  &::-webkit-scrollbar-track-piece {
+    background-color: $trackColor;
+  }
+}
+
+@mixin placeholder($self: true) {
+  $_self: '&';
+
+  @if $self != true {
+    $_self: '';
+  }
+
+  #{$_self}::-webkit-input-placeholder {
+    @content;
+  }
+
+  #{$_self}::-moz-placeholder {
+    @content;
+  }
+
+  #{$_self}:-ms-input-placeholder {
+    @content;
+  }
+}
+
+@mixin triangle-facing($f_h:2px,$f_w:10px,$color:#000) {
+  border-right: $f_h solid $color;
+  border-bottom: $f_h solid $color;
+
+  width: $f_w;
+  height: $f_w;
+  transform: rotate(-45deg);
+}
+
+@mixin border-1px($border,$border-color,$radius,$dir) {
+  border-radius: $radius*2;
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  //border: $border solid $border-color;
+  @if ($dir == all) {
+    border: $border solid $border-color;
+  } @else if ($dir == top) {
+    border-top: $border solid $border-color;
+  } @else if ($dir == bottom) {
+    border-bottom: $border solid $border-color;
+  }
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  width: 200%;
+  height: 200%;
+  -webkit-transform: scale(0.5);
+  transform: scale(0.5);
+  -webkit-transform-origin: left top;
+  transform-origin: left top;
+}
+
+@mixin border1px($side: all,$br: 0, $bc:#000) {
+  position: relative;
+  &:after {
+    position: absolute;
+    content: "";
+    top: 0;
+    left: 0;
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+    @if $side==all {
+      border: 1px solid $bc;
+    } @else {
+      $size: length($side);
+      @for $i from 1 through $size {
+        border-#{nth($side, $i)}: 1px solid $bc;
+      }
+    }
+    point-events: none;
+  }
+
+  @media (min--moz-device-pixel-ratio: 1.5), (-webkit-min-device-pixel-ratio: 1.5), (min-device-pixel-ratio: 1.5), (min-resolution: 144dpi), (min-resolution: 1.5dppx), (-ms-high-contrast: active), (-ms-high-contrast: none) {
+    &:after {
+      width: 200%;
+      height: 200%;
+      transform: scale(.5);
+      transform-origin: 0 0;
+      border-radius: #{$br*2}px;
+    }
+  }
+
+  @media (-webkit-device-pixel-ratio: 1.5) {
+    // 解决1.5屏幕下某些边框不显式问题，小数位多写几位
+    &:after {
+      width: 150%;
+      height: 150%;
+      transform: scale(.6666);
+      transform-origin: 0 0;
+      border-radius: #{$br*1.5}px;
+    }
+  }
+
+  @media (-webkit-device-pixel-ratio: 3) {
+    &:after {
+      width: 300%;
+      height: 300%;
+      transform: scale(.3333);
+      transform-origin: 0 0;
+      border-radius: #{$br*3}px;
+    }
+  }
+}
+
+@include scrollbar(0px, #b5b5b5, #f3f3f3);
