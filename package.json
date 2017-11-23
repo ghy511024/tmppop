@@ -1,10 +1,9 @@
 {
-  "name": "fangapp-louselect",
-  "version": "1.0.0",
-  "description": "整租发布重构",
-  "main": "index.js",
+  "name": "fangapp-release-pop-shenfenchose",
+  "version": "0.0.1",
+  "description": "身份选择弹窗",
+  "main": "api/shenfenchose.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "build": "fis3 release -w -c -d ./api"
   },
   "author": "FangFE",
