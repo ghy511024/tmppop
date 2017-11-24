@@ -591,13 +591,13 @@ TPL.addStyle = TPL.addStyle || function (styleContent) {
     document.getElementsByTagName("head")[0].appendChild(styleNode);
 };
 (function (TPL) {
-    TPL.tplmap['shenfen'] = '<div class="shenfen-page"><div class="shenfen-banner"><p class="title">请选择您的身份</p><p class="desc">我们会对每种身份设定合理的发帖权限</p></div><div class="shenfen-list"><ul></ul></div><div class="next-btn disable" id="shenfen-next">下一步</div></div>'
+    TPL.tplmap['shenfen_chose'] = '<div class="shenfen-page"><div class="shenfen-banner"><p class="title">请选择您的身份</p><p class="desc">我们会对每种身份设定合理的发帖权限</p></div><div class="shenfen-list"><ul></ul></div><div class="next-btn disable" id="shenfen-next">下一步</div></div>'
 })(TPL);
    
 //begin insert static dom
-TPL.addNode(TPL.getTpl('shenfen'));
+TPL.addNode(TPL.getTpl('shenfen_chose'));
 (function (TPL) {
-    TPL.tplmap['shenfenitem'] = '<li shenfen-id=""><div class="shenfen-title"></div><div class="shenfen-desc"></div><div class="shenfen-arrow"></div></li>'
+    TPL.tplmap['shenfen_chose_item'] = '<li shenfen-id=""><div class="shenfen-title"></div><div class="shenfen-desc"></div><div class="shenfen-arrow"></div></li>'
 })(TPL);
    
 //begin insert style
@@ -680,7 +680,7 @@ var SFRP = (function () {
             list = list || [];
             for (var i = 0; i < list.length; i++) {
                 var option = list[i]
-                var item = $(TPL.getTpl("shenfenitem") || ""); // 获取字符串
+                var item = $(TPL.getTpl("shenfen_chose_item") || ""); // 获取字符串
                 $(item).attr("shenfen-id", option["value"]);
                 $(item).find(".shenfen-title").html(option["text"]);
                 // 获取描述

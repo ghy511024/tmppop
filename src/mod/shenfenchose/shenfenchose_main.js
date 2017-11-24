@@ -32,7 +32,7 @@ var FANG_POPAPI = FANG_POPAPI || {};
             list = list || [];
             for (var i = 0; i < list.length; i++) {
                 var option = list[i]
-                var item = $(TPL.getTpl("shenfenitem") || ""); // 获取字符串
+                var item = $(TPL.getTpl("shenfen_chose_item") || ""); // 获取字符串
                 $(item).attr("shenfen-id", option["value"]);
                 $(item).find(".shenfen-title").html(option["text"]);
                 // 获取描述

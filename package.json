@@ -8,7 +8,7 @@
   },
   "author": "FangFE",
   "license": "ISC",
-  "dependencies": {
+  "devDependencies": {
     "fis3-parser-nodev8-scss": "^1.0.0",
     "fis3-parser-jsptpl": "0.0.9"
   }

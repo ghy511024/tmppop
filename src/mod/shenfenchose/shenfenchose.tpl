@@ -2,7 +2,7 @@
     @import "shenfenchose.scss";
 </style>
 
-<template name="shenfen" fout>
+<template name="shenfen_chose" fout>
     <div class="shenfen-page">
         <div class="shenfen-banner">
             <p class="title">请选择您的身份</p>
@@ -17,7 +17,7 @@
     </div>
 </template>
 
-<template name="shenfenitem">
+<template name="shenfen_chose_item">
     <li shenfen-id="">
         <div class="shenfen-title"></div>
         <div class="shenfen-desc"></div>
