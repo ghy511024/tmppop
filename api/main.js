@@ -661,7 +661,7 @@ var SFRP = (function () {
     };
 // var updateUrl = "http://jsonapi.com/mock/fang-release/shenfen-update.json"// 测试url
     var updateUrl = location.protocol + "//housepostbaseapi.58.com/usertype/add";// 初次选择身份，提交接口
-    var SF = {
+    var SFCHOSE_MAIN = {
         ctype: null,
         cateid: "",
         cityid: "",
@@ -785,10 +785,10 @@ var SFRP = (function () {
 
     var API = {
         init: function (cateid, cityid, data) {
-            SF.init(cateid, cityid, data);
+            SFCHOSE_MAIN.init(cateid, cityid, data);
         },
         showPage: function () {
-            SF.show();
+            SFCHOSE_MAIN.show();
         }
         ,
         hidePage: function () {
