@@ -2,10 +2,6 @@
 var DataApi = (function () {
     var server = {
         apiurl: "https://housepostbaseapi.58.com/wuyedizhi/tip",
-        // apiurl: "https://pwebapp.58.com/wuyedizhi/tip",
-        // lou: "https://tmp.ghy58.com/lmock/lou.json",
-        // danyuan: "https://tmp.ghy58.com/lmock/danyuan.json",
-        // men: "https://tmp.ghy58.com/lmock/men.json",
     }
     var DataApi = {
         loudata: [],
@@ -93,7 +89,7 @@ var DataApi = (function () {
             var result;
             $.ajax ({
                 url: url,
-                // url: "/lmock/lou.json",
+                // url: "/lmock/louchose.json",
                 data: (param),
                 dataType: "jsonp",
                 error: function (jqXHR, textStatus, errorThrown) {

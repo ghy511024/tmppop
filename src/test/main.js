@@ -1,5 +1,5 @@
 
-__inline ('../js/lou/lou_main.js');
+__inline ('../mod/louselect/louselect_main.js');
 (function () {
     var controll = {};
     $ (function () {

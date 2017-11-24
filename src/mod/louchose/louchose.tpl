@@ -1,5 +1,5 @@
 <style type="text/scss">
-    @import "../css/lou/lou";
+    @import "louchose";
 </style>
 
 <template name="louhao">

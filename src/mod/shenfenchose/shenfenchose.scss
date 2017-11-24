@@ -1,5 +1,5 @@
-@import "../fn";
-
+@import "../lib/fn";
+@include scrollbar(0px, #b5b5b5, #f3f3f3);
 .shenfen-page {
   width: 100%;
   height: 100%;

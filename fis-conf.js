@@ -17,22 +17,23 @@ fis.match('*', {
  *
  * 提示：这个文件就不要动了。以后没有需求改动这块，那是最理想的。如果有需求的话，要慎重修改fis3的配置文件。
  * */
-fis.match("/src/**.tpl", {
-    parser: fis.plugin('jsptpl'),
-    rExt: '.js',
-})
 // ================编译模板文件中的内联scss ==========
-fis.match('/src/{**.tpl:scss}', {
+fis.match('/src/{**.tpl:scss,**.jsp:scss,**.scss}', {
     rExt: 'css',
     parser: [fis.plugin('nodev8-scss')],
 });
 
+fis.match("/src/**.tpl", {
+    parser: fis.plugin('jsptpl'),
+    rExt: '.js',
+})
+
+
 /**
- * 发布目录实际由 fis3 release -d ${路径参数}，中的${路径参数}决定的,
- * 这儿是指，发布目录下面的相对路径
+ * 主模块
  * */
-fis.match('/src/js/*/(*)_main.js', {
-    release: "$1"
+fis.match('/src/mod/main.js', {
+    release: "main.js"
 });
 
 

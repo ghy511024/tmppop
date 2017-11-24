@@ -11,10 +11,10 @@ const HtmlwebpackPlugin = require('html-webpack-plugin');
 module.exports = function (objs) {
     return {
         entry: {
-            r_test: ['./test/r_test.js'],
+            r_test: ['./test/r_test.mod'],
         },
         output: {
-            filename: '[name]/[name].js',
+            filename: '[name]/[name].mod',
             path: path.resolve(__dirname, 'build'),
         },
         module: {

@@ -1,5 +1,5 @@
 <style type="text/scss">
-    @import "../css/shenfenPop/shenfenPop";
+    @import "shenfenchange";
 </style>
 
 <template name="shenfenPop" fout>
