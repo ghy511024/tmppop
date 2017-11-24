@@ -1,38 +1,8 @@
-@function rem($px) {
-  @return $px / 75px * 1rem;
-}
-
-@mixin placeholder($self: true) {
-  $_self: '&';
-
-  @if $self != true {
-    $_self: '';
-  }
-
-  #{$_self}::-webkit-input-placeholder {
-    @content;
-  }
-
-  #{$_self}::-moz-placeholder {
-    @content;
-  }
-
-  #{$_self}:-ms-input-placeholder {
-    @content;
-  }
-}
-
-@include scrollbar(0px, #b5b5b5, #f3f3f3);
-html, body {
-  margin: 0px;
-  padding: 0px;
-}
+@import "../lib/fn";
 
 .lou-select-wrap {
   width: 100%;
   height: 100%;
-  //width:375px;
-  //height:375px;
   position: fixed;
   z-index: 1000;
   background: #f6f6f6;

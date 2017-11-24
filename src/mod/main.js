@@ -7,5 +7,5 @@
 var FANG_POPAPI = {};
 __inline('louchose/louchose_main.js');
 __inline('shenfenchose/shenfenchose_main.js');
-__inline('shenfenchose/shenfenchose_main.js');
+__inline('shenfenchange/shenfenchange_main.js');
 module.exports = FANG_POPAPI;
