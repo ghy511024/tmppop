@@ -27,8 +27,8 @@ var FANG_POPAPI = FANG_POPAPI || {};
         ,
         initEvent: function () {
             var _this = this;
-            $(".list-wrap li").on("click", ".lou-select-wrap", function () {
-                var page = $(this).parents(".louchose-item");
+            $(".lou-select-wrap").on("click", ".list-wrap li", function () {
+                var page = $(this).parents(".louselect-item");
                 var name = $(this).attr("name");
                 var type = page.attr("ptype")
                 page.find(".ipt-panel input").val(name).attr("name", name)
@@ -56,7 +56,6 @@ var FANG_POPAPI = FANG_POPAPI || {};
                 }
             })
             // 确认单元号
-            // $("body").on("click", "#sure-danyuanhao", function () {
             $("#sure-danyuanhao").on("click", function () {
                 if (!$(this).hasClass("disable")) {
                     var name = $("#danyuanhao-ipt").val();
@@ -67,7 +66,6 @@ var FANG_POPAPI = FANG_POPAPI || {};
             })
 
             // 确认门号
-            // $("body").on("click", "#sure-menpaihao", function () {
             $("#sure-menpaihao").on("click", function () {
                 if (!$(this).hasClass("disable")) {
                     var name = $("#menpaihao-ipt").val();
@@ -77,14 +75,14 @@ var FANG_POPAPI = FANG_POPAPI || {};
                 }
             });
             // 直接跳过
-            $(".jump-btn").on("click", ".lou-select-wrap", function () {
+            $(".lou-select-wrap .jump-btn").on("click", function () {
                 _this.jumpnext();
                 var type = $(this).attr("ptype");
                 FRP.jumpclick(type);
             })
 
             // 输入事件
-            $(".louchose-ipt").forEach(function (item) {
+            $(".lou-select-wrap .lou-ipt").forEach(function (item) {
                 $(item)[0].oninput = function () {
                     var type = $(this).attr("loutype");
                     var value = $(this).val().replace(/\s/gi, "");
@@ -109,7 +107,7 @@ var FANG_POPAPI = FANG_POPAPI || {};
         ,
         // 初始化，html ，将模版字符串添加进html
         _layout: function () {
-            // do nothing 因为模板变量中有fout 字段默认输出了
+            // do nothing 模板中已经加了fout 字段，默认输出
         }
         ,
         showPage: function (type, typeid, isback) {
@@ -230,11 +228,11 @@ var FANG_POPAPI = FANG_POPAPI || {};
 // 完成
         finish: function (isfinish) {
             loudata.isshow = false;
-            $(".louchose-select-wrap").removeClass("active");
+            $(".lou-select-wrap").removeClass("active");
 
             setTimeout(function () {
-                $(".louchose-select-wrap").removeClass("beforeActive");
-                $(".louchose-item").removeClass("active").removeClass("beforeActive");
+                $(".lou-select-wrap").removeClass("beforeActive");
+                $(".louselect-item").removeClass("active").removeClass("beforeActive");
             }, 600)
             // 重置数据
             // var retdata = Object.assign ({}, loudata.formdata);
@@ -268,9 +266,9 @@ var FANG_POPAPI = FANG_POPAPI || {};
 // 初始化调用
         action: function (xiaoquId) {
             // xiaoquId = "1747";
-            $(".louchose-select-wrap").addClass("beforeActive");
+            $(".lou-select-wrap").addClass("beforeActive");
             setTimeout(function () {
-                $(".louchose-select-wrap").addClass("active");
+                $(".lou-select-wrap").addClass("active");
             }, 0)
 
             loudata.isshow = true;
@@ -308,7 +306,7 @@ var FANG_POPAPI = FANG_POPAPI || {};
         isshow: function () {
             var isshow = false;
             if (loudata.isshow) {
-                isshow = $(".louchose-select-wrap").hasClass("active");
+                isshow = $(".lou-select-wrap").hasClass("active");
             }
             return isshow;
         },
@@ -335,5 +333,4 @@ var FANG_POPAPI = FANG_POPAPI || {};
         }
     }
     FANG_POPAPI.LOU_CHOSE = API;
-
 })(FANG_POPAPI)

@@ -25,7 +25,7 @@ var FANG_POPAPI = FANG_POPAPI || {};
 
         layout: function (list) {
             var _this = this;
-            $(".shenfenchange-page").on("touchmove", function (e) {
+            $(".shenfenPop-page").on("touchmove", function (e) {
                 e.preventDefault();
             });
             //
@@ -35,7 +35,7 @@ var FANG_POPAPI = FANG_POPAPI || {};
                 var item = $(TPL.getTpl("shenfenitem") || ""); // 获取字符串
                 var desc = _this.getDesc(option["text"])
 
-                $(item).attr("shenfenchose-id", option["value"]);
+                $(item).attr("shenfen-id", option["value"]);
                 $(item).find(".pop-info").html(option["text"]);
                 $(item).find(".pop-desc").html(desc);
 
@@ -61,7 +61,7 @@ var FANG_POPAPI = FANG_POPAPI || {};
                 _this.close(2);
             })
             $(".pop-list li").on("click", function () {
-                var _id = $(this).attr("shenfenchose-id");
+                var _id = $(this).attr("shenfen-id");
                 _this.chose_id = _id;
                 _this.chose_name = $(this).find(".pop-info").html();
                 $(".pop-list li").removeClass("active");
@@ -69,21 +69,21 @@ var FANG_POPAPI = FANG_POPAPI || {};
                 SFPOPRP.rp(_id);
                 chose_call(_id);
             })
-            $(".pop-wrap", ".shenfenchange-page").on("click", function (e) {
+            $(".pop-wrap", ".shenfenPop-page").on("click", function (e) {
                 e.stopPropagation();
             })
-            $(".shenfenchange-page").on("click", function () {
+            $(".shenfenPop-page").on("click", function () {
                 _this.close(2);
             })
         },
         show: function () {
             SFPOPRP.rp("show");
-            $(".shenfenchange-page").addClass("beforeActive");
+            $(".shenfenPop-page").addClass("beforeActive");
             setTimeout(function () {
-                $(".shenfenchange-page").addClass("active");
+                $(".shenfenPop-page").addClass("active");
             }, 10)
 
-            // $(".shenfenchange-page").show();
+            // $(".shenfenPop-page").show();
         },
         changeSF: function () {
 
@@ -96,9 +96,9 @@ var FANG_POPAPI = FANG_POPAPI || {};
          * **/
         close: function (ret, _id) {
 
-            $(".shenfenchange-page").removeClass("active");
+            $(".shenfenPop-page").removeClass("active");
             setTimeout(function () {
-                $(".shenfenchange-page").removeClass("beforeActive");
+                $(".shenfenPop-page").removeClass("beforeActive");
             }, 600)
 
             this.init_id = null;
@@ -130,7 +130,7 @@ var FANG_POPAPI = FANG_POPAPI || {};
     }
 
 
-    var API = {
+    var SFPOP_API = {
         init: function (data) {
             // var data = {
             //     "paramname": "HouseUserType",
@@ -146,7 +146,7 @@ var FANG_POPAPI = FANG_POPAPI || {};
             SFPOP.chose_id = sfid;
             SFPOP.init_id = sfid;
             $(".pop-list li").removeClass("active");
-            $(".pop-list li[shenfenchose-id='" + sfid + "']").addClass("active");
+            $(".pop-list li[shenfen-id='" + sfid + "']").addClass("active");
             SFPOP.show();
         },
         registCall: function (fun) {
@@ -161,5 +161,5 @@ var FANG_POPAPI = FANG_POPAPI || {};
             }
         }
     }
-    FANG_POPAPI.SF_CHANGE = API
+    FANG_POPAPI.SF_CHANGE = SFPOP_API
 })(FANG_POPAPI)
