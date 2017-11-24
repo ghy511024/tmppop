@@ -2,7 +2,7 @@
     @import "louchose";
 </style>
 
-<template name="louhao">
+<template name="louhao" fout>
     <div class="lou-select-wrap">
         <div class="louselect-item page-louhao" ptype="louhao">
             <div class="ipt-wrap">

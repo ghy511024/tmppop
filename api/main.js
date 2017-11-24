@@ -40,6 +40,8 @@ TPL.addStyle = TPL.addStyle || function (styleContent) {
     TPL.tplmap['louhao'] = '<div class="lou-select-wrap"><div class="louselect-item page-louhao" ptype="louhao"><div class="ipt-wrap"><div class="ipt-panel"><div class="icon-search"></div><input type="text" placeholder="请输入楼号" id="louhao-ipt" class="lou-ipt"><div class="btn btn-sure disable" id="sure-louhao">确定</div></div></div><div class="list-title-wrap"><div class="list-title">请选择楼号</div></div><div class="list-wrap louhao-list"><div class="sc_body" id="s1"><ul></ul><div class="list-footer"><span class="jump-btn" ptype="louhao">没有楼号，直接跳过></span></div></div></div></div><div class="louselect-item page-danyuanhao" ptype="danyuanhao"><div class="ipt-wrap"><div class="ipt-panel"><div class="icon-search"></div><input type="text" placeholder="请输入单元号" id="danyuanhao-ipt" class="lou-ipt"><div class="btn btn-sure disable" id="sure-danyuanhao">确定</div></div></div><div class="list-title-wrap"><div class="list-title">请选择单元号</div></div><div class="list-wrap danyuanhao-list"><div class="sc_body"><ul></ul><div class="list-footer"><span class="jump-btn" ptype="danyuanhao">没有单元号，直接跳过></span></div></div></div></div><div class="louselect-item page-menpaihao" ptype="menpaihao"><div class="ipt-wrap"><div class="ipt-panel"><div class="icon-search"></div><input type="text" placeholder="请输入门牌号" id="menpaihao-ipt" class="lou-ipt"><div class="btn btn-sure disable" id="sure-menpaihao">确定</div></div></div><div class="list-title-wrap"><div class="list-title">请选择门牌号</div></div><div class="list-wrap menpaihao-list"><div class="sc_body"><ul></ul><div class="list-footer"><span class="jump-btn" ptype="menpaihao">没有门牌号，直接跳过></span></div></div></div></div></div>'
 })(TPL);
    
+//begin insert static dom
+TPL.addNode(TPL.getTpl('louhao'));
 (function (TPL) {
     TPL.tplmap['liitem'] = '<li></li>'
 })(TPL);
@@ -245,7 +247,7 @@ var DataApi = (function () {
         ,
         initEvent: function () {
             var _this = this;
-            $("body").on("click", ".list-wrap li", function () {
+            $(".list-wrap li").on("click", ".lou-select-wrap", function () {
                 var page = $(this).parents(".louchose-item");
                 var name = $(this).attr("name");
                 var type = page.attr("ptype")
@@ -265,7 +267,7 @@ var DataApi = (function () {
             })
 
             // 确认楼号
-            $("body").on("click", "#sure-louhao", function () {
+            $("#sure-louhao").on("click", function () {
                 if (!$(this).hasClass("disable")) {
                     var name = $("#louhao-ipt").val();
                     loudata.formdata.louhao = name;
@@ -274,7 +276,8 @@ var DataApi = (function () {
                 }
             })
             // 确认单元号
-            $("body").on("click", "#sure-danyuanhao", function () {
+            // $("body").on("click", "#sure-danyuanhao", function () {
+            $("#sure-danyuanhao").on("click", function () {
                 if (!$(this).hasClass("disable")) {
                     var name = $("#danyuanhao-ipt").val();
                     loudata.formdata.danyuanhao = name;
@@ -284,7 +287,8 @@ var DataApi = (function () {
             })
 
             // 确认门号
-            $("body").on("click", "#sure-menpaihao", function () {
+            // $("body").on("click", "#sure-menpaihao", function () {
+            $("#sure-menpaihao").on("click", function () {
                 if (!$(this).hasClass("disable")) {
                     var name = $("#menpaihao-ipt").val();
                     loudata.formdata.menpaihao = name;
@@ -293,14 +297,14 @@ var DataApi = (function () {
                 }
             });
             // 直接跳过
-            $("body").on("click", ".jump-btn", function () {
+            $(".jump-btn").on("click", ".lou-select-wrap", function () {
                 _this.jumpnext();
                 var type = $(this).attr("ptype");
                 FRP.jumpclick(type);
             })
 
             // 输入事件
-            $("body").find(".louchose-ipt").forEach(function (item) {
+            $(".louchose-ipt").forEach(function (item) {
                 $(item)[0].oninput = function () {
                     var type = $(this).attr("loutype");
                     var value = $(this).val().replace(/\s/gi, "");

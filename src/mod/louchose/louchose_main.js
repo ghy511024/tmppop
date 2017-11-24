@@ -27,7 +27,7 @@ var FANG_POPAPI = FANG_POPAPI || {};
         ,
         initEvent: function () {
             var _this = this;
-            $("body").on("click", ".list-wrap li", function () {
+            $(".list-wrap li").on("click", ".lou-select-wrap", function () {
                 var page = $(this).parents(".louchose-item");
                 var name = $(this).attr("name");
                 var type = page.attr("ptype")
@@ -47,7 +47,7 @@ var FANG_POPAPI = FANG_POPAPI || {};
             })
 
             // 确认楼号
-            $("body").on("click", "#sure-louhao", function () {
+            $("#sure-louhao").on("click", function () {
                 if (!$(this).hasClass("disable")) {
                     var name = $("#louhao-ipt").val();
                     loudata.formdata.louhao = name;
@@ -56,7 +56,8 @@ var FANG_POPAPI = FANG_POPAPI || {};
                 }
             })
             // 确认单元号
-            $("body").on("click", "#sure-danyuanhao", function () {
+            // $("body").on("click", "#sure-danyuanhao", function () {
+            $("#sure-danyuanhao").on("click", function () {
                 if (!$(this).hasClass("disable")) {
                     var name = $("#danyuanhao-ipt").val();
                     loudata.formdata.danyuanhao = name;
@@ -66,7 +67,8 @@ var FANG_POPAPI = FANG_POPAPI || {};
             })
 
             // 确认门号
-            $("body").on("click", "#sure-menpaihao", function () {
+            // $("body").on("click", "#sure-menpaihao", function () {
+            $("#sure-menpaihao").on("click", function () {
                 if (!$(this).hasClass("disable")) {
                     var name = $("#menpaihao-ipt").val();
                     loudata.formdata.menpaihao = name;
@@ -75,14 +77,14 @@ var FANG_POPAPI = FANG_POPAPI || {};
                 }
             });
             // 直接跳过
-            $("body").on("click", ".jump-btn", function () {
+            $(".jump-btn").on("click", ".lou-select-wrap", function () {
                 _this.jumpnext();
                 var type = $(this).attr("ptype");
                 FRP.jumpclick(type);
             })
 
             // 输入事件
-            $("body").find(".louchose-ipt").forEach(function (item) {
+            $(".louchose-ipt").forEach(function (item) {
                 $(item)[0].oninput = function () {
                     var type = $(this).attr("loutype");
                     var value = $(this).val().replace(/\s/gi, "");
