@@ -109,10 +109,7 @@ var FANG_POPAPI = FANG_POPAPI || {};
         ,
         // 初始化，html ，将模版字符串添加进html
         _layout: function () {
-            var str = TPL.getTpl("louhao") || ""; // 获取字符串
-            var louwrap = document.createElement("div");
-            louwrap.innerHTML = str;
-            document.body.appendChild(louwrap);
+            // do nothing 因为模板变量中有fout 字段默认输出了
         }
         ,
         showPage: function (type, typeid, isback) {
