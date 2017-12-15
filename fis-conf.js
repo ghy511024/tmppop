@@ -64,8 +64,8 @@ fis.match("/src/**.tpl", {
 fis.match('/src/mod/main.js', {
     release: "main.js"
 });
-fis.match('/src/mod/louchose/louchose_main.js', {
-    release: "louchose.js"
+fis.match('/src/mod/louchose/louselect_main.js', {
+    release: "louselect.js"
 });
 
 
