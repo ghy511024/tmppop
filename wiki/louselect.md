@@ -13,7 +13,7 @@ package.json
 *  调起弹窗
 
 ~~~
-    var LSAPI = FANG_POPAPI.LOU_CHOSE;
+    var LSAPI =  require("louselect");
     var xiaoquid=""//业务中自己获取的小区id
     LSAPI.action(xiaoquid, function (status, obj) {
          if (status == 0) {
@@ -42,7 +42,7 @@ package.json
 
 * 如果页面对返回事件有监听，在显示楼号的时候不返回上一页，此时应该处理一下
 ~~~
- var LSAPI = FANG_POPAPI.LOU_CHOSE;
+ var LSAPI = require("louselect");
  _WBAPP.deviceEvent.action();
    _WBAPP.deviceEvent.setCallback(function () {
         // 判断是否在楼号选择弹窗中，如果是，则处理
