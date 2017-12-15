@@ -64,6 +64,9 @@ fis.match("/src/**.tpl", {
 fis.match('/src/mod/main.js', {
     release: "main.js"
 });
+fis.match('/src/mod/louchose/louchose_main.js', {
+    release: "louchose.js"
+});
 
 
 fis.media('ghy_dev').match('/src/mod/main.js', {

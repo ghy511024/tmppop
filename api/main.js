@@ -5,9 +5,7 @@
  */
 
 var FANG_POPAPI = {};
-var FANG_POPAPI = FANG_POPAPI || {};
-(function (FANG_POPAPI) {
-    
+
 window.TPL = window.TPL || {};
 TPL.tplmap = TPL.tplmap || {};
 TPL.getTpl = TPL.getTpl || function (_id) {
@@ -48,7 +46,7 @@ TPL.addNode(TPL.getTpl('louhao'));
    
 //begin insert style
 TPL.addStyle('.lou-select-wrap{width:100%;   height:100%;   position:fixed;   z-index:1000;   background:#f6f6f6;   top:0;   left:0;   display:none;   transition:all 0.4s ease;   transform:translateY(50px);}.lou-select-wrap.beforeActive{opacity:0;   display:block;}.lou-select-wrap.active{opacity:1;   transform:translateY(0);}.lou-select-wrap .louselect-item{width:100%;   height:100%;   position:absolute;   display:none;   background:#f6f6f6;}.lou-select-wrap .louselect-item .ipt-wrap{position:relative;   top:0px;   height:1.46667rem;   width:100%;   background:#fff;}.lou-select-wrap .louselect-item .ipt-wrap .ipt-panel{height:0.74667rem;   position:absolute;   left:0.46667rem;   right:0.46667rem;   margin:0 auto;   top:0.36rem;}.lou-select-wrap .louselect-item .ipt-wrap .icon-search{width:0.4rem;   height:0.4rem;   position:absolute;   background:url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAMAAAAM7l6QAAAATlBMVEUAAACZmZmqqqqZmZmbm5uampqampqbm5uYmJiZmZmampqcnJyampqampqZmZmZmZmZmZmenp6bm5ubm5uZmZmbm5ucnJyampqYmJiXl5ddw4MbAAAAGXRSTlMA7Az44WXbx7WWVksmFPLOgjIgQJSyPeiBRu16RQAAAMRJREFUKM+Fk0kOwyAMRQ2GkBHI2P77X7QobSlKKLwFmyfZxgNFZm8UszJ+pju9QkT1F7k4QHTDKOU4dAJwS2pXC6EpogXsmlhGKylBtuDoF4uNLmyw3/gOLd1o4T41Q8i7lgLv+hU0ZdBQZzcgKIvAHF6PLq87+PAaDHk9wJypx7wez+QMmdcSXNGV4JXSyh97VtpSbmplJOWBVtahsEyMvrSKjGb6v8jmaILPnAEDaDTR9PPpET2MPyiQ+DzB71Tyu6YXfcYOFcgEh08AAAAASUVORK5CYII=");   top:0.17333rem;   left:0px;   background-size:cover;}.lou-select-wrap .louselect-item .ipt-wrap .lou-ipt{position:absolute;   height:0.48rem;   width:5.65333rem;   left:0.53333rem;   top:0px;   box-sizing:border-box;   outline:none;   border:none;   font-size:0.37333rem;   padding:0.13333rem 0px;   box-sizing:content-box;}.lou-select-wrap .louselect-item .ipt-wrap .lou-ipt::-webkit-input-placeholder{position:absolute;   display:inline-block;   height:0.74667rem;   line-height:0.48rem;   font-size:0.37333rem;   vertical-align:top;   top:0px;   bottom:0;}.lou-select-wrap .louselect-item .ipt-wrap .lou-ipt::-moz-placeholder{position:absolute;   display:inline-block;   height:0.74667rem;   line-height:0.48rem;   font-size:0.37333rem;   vertical-align:top;   top:0px;   bottom:0;}.lou-select-wrap .louselect-item .ipt-wrap .lou-ipt:-ms-input-placeholder{position:absolute;   display:inline-block;   height:0.74667rem;   line-height:0.48rem;   font-size:0.37333rem;   vertical-align:top;   top:0px;   bottom:0;}.lou-select-wrap .louselect-item .ipt-wrap .btn-sure{position:absolute;   right:0px;   width:1.73333rem;   height:0.74667rem;   text-align:center;   line-height:0.77333rem;   font-size:0.34667rem;   border-radius:0.02667rem;   color:#fff;   background:#ff552e;}.lou-select-wrap .louselect-item .ipt-wrap .btn-sure.disable{background:#ffaa96;}.lou-select-wrap .louselect-item .list-title-wrap{position:relative;   height:1.33333rem;   border-bottom:1px solid #dddddd;   margin:0px 0.4rem;}.lou-select-wrap .louselect-item .list-title-wrap .list-title{position:absolute;   font-size:0.34667rem;   color:#999999;   line-height:0.56rem;   bottom:0.21333rem;}.lou-select-wrap .louselect-item .list-wrap{position:absolute;   width:100%;   top:2.66667rem;   bottom:0px;   overflow:auto;}.lou-select-wrap .louselect-item .list-wrap ul{margin:0px;   padding:0px;   width:100%;   background:#fff;}.lou-select-wrap .louselect-item .list-wrap ul li{width:100%;   height:1.33333rem;   line-height:1.33333rem;   text-indent:0.42667rem;   color:#000;   font-size:0.37333rem;   border-top:1px solid #f6f6f6;}.lou-select-wrap .louselect-item .list-wrap ul li:active{background:#f6f6f6;}.lou-select-wrap .louselect-item .list-wrap ul li:first-child{border:none;}.lou-select-wrap .louselect-item .list-wrap .list-footer{width:100%;   height:1.46667rem;   line-height:1.46667rem;   text-align:center;   color:#999999;}.lou-select-wrap .louselect-item{transform:translateX(100%);   transition:all 0.6s ease;}.lou-select-wrap .louselect-item.page-louhao{transform:translateX(0);}.lou-select-wrap .louselect-item.beforeActive{display:block;}.lou-select-wrap .louselect-item.active{display:block;   transform:translateX(0);}');
-    /**
+/**
  * Created by ghy on 2017/9/18.
  */
 var FRP = (function () {
@@ -96,7 +94,7 @@ var FRP = (function () {
     }
     return frp;
 }) ();;
-    // 数据过滤
+// 数据过滤
 var DataApi = (function () {
     var server = {
         apiurl: "https://housepostbaseapi.58.com/wuyedizhi/tip",
@@ -223,340 +221,343 @@ var DataApi = (function () {
     }
     return DataApi;
 }) ();;
-    var firstinit = false;
-    var callback = function () {
-    };
-    var lou_call = [], danyuan_call = [], men_call = [];// 切换状态时候回调函数
+var firstinit = false;
+var callback = function () {
+};
+var lou_call = [], danyuan_call = [], men_call = [];// 切换状态时候回调函数
 
-    var loudata = {
-        isshow: false,
-        cpage: 0,// 当前页面
-        load: false,// 加载数据状态
-        xiaoquId: null,
-        formdata: {
-            louhao: null,
-            menpaihao: null,
-            danyuanhao: null,
-        }
-    };
-    var LS = {
-        init: function () {
-            this._layout();
-            this.initEvent();
-        }
-        ,
-        initEvent: function () {
-            var _this = this;
-            $(".list-wrap li").on("click", ".lou-select-wrap", function () {
-                var page = $(this).parents(".louchose-item");
-                var name = $(this).attr("name");
-                var type = page.attr("ptype")
-                page.find(".ipt-panel input").val(name).attr("name", name)
-                page.find(".btn-sure").removeClass("disable");
+var loudata = {
+    isshow: false,
+    cpage: 0,// 当前页面
+    load: false,// 加载数据状态
+    xiaoquId: null,
+    formdata: {
+        louhao: null,
+        menpaihao: null,
+        danyuanhao: null,
+    }
+};
+var LS = {
+    init: function () {
+        this._layout ();
+        this.initEvent ();
+    }
+    ,
+    initEvent: function () {
+        var _this = this;
+        $ (".lou-select-wrap").on ("click", ".list-wrap li", function () {
+            var page = $ (this).parents (".louselect-item");
+            var name = $ (this).attr ("name");
+            var type = page.attr ("ptype")
+            page.find (".ipt-panel input").val (name).attr ("name", name)
+            page.find (".btn-sure").removeClass ("disable");
 
-                loudata.formdata[type] = name;
-                var npage = type == "louhao" ? "danyuanhao" : (type == "danyuanhao" ? "menpaihao" : false)
-                if (type == "louhao") {
-                    _this.showPage("danyuanhao", name);
-                } else if (type == "danyuanhao") {
-                    _this.showPage("menpaihao", name);
-                } else if (type == "menpaihao") {
-                    _this.finish();
-                }
-                FRP.liclick(type);
-            })
-
-            // 确认楼号
-            $("#sure-louhao").on("click", function () {
-                if (!$(this).hasClass("disable")) {
-                    var name = $("#louhao-ipt").val();
-                    loudata.formdata.louhao = name;
-                    _this.showPage("danyuanhao", name);
-                    FRP.sureclick("louhao");
-                }
-            })
-            // 确认单元号
-            // $("body").on("click", "#sure-danyuanhao", function () {
-            $("#sure-danyuanhao").on("click", function () {
-                if (!$(this).hasClass("disable")) {
-                    var name = $("#danyuanhao-ipt").val();
-                    loudata.formdata.danyuanhao = name;
-                    _this.showPage("menpaihao", name);
-                    FRP.sureclick("danyuanhao");
-                }
-            })
-
-            // 确认门号
-            // $("body").on("click", "#sure-menpaihao", function () {
-            $("#sure-menpaihao").on("click", function () {
-                if (!$(this).hasClass("disable")) {
-                    var name = $("#menpaihao-ipt").val();
-                    loudata.formdata.menpaihao = name;
-                    _this.finish();
-                    FRP.sureclick("menpaihao");
-                }
-            });
-            // 直接跳过
-            $(".jump-btn").on("click", ".lou-select-wrap", function () {
-                _this.jumpnext();
-                var type = $(this).attr("ptype");
-                FRP.jumpclick(type);
-            })
-
-            // 输入事件
-            $(".louchose-ipt").forEach(function (item) {
-                $(item)[0].oninput = function () {
-                    var type = $(this).attr("loutype");
-                    var value = $(this).val().replace(/\s/gi, "");
-                    if (value != null && value.length > 0) {
-                        if (value.length >= 20) {
-                            value = value.slice(0, 20);
-                            var _this = this;
-                            setTimeout(function () {
-                                $(_this).val(value);
-                            }, 0)
-
-                        } else {
-                            $(this).parent().find(".btn-sure").removeClass("disable");
-                        }
-                    } else {
-                        $(this).parent().find(".btn-sure").addClass("disable");
-                    }
-                    var checkarray = DataApi.search(type, value);
-                }
-            })
-        }
-        ,
-        // 初始化，html ，将模版字符串添加进html
-        _layout: function () {
-            // do nothing 因为模板变量中有fout 字段默认输出了
-        }
-        ,
-        showPage: function (type, typeid, isback) {
-            // 清除数据,true 代表回退操作不用清除
-            if (isback) {
-                this.anPage(type, "pre")
-            }
-            else {
-                $("." + type + "-list ul").empty();
-                $(".page-" + type + " .ipt-wrap input").val("").removeAttr("name");
-                $(".page-" + type + " .ipt-wrap .btn-sure").addClass("disable");
-                loudata["formdata"][type] = null;
-                this.anPage(type, "next")
-            }
-
-            this.noticeCall(type);
-            if (typeid != null) {
-                // 构造数据
-                var param = {
-                    tipkey: type,
-                    xiaoquid: loudata.xiaoquId,
-                    louhao: loudata.formdata.louhao,
-                    danyuanhao: loudata.formdata.danyuanhao,
-                }
-                // alert (JSON.stringify (param));
-                // 获取数据
-                DataApi.getData(type, param, function (list) {
-                    if (list != null && list.length > 0) {
-                        for (var i = 0; i < list.length; i++) {
-                            var item = list[i];
-                            var liitem = $(TPL.getTpl("liitem"));
-                            liitem.html(item).attr("name", item);
-                            $("." + type + "-list ul").append(liitem);
-                        }
-                    } else {
-                        // 请求数据失败 处理
-                    }
-                })
-            }
-            // 显示页面
-            // $ (".page-item.active").removeClass ("active");
-            // $ (".page-item.page-" + type).addClass ("active");
-
-            loudata.cpage = type == "louhao" ? 1 : (type == "danyuanhao" ? 2 : 3);
-            this.showloading();
-            return;
-        }
-        ,
-        noticeCall: function (type) {
+            loudata.formdata[type] = name;
+            var npage = type == "louhao" ? "danyuanhao" : (type == "danyuanhao" ? "menpaihao" : false)
             if (type == "louhao") {
-                for (var i = 0; i < lou_call.length; i++) {
-                    var fun = lou_call[i];
-                    if (typeof fun == "function") {
-                        fun();
-                    }
-                }
+                _this.showPage ("danyuanhao", name);
+            } else if (type == "danyuanhao") {
+                _this.showPage ("menpaihao", name);
+            } else if (type == "menpaihao") {
+                _this.finish ();
             }
-            if (type == "danyuanhao") {
-                for (var i = 0; i < danyuan_call.length; i++) {
-                    var fun = danyuan_call[i];
-                    if (typeof fun == "function") {
-                        fun(loudata.formdata.louhao || "无楼号");
-                    }
-                }
-            }
-            if (type == "menpaihao") {
-                for (var i = 0; i < men_call.length; i++) {
-                    var fun = men_call[i];
-                    if (typeof fun == "function") {
-                        fun(loudata.formdata.louhao || "无楼号", loudata.formdata.danyuanhao || "无单元号");
-                    }
-                }
-            }
-        },
-        jumpnext: function () {
-            var cpage = loudata.cpage;
-            var type = null;
-            if (cpage == 1) {
-                type = "danyuanhao"
-            } else if (cpage == 2) {
-                type = "menpaihao"
-            }
-            else if (cpage == 3) {
-                this.finish();
-            }
+            FRP.liclick (type);
+        })
 
-            if (!!type) {
-                this.showPage(type, null);
+        // 确认楼号
+        $ ("#sure-louhao").on ("click", function () {
+            if (!$ (this).hasClass ("disable")) {
+                var name = $ ("#louhao-ipt").val ();
+                loudata.formdata.louhao = name;
+                _this.showPage ("danyuanhao", name);
+                FRP.sureclick ("louhao");
             }
-        },
-        anPage: function (loutype, antype) {
+        })
+        // 确认单元号
+        $ ("#sure-danyuanhao").on ("click", function () {
+            if (!$ (this).hasClass ("disable")) {
+                var name = $ ("#danyuanhao-ipt").val ();
+                loudata.formdata.danyuanhao = name;
+                _this.showPage ("menpaihao", name);
+                FRP.sureclick ("danyuanhao");
+            }
+        })
 
-            if (antype == "next") {
-                $(".page-" + loutype).addClass("beforeActive");
-                setTimeout(function () {
-                    $(".page-" + loutype).addClass("active");
-                }, 0)
+        // 确认门号
+        $ ("#sure-menpaihao").on ("click", function () {
+            if (!$ (this).hasClass ("disable")) {
+                var name = $ ("#menpaihao-ipt").val ();
+                loudata.formdata.menpaihao = name;
+                _this.finish ();
+                FRP.sureclick ("menpaihao");
             }
-            if (antype == "pre") {
-                if (loutype == "danyuanhao") {
-                    $(".page-menpaihao").removeClass("active");
-                    setTimeout(function () {
-                        $(".page-menpaihao").removeClass("beforeActive");
-                    }, 600)
+        });
+        // 直接跳过
+        $ (".lou-select-wrap .jump-btn").on ("click", function () {
+            _this.jumpnext ();
+            var type = $ (this).attr ("ptype");
+            FRP.jumpclick (type);
+        })
+
+        // 输入事件
+        $ (".lou-select-wrap .lou-ipt").forEach (function (item) {
+            $ (item)[0].oninput = function () {
+                var type = $ (this).attr ("loutype");
+                var value = $ (this).val ().replace (/\s/gi, "");
+                if (value != null && value.length > 0) {
+                    if (value.length >= 20) {
+                        value = value.slice (0, 20);
+                        var _this = this;
+                        setTimeout (function () {
+                            $ (_this).val (value);
+                        }, 0)
+
+                    } else {
+                        $ (this).parent ().find (".btn-sure").removeClass ("disable");
+                    }
+                } else {
+                    $ (this).parent ().find (".btn-sure").addClass ("disable");
                 }
-                if (loutype == "louhao") {
-                    $(".page-danyuanhao").removeClass("active");
-                    setTimeout(function () {
-                        $(".page-menpaihao").removeClass("beforeActive");
-                    }, 600)
+                var checkarray = DataApi.search (type, value);
+            }
+        })
+    }
+    ,
+    // 初始化，html ，将模版字符串添加进html
+    _layout: function () {
+        // do nothing 模板中已经加了fout 字段，默认输出
+    }
+    ,
+    showPage: function (type, typeid, isback) {
+        // 清除数据,true 代表回退操作不用清除
+        if (isback) {
+            this.anPage (type, "pre")
+        }
+        else {
+            $ ("." + type + "-list ul").empty ();
+            $ (".page-" + type + " .ipt-wrap input").val ("").removeAttr ("name");
+            $ (".page-" + type + " .ipt-wrap .btn-sure").addClass ("disable");
+            loudata["formdata"][type] = null;
+            this.anPage (type, "next")
+        }
+
+        this.noticeCall (type);
+        if (typeid != null) {
+            // 构造数据
+            var param = {
+                tipkey: type,
+                xiaoquid: loudata.xiaoquId,
+                louhao: loudata.formdata.louhao,
+                danyuanhao: loudata.formdata.danyuanhao,
+            }
+            // alert (JSON.stringify (param));
+            // 获取数据
+            DataApi.getData (type, param, function (list) {
+                if (list != null && list.length > 0) {
+                    for (var i = 0; i < list.length; i++) {
+                        var item = list[i];
+                        var liitem = $ (TPL.getTpl ("liitem"));
+                        liitem.html (item).attr ("name", item);
+                        $ ("." + type + "-list ul").append (liitem);
+                    }
+                } else {
+                    // 请求数据失败 处理
+                }
+            })
+        }
+        // 显示页面
+        // $ (".page-item.active").removeClass ("active");
+        // $ (".page-item.page-" + type).addClass ("active");
+
+        loudata.cpage = type == "louhao" ? 1 : (type == "danyuanhao" ? 2 : 3);
+        this.showloading ();
+        return;
+    }
+    ,
+    noticeCall: function (type) {
+        if (type == "louhao") {
+            for (var i = 0; i < lou_call.length; i++) {
+                var fun = lou_call[i];
+                if (typeof fun == "function") {
+                    fun ();
                 }
             }
         }
-        ,
-        showloading: function () {
-        }
-        ,
-// 完成
-        finish: function (isfinish) {
-            loudata.isshow = false;
-            $(".louchose-select-wrap").removeClass("active");
-
-            setTimeout(function () {
-                $(".louchose-select-wrap").removeClass("beforeActive");
-                $(".louchose-item").removeClass("active").removeClass("beforeActive");
-            }, 600)
-            // 重置数据
-            // var retdata = Object.assign ({}, loudata.formdata);
-
-            var tmp_louhao = loudata.formdata.louhao
-            var tmp_danyuanhao = loudata.formdata.danyuanhao
-            var tmp_menpaihao = loudata.formdata.menpaihao
-
-            loudata.xiaoquId = null;
-            loudata.formdata.louhao = null;
-            loudata.formdata.danyuanhao = null;
-            loudata.formdata.menpaihao = null;
-
-            lou_call = [];
-            danyuan_call = [];
-            men_call = [];
-
-            if (typeof callback == "function") {
-                var retdata = {};
-                var ret = isfinish === false ? -1 : 0;
-                retdata.louhao = tmp_louhao || "无楼号"
-                retdata.danyuanhao = tmp_danyuanhao || "无单元号"
-                retdata.menpaihao = tmp_menpaihao || "无门牌号"
-                callback(ret, retdata)
+        if (type == "danyuanhao") {
+            for (var i = 0; i < danyuan_call.length; i++) {
+                var fun = danyuan_call[i];
+                if (typeof fun == "function") {
+                    fun (loudata.formdata.louhao || "无楼号");
+                }
             }
-
-            $("html,body").css({overflow: "auto", height: "auto"});
-            // $ ('body').off ('touchmove touchstart');
         }
-        ,
-// 初始化调用
-        action: function (xiaoquId) {
-            // xiaoquId = "1747";
-            $(".louchose-select-wrap").addClass("beforeActive");
-            setTimeout(function () {
-                $(".louchose-select-wrap").addClass("active");
+        if (type == "menpaihao") {
+            for (var i = 0; i < men_call.length; i++) {
+                var fun = men_call[i];
+                if (typeof fun == "function") {
+                    fun (loudata.formdata.louhao || "无楼号", loudata.formdata.danyuanhao || "无单元号");
+                }
+            }
+        }
+    },
+    jumpnext: function () {
+        var cpage = loudata.cpage;
+        var type = null;
+        if (cpage == 1) {
+            type = "danyuanhao"
+        } else if (cpage == 2) {
+            type = "menpaihao"
+        }
+        else if (cpage == 3) {
+            this.finish ();
+        }
+
+        if (!!type) {
+            this.showPage (type, null);
+        }
+    },
+    anPage: function (loutype, antype) {
+
+        if (antype == "next") {
+            $ (".page-" + loutype).addClass ("beforeActive");
+            setTimeout (function () {
+                $ (".page-" + loutype).addClass ("active");
             }, 0)
-
-            loudata.isshow = true;
-            loudata.xiaoquId = xiaoquId;
-            this.showPage("louhao", xiaoquId);
-            FRP.showrep();
-            $("html,body").css({overflow: "hidden", height: "100vh"});
         }
-        ,
+        if (antype == "pre") {
+            if (loutype == "danyuanhao") {
+                $ (".page-menpaihao").removeClass ("active");
+                setTimeout (function () {
+                    $ (".page-menpaihao").removeClass ("beforeActive");
+                }, 600)
+            }
+            if (loutype == "louhao") {
+                $ (".page-danyuanhao").removeClass ("active");
+                setTimeout (function () {
+                    $ (".page-menpaihao").removeClass ("beforeActive");
+                }, 600)
+            }
+        }
     }
-    LS.init();
+    ,
+    showloading: function () {
+    }
+    ,
+// 完成
+    finish: function (isfinish) {
+        loudata.isshow = false;
+        $ (".lou-select-wrap").removeClass ("active");
+
+        setTimeout (function () {
+            $ (".lou-select-wrap").removeClass ("beforeActive");
+            $ (".louselect-item").removeClass ("active").removeClass ("beforeActive");
+        }, 600)
+        // 重置数据
+        // var retdata = Object.assign ({}, loudata.formdata);
+
+        var tmp_louhao = loudata.formdata.louhao
+        var tmp_danyuanhao = loudata.formdata.danyuanhao
+        var tmp_menpaihao = loudata.formdata.menpaihao
+
+        loudata.xiaoquId = null;
+        loudata.formdata.louhao = null;
+        loudata.formdata.danyuanhao = null;
+        loudata.formdata.menpaihao = null;
+
+        lou_call = [];
+        danyuan_call = [];
+        men_call = [];
+
+        if (typeof callback == "function") {
+            var retdata = {};
+            var ret = isfinish === false ? -1 : 0;
+            retdata.louhao = tmp_louhao || "无楼号"
+            retdata.danyuanhao = tmp_danyuanhao || "无单元号"
+            retdata.menpaihao = tmp_menpaihao || "无门牌号"
+            callback (ret, retdata)
+        }
+
+        $ ("html,body").css ({ overflow: "auto", height: "auto" });
+        // $ ('body').off ('touchmove touchstart');
+    }
+    ,
+// 初始化调用
+    action: function (xiaoquId) {
+        // xiaoquId = "1747";
+        $ (".lou-select-wrap").addClass ("beforeActive");
+        setTimeout (function () {
+            $ (".lou-select-wrap").addClass ("active");
+        }, 0)
+
+        loudata.isshow = true;
+        loudata.xiaoquId = xiaoquId;
+        this.showPage ("louhao", xiaoquId);
+        FRP.showrep ();
+        $ ("html,body").css ({ overflow: "hidden", height: "100vh" });
+    }
+    ,
+}
 // 对外提供共用api
-    var API = {
-        // 回退
-        back: function () {
-            console.log(loudata.cpage)
-            switch (loudata.cpage) {
-                case 0: {
-                    break;
-                }
-                case 1: {
-                    LS.finish(false);
-                    break;
-                }
-                case 2: {
-                    LS.showPage("louhao", null, true);
-                    break;
-                }
-                case 3: {
-                    LS.showPage("danyuanhao", null, true);
-                    break;
-                }
+var API = {
+    // 回退
+    back: function () {
+        console.log (loudata.cpage)
+        switch (loudata.cpage) {
+            case 0: {
+                break;
             }
-        },
-        isshow: function () {
-            var isshow = false;
-            if (loudata.isshow) {
-                isshow = $(".louchose-select-wrap").hasClass("active");
+            case 1: {
+                LS.finish (false);
+                break;
             }
-            return isshow;
-        },
-        registCall: function (type, fun) {
-            if (typeof fun == "function") {
-                if (type == "louhao") {
-                    lou_call.push(fun)
-                }
-                else if (type == "danyuanhao") {
-                    danyuan_call.push(fun)
-
-                } else if (type == "menpaihao") {
-                    men_call.push(fun)
-                }
+            case 2: {
+                LS.showPage ("louhao", null, true);
+                break;
             }
-        },
-        // 弹起楼号选择
-        action: function (xiaoquId, fun) {
-            if (typeof fun == "function") {
-                callback = fun;
+            case 3: {
+                LS.showPage ("danyuanhao", null, true);
+                break;
             }
-            LS.action(xiaoquId);
-            loudata.isshow = true;
         }
-    }
-    FANG_POPAPI.LOU_CHOSE = API;
+    },
+    isshow: function () {
+        var isshow = false;
+        if (loudata.isshow) {
+            isshow = $ (".lou-select-wrap").hasClass ("active");
+        }
+        return isshow;
+    },
+    registCall: function (type, fun) {
+        if (typeof fun == "function") {
+            if (type == "louhao") {
+                lou_call.push (fun)
+            }
+            else if (type == "danyuanhao") {
+                danyuan_call.push (fun)
 
-})(FANG_POPAPI);
+            } else if (type == "menpaihao") {
+                men_call.push (fun)
+            }
+        }
+    },
+    // 弹起楼号选择
+    action: function (xiaoquId, fun) {
+        if (typeof fun == "function") {
+            callback = fun;
+        }
+        LS.action (xiaoquId);
+        loudata.isshow = true;
+    }
+}
+var sington_api = false;
+module.exports = (function () {
+    if (!sington_api) {
+        LS.init ();
+        sington_api = true;
+    }
+    return API;
+}) ()
+;
 /**
  * Created by ghy on 2017/10/17.
  */
@@ -938,7 +939,7 @@ var SFPOPRP = (function () {
 
         layout: function (list) {
             var _this = this;
-            $(".shenfenchange-page").on("touchmove", function (e) {
+            $(".shenfenPop-page").on("touchmove", function (e) {
                 e.preventDefault();
             });
             //
@@ -948,7 +949,7 @@ var SFPOPRP = (function () {
                 var item = $(TPL.getTpl("shenfenitem") || ""); // 获取字符串
                 var desc = _this.getDesc(option["text"])
 
-                $(item).attr("shenfenchose-id", option["value"]);
+                $(item).attr("shenfen-id", option["value"]);
                 $(item).find(".pop-info").html(option["text"]);
                 $(item).find(".pop-desc").html(desc);
 
@@ -974,7 +975,7 @@ var SFPOPRP = (function () {
                 _this.close(2);
             })
             $(".pop-list li").on("click", function () {
-                var _id = $(this).attr("shenfenchose-id");
+                var _id = $(this).attr("shenfen-id");
                 _this.chose_id = _id;
                 _this.chose_name = $(this).find(".pop-info").html();
                 $(".pop-list li").removeClass("active");
@@ -982,21 +983,21 @@ var SFPOPRP = (function () {
                 SFPOPRP.rp(_id);
                 chose_call(_id);
             })
-            $(".pop-wrap", ".shenfenchange-page").on("click", function (e) {
+            $(".pop-wrap", ".shenfenPop-page").on("click", function (e) {
                 e.stopPropagation();
             })
-            $(".shenfenchange-page").on("click", function () {
+            $(".shenfenPop-page").on("click", function () {
                 _this.close(2);
             })
         },
         show: function () {
             SFPOPRP.rp("show");
-            $(".shenfenchange-page").addClass("beforeActive");
+            $(".shenfenPop-page").addClass("beforeActive");
             setTimeout(function () {
-                $(".shenfenchange-page").addClass("active");
+                $(".shenfenPop-page").addClass("active");
             }, 10)
 
-            // $(".shenfenchange-page").show();
+            // $(".shenfenPop-page").show();
         },
         changeSF: function () {
 
@@ -1009,9 +1010,9 @@ var SFPOPRP = (function () {
          * **/
         close: function (ret, _id) {
 
-            $(".shenfenchange-page").removeClass("active");
+            $(".shenfenPop-page").removeClass("active");
             setTimeout(function () {
-                $(".shenfenchange-page").removeClass("beforeActive");
+                $(".shenfenPop-page").removeClass("beforeActive");
             }, 600)
 
             this.init_id = null;
@@ -1043,7 +1044,7 @@ var SFPOPRP = (function () {
     }
 
 
-    var API = {
+    var SFPOP_API = {
         init: function (data) {
             // var data = {
             //     "paramname": "HouseUserType",
@@ -1059,7 +1060,7 @@ var SFPOPRP = (function () {
             SFPOP.chose_id = sfid;
             SFPOP.init_id = sfid;
             $(".pop-list li").removeClass("active");
-            $(".pop-list li[shenfenchose-id='" + sfid + "']").addClass("active");
+            $(".pop-list li[shenfen-id='" + sfid + "']").addClass("active");
             SFPOP.show();
         },
         registCall: function (fun) {
@@ -1074,7 +1075,7 @@ var SFPOPRP = (function () {
             }
         }
     }
-    FANG_POPAPI.SF_CHANGE = API
+    FANG_POPAPI.SF_CHANGE = SFPOP_API
 })(FANG_POPAPI)
 ;
 module.exports = FANG_POPAPI;
