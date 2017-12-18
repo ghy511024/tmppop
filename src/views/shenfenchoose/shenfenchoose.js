@@ -1,6 +1,6 @@
 (function () {
-    __inline ('shenfenchose.tpl');
-    __inline ('shenfenchose_rp.js');
+    __inline ('shenfenchoose.tpl');
+    __inline ('shenfenchoose_rp.js');
     var myselect;
     var call_list = [];
     var err_fun = function () {

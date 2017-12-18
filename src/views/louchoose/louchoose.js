@@ -2,7 +2,7 @@
  * Created by ghy on 2017/12/16.
  */
 (function () {
-    __inline ('louchose.tpl');
+    __inline ('louchoose.tpl');
     __inline ('fangReport.js');
     __inline ('dataApi.js');
     var firstinit = false;

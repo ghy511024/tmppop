@@ -1,5 +1,5 @@
 <style type="text/scss">
-    @import "shenfenchose";
+    @import "shenfenchoose";
 </style>
 
 <template name="shenfen_chose" fout>
