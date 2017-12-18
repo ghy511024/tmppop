@@ -61,14 +61,9 @@ fis.match("/src/**.tpl", {
  * 主模块
  * */
 
-fis.match('/src/mod/main.js', {
-    release: "main.js"
+fis.match('/src/fis-build/(**.js)', {
+    release: "$1"
 });
-fis.match('/src/mod/louchose/louselect_main.js', {
-    release: "louselect.js"
-});
-
-
 fis.media('ghy_dev').match('/src/mod/main.js', {
     deploy: fis.plugin('local-deliver', {
         to: fis.get("ghy-dev-path"),

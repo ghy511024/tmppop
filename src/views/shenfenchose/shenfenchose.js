@@ -1,10 +1,6 @@
-/**
- * Created by ghy on 2017/10/17.
- */
-var FANG_POPAPI = FANG_POPAPI || {};
-(function (FANG_POPAPI) {
-    __inline('shenfenchose.tpl');
-    __inline('shenfenchose_rp.js');
+(function () {
+    __inline ('shenfenchose.tpl');
+    __inline ('shenfenchose_rp.js');
     var myselect;
     var call_list = [];
     var err_fun = function () {
@@ -20,9 +16,9 @@ var FANG_POPAPI = FANG_POPAPI || {};
         init: function (cateid, cityid, data) {
             data = data || {};
             var optionlist = data["option"] || []
-            this._layout(optionlist);
+            this._layout (optionlist);
 
-            this._initEvent();
+            this._initEvent ();
             this.cateid = cateid;
             this.cityid = cityid;
 
@@ -32,35 +28,35 @@ var FANG_POPAPI = FANG_POPAPI || {};
             list = list || [];
             for (var i = 0; i < list.length; i++) {
                 var option = list[i]
-                var item = $(TPL.getTpl("shenfen_chose_item") || ""); // 获取字符串
-                $(item).attr("shenfen-id", option["value"]);
-                $(item).find(".shenfen-title").html(option["text"]);
+                var item = $ (TPL.getTpl ("shenfen_chose_item") || ""); // 获取字符串
+                $ (item).attr ("shenfen-id", option["value"]);
+                $ (item).find (".shenfen-title").html (option["text"]);
                 // 获取描述
-                var desc = _this.getDesc(option["text"])
-                $(item).find(".shenfen-desc").html(desc);
-                $(".shenfen-list ul").append($(item));
+                var desc = _this.getDesc (option["text"])
+                $ (item).find (".shenfen-desc").html (desc);
+                $ (".shenfen-list ul").append ($ (item));
             }
         },
         _initEvent: function () {
             var _this = this;
-            $(".shenfen-list li").on("click", function () {
-                var type = $(this).attr("shenfen-id");
-                $("#shenfen-next").removeClass("disable");
-                SFRP.rp(type);// 埋点
+            $ (".shenfen-list li").on ("click", function () {
+                var type = $ (this).attr ("shenfen-id");
+                $ ("#shenfen-next").removeClass ("disable");
+                SFRP.rp (type);// 埋点
                 if (_this.ctype != type) {
-                    $(".shenfen-list li").removeClass("active");
-                    $(this).addClass("active");
+                    $ (".shenfen-list li").removeClass ("active");
+                    $ (this).addClass ("active");
                     _this.ctype = type;
                 }
             })
-            $("#shenfen-next").on("click", function () {
+            $ ("#shenfen-next").on ("click", function () {
                 var type = _this.ctype;
 
                 if (type == null) {
                     // alert("还未选择身份")
                 } else {
-                    SFRP.rp("next");// 埋点
-                    _this.sureMyShenfen(type)
+                    SFRP.rp ("next");// 埋点
+                    _this.sureMyShenfen (type)
                 }
             })
         },
@@ -69,15 +65,15 @@ var FANG_POPAPI = FANG_POPAPI || {};
          */
         getDesc: function (name) {
             var desc = "";
-            if (/房东/gi.test(name)) {
-                if (/职业/.test(name)) {
+            if (/房东/gi.test (name)) {
+                if (/职业/.test (name)) {
                     desc = "公寓经营者/多房源管理者"
                 } else {
                     desc = "房屋所有者，具备认证房本资质"
                 }
-            } else if (/经纪人/gi.test(name)) {
+            } else if (/经纪人/gi.test (name)) {
                 desc = "房产中介，拥有专业的展示空间";
-            } else if (/转租/.test(name)) {
+            } else if (/转租/.test (name)) {
                 desc = "转让自己承租的房子";
             }
             return desc;
@@ -91,56 +87,56 @@ var FANG_POPAPI = FANG_POPAPI || {};
                 client: "app",
                 usertype: _id,
             }
-            $.ajax({
+            $.ajax ({
                 url: updateUrl,
                 data: (data),
                 dataType: "jsonp",
                 error: function (jqXHR, textStatus, errorThrown) {
                     if (typeof err_fun == "function") {
-                        err_fun(-1)
+                        err_fun (-1)
                     } else {
-                        _this._close(-1);
+                        _this._close (-1);
                     }
                 },
                 success: function (ret) {
                     // alert (JSON.stringify (ret));
                     if (ret["code"] == 0) {
-                        _this._close(0, _id);
+                        _this._close (0, _id);
                     }
                     else {
                         if (typeof err_fun == "function") {
-                            err_fun(1)
+                            err_fun (1)
                         } else {
-                            _this._close(1);
+                            _this._close (1);
                         }
                     }
                 }
             })
         },
         show: function () {
-            SFRP.rp("show");// 埋点
-            $(".shenfen-page").show();
-            $("html,body").css({overflow: "hidden", height: "100vh"});
+            SFRP.rp ("show");// 埋点
+            $ (".shenfen-page").show ();
+            $ ("html,body").css ({ overflow: "hidden", height: "100vh" });
         },
         _close: function (ret, sfid) {
-            $(".shenfen-page").hide();
+            $ (".shenfen-page").hide ();
             for (var i = 0; i < call_list.length; i++) {
                 var fun = call_list[i];
                 if (typeof fun == "function") {
-                    fun(ret, sfid)
+                    fun (ret, sfid)
                 }
             }
-            $("html,body").css({overflow: "auto", height: "auto"});
+            $ ("html,body").css ({ overflow: "auto", height: "auto" });
             call_list = [];
         }
     }
 
     var API = {
         init: function (cateid, cityid, data) {
-            SFCHOSE_MAIN.init(cateid, cityid, data);
+            SFCHOSE_MAIN.init (cateid, cityid, data);
         },
         showPage: function () {
-            SFCHOSE_MAIN.show();
+            SFCHOSE_MAIN.show ();
         }
         ,
         hidePage: function () {
@@ -152,7 +148,7 @@ var FANG_POPAPI = FANG_POPAPI || {};
         // 注册回调函数
         registCall: function (fun) {
             if (typeof fun == "function") {
-                call_list.push(fun);
+                call_list.push (fun);
             }
         },
         // 事件回调，方便统计埋点之类的
@@ -167,5 +163,5 @@ var FANG_POPAPI = FANG_POPAPI || {};
             }
         }
     }
-    FANG_POPAPI.SF_CHOSE = API;
-})(FANG_POPAPI);
+    return API;
+}) ()
