@@ -2,7 +2,7 @@
   "name": "fangapp-release-pop",
   "version": "1.0.0",
   "description": "房产整租发布弹窗集合",
-  "main": "api/mod/main.js",
+  "main": "api/mod/louchoose.js",
   "scripts": {
     "build": "fis3 release -w -c -d ./api"
   },
