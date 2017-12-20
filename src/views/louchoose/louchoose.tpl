@@ -16,7 +16,7 @@
                 <div class="list-title">请选择楼号</div>
             </div>
             <div class="list-wrap louhao-list">
-                <div class="sc_body" id="s1">
+                <div class="sc_body" id="louhao_sc">
                     <ul>
                     </ul>
                     <div class="list-footer">
@@ -37,7 +37,7 @@
                 <div class="list-title">请选择单元号</div>
             </div>
             <div class="list-wrap danyuanhao-list">
-                <div class="sc_body">
+                <div class="sc_body" id="danyuanhao_sc">
                     <ul>
                     </ul>
                     <div class="list-footer">
@@ -59,7 +59,7 @@
                 <div class="list-title">请选择门牌号</div>
             </div>
             <div class="list-wrap menpaihao-list">
-                <div class="sc_body">
+                <div class="sc_body" id="menpaihao_sc">
                     <ul></ul>
                     <div class="list-footer">
                         <span class="jump-btn" ptype="menpaihao">没有门牌号，直接跳过></span>

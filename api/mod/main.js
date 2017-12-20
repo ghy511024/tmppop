@@ -32,7 +32,7 @@ TPL.addStyle = TPL.addStyle || function (styleContent) {
     document.getElementsByTagName("head")[0].appendChild(styleNode);
 };
 (function (TPL) {
-    TPL.tplmap['louhao'] = '<div class="lou-select-wrap"><div class="louselect-item page-louhao" ptype="louhao"><div class="ipt-wrap"><div class="ipt-panel"><div class="icon-search"></div><input type="text" placeholder="请输入楼号" id="louhao-ipt" class="lou-ipt"><div class="btn btn-sure disable" id="sure-louhao">确定</div></div></div><div class="list-title-wrap"><div class="list-title">请选择楼号</div></div><div class="list-wrap louhao-list"><div class="sc_body" id="s1"><ul></ul><div class="list-footer"><span class="jump-btn" ptype="louhao">没有楼号，直接跳过></span></div></div></div></div><div class="louselect-item page-danyuanhao" ptype="danyuanhao"><div class="ipt-wrap"><div class="ipt-panel"><div class="icon-search"></div><input type="text" placeholder="请输入单元号" id="danyuanhao-ipt" class="lou-ipt"><div class="btn btn-sure disable" id="sure-danyuanhao">确定</div></div></div><div class="list-title-wrap"><div class="list-title">请选择单元号</div></div><div class="list-wrap danyuanhao-list"><div class="sc_body"><ul></ul><div class="list-footer"><span class="jump-btn" ptype="danyuanhao">没有单元号，直接跳过></span></div></div></div></div><div class="louselect-item page-menpaihao" ptype="menpaihao"><div class="ipt-wrap"><div class="ipt-panel"><div class="icon-search"></div><input type="text" placeholder="请输入门牌号" id="menpaihao-ipt" class="lou-ipt"><div class="btn btn-sure disable" id="sure-menpaihao">确定</div></div></div><div class="list-title-wrap"><div class="list-title">请选择门牌号</div></div><div class="list-wrap menpaihao-list"><div class="sc_body"><ul></ul><div class="list-footer"><span class="jump-btn" ptype="menpaihao">没有门牌号，直接跳过></span></div></div></div></div></div>'
+    TPL.tplmap['louhao'] = '<div class="lou-select-wrap"><div class="louselect-item page-louhao" ptype="louhao"><div class="ipt-wrap"><div class="ipt-panel"><div class="icon-search"></div><input type="text" placeholder="请输入楼号" id="louhao-ipt" class="lou-ipt"><div class="btn btn-sure disable" id="sure-louhao">确定</div></div></div><div class="list-title-wrap"><div class="list-title">请选择楼号</div></div><div class="list-wrap louhao-list"><div class="sc_body" id="louhao_sc"><ul></ul><div class="list-footer"><span class="jump-btn" ptype="louhao">没有楼号，直接跳过></span></div></div></div></div><div class="louselect-item page-danyuanhao" ptype="danyuanhao"><div class="ipt-wrap"><div class="ipt-panel"><div class="icon-search"></div><input type="text" placeholder="请输入单元号" id="danyuanhao-ipt" class="lou-ipt"><div class="btn btn-sure disable" id="sure-danyuanhao">确定</div></div></div><div class="list-title-wrap"><div class="list-title">请选择单元号</div></div><div class="list-wrap danyuanhao-list"><div class="sc_body" id="danyuanhao_sc"><ul></ul><div class="list-footer"><span class="jump-btn" ptype="danyuanhao">没有单元号，直接跳过></span></div></div></div></div><div class="louselect-item page-menpaihao" ptype="menpaihao"><div class="ipt-wrap"><div class="ipt-panel"><div class="icon-search"></div><input type="text" placeholder="请输入门牌号" id="menpaihao-ipt" class="lou-ipt"><div class="btn btn-sure disable" id="sure-menpaihao">确定</div></div></div><div class="list-title-wrap"><div class="list-title">请选择门牌号</div></div><div class="list-wrap menpaihao-list"><div class="sc_body" id="menpaihao_sc"><ul></ul><div class="list-footer"><span class="jump-btn" ptype="menpaihao">没有门牌号，直接跳过></span></div></div></div></div></div>'
 })(TPL);
    
 //begin insert static dom
@@ -94,7 +94,8 @@ var FRP = (function () {
     // 数据过滤
 var DataApi = (function () {
     var server = {
-        apiurl: "https://housepostbaseapi.58.com/wuyedizhi/tip",
+        // apiurl: "https://housepostbaseapi.58.com/wuyedizhi/tip",
+        apiurl: "/mock/lou_choose.json",
     }
     var DataApi = {
         loudata: [],
@@ -133,15 +134,15 @@ var DataApi = (function () {
         },
         getData: function (type, param, fun) {
             var url = "", cpage = 1, type, _idkey, namekey;
-            if (type == "louhao") {
+            if (type == "louhao" || type == 1) {
                 cpage = 1;
                 url = server.apiurl;
             }
-            else if (type == "danyuanhao") {
+            else if (type == "danyuanhao" || type == 2) {
                 cpage = 2;
                 url = server.apiurl;
             }
-            else if (type == "menpaihao") {
+            else if (type == "menpaihao" || type == 3) {
                 cpage = 3;
                 url = server.apiurl;
             }
@@ -151,6 +152,7 @@ var DataApi = (function () {
                 this._ajax (url, param, function (ret) {
                     var tmpdataarray = [];
                     if (ret["ret"] == 0) {
+
                         var data = ret["data"] || {};
                         var list = data[type];
                         if (list != null && list instanceof Array) {
@@ -184,7 +186,8 @@ var DataApi = (function () {
                 url: url,
                 // url: "/lmock/louchose.json",
                 data: (param),
-                dataType: "jsonp",
+                // dataType: "jsonp",
+                dataType: "json",
                 error: function (jqXHR, textStatus, errorThrown) {
                     if (typeof success == "function") {
                         result = { ret: -1 };
@@ -218,7 +221,38 @@ var DataApi = (function () {
     }
     return DataApi;
 }) ();;
+    /**
+ * Created by ghy on 2017/12/19.
+ */
+
+function sccheck (el) {
+    var sc_stop = true;
+    var time_out = null;
+    el.addEventListener ('touchstart', function (event) {
+        if (sc_stop) {
+            sc_stop = false;
+            trick ();
+        }
+    }, false)
+
+    el.addEventListener ('touchend', function (event) {
+        clearTimeout (time_out);
+        time_out = setTimeout (function () {
+            sc_stop = true;
+        }, 1000)
+    }, false)
+
+    function trick () {
+    console.log(el.scrollTop)
+        if (!sc_stop) {
+            requestAnimationFrame (trick);
+        }
+    }
+
+
+};
     var firstinit = false;
+    var time_lock = null;
     var callback = function () {
     };
     var lou_call = [], danyuan_call = [], men_call = [];// 切换状态时候回调函数
@@ -232,12 +266,20 @@ var DataApi = (function () {
             louhao: null,
             menpaihao: null,
             danyuanhao: null,
+        },
+        cpageNum: {
+            louhao: 1,
+            menpaihao: 1,
+            danyuanhao: 1,
         }
     };
     var LS = {
+        page_next: false,
+        is_inload: false,
         init: function () {
             this._layout ();
             this.initEvent ();
+            this.scEvent ();
         }
         ,
         initEvent: function () {
@@ -248,7 +290,6 @@ var DataApi = (function () {
                 var type = page.attr ("ptype")
                 page.find (".ipt-panel input").val (name).attr ("name", name)
                 page.find (".btn-sure").removeClass ("disable");
-
                 loudata.formdata[type] = name;
                 var npage = type == "louhao" ? "danyuanhao" : (type == "danyuanhao" ? "menpaihao" : false)
                 if (type == "louhao") {
@@ -320,6 +361,31 @@ var DataApi = (function () {
             })
         }
         ,
+        // 注册滚动事件，滚动到底部加载
+        scEvent: function () {
+            var _this = this;
+            function scregist (type) {
+                var l_h = $ ("#" + type + "+_sc").height ();
+                var s_h = $ ("." + type + "-list").height ();
+                $ ("." + type + "-list")[0].onscroll = function () {
+                    l_h = $ ("#" + type + "_sc").height ();
+                    s_h = s_h !== 0 ? s_h : $ ("." + type + "-list").height ();
+                    console.log (this.scrollTop, l_h, s_h)
+                    if (l_h - s_h - this.scrollTop < 100) {
+                        if (!_this.is_inload && _this.page_next) {
+                            clearTimeout (time_lock);
+                            time_lock = setTimeout (function () {
+                                _this.getData (type, loudata.cpageNum[type]++);
+                            }, 16)
+                        }
+                    }
+                }
+            }
+            scregist ("louhao")
+            scregist ("danyuanhao")
+            scregist ("menpaihao")
+            // sccheck ($ (".louhao-list")[0]);
+        },
         // 初始化，html ，将模版字符串添加进html
         _layout: function () {
             // do nothing 模板中已经加了fout 字段，默认输出
@@ -335,42 +401,48 @@ var DataApi = (function () {
                 $ (".page-" + type + " .ipt-wrap input").val ("").removeAttr ("name");
                 $ (".page-" + type + " .ipt-wrap .btn-sure").addClass ("disable");
                 loudata["formdata"][type] = null;
+                loudata.cpageNum[type] = 1;// 清除分页
                 this.anPage (type, "next")
             }
 
             this.noticeCall (type);
             if (typeid != null) {
-                // 构造数据
-                var param = {
-                    tipkey: type,
-                    xiaoquid: loudata.xiaoquId,
-                    louhao: loudata.formdata.louhao,
-                    danyuanhao: loudata.formdata.danyuanhao,
-                }
-                // alert (JSON.stringify (param));
-                // 获取数据
-                DataApi.getData (type, param, function (list) {
-                    if (list != null && list.length > 0) {
-                        for (var i = 0; i < list.length; i++) {
-                            var item = list[i];
-                            var liitem = $ (TPL.getTpl ("liitem"));
-                            liitem.html (item).attr ("name", item);
-                            $ ("." + type + "-list ul").append (liitem);
-                        }
-                    } else {
-                        // 请求数据失败 处理
-                    }
-                })
+                this.getData (type);
             }
             // 显示页面
             // $ (".page-item.active").removeClass ("active");
             // $ (".page-item.page-" + type).addClass ("active");
-
             loudata.cpage = type == "louhao" ? 1 : (type == "danyuanhao" ? 2 : 3);
             this.showloading ();
             return;
         }
         ,
+        getData: function (type, pageNum) {
+            var _this = this;
+            _this.is_inload = true;
+            var param = {
+                tipkey: type,
+                xiaoquid: loudata.xiaoquId,
+                louhao: loudata.formdata.louhao,
+                danyuanhao: loudata.formdata.danyuanhao,
+                page: (pageNum || 1)
+            }
+            DataApi.getData (type, param, function (list) {
+                _this.page_next = false;
+                if (list != null && list.length > 0) {
+                    for (var i = 0; i < list.length; i++) {
+                        var item = list[i];
+                        var liitem = $ (TPL.getTpl ("liitem"));
+                        liitem.html (item).attr ("name", item);
+                        $ ("." + type + "-list ul").append (liitem);
+                    }
+                }
+                if (list.length >= 10) {
+                    _this.page_next = true;
+                }
+                _this.is_inload = false;
+            })
+        },
         noticeCall: function (type) {
             if (type == "louhao") {
                 for (var i = 0; i < lou_call.length; i++) {
