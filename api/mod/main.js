@@ -186,8 +186,8 @@ var DataApi = (function () {
                 url: url,
                 // url: "/lmock/louchose.json",
                 data: (param),
-                // dataType: "jsonp",
-                dataType: "json",
+                dataType: "jsonp",
+                // dataType: "json",
                 error: function (jqXHR, textStatus, errorThrown) {
                     if (typeof success == "function") {
                         result = { ret: -1 };
