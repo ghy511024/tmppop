@@ -1,8 +1,8 @@
 // 数据过滤
 var DataApi = (function () {
     var server = {
-        // apiurl: "https://housepostbaseapi.58.com/wuyedizhi/tip",
-        apiurl: "/mock/lou_choose.json",
+        apiurl: "https://housepostbaseapi.58.com/wuyedizhi/tip",
+        // apiurl: "/mock/lou_choose.json",
     }
     var DataApi = {
         loudata: [],
