@@ -5,7 +5,9 @@
     __inline ('louchoose.tpl');
     __inline ('fangReport.js');
     __inline ('dataApi.js');
+    __inline ('js/scroll_check.js');
     var firstinit = false;
+    var time_lock = null;
     var callback = function () {
     };
     var lou_call = [], danyuan_call = [], men_call = [];// 切换状态时候回调函数
@@ -19,12 +21,20 @@
             louhao: null,
             menpaihao: null,
             danyuanhao: null,
+        },
+        cpageNum: {
+            louhao: 1,
+            menpaihao: 1,
+            danyuanhao: 1,
         }
     };
     var LS = {
+        page_next: false,
+        is_inload: false,
         init: function () {
             this._layout ();
             this.initEvent ();
+            this.scEvent ();
         }
         ,
         initEvent: function () {
@@ -35,7 +45,6 @@
                 var type = page.attr ("ptype")
                 page.find (".ipt-panel input").val (name).attr ("name", name)
                 page.find (".btn-sure").removeClass ("disable");
-
                 loudata.formdata[type] = name;
                 var npage = type == "louhao" ? "danyuanhao" : (type == "danyuanhao" ? "menpaihao" : false)
                 if (type == "louhao") {
@@ -107,6 +116,33 @@
             })
         }
         ,
+        // 注册滚动事件，滚动到底部加载
+        scEvent: function () {
+            var _this = this;
+
+            function scregist (type) {
+                var l_h = $ ("#" + type + "+_sc").height ();
+                var s_h = $ ("." + type + "-list").height ();
+                $ ("." + type + "-list")[0].onscroll = function () {
+                    l_h = $ ("#" + type + "_sc").height ();
+                    s_h = s_h !== 0 ? s_h : $ ("." + type + "-list").height ();
+                    if (l_h - s_h - this.scrollTop < 100) {
+                        if (!_this.is_inload && _this.page_next)
+                        {
+                            clearTimeout (time_lock);
+                            time_lock = setTimeout (function () {
+                                _this.getData (type, loudata.cpageNum[type]++);
+                            }, 16)
+                        }
+                    }
+                }
+            }
+
+            scregist ("louhao");
+            scregist ("danyuanhao");
+            scregist ("menpaihao");
+            // sccheck ($ (".louhao-list")[0]);
+        },
         // 初始化，html ，将模版字符串添加进html
         _layout: function () {
             // do nothing 模板中已经加了fout 字段，默认输出
@@ -122,42 +158,48 @@
                 $ (".page-" + type + " .ipt-wrap input").val ("").removeAttr ("name");
                 $ (".page-" + type + " .ipt-wrap .btn-sure").addClass ("disable");
                 loudata["formdata"][type] = null;
+                loudata.cpageNum[type] = 1;// 清除分页
                 this.anPage (type, "next")
             }
 
             this.noticeCall (type);
             if (typeid != null) {
-                // 构造数据
-                var param = {
-                    tipkey: type,
-                    xiaoquid: loudata.xiaoquId,
-                    louhao: loudata.formdata.louhao,
-                    danyuanhao: loudata.formdata.danyuanhao,
-                }
-                // alert (JSON.stringify (param));
-                // 获取数据
-                DataApi.getData (type, param, function (list) {
-                    if (list != null && list.length > 0) {
-                        for (var i = 0; i < list.length; i++) {
-                            var item = list[i];
-                            var liitem = $ (TPL.getTpl ("liitem"));
-                            liitem.html (item).attr ("name", item);
-                            $ ("." + type + "-list ul").append (liitem);
-                        }
-                    } else {
-                        // 请求数据失败 处理
-                    }
-                })
+                this.getData (type);
             }
             // 显示页面
             // $ (".page-item.active").removeClass ("active");
             // $ (".page-item.page-" + type).addClass ("active");
-
             loudata.cpage = type == "louhao" ? 1 : (type == "danyuanhao" ? 2 : 3);
             this.showloading ();
             return;
         }
         ,
+        getData: function (type, pageNum) {
+            var _this = this;
+            _this.is_inload = true;
+            var param = {
+                tipkey: type,
+                xiaoquid: loudata.xiaoquId,
+                louhao: loudata.formdata.louhao,
+                danyuanhao: loudata.formdata.danyuanhao,
+                page: (pageNum || 1)
+            }
+            DataApi.getData (type, param, function (list) {
+                _this.page_next = false;
+                if (list != null && list.length > 0) {
+                    for (var i = 0; i < list.length; i++) {
+                        var item = list[i];
+                        var liitem = $ (TPL.getTpl ("liitem"));
+                        liitem.html (item).attr ("name", item);
+                        $ ("." + type + "-list ul").append (liitem);
+                    }
+                }
+                if (list.length >= 10) {
+                    _this.page_next = true;
+                }
+                _this.is_inload = false;
+            })
+        },
         noticeCall: function (type) {
             if (type == "louhao") {
                 for (var i = 0; i < lou_call.length; i++) {

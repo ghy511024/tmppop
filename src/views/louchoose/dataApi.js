@@ -2,6 +2,7 @@
 var DataApi = (function () {
     var server = {
         apiurl: "https://housepostbaseapi.58.com/wuyedizhi/tip",
+        // apiurl: "/mock/lou_choose.json",
     }
     var DataApi = {
         loudata: [],
@@ -40,15 +41,15 @@ var DataApi = (function () {
         },
         getData: function (type, param, fun) {
             var url = "", cpage = 1, type, _idkey, namekey;
-            if (type == "louhao") {
+            if (type == "louhao" || type == 1) {
                 cpage = 1;
                 url = server.apiurl;
             }
-            else if (type == "danyuanhao") {
+            else if (type == "danyuanhao" || type == 2) {
                 cpage = 2;
                 url = server.apiurl;
             }
-            else if (type == "menpaihao") {
+            else if (type == "menpaihao" || type == 3) {
                 cpage = 3;
                 url = server.apiurl;
             }
@@ -58,6 +59,7 @@ var DataApi = (function () {
                 this._ajax (url, param, function (ret) {
                     var tmpdataarray = [];
                     if (ret["ret"] == 0) {
+
                         var data = ret["data"] || {};
                         var list = data[type];
                         if (list != null && list instanceof Array) {
@@ -92,6 +94,7 @@ var DataApi = (function () {
                 // url: "/lmock/louchose.json",
                 data: (param),
                 dataType: "jsonp",
+                // dataType: "json",
                 error: function (jqXHR, textStatus, errorThrown) {
                     if (typeof success == "function") {
                         result = { ret: -1 };

@@ -1,1 +1,1 @@
-window.LOU_CHOSE = __inline ('../../views/louchoose/louchoose.js');
+window.LOU_CHOOSE = __inline ('../../views/louchoose/louchoose.js');
