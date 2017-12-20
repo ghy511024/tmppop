@@ -119,15 +119,16 @@
         // 注册滚动事件，滚动到底部加载
         scEvent: function () {
             var _this = this;
+
             function scregist (type) {
                 var l_h = $ ("#" + type + "+_sc").height ();
                 var s_h = $ ("." + type + "-list").height ();
                 $ ("." + type + "-list")[0].onscroll = function () {
                     l_h = $ ("#" + type + "_sc").height ();
                     s_h = s_h !== 0 ? s_h : $ ("." + type + "-list").height ();
-                    console.log (this.scrollTop, l_h, s_h)
                     if (l_h - s_h - this.scrollTop < 100) {
-                        if (!_this.is_inload && _this.page_next) {
+                        if (!_this.is_inload && _this.page_next)
+                        {
                             clearTimeout (time_lock);
                             time_lock = setTimeout (function () {
                                 _this.getData (type, loudata.cpageNum[type]++);
@@ -136,9 +137,10 @@
                     }
                 }
             }
-            scregist ("louhao")
-            scregist ("danyuanhao")
-            scregist ("menpaihao")
+
+            scregist ("louhao");
+            scregist ("danyuanhao");
+            scregist ("menpaihao");
             // sccheck ($ (".louhao-list")[0]);
         },
         // 初始化，html ，将模版字符串添加进html
