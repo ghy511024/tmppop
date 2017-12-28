@@ -53,20 +53,44 @@
 
 </head>
 <body>
-<button class="btn1">按钮1</button>
-<button class="btn2">按钮2</button>
-<button class="btn3">按钮3</button>
+<button class="btn1">吊起组件</button>
+<p>整组发布页面，用户切换房东身份的时候，吊起此组件</p>
 <script type="text/javascript" src="//a.58cdn.com.cn/app58/rms/app/js/app_30805.js?cachevers=200"></script>
 <script type="text/javascript" src="//j2.58cdn.com.cn/olympia/js/lib/esl_zepto_load.min.js"></script>
 <script src="../api/single/shenfenchange.js"></script>
+<style>* {
+    margin: 0px;
+    padding: 0px;
+    list-style: none
+}</style>
 <script>
+    var HouseUserType = {
+        "paramname": "HouseUserType",
+        "title": "房产用户类型",
+        "option": [
+            { "text": "房东", "value": "683037" },
+            { "text": "转租", "value": "683038" },
+            { "text": "经纪人", "value": "683039" },
+            { "text": "职业房东", "value": "4" }]
+    }
     var T = {
         init: function () {
+            SF_CHANGE.init (HouseUserType);// 传入默认身份
             this.initEvent ();
         },
         initEvent: function () {
             $ (".btn1").on ("click", function () {
-                alert ("1")
+                SF_CHANGE.action ("683038");
+                SF_CHANGE.registCall (function (ret, sfid) {
+                    if (ret == 0) {// 做了修改
+                        alert ("确定回调 id:" + sfid)
+                    } else if (ret == 2) {//  取消，不做处理
+                        alert ("取消了")
+                    }
+                })
+                SF_CHANGE.choseCall (function (_id) {
+                    alert ("点击一次回调一次" + _id);
+                })
             })
         }
     }

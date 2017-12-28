@@ -3,6 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <title>身份选择页面</title>
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width">
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="format-detection" content="email=no"/>
+    <meta name="format-detection" content="address=no;">
     <script type="text/javascript">
         <!--1px的js处理-->
         !function (e, t) {
@@ -44,11 +50,53 @@
             }
         } (window, window.lib || (window.lib = {}));
     </script>
-    <script type="text/javascript" src="//a.58cdn.com.cn/app58/rms/app/js/app_30805.js?cachevers=200"></script>
-    <script type="text/javascript" src="//j2.58cdn.com.cn/olympia/js/lib/esl_zepto_load.min.js"></script>
-    <script src="../api/single/shenfenchoose.js"></script>
+    <style>* {
+        margin: 0px;
+        padding: 0px;
+        list-style: none;
+    }</style>
 </head>
 <body>
-
+<button class="btn1">吊起身份选择组件</button>
+<p>整组发布页面，如果后端判定这个人没有身份（通常是第一次发帖），此时先吊起身份选择页面，选择后再进入下个流程</p>
+<script type="text/javascript" src="//a.58cdn.com.cn/app58/rms/app/js/app_30805.js?cachevers=200"></script>
+<script type="text/javascript" src="//j2.58cdn.com.cn/olympia/js/lib/esl_zepto_load.min.js"></script>
+<script src="../api/single/shenfenchoose.js"></script>
+<script>
+    var cateId = "8";// 房产整租
+    var cityId = "1";// 北京
+    var HouseUserType = {
+        "paramname": "HouseUserType",
+        "title": "房产用户类型",
+        "option": [
+            { "text": "房东", "value": "683037" },
+            { "text": "转租", "value": "683038" },
+            { "text": "经纪人", "value": "683039" },
+            { "text": "职业房东", "value": "4" }]
+    }
+    var T = {
+        init: function () {
+            SF_CHOSE.init (cateId, cityId, HouseUserType);// 前两个参数主要是用来
+            this._initEvent ();
+        },
+        _initEvent: function () {
+            $ (".btn1").on ("click", function () {
+                SF_CHOSE.showPage ();// 显示页面
+                SF_CHOSE.registCall (function (ret, sfid) {
+                    if (ret == 0) {
+                        alert ("修改身份成功" + sfid)
+                    } else {
+                        alert ("修改身份失败" + sfid)
+                    }
+                })
+                // 针对网络异常情况，一般此回调与上面的成功，回调不会同时调用。
+                SF_CHOSE.registERR (function (ret) {
+                    alert ("修改身份失败，一般都是，pc localhost,没法调修改接口，app 内测应该没问题")
+                })
+            })
+        }
+    }
+    T.init ();
+</script>
 </body>
 </html>
