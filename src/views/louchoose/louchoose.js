@@ -131,7 +131,7 @@
                         {
                             clearTimeout (time_lock);
                             time_lock = setTimeout (function () {
-                                _this.getData (type, loudata.cpageNum[type]++);
+                                _this.getData (type, ++loudata.cpageNum[type]);
                             }, 16)
                         }
                     }
