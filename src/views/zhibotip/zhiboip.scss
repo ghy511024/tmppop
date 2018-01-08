@@ -1,0 +1,83 @@
+@import "../../lib/css/mixin";
+
+.zhibo-tip-wrap {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  .zhibo-tip-panel {
+    width: rem(540px);
+    height: rem(740px);
+    position: absolute;
+    left: 0px;
+    right: 0px;
+    top: 50%;
+    margin: 0 auto;
+    margin-top: rem(-420px);
+    background-color: #fff;
+  }
+  .zhibo-tip-title {
+    width: 100%;
+    height: rem(188px);
+    background: #4c97ef;
+    h3 {
+      color: #fff;
+      font-size: rem(44px);
+      position: absolute;
+      left: rem(60px);
+      top: rem(50px);
+    }
+    p {
+      color: rgba(255, 255, 255, 0.85);
+      font-size: rem(24px);
+      position: absolute;
+      left: rem(60px);
+      top: rem(114px);
+    }
+  }
+  .zhibo-tip-body {
+    width: 100%;
+    height: rem(462px);
+    .item {
+
+      height: rem(128px);
+      margin: 0px 0px 0px rem(60px);
+      @include nth(1) {
+        margin-top: rem(68px);
+      }
+      position: relative;
+      .pic {
+        position: absolute;
+        width: 45px;
+        height: 35px;
+        &.pic1 {
+          background-image: url("img/img_1@2x.png?__inline");
+        }
+        &.pic2 {
+          background-image: url("img/img_2@2x.png?__inline");
+        }
+        &.pic3 {
+          background-image: url("img/img_3@2x.png?__inline");
+        }
+        background-size: cover;
+      }
+      .tip {
+        font-size: rem(32px);
+        color: #333536;
+        position: absolute;
+        left: rem(106px);
+        top: rem(12px);
+      }
+    }
+
+  }
+  .line {
+    width: 257px;
+    height: 1px;
+    background-image: url("img/line@2x.png?__inline");
+    background-size: cover;
+    @include center(w);
+    bottom: rem(90px);
+  }
+}

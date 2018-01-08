@@ -1,0 +1,49 @@
+@import "../mixin";
+
+.clear {
+  @include clearfix;
+}
+
+.els {
+  @include els;
+}
+
+.inblock {
+  @include inblock;
+}
+
+.opacity {
+  @include opacity(0.5);
+}
+
+.input {
+  @include placeholder() {
+    color: #f5f5f5;
+  }
+}
+
+.center {
+  // 上下都居中
+  &.all {
+    @include center(all);
+  }
+  // 水平居中
+  &.w {
+    @include center(w);
+  }
+  //垂直居中
+  &.h {
+    @include center(h);
+  }
+}
+
+.animate {
+  @include animation(slideUp 900ms ease both) {
+    0% {
+      transform: translate3d(0, -200px, 0);
+    }
+    100% {
+      transform: translate3d(0, 0, 0);
+    }
+  }
+}

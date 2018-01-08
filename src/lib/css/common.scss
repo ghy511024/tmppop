@@ -1,0 +1,182 @@
+@charset "UTF-8";
+
+@function pxToRem($px) {
+  @return $px / 72px * 1rem;
+}
+$gray: #f6f6f6;
+$white: #fff;
+
+.commonbg {
+  margin: 0 pxToRem(30px);
+}
+.inputFont {
+  position: relative;
+  top: pxToRem(72px);
+  font-size: pxToRem(38px);
+  color: #ccc;
+}
+.mt20 {
+  margin-top: pxToRem(20px);
+}
+.p-icons {
+    width: 24px;
+    height: 24px;
+    background: url(//j2.58cdn.com.cn/fangapp/img/publish/publish_icons.png?v=20170703) no-repeat;
+    background-size: 300%;
+    display: block;
+    position: absolute
+}
+
+@mixin fontColor($size: 20px, $color: #fff) {
+  font-size: pxToRem($size);
+  color: $color;
+}
+
+input::-webkit-input-placeholder {
+  @include fontColor(38px, #ccc);
+}
+input::-moz-placeholder {
+  @include fontColor(38px, #ccc);
+}
+input::-ms-input-placeholder {
+  @include fontColor(38px, #ccc);
+}
+
+input::-webkit-input-placeholder, textarea::-webkit-input-placeholder {
+　color: #ccc;
+}
+input:-moz-placeholder, textarea:-moz-placeholder {
+　color:#ccc;
+}
+input::-moz-placeholder, textarea::-moz-placeholder {
+　color:#ccc;
+}
+input:-ms-input-placeholder, textarea:-ms-input-placeholder {
+　color:#ccc;
+}
+
+/* 下一页未填文本框提示样式 */
+.module-error {
+  border-bottom: 0;
+  border-bottom: 1px solid #FF552E;
+}
+.item-error {
+  color: #FF552E; 
+}
+
+.imgerrortips {
+  color: #E60000;
+}
+
+.v-red {
+    background-color: #E60000;
+    border: 1px solid #E60000
+}
+
+.v-red .item-verify-icon {
+    background-position: 2px -91px
+}
+
+.v-green {
+    background-color: #00D984;
+    border: 1px solid #00D984
+}
+
+.v-green .item-verify-icon {
+    background-position: -1px -78px;
+    margin-top: 2px
+}
+
+.item-label-type {
+    height: .53333rem;
+    line-height: .53333rem
+}
+
+.item-label-type .label-item {
+    color: #999
+}
+
+.item-label-type .seleted {
+    color: #fff
+}
+
+.item .item-left {
+    /*width: 52%;*/
+    float: left;
+    margin-top: pxToRem(42px);
+}
+
+.item .item-left .item-text {
+    display: block;
+    width: 100%;
+    margin-top: 3px
+}
+
+/*.item-lheight .item-left {
+    margin-top: 0;
+}*/
+
+.module-info-hide {
+    position: relative;
+    display: none;
+    background: #fff;
+}
+
+.hide-info-name {
+    padding: .56rem .4rem .4rem;
+    @include fontColor(38px, #ccc);
+    font-weight: 300;
+}
+
+.v-down-card {
+    background-position: -24px 0;
+    height: 30px;
+    position: absolute;
+    right: .4rem;
+    top: .86667rem;
+    width: 31px;
+    height: 30px;
+    background-size: 69px;
+    border-radius: 50%
+}
+
+.hide-info-pri {
+    position: relative;
+    padding: 0 .4rem .68rem
+}
+
+.hide-info-pri .p-icons {
+    position: static;
+    display: inline-block
+}
+
+.hide-info-pri .v-chat {
+    background-position: -46px 1px;
+    width: 15px;
+    height: 15px;
+    background-size: 400%
+}
+
+.hide-info-pri .pri-text {
+    position: absolute;
+    top: -2px;
+    margin-left: 5px;
+    font-size: .37333rem
+}
+
+.hide-info-pri .pri-tag {
+    color: #FF552E;
+    border: 1px solid #FF552E;
+    border-radius: 20px;
+    padding: 0 5px;
+    margin-left: 5px;
+    position: absolute;
+    top: 3px
+}
+
+.hide-info-pri .pri-tel {
+    font-size: pxToRem(34px);
+}
+#page1 .item-gray {
+  color: #ccc;
+}
