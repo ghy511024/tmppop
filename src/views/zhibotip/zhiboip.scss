@@ -6,6 +6,16 @@
   position: fixed;
   top: 0;
   background-color: rgba(0, 0, 0, 0.6);
+  display: none;
+  transition: all 0.4s;
+
+  &.beforeActive {
+    display: block;
+    opacity: 0;
+  }
+  &.open {
+    opacity: 1;
+  }
   .zhibo-tip-panel {
     width: rem(540px);
     height: rem(740px);
@@ -79,5 +89,33 @@
     background-size: cover;
     @include center(w);
     bottom: rem(90px);
+  }
+  .zhibo-more {
+    position: absolute;
+    font-size: rem(24px);
+    color: #698ca7;
+    right: 20px;
+
+    bottom: rem(30px);
+
+    &:after {
+      content: "";
+      width: 5px;
+      height: 9px;
+      background-image: url("img/aarow_right@2x.png?__inline");
+      background-size: cover;
+      position: absolute;
+      right: -8px;
+      @include center(h);
+    }
+  }
+  .zhibo-close {
+    width: 34px;
+    height: 34px;
+    @include center(w);
+    top: 50%;
+    margin-top: rem(360px);
+    background-image: url("img/btn_close@2x.png?__inline");
+    background-size: cover;
   }
 }

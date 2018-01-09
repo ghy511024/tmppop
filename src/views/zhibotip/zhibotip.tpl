@@ -2,7 +2,7 @@
     @import "zhiboip.scss";
 </style>
 <template name="zhibotip" fout>
-    <div class="zhibo-tip-wrap">
+    <div class="zhibo-tip-wrap" id="zhibo-tip-wrap">
         <div class="zhibo-tip-panel">
             <div class="zhibo-tip-title">
                 <h3>58直播看房</h3>
@@ -25,6 +25,6 @@
             <div class="line"></div>
             <div class="zhibo-more">了解更多</div>
         </div>
-        <div class="zhibo-close"></div>
+        <div class="zhibo-close" id="zhibo-close"></div>
     </div>
 </template>
