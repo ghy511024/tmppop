@@ -1168,7 +1168,7 @@ TPL.addStyle = TPL.addStyle || function (styleContent) {
     document.getElementsByTagName("head")[0].appendChild(styleNode);
 };
 (function (TPL) {
-    TPL.tplmap['zhibotip'] = '<div class="zhibo-tip-wrap beforeActive open" id="zhibo-tip-wrap"><div class="zhibo-tip-panel"><div class="zhibo-tip-title"><h3>58直播看房</h3><p>一次直播，多人同事看房，出租就是快</p></div><div class="zhibo-tip-body"><div class="item"><div class="pic pic1"></div><div class="tip">开启直播看房功能</div><div class="arrow"></div></div><div class="item"><div class="pic pic2"></div><div class="tip">等待租客预约</div><div class="arrow"></div></div><div class="item"><div class="pic pic3"></div><div class="tip">到“房东中心”去直播</div></div></div><div class="line"></div><div class="zhibo-more">了解更多</div></div><div class="zhibo-close" id="zhibo-close"></div></div>'
+    TPL.tplmap['zhibotip'] = '<div class="zhibo-tip-wrap" id="zhibo-tip-wrap"><div class="zhibo-tip-panel"><div class="zhibo-tip-title"><h3>58直播看房</h3><p>一次直播，多人同事看房，出租就是快</p></div><div class="zhibo-tip-body"><div class="item"><div class="pic pic1"></div><div class="tip">开启直播看房功能</div><div class="arrow"></div></div><div class="item"><div class="pic pic2"></div><div class="tip">等待租客预约</div><div class="arrow"></div></div><div class="item"><div class="pic pic3"></div><div class="tip">到“房东中心”去直播</div></div></div><div class="line"></div><div class="zhibo-more" id="zhibo-more">了解更多</div></div><div class="zhibo-close" id="zhibo-close"></div></div>'
 })(TPL);
    
 //begin insert static dom
@@ -1182,11 +1182,33 @@ TPL.addStyle('@charset "UTF-8"; /* To change this license header, choose License
         _initEvent: function () {
             var btn = document.getElementById ("zhibo-close");
             var panel = document.getElementById ("zhibo-tip-wrap");
+            var moreBtn = document.getElementById ("zhibo-more");
             var _this = this;
             btn.addEventListener ("click", function () {
                 API.close ();
+            });
+            // 阻止滚动事件冒泡
+            panel.addEventListener ("touchmove", function (e) {
+                e.preventDefault ();
             })
-        }, addClass: function (el, newClass) {
+            // 了解更多
+            moreBtn.addEventListener ("click", function () {
+                var url = location.protocol + "//pwebapp.58.com/fang/zhibo?pagetype=fangdong";
+                WBAPP.invoke ("pagetrans", {
+                    tradeline: 'core',
+                    action: 'pagetrans',
+                    content: {
+                        pagetype: 'common',
+                        url: url,
+                        title: "直播看房",
+                        isfinish: 'false'
+                    },
+                })
+            })
+
+        },
+
+        addClass: function (el, newClass) {
             var cla = el.getAttribute ("class") || "";
             var reg = new RegExp ("(^|\\s+)(" + newClass + ")($|\\s+)", "gi")
             var b = reg.test (cla);

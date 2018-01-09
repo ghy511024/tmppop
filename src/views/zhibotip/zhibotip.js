@@ -11,11 +11,33 @@
         _initEvent: function () {
             var btn = document.getElementById ("zhibo-close");
             var panel = document.getElementById ("zhibo-tip-wrap");
+            var moreBtn = document.getElementById ("zhibo-more");
             var _this = this;
             btn.addEventListener ("click", function () {
                 API.close ();
+            });
+            // 阻止滚动事件冒泡
+            panel.addEventListener ("touchmove", function (e) {
+                e.preventDefault ();
             })
-        }, addClass: function (el, newClass) {
+            // 了解更多
+            moreBtn.addEventListener ("click", function () {
+                var url = location.protocol + "//pwebapp.58.com/fang/zhibo?pagetype=fangdong";
+                WBAPP.invoke ("pagetrans", {
+                    tradeline: 'core',
+                    action: 'pagetrans',
+                    content: {
+                        pagetype: 'common',
+                        url: url,
+                        title: "直播看房",
+                        isfinish: 'false'
+                    },
+                })
+            })
+
+        },
+
+        addClass: function (el, newClass) {
             var cla = el.getAttribute ("class") || "";
             var reg = new RegExp ("(^|\\s+)(" + newClass + ")($|\\s+)", "gi")
             var b = reg.test (cla);
