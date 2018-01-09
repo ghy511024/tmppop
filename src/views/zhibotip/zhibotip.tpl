@@ -6,7 +6,7 @@
         <div class="zhibo-tip-panel">
             <div class="zhibo-tip-title">
                 <h3>58直播看房</h3>
-                <p>一次直播，多人同事看房，出租就是快</p>
+                <p>一次直播，多人同时看房，出租就是快</p>
             </div>
             <div class="zhibo-tip-body">
                 <div class="item">
