@@ -79,6 +79,15 @@
         left: rem(106px);
         top: rem(12px);
       }
+      .arrow {
+        position: absolute;
+        width: 9px;
+        height: 20px;
+        top: rem(80px);
+        left: rem(32px);
+        background-image: url("img/aarow@2x.png?__inline");
+        background-size: cover;
+      }
     }
 
   }

@@ -1,7 +1,7 @@
 /**
  * Created by ghy on 2017/12/21.
  */
-window.ZHIBOTIP = /**
+module.exports = /**
  * Created by ghy on 2017/12/21.
  *直播看房提示弹窗
  */

@@ -2,7 +2,7 @@
     @import "zhiboip.scss";
 </style>
 <template name="zhibotip" fout>
-    <div class="zhibo-tip-wrap" id="zhibo-tip-wrap">
+    <div class="zhibo-tip-wrap beforeActive open" id="zhibo-tip-wrap">
         <div class="zhibo-tip-panel">
             <div class="zhibo-tip-title">
                 <h3>58直播看房</h3>
@@ -12,10 +12,12 @@
                 <div class="item">
                     <div class="pic pic1"></div>
                     <div class="tip">开启直播看房功能</div>
+                    <div class="arrow"></div>
                 </div>
                 <div class="item">
                     <div class="pic pic2"></div>
                     <div class="tip">等待租客预约</div>
+                    <div class="arrow"></div>
                 </div>
                 <div class="item">
                     <div class="pic pic3"></div>
