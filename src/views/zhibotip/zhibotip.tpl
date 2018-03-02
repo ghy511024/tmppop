@@ -21,7 +21,7 @@
                 </div>
                 <div class="item">
                     <div class="pic pic3"></div>
-                    <div class="tip">到“房东中心”去直播</div>
+                    <div class="tip mt-zbkf" >到“租房-我的-直播看房”去直播</div>
                 </div>
             </div>
             <div class="line"></div>

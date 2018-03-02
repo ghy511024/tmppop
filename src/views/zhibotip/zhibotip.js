@@ -34,9 +34,7 @@
                     },
                 })
             })
-
         },
-
         addClass: function (el, newClass) {
             var cla = el.getAttribute ("class") || "";
             var reg = new RegExp ("(^|\\s+)(" + newClass + ")($|\\s+)", "gi")
