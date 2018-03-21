@@ -22,11 +22,11 @@ var DataApi = (function () {
             }
             for (var i = 0; i < tmpdata.length; i++) {
                 if (value == null || value.length == 0) {
-                    retarray.push (i);
+                    retarray.push(i);
                     continue;
                 }
-                if (tmpdata[i].indexOf (value)) {
-                    retarray.push (i);
+                if (tmpdata[i].indexOf(value)) {
+                    retarray.push(i);
                     continue;
                 }
             }
@@ -56,7 +56,7 @@ var DataApi = (function () {
             //
             if (param != null && true) {
                 var _this = this;
-                this._ajax (url, param, function (ret) {
+                this._ajax(url, param, function (ret) {
                     var tmpdataarray = [];
                     if (ret["ret"] == 0) {
 
@@ -65,7 +65,7 @@ var DataApi = (function () {
                         if (list != null && list instanceof Array) {
                             for (var i = 0; i < list.length; i++) {
                                 var item = list[i];
-                                tmpdataarray.push (item);
+                                tmpdataarray.push(item);
                             }
                             if (type == "louhao") {
                                 _this["loudata"] = tmpdataarray;
@@ -82,36 +82,34 @@ var DataApi = (function () {
                     // 回调回去
                     if (typeof fun == "function") {
                         // alert (tmpdataarray)
-                        fun (tmpdataarray);
+                        fun(tmpdataarray);
                     }
                 })
             }
         },
         _ajax: function (url, param, success) {
             var result;
-            $.ajax ({
+            this._native_ajax({
                 url: url,
-                // url: "/lmock/louchose.json",
                 data: (param),
-                dataType: "jsonp",
-                // dataType: "json",
+                callback: "callback",
                 error: function (jqXHR, textStatus, errorThrown) {
                     if (typeof success == "function") {
-                        result = { ret: -1 };
-                        success (result);
+                        result = {ret: -1};
+                        success(result);
                     }
                 },
                 success: function (ret) {
                     if (typeof ret == "string") {
                         try {
-                            ret = JSON.parse (ret);
+                            ret = JSON.parse(ret);
                             result = {
                                 ret: 0,
                                 data: ret
                             }
                         }
                         catch (e) {
-                            result = { ret: -1 };
+                            result = {ret: -1};
                         }
                     } else {
                         result = {
@@ -120,11 +118,93 @@ var DataApi = (function () {
                         }
                     }
                     if (typeof success == "function") {
-                        success (result);
+                        success(result);
+                    }
+                }
+            })
+        },
+        _native_ajax: function (options) {
+            options = options || {};
+            if (!options.url || !options.callback) {
+                throw new Error("参数不合法");
+            }
+
+            //创建 script 标签并加入到页面中
+            var callbackName = ('jsonp_' + Math.random()).replace(".", "");
+            var oHead = document.getElementsByTagName('head')[0];
+            options.data[options.callback] = callbackName;
+            var params = formatParams(options.data);
+            var oS = document.createElement('script');
+            oHead.appendChild(oS);
+
+            //创建jsonp回调函数
+            window[callbackName] = function (json) {
+                oHead.removeChild(oS);
+                clearTimeout(oS.timer);
+                window[callbackName] = null;
+                options.success && options.success(json);
+            };
+
+            //发送请求
+            oS.src = options.url + '?' + params;
+
+            //超时处理
+            if (options.time) {
+                oS.timer = setTimeout(function () {
+                    window[callbackName] = null;
+                    oHead.removeChild(oS);
+                    options.fail && options.fail({message: "超时"});
+                }, time);
+            }
+
+            //格式化参数
+            function formatParams(data) {
+                var arr = [];
+                for (var name in data) {
+                    arr.push(encodeURIComponent(name) + '=' + encodeURIComponent(data[name]));
+                }
+                return arr.join('&');
+            }
+        },
+        _ajax_bk: function (url, param, success) {
+            var result;
+            $.ajax({
+                url: url,
+                // url: "/lmock/louchose.json",
+                data: (param),
+                dataType: "jsonp",
+                // dataType: "json",
+                error: function (jqXHR, textStatus, errorThrown) {
+                    if (typeof success == "function") {
+                        result = {ret: -1};
+                        success(result);
+                    }
+                },
+                success: function (ret) {
+                    if (typeof ret == "string") {
+                        try {
+                            ret = JSON.parse(ret);
+                            result = {
+                                ret: 0,
+                                data: ret
+                            }
+                        }
+                        catch (e) {
+                            result = {ret: -1};
+                        }
+                    } else {
+                        result = {
+                            ret: 0,
+                            data: ret
+                        }
+                    }
+                    if (typeof success == "function") {
+                        success(result);
                     }
                 }
             })
         }
     }
     return DataApi;
-}) ();
+})
+();

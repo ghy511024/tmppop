@@ -56,7 +56,7 @@
 <p>测试页面没数据是正常的，控制台也会报错，因为接口请求跨域了，不是58 的域名，没有登录信息等，测试页面只测功能</p>
 <p>二次开发时候，可以将接口替换为假的接口，测功能</p>
 <script type="text/javascript" src="//a.58cdn.com.cn/app58/rms/app/js/app_30805.js?cachevers=200"></script>
-<script type="text/javascript" src="//j2.58cdn.com.cn/olympia/js/lib/esl_zepto_load.min.js"></script>
+<!--<script type="text/javascript" src="//j2.58cdn.com.cn/olympia/js/lib/esl_zepto_load.min.js"></script>-->
 <script src="../api/single/louchoose.js"></script>
 <script>
     var xiaoquid = "37860";// 小区id
@@ -75,7 +75,7 @@
                 LOU_CHOOSE.registCall ("menpaihao", function (louhao, danyuanhao) {
                     alert ("门牌号页面，外部用于设置顶部title等")
                 })
-                $ (".btn1").on ("click", function () {
+                document.querySelector(".btn1").addEventListener("click",function(){
                     LOU_CHOOSE.action (xiaoquid, function (status, obj) {
                         if (status == 0) {
                             alert (JSON.stringify (obj));
