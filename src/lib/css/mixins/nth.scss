@@ -1,0 +1,6 @@
+@mixin nth($n:0) {
+  $_self: '&';
+  #{$_self}:nth-child(#{$n}) {
+    @content;
+  }
+}

@@ -44,6 +44,52 @@ TPL.addNode(TPL.getTpl('louhao'));
 //begin insert style
 TPL.addStyle('.lou-select-wrap{width:100%;   height:100%;   position:fixed;   z-index:1000;   background:#f6f6f6;   top:0;   left:0;   display:none;   transition:all 0.4s ease;   transform:translateY(50px);}.lou-select-wrap.beforeActive{opacity:0;   display:block;}.lou-select-wrap.active{opacity:1;   transform:translateY(0);}.lou-select-wrap .louselect-item{width:100%;   height:100%;   position:absolute;   display:none;   background:#f6f6f6;}.lou-select-wrap .louselect-item .ipt-wrap{position:relative;   top:0px;   height:1.46667rem;   width:100%;   background:#fff;}.lou-select-wrap .louselect-item .ipt-wrap .ipt-panel{height:0.74667rem;   position:absolute;   left:0.46667rem;   right:0.46667rem;   margin:0 auto;   top:0.36rem;}.lou-select-wrap .louselect-item .ipt-wrap .icon-search{width:0.4rem;   height:0.4rem;   position:absolute;   background:url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAMAAAAM7l6QAAAATlBMVEUAAACZmZmqqqqZmZmbm5uampqampqbm5uYmJiZmZmampqcnJyampqampqZmZmZmZmZmZmenp6bm5ubm5uZmZmbm5ucnJyampqYmJiXl5ddw4MbAAAAGXRSTlMA7Az44WXbx7WWVksmFPLOgjIgQJSyPeiBRu16RQAAAMRJREFUKM+Fk0kOwyAMRQ2GkBHI2P77X7QobSlKKLwFmyfZxgNFZm8UszJ+pju9QkT1F7k4QHTDKOU4dAJwS2pXC6EpogXsmlhGKylBtuDoF4uNLmyw3/gOLd1o4T41Q8i7lgLv+hU0ZdBQZzcgKIvAHF6PLq87+PAaDHk9wJypx7wez+QMmdcSXNGV4JXSyh97VtpSbmplJOWBVtahsEyMvrSKjGb6v8jmaILPnAEDaDTR9PPpET2MPyiQ+DzB71Tyu6YXfcYOFcgEh08AAAAASUVORK5CYII=");   top:0.17333rem;   left:0px;   background-size:cover;}.lou-select-wrap .louselect-item .ipt-wrap .lou-ipt{position:absolute;   height:0.48rem;   width:5.65333rem;   left:0.53333rem;   top:0px;   box-sizing:border-box;   outline:none;   border:none;   font-size:0.37333rem;   padding:0.13333rem 0px;   box-sizing:content-box;}.lou-select-wrap .louselect-item .ipt-wrap .lou-ipt::-webkit-input-placeholder{position:absolute;   display:inline-block;   height:0.74667rem;   line-height:0.48rem;   font-size:0.37333rem;   vertical-align:top;   top:0px;   bottom:0;}.lou-select-wrap .louselect-item .ipt-wrap .lou-ipt::-moz-placeholder{position:absolute;   display:inline-block;   height:0.74667rem;   line-height:0.48rem;   font-size:0.37333rem;   vertical-align:top;   top:0px;   bottom:0;}.lou-select-wrap .louselect-item .ipt-wrap .lou-ipt:-ms-input-placeholder{position:absolute;   display:inline-block;   height:0.74667rem;   line-height:0.48rem;   font-size:0.37333rem;   vertical-align:top;   top:0px;   bottom:0;}.lou-select-wrap .louselect-item .ipt-wrap .btn-sure{position:absolute;   right:0px;   width:1.73333rem;   height:0.74667rem;   text-align:center;   line-height:0.77333rem;   font-size:0.34667rem;   border-radius:0.02667rem;   color:#fff;   background:#ff552e;}.lou-select-wrap .louselect-item .ipt-wrap .btn-sure.disable{background:#ffaa96;}.lou-select-wrap .louselect-item .list-title-wrap{position:relative;   height:1.33333rem;   border-bottom:1px solid #dddddd;   margin:0px 0.4rem;}.lou-select-wrap .louselect-item .list-title-wrap .list-title{position:absolute;   font-size:0.34667rem;   color:#999999;   line-height:0.56rem;   bottom:0.21333rem;}.lou-select-wrap .louselect-item .list-wrap{position:absolute;   width:100%;   top:2.66667rem;   bottom:0px;   overflow:auto;}.lou-select-wrap .louselect-item .list-wrap ul{margin:0px;   padding:0px;   width:100%;   background:#fff;}.lou-select-wrap .louselect-item .list-wrap ul li{width:100%;   height:1.33333rem;   line-height:1.33333rem;   text-indent:0.42667rem;   color:#000;   font-size:0.37333rem;   border-top:1px solid #f6f6f6;}.lou-select-wrap .louselect-item .list-wrap ul li:active{background:#f6f6f6;}.lou-select-wrap .louselect-item .list-wrap ul li:first-child{border:none;}.lou-select-wrap .louselect-item .list-wrap .list-footer{width:100%;   height:1.46667rem;   line-height:1.46667rem;   text-align:center;   color:#999999;}.lou-select-wrap .louselect-item .list-wrap .list-footer .jump-btn{font-size:0.32rem;}.lou-select-wrap .louselect-item{transform:translateX(100%);   transition:all 0.6s ease;}.lou-select-wrap .louselect-item.page-louhao{transform:translateX(0);}.lou-select-wrap .louselect-item.beforeActive{display:block;}.lou-select-wrap .louselect-item.active{display:block;   transform:translateX(0);}');
     /**
+ * Created by ghy on 2018/3/21.
+ */
+var Tool = {
+    addClass: function (el, newClass) {
+        var cla = el.getAttribute("class") || "";
+        var reg = new RegExp("(^|\\s+)(" + newClass + ")($|\\s+)", "gi")
+        var b = reg.test(cla);
+        if (!b) {
+            el.setAttribute("class", cla + " " + newClass);
+        }
+    }, removeClass: function (el, cla) {
+        var odcla = el.getAttribute("class") || "";
+        var reg = new RegExp("(^|\\s+)(" + cla + ")($|\\s+)", "gi")
+        cla = odcla.replace(reg, function (_, $1, _$2, $3) {
+            var ret = ""
+            ret += typeof $1 == "string" ? $1 : "";
+            ret += !!$3 ? $3 : "";
+            return ret
+        })
+        el.setAttribute("class", cla);
+    },
+    hasClass: function (el, cla) {
+        var claname = el.className;
+        var reg = new RegExp("(^|\\s+)(" + cla + ")($|\\s+)", "gi")
+        return reg.test(claname);
+    },
+    css: function (el, key, value) {
+        // var cla = el.getAttribute("style") || "";
+        var style = el.style.cssText;
+        var reg = new RegExp("(^\\s*|;\\s*)(" + key + ")\\s*(:.*?)(;|!)", "gi")
+        var b = reg.test(style);
+        if (!b) {
+            style += ";" + key + ":" + value;
+            el.style.cssText = style;
+        } else {
+            var t = style.replace(reg, function (_, $1, $2, $3) {
+                return $1 + $2 + ":" + value + ";";
+            })
+            el.style.cssText = t;
+            // console.log(t);
+        }
+    }
+}
+// var str = " background-color : blue; color: rgb(255, 255, 255);"
+// Tool.css(str, "color", "sdf");;
+    /**
  * Created by ghy on 2017/9/18.
  */
 var FRP = (function () {
@@ -115,11 +161,11 @@ var DataApi = (function () {
             }
             for (var i = 0; i < tmpdata.length; i++) {
                 if (value == null || value.length == 0) {
-                    retarray.push (i);
+                    retarray.push(i);
                     continue;
                 }
-                if (tmpdata[i].indexOf (value)) {
-                    retarray.push (i);
+                if (tmpdata[i].indexOf(value)) {
+                    retarray.push(i);
                     continue;
                 }
             }
@@ -149,7 +195,7 @@ var DataApi = (function () {
             //
             if (param != null && true) {
                 var _this = this;
-                this._ajax (url, param, function (ret) {
+                this._ajax(url, param, function (ret) {
                     var tmpdataarray = [];
                     if (ret["ret"] == 0) {
 
@@ -158,7 +204,7 @@ var DataApi = (function () {
                         if (list != null && list instanceof Array) {
                             for (var i = 0; i < list.length; i++) {
                                 var item = list[i];
-                                tmpdataarray.push (item);
+                                tmpdataarray.push(item);
                             }
                             if (type == "louhao") {
                                 _this["loudata"] = tmpdataarray;
@@ -175,36 +221,34 @@ var DataApi = (function () {
                     // 回调回去
                     if (typeof fun == "function") {
                         // alert (tmpdataarray)
-                        fun (tmpdataarray);
+                        fun(tmpdataarray);
                     }
                 })
             }
         },
         _ajax: function (url, param, success) {
             var result;
-            $.ajax ({
+            this._native_ajax({
                 url: url,
-                // url: "/lmock/louchose.json",
                 data: (param),
-                dataType: "jsonp",
-                // dataType: "json",
+                callback: "callback",
                 error: function (jqXHR, textStatus, errorThrown) {
                     if (typeof success == "function") {
-                        result = { ret: -1 };
-                        success (result);
+                        result = {ret: -1};
+                        success(result);
                     }
                 },
                 success: function (ret) {
                     if (typeof ret == "string") {
                         try {
-                            ret = JSON.parse (ret);
+                            ret = JSON.parse(ret);
                             result = {
                                 ret: 0,
                                 data: ret
                             }
                         }
                         catch (e) {
-                            result = { ret: -1 };
+                            result = {ret: -1};
                         }
                     } else {
                         result = {
@@ -213,14 +257,96 @@ var DataApi = (function () {
                         }
                     }
                     if (typeof success == "function") {
-                        success (result);
+                        success(result);
+                    }
+                }
+            })
+        },
+        _native_ajax: function (options) {
+            options = options || {};
+            if (!options.url || !options.callback) {
+                throw new Error("参数不合法");
+            }
+
+            //创建 script 标签并加入到页面中
+            var callbackName = ('jsonp_' + Math.random()).replace(".", "");
+            var oHead = document.getElementsByTagName('head')[0];
+            options.data[options.callback] = callbackName;
+            var params = formatParams(options.data);
+            var oS = document.createElement('script');
+            oHead.appendChild(oS);
+
+            //创建jsonp回调函数
+            window[callbackName] = function (json) {
+                oHead.removeChild(oS);
+                clearTimeout(oS.timer);
+                window[callbackName] = null;
+                options.success && options.success(json);
+            };
+
+            //发送请求
+            oS.src = options.url + '?' + params;
+
+            //超时处理
+            if (options.time) {
+                oS.timer = setTimeout(function () {
+                    window[callbackName] = null;
+                    oHead.removeChild(oS);
+                    options.fail && options.fail({message: "超时"});
+                }, time);
+            }
+
+            //格式化参数
+            function formatParams(data) {
+                var arr = [];
+                for (var name in data) {
+                    arr.push(encodeURIComponent(name) + '=' + encodeURIComponent(data[name]));
+                }
+                return arr.join('&');
+            }
+        },
+        _ajax_bk: function (url, param, success) {
+            var result;
+            $.ajax({
+                url: url,
+                // url: "/lmock/louchose.json",
+                data: (param),
+                dataType: "jsonp",
+                // dataType: "json",
+                error: function (jqXHR, textStatus, errorThrown) {
+                    if (typeof success == "function") {
+                        result = {ret: -1};
+                        success(result);
+                    }
+                },
+                success: function (ret) {
+                    if (typeof ret == "string") {
+                        try {
+                            ret = JSON.parse(ret);
+                            result = {
+                                ret: 0,
+                                data: ret
+                            }
+                        }
+                        catch (e) {
+                            result = {ret: -1};
+                        }
+                    } else {
+                        result = {
+                            ret: 0,
+                            data: ret
+                        }
+                    }
+                    if (typeof success == "function") {
+                        success(result);
                     }
                 }
             })
         }
     }
     return DataApi;
-}) ();;
+})
+();;
     /**
  * Created by ghy on 2017/12/19.
  */
@@ -277,115 +403,218 @@ function sccheck (el) {
         page_next: false,
         is_inload: false,
         init: function () {
-            this._layout ();
-            this.initEvent ();
-            this.scEvent ();
+            this._layout();
+            this.initEvent();
+            this.scEvent();
         }
         ,
         initEvent: function () {
             var _this = this;
-            $ (".lou-select-wrap").on ("click", ".list-wrap li", function () {
-                var page = $ (this).parents (".louselect-item");
-                var name = $ (this).attr ("name");
-                var type = page.attr ("ptype")
-                page.find (".ipt-panel input").val (name).attr ("name", name)
-                page.find (".btn-sure").removeClass ("disable");
-                loudata.formdata[type] = name;
-                var npage = type == "louhao" ? "danyuanhao" : (type == "danyuanhao" ? "menpaihao" : false)
-                if (type == "louhao") {
-                    _this.showPage ("danyuanhao", name);
-                } else if (type == "danyuanhao") {
-                    _this.showPage ("menpaihao", name);
-                } else if (type == "menpaihao") {
-                    _this.finish ();
-                }
-                FRP.liclick (type);
-            })
+            var l_wrap = document.getElementsByClassName("list-wrap");
+            for (var i = 0; i < l_wrap.length; i++) {
+                var it = l_wrap[i]
+                cl(it);
+            }
+            function cl(it) {
+                var page = it.parentNode;
+                l_wrap[i].addEventListener("click", function (e) {
+                    var el = e.target;
+                    var name = el.getAttribute("name")
+                    if (!!name) {
+                        var type = page.getAttribute("ptype")
+                        page.querySelector(".ipt-panel input").value = name;
+                        Tool.removeClass(page.querySelector(".btn-sure"), "disable")
+                        // page.querySelector(".btn-sure").removeClass("disable");
+                        loudata.formdata[type] = name;
+                        var npage = type == "louhao" ? "danyuanhao" : (type == "danyuanhao" ? "menpaihao" : false)
+                        if (type == "louhao") {
+                            _this.showPage("danyuanhao", name);
+                        } else if (type == "danyuanhao") {
+                            _this.showPage("menpaihao", name);
+                        } else if (type == "menpaihao") {
+                            _this.finish();
+                        }
+                        FRP.liclick(type);
+                    }
+
+                })
+            }
+
+            // document.addEventListener("click", function (e) {
+            //     alert(e.target.className)
+            // })
+            // $(".lou-select-wrap").on("click", ".list-wrap li", function () {
+            //     var page = $(this).parents(".louselect-item");
+            //     var name = $(this).attr("name");
+            //     var type = page.attr("ptype")
+            //     page.find(".ipt-panel input").val(name).attr("name", name)
+            //     page.find(".btn-sure").removeClass("disable");
+            //     loudata.formdata[type] = name;
+            //     var npage = type == "louhao" ? "danyuanhao" : (type == "danyuanhao" ? "menpaihao" : false)
+            //     if (type == "louhao") {
+            //         _this.showPage("danyuanhao", name);
+            //     } else if (type == "danyuanhao") {
+            //         _this.showPage("menpaihao", name);
+            //     } else if (type == "menpaihao") {
+            //         _this.finish();
+            //     }
+            //     FRP.liclick(type);
+            // })
+
 
             // 确认楼号
-            $ ("#sure-louhao").on ("click", function () {
-                if (!$ (this).hasClass ("disable")) {
-                    var name = $ ("#louhao-ipt").val ();
+
+            var sure_louhao = document.getElementById("sure-louhao")
+            sure_louhao.addEventListener("click", function (e) {
+                if (!Tool.hasClass(e.target, "disable")) {
+                    var name = document.getElementById("louhao-ipt").value;// $("#louhao-ipt").val();
                     loudata.formdata.louhao = name;
-                    _this.showPage ("danyuanhao", name);
-                    FRP.sureclick ("louhao");
+                    _this.showPage("danyuanhao", name);
+                    FRP.sureclick("louhao");
                 }
             })
+            // $("#sure-louhao").on("click", function () {
+            //     if (!$(this).hasClass("disable")) {
+            //         var name = $("#louhao-ipt").val();
+            //         loudata.formdata.louhao = name;
+            //         _this.showPage("danyuanhao", name);
+            //         FRP.sureclick("louhao");
+            //     }
+            // })
             // 确认单元号
-            $ ("#sure-danyuanhao").on ("click", function () {
-                if (!$ (this).hasClass ("disable")) {
-                    var name = $ ("#danyuanhao-ipt").val ();
+
+            var sure_danyuanhao = document.getElementById("sure-danyuanhao")
+            sure_danyuanhao.addEventListener("click", function (e) {
+                if (!Tool.hasClass(e.target, "disable")) {
+                    var name = document.getElementById("danyuanhao-ipt").value;// $("#louhao-ipt").val();
                     loudata.formdata.danyuanhao = name;
-                    _this.showPage ("menpaihao", name);
-                    FRP.sureclick ("danyuanhao");
+                    _this.showPage("menpaihao", name);
+                    FRP.sureclick("danyuanhao");
                 }
             })
+            // $("#sure-danyuanhao").on("click", function () {
+            //     if (!$(this).hasClass("disable")) {
+            //         var name = $("#danyuanhao-ipt").val();
+            //         loudata.formdata.danyuanhao = name;
+            //         _this.showPage("menpaihao", name);
+            //         FRP.sureclick("danyuanhao");
+            //     }
+            // })
 
             // 确认门号
-            $ ("#sure-menpaihao").on ("click", function () {
-                if (!$ (this).hasClass ("disable")) {
-                    var name = $ ("#menpaihao-ipt").val ();
+
+            var sure_menpaihao = document.getElementById("sure-menpaihao")
+            sure_menpaihao.addEventListener("click", function (e) {
+                if (!Tool.hasClass(e.target, "disable")) {
+                    var name = document.getElementById("menpaihao-ipt").value;// $("#louhao-ipt").val();
                     loudata.formdata.menpaihao = name;
-                    _this.finish ();
-                    FRP.sureclick ("menpaihao");
+                    _this.finish();
+                    FRP.sureclick("menpaihao");
                 }
-            });
-            // 直接跳过
-            $ (".lou-select-wrap .jump-btn").on ("click", function () {
-                _this.jumpnext ();
-                var type = $ (this).attr ("ptype");
-                FRP.jumpclick (type);
             })
 
+            // $("#sure-menpaihao").on("click", function () {
+            //     if (!$(this).hasClass("disable")) {
+            //         var name = $("#menpaihao-ipt").val();
+            //         loudata.formdata.menpaihao = name;
+            //         _this.finish();
+            //         FRP.sureclick("menpaihao");
+            //     }
+            // });
+            // 直接跳过
+            var jump_btn = document.querySelectorAll(".lou-select-wrap .jump-btn");
+            for (var i = 0; i < jump_btn.length; i++) {
+                var btn = jump_btn[i];
+                jum_fn(btn);
+            }
+            function jum_fn(btn) {
+                btn.addEventListener("click", function (e) {
+                    var el = e.target;
+                    var type = el.getAttribute("ptype");
+                    FRP.jumpclick(type);
+                    _this.jumpnext();
+                })
+            }
+
+            // $(".lou-select-wrap .jump-btn").on("click", function () {
+            //     _this.jumpnext();
+            //     var type = $(this).attr("ptype");
+            //     FRP.jumpclick(type);
+            // })
+
             // 输入事件
-            $ (".lou-select-wrap .lou-ipt").forEach (function (item) {
-                $ (item)[0].oninput = function () {
-                    var type = $ (this).attr ("loutype");
-                    var value = $ (this).val ().replace (/\s/gi, "");
+            var lou_ipt = document.querySelectorAll(".lou-select-wrap .lou-ipt")
+            for (var i = 0; i < lou_ipt.length; i++) {
+                lou_ipt[i].oninput = function (e) {
+                    var el = e.target;
+                    var type = el.getAttribute("loutype");
+                    var value = el.value.replace(/\s/gi, "");
+                    // var type = $(this).attr("loutype");
+                    // var value = $(this).val().replace(/\s/gi, "");
                     if (value != null && value.length > 0) {
                         if (value.length >= 20) {
-                            value = value.slice (0, 20);
-                            var _this = this;
-                            setTimeout (function () {
-                                $ (_this).val (value);
+                            value = value.slice(0, 20);
+                            var _this = el;
+                            setTimeout(function () {
+                                _this.value = value;
                             }, 0)
 
                         } else {
-                            $ (this).parent ().find (".btn-sure").removeClass ("disable");
+                            Tool.removeClass(el.parentNode.querySelector(".btn-sure"), "disable")
                         }
                     } else {
-                        $ (this).parent ().find (".btn-sure").addClass ("disable");
+                        Tool.addClass(el.parentNode.querySelector(".btn-sure"), "disable")
                     }
-                    var checkarray = DataApi.search (type, value);
+                    var checkarray = DataApi.search(type, value);
                 }
-            })
+            }
+            // $(".lou-select-wrap .lou-ipt").forEach(function (item) {
+            //     $(item)[0].oninput = function () {
+            //         var type = $(this).attr("loutype");
+            //         var value = $(this).val().replace(/\s/gi, "");
+            //         if (value != null && value.length > 0) {
+            //             if (value.length >= 20) {
+            //                 value = value.slice(0, 20);
+            //                 var _this = this;
+            //                 setTimeout(function () {
+            //                     $(_this).val(value);
+            //                 }, 0)
+            //
+            //             } else {
+            //                 $(this).parent().find(".btn-sure").removeClass("disable");
+            //             }
+            //         } else {
+            //             $(this).parent().find(".btn-sure").addClass("disable");
+            //         }
+            //         var checkarray = DataApi.search(type, value);
+            //     }
+            // })
         }
         ,
         // 注册滚动事件，滚动到底部加载
         scEvent: function () {
             var _this = this;
 
-            function scregist (type) {
-                var l_h = $ ("#" + type + "+_sc").height ();
-                var s_h = $ ("." + type + "-list").height ();
-                $ ("." + type + "-list")[0].onscroll = function () {
-                    l_h = $ ("#" + type + "_sc").height ();
-                    s_h = s_h !== 0 ? s_h : $ ("." + type + "-list").height ();
+            function scregist(type) {
+                var l_h = document.getElementById(type + "_sc").offsetHeight;
+                var s_h = document.querySelector("." + type + "-list").offsetHeight;
+                document.querySelector("." + type + "-list").onscroll = function () {
+                    l_h = document.getElementById("louhao_sc").offsetHeight;
+                    s_h = s_h !== 0 ? s_h : document.querySelector("." + type + "-list").offsetHeight;
                     if (l_h - s_h - this.scrollTop < 100) {
-                        if (!_this.is_inload && _this.page_next)
-                        {
-                            clearTimeout (time_lock);
-                            time_lock = setTimeout (function () {
-                                _this.getData (type, ++loudata.cpageNum[type]);
+                        if (!_this.is_inload && _this.page_next) {
+                            clearTimeout(time_lock);
+                            time_lock = setTimeout(function () {
+                                _this.getData(type, ++loudata.cpageNum[type]);
                             }, 16)
                         }
                     }
                 }
             }
 
-            scregist ("louhao");
-            scregist ("danyuanhao");
-            scregist ("menpaihao");
+            scregist("louhao");
+            scregist("danyuanhao");
+            scregist("menpaihao");
             // sccheck ($ (".louhao-list")[0]);
         },
         // 初始化，html ，将模版字符串添加进html
@@ -396,26 +625,33 @@ function sccheck (el) {
         showPage: function (type, typeid, isback) {
             // 清除数据,true 代表回退操作不用清除
             if (isback) {
-                this.anPage (type, "pre")
+                this.anPage(type, "pre")
             }
             else {
-                $ ("." + type + "-list ul").empty ();
-                $ (".page-" + type + " .ipt-wrap input").val ("").removeAttr ("name");
-                $ (".page-" + type + " .ipt-wrap .btn-sure").addClass ("disable");
+                // $("." + type + "-list ul").empty();
+                // $(".page-" + type + " .ipt-wrap input").val("").removeAttr("name");
+                // $(".page-" + type + " .ipt-wrap .btn-sure").addClass("disable");
+                // loudata["formdata"][type] = null;
+                // loudata.cpageNum[type] = 1;// 清除分页
+                // this.anPage(type, "next")
+                document.querySelector("." + type + "-list ul").innerHTML = "";
+                document.querySelector(".page-" + type + " .ipt-wrap input").value = "";
+                document.querySelector(".page-" + type + " .ipt-wrap input").setAttribute("name", "");
+                Tool.removeClass(document.querySelector(".page-" + type + " .ipt-wrap .btn-sure"), "disable");
                 loudata["formdata"][type] = null;
                 loudata.cpageNum[type] = 1;// 清除分页
-                this.anPage (type, "next")
+                this.anPage(type, "next")
             }
 
-            this.noticeCall (type);
+            this.noticeCall(type);
             if (typeid != null) {
-                this.getData (type);
+                this.getData(type);
             }
             // 显示页面
             // $ (".page-item.active").removeClass ("active");
             // $ (".page-item.page-" + type).addClass ("active");
             loudata.cpage = type == "louhao" ? 1 : (type == "danyuanhao" ? 2 : 3);
-            this.showloading ();
+            this.showloading();
             return;
         }
         ,
@@ -429,14 +665,20 @@ function sccheck (el) {
                 danyuanhao: loudata.formdata.danyuanhao,
                 page: (pageNum || 1)
             }
-            DataApi.getData (type, param, function (list) {
+            DataApi.getData(type, param, function (list) {
                 _this.page_next = false;
                 if (list != null && list.length > 0) {
                     for (var i = 0; i < list.length; i++) {
                         var item = list[i];
-                        var liitem = $ (TPL.getTpl ("liitem"));
-                        liitem.html (item).attr ("name", item);
-                        $ ("." + type + "-list ul").append (liitem);
+                        var divTemp = document.createElement("div")
+                        divTemp.innerHTML = TPL.getTpl("liitem");
+                        var liitem = divTemp.childNodes[0];
+                        liitem.innerHTML=item;
+                        liitem.setAttribute("name", item);
+                        document.querySelector("." + type + "-list ul").appendChild(liitem)
+                        // var liitem = $(TPL.getTpl("liitem"));
+                        // liitem.html(item).attr("name", item);
+                        // $("." + type + "-list ul").append(liitem);
                     }
                 }
                 if (list.length >= 10) {
@@ -450,7 +692,7 @@ function sccheck (el) {
                 for (var i = 0; i < lou_call.length; i++) {
                     var fun = lou_call[i];
                     if (typeof fun == "function") {
-                        fun ();
+                        fun();
                     }
                 }
             }
@@ -458,7 +700,7 @@ function sccheck (el) {
                 for (var i = 0; i < danyuan_call.length; i++) {
                     var fun = danyuan_call[i];
                     if (typeof fun == "function") {
-                        fun (loudata.formdata.louhao || "无楼号");
+                        fun(loudata.formdata.louhao || "无楼号");
                     }
                 }
             }
@@ -466,7 +708,7 @@ function sccheck (el) {
                 for (var i = 0; i < men_call.length; i++) {
                     var fun = men_call[i];
                     if (typeof fun == "function") {
-                        fun (loudata.formdata.louhao || "无楼号", loudata.formdata.danyuanhao || "无单元号");
+                        fun(loudata.formdata.louhao || "无楼号", loudata.formdata.danyuanhao || "无单元号");
                     }
                 }
             }
@@ -480,32 +722,36 @@ function sccheck (el) {
                 type = "menpaihao"
             }
             else if (cpage == 3) {
-                this.finish ();
+                this.finish();
             }
-
             if (!!type) {
-                this.showPage (type, null);
+                this.showPage(type, null);
             }
         },
         anPage: function (loutype, antype) {
-
             if (antype == "next") {
-                $ (".page-" + loutype).addClass ("beforeActive");
-                setTimeout (function () {
-                    $ (".page-" + loutype).addClass ("active");
+                Tool.addClass(document.querySelector(".page-" + loutype), "beforeActive")
+                // $(".page-" + loutype).addClass("beforeActive");
+                setTimeout(function () {
+                    Tool.addClass(document.querySelector(".page-" + loutype), "active")
+                    // $(".page-" + loutype).addClass("active");
                 }, 0)
             }
             if (antype == "pre") {
                 if (loutype == "danyuanhao") {
-                    $ (".page-menpaihao").removeClass ("active");
-                    setTimeout (function () {
-                        $ (".page-menpaihao").removeClass ("beforeActive");
+                    Tool.removeClass(document.querySelector(".page-menpaihao"), "active")
+                    // $(".page-menpaihao").removeClass("active");
+                    setTimeout(function () {
+                        Tool.removeClass(document.querySelector(".page-menpaihao"), "beforeActive")
+                        // $(".page-menpaihao").removeClass("beforeActive");
                     }, 600)
                 }
                 if (loutype == "louhao") {
-                    $ (".page-danyuanhao").removeClass ("active");
-                    setTimeout (function () {
-                        $ (".page-menpaihao").removeClass ("beforeActive");
+                    Tool.removeClass(document.querySelector(".page-danyuanhao"), "active")
+                    // $(".page-danyuanhao").removeClass("active");
+                    setTimeout(function () {
+                        Tool.removeClass(document.querySelector(".page-menpaihao"), "beforeActive")
+                        // $(".page-menpaihao").removeClass("beforeActive");
                     }, 600)
                 }
             }
@@ -517,11 +763,14 @@ function sccheck (el) {
 // 完成
         finish: function (isfinish) {
             loudata.isshow = false;
-            $ (".lou-select-wrap").removeClass ("active");
+            Tool.removeClass(document.querySelector(".lou-select-wrap"), "active")
+            // $(".lou-select-wrap").removeClass("active");
 
-            setTimeout (function () {
-                $ (".lou-select-wrap").removeClass ("beforeActive");
-                $ (".louselect-item").removeClass ("active").removeClass ("beforeActive");
+            setTimeout(function () {
+                Tool.removeClass(document.querySelector(".lou-select-wrap"), "beforeActive")
+                // $(".lou-select-wrap").removeClass("beforeActive");
+                // $(".louselect-item").removeClass("active").removeClass("beforeActive");
+                Tool.removeClass(document.querySelector(".louselect-item"), "beforeActive")
             }, 600)
             // 重置数据
             // var retdata = Object.assign ({}, loudata.formdata);
@@ -545,26 +794,38 @@ function sccheck (el) {
                 retdata.louhao = tmp_louhao || "无楼号"
                 retdata.danyuanhao = tmp_danyuanhao || "无单元号"
                 retdata.menpaihao = tmp_menpaihao || "无门牌号"
-                callback (ret, retdata)
+                callback(ret, retdata)
             }
 
-            $ ("html,body").css ({ overflow: "auto", height: "auto" });
+            // $("html,body").css({overflow: "auto", height: "auto"});
+            Tool.css(document.querySelector("html"), "overflow", "auto")
+            Tool.css(document.querySelector("html"), "height", "auto")
+            Tool.css(document.querySelector("body"), "overflow", "auto")
+            Tool.css(document.querySelector("body"), "height", "auto")
             // $ ('body').off ('touchmove touchstart');
         }
         ,
 // 初始化调用
         action: function (xiaoquId) {
             // xiaoquId = "1747";
-            $ (".lou-select-wrap").addClass ("beforeActive");
-            setTimeout (function () {
-                $ (".lou-select-wrap").addClass ("active");
+
+            // $(".lou-select-wrap").addClass("beforeActive");
+            Tool.addClass(document.querySelector(".lou-select-wrap"), "beforeActive")
+            setTimeout(function () {
+                // $(".lou-select-wrap").addClass("active");
+                Tool.addClass(document.querySelector(".lou-select-wrap"), "active")
             }, 0)
 
             loudata.isshow = true;
             loudata.xiaoquId = xiaoquId;
-            this.showPage ("louhao", xiaoquId);
-            FRP.showrep ();
-            $ ("html,body").css ({ overflow: "hidden", height: "100vh" });
+            this.showPage("louhao", xiaoquId);
+            FRP.showrep();
+            Tool.css(document.querySelector("html"), "overflow", "hidden")
+            Tool.css(document.querySelector("html"), "height", "100vh")
+            Tool.css(document.querySelector("body"), "overflow", "hidden")
+            Tool.css(document.querySelector("body"), "height", "100vh")
+            // document.querySelector("html").style.cssText = "background-color: blue;color: #fff;";
+            // $("html,body").css({overflow: "hidden", height: "100vh"});
         }
         ,
     }
@@ -577,15 +838,15 @@ function sccheck (el) {
                     break;
                 }
                 case 1: {
-                    LS.finish (false);
+                    LS.finish(false);
                     break;
                 }
                 case 2: {
-                    LS.showPage ("louhao", null, true);
+                    LS.showPage("louhao", null, true);
                     break;
                 }
                 case 3: {
-                    LS.showPage ("danyuanhao", null, true);
+                    LS.showPage("danyuanhao", null, true);
                     break;
                 }
             }
@@ -593,20 +854,20 @@ function sccheck (el) {
         isshow: function () {
             var isshow = false;
             if (loudata.isshow) {
-                isshow = $ (".lou-select-wrap").hasClass ("active");
+                isshow = $(".lou-select-wrap").hasClass("active");
             }
             return isshow;
         },
         registCall: function (type, fun) {
             if (typeof fun == "function") {
                 if (type == "louhao") {
-                    lou_call.push (fun)
+                    lou_call.push(fun)
                 }
                 else if (type == "danyuanhao") {
-                    danyuan_call.push (fun)
+                    danyuan_call.push(fun)
 
                 } else if (type == "menpaihao") {
-                    men_call.push (fun)
+                    men_call.push(fun)
                 }
             }
         },
@@ -615,13 +876,13 @@ function sccheck (el) {
             if (typeof fun == "function") {
                 callback = fun;
             }
-            LS.action (xiaoquId);
+            LS.action(xiaoquId);
             loudata.isshow = true;
         }
     }
-    LS.init ();
+    LS.init();
     return API;
-}) ();
+})();
 var SF_CHANGE = (function () {
     
 window.TPL = window.TPL || {};
@@ -1133,9 +1394,122 @@ var SFRP = (function () {
     return API;
 }) ()
 ;
+var ZHIBOTIP =/**
+ * Created by ghy on 2017/12/21.
+ *直播看房提示弹窗
+ */
+(function () {
+    
+window.TPL = window.TPL || {};
+TPL.tplmap = TPL.tplmap || {};
+TPL.getTpl = TPL.getTpl || function (_id) {
+    return this.tplmap[_id];
+};
+TPL.addNode=TPL.addNode||function(html){
+     var divTemp = document.createElement("div"), nodes = null ,
+              fragment = document.createDocumentFragment();
+      divTemp.innerHTML = html;
+       nodes = divTemp.childNodes;
+    for (var i=0, length=nodes.length; i<length; i+=1) {
+       fragment.appendChild(nodes[i].cloneNode(true));
+    }
+    document.body.appendChild(fragment);
+    nodes = null;
+    fragment = null;
+}
+TPL.addStyle = TPL.addStyle || function (styleContent) {
+    var styleNode = document.getElementById("jsptpl-style") || document.createElement("style");
+    styleNode.setAttribute("type", "text/css");
+    styleNode.setAttribute("id", "jsptpl-style");
+    if (styleNode.styleSheet) {
+        styleNode.styleSheet.cssText = styleContent;
+    } else {
+        styleNode.appendChild(document.createTextNode(styleContent));
+    }
+    document.getElementsByTagName("head")[0].appendChild(styleNode);
+};
+(function (TPL) {
+    TPL.tplmap['zhibotip'] = '<div class="zhibo-tip-wrap" id="zhibo-tip-wrap"><div class="zhibo-tip-panel"><div class="zhibo-tip-title"><h3>58直播看房</h3><p>一次直播，多人同时看房，出租就是快</p></div><div class="zhibo-tip-body"><div class="item"><div class="pic pic1"></div><div class="tip">开启直播看房功能</div><div class="arrow"></div></div><div class="item"><div class="pic pic2"></div><div class="tip">等待租客预约</div><div class="arrow"></div></div><div class="item"><div class="pic pic3"></div><div class="tip mt-zbkf" >到“租房-个人中心”去直播</div></div></div><div class="line"></div><div class="zhibo-more" id="zhibo-more">了解更多</div></div><div class="zhibo-close" id="zhibo-close"></div></div>'
+})(TPL);
+   
+//begin insert static dom
+TPL.addNode(TPL.getTpl('zhibotip'));
+//begin insert style
+TPL.addStyle('@charset "UTF-8"; /* To change this license header, choose License Headers in Project Properties. To change this template file, choose Tools | Templates and open the template in the editor. */ /*      Created on:2017-8-31, 23:11:17     Author:ghy */ /**  * @param $line       超出显示省略号的行数，默认：1  * @param $substract  为预留区域百分比%，默认：0  */ /* To change this license header, choose License Headers in Project Properties. To change this template file, choose Tools | Templates and open the template in the editor. */ /*      Created on:2017-8-31, 23:12:32     Author:ghy */ /* @author 龚虹宇 */ /** -------------------------------------------     Generic Mixins     ------------------------------------------- **/ /**  * Adds prefixed version of values in a property  */ .zhibo-tip-wrap{width:100%;   height:100%;   position:fixed;   top:0;   background-color:rgba(0, 0, 0, 0.6);   display:none;   transition:all 0.4s;}.zhibo-tip-wrap.beforeActive{display:block;   opacity:0;}.zhibo-tip-wrap.open{opacity:1;}.zhibo-tip-wrap .zhibo-tip-panel{width:7.2rem;   height:9.86667rem;   position:absolute;   left:0px;   right:0px;   top:50%;   margin:0 auto;   margin-top:-5.6rem;   background-color:#fff;}.zhibo-tip-wrap .zhibo-tip-title{width:100%;   height:2.50667rem;   background:#4c97ef;}.zhibo-tip-wrap .zhibo-tip-title h3{color:#fff;   font-size:0.58667rem;   position:absolute;   left:0.8rem;   top:0.66667rem;}.zhibo-tip-wrap .zhibo-tip-title p{color:rgba(255, 255, 255, 0.85);   font-size:0.32rem;   position:absolute;   left:0.8rem;   top:1.52rem;}.zhibo-tip-wrap .zhibo-tip-body{width:100%;   height:6.16rem;}.zhibo-tip-wrap .zhibo-tip-body .item{height:1.70667rem;   margin:0px 0px 0px 0.8rem;   position:relative;}.zhibo-tip-wrap .zhibo-tip-body .item:nth-child(1){margin-top:0.90667rem;}.zhibo-tip-wrap .zhibo-tip-body .item .pic{position:absolute;   width:45px;   height:35px;   background-size:cover;}.zhibo-tip-wrap .zhibo-tip-body .item .pic.pic1{background-image:url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFoAAABGCAMAAAB7YnPQAAABBVBMVEUAAACrr60xg+Q+iN6rr62qr62ttK2ttq2prqurr62pr6yqsKyqrq7///9Tl+b+/v74+Pg9iN719fX09PTy9PLy8vLt7u3o6OjU1tTLzMy1ubezt7WqrqyqsK2ssKy0tLRGj+I6h+A3huAzheMxg+RWmehAid4zheX39/c0hOIxhORilc3Z2tnX2dcxhOUyg+Qyg+QxhOSqsa4yheQ1helAoPBZm+lQleVPlOUxhOQxhOQyhOQxg+QzhOQzheQyheYyheO50u9Hi9lUkNO3xtgyg+R1m8WOpbieqbGPprszg+L///9anOlfn+rP4vl8sO3y9/7i7vy61faNuvDp8fypy/Nxqu0b1u5TAAAAS3RSTlMAf8zleGEiHHRtU01C/Pn46+Ph3t7c0MennIeHflc3Ee3e2dHG+ucr6tK7ta2tkH5nYEg7GQX99fOypZiIcUsyI+nWxbKtpJCGcFCyCF3fAAACYklEQVRYw+yUyw6CQAxFnWQG5BUILxVfWxe68Tcq8v9/I8XEDBWGysQdZ92cNO1tVwsLC/a4oa88KRhIT/mhy/U6wVr8yDpwOA0rMQs11fr5KGZzPBtnIfmm6lZmSRwnWXmrRIc0TOV0YIu3eQQfonwrkMNpzHxni3cpENKdQO4jPbPNGxhgI5DBvh3uNPYFDFLscSbOQDYk13yBES7olt85YaeugFGKLoPU7FrMmcyb3o7iZgOMYE4U2aFgkoKRFGv6mwy4lwIT4O0EPTX31+UwQY5/cM4Sq4iYnk3dPEEjqsgiQ6b6Ss0PpOe+tmWhpvaZ6pKom07dgEbZlvkzopcRdd2pa9DISPw8pjoh6scb0EjaMk9TS6Y6nlbH+Ef+qP7jQCzWSNV0jRbho2oaPouTMahf7ddZboMwFIVh6/odyTtgRgQ1BBGSZk7nQUEiSdv9L6U4autig19OH/sv4BOysH19JbcMutEVbWx09HhStH48wYeqoo9vTaMdqvBVcPhVXX+c32+e1FWAXWAHPZffZi/AtTtMX/O2YFWiw4JJO1L2iKjARhyTjuJWFgG1JeBg1py63yxlnpIsh8bJ47k215n7dGmMDMGnLuy4SpY0MLrfRyasZMqBB0fGY3fuRLNZ5MzdmF8SKX23AZ5Jd9zIC+inAnjcZX2wags8SR87rvBT6lQCD+ln8YUKz/MD0ksY0IpsTRG6sNIVQic2OWRQIwu9xOjcQq8xemehJwxrMUxvQXpi+/ewpuGQ/ICw9s/ewHS1HKBLBrfvX5JFxfBe++xwx/6iZKxvytF6z/7r7RPHEEMWDkMW6gAAAABJRU5ErkJggg==");}.zhibo-tip-wrap .zhibo-tip-body .item .pic.pic2{background-image:url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFoAAABGCAMAAAB7YnPQAAAAllBMVEUAAACrr60xg+Qyg+Mxg+Sqrqyqr60xhOQxheRJktsyhOMyhOSpraszhOSqr681heSsrKyzs7NLkOHU19ZJj+E8ieLT1tXS1tUxhOPLzs7////V19ZanOlRlODZ29rz8/OmyvNqpuz7/P3P4vmEte9zq+xioerZ6Pqz0fVYmOTJ3/jr7exZm+iUtduSvvB9q9ypwdm2x9hpcSpgAAAAGnRSTlMAf8xtv3JhtUMHrpl6XzMwJQ3z8vDcw7aHU6aINU0AAAF4SURBVFjD7dXZcoIwFIDhLKyKe7VKAAHBpa1d3v/lypSxVJQD5OSi0+a/zcw3mRMPEp1OsqlJqTkFz2QzaZEJnslGv4LO/gM9tjzaO88at8Izi0pmzVroQpa2W6ZBEY0Rl0Zd28PQHkhTVJruQwtUf5P2JdO0plXR20gARVsEXcig/TvprgM5xFm+3+dZ/KH2GdNjElwKT2dXHf1UwBUdhrajio5Ls6IZ42ro1+CWZmv5Z4y2d+68233TjMv/+KLLnIMq369o5mDpNGmibRc5kGPQRLMR8hmTZtrA0YegmWYTFB1DNEfRGUQPUXQO0QMUvS9XxS+r0YZKeqeQzoNa6gaSATTyGWOI5siVqdW+Mgsh0j6LXvXStugrIZ470cc6fQrDOfh52ojC7nLvNLm+cyGHS/CjSh5Fx97Deg8M/Csgs872+b7MSXOb1aKb/fYTni9LeU2UxNlNnCjKsa9h2yHKckdGBRsjlyhtwocDwxgM+YTodH37BNY6BAmvgSeUAAAAAElFTkSuQmCC");}.zhibo-tip-wrap .zhibo-tip-body .item .pic.pic3{background-image:url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFoAAABGCAMAAAB7YnPQAAAAnFBMVEUAAACrr60xg+Tn5/+praursK2prqyqr6/CxcP+/v79/f3y8vLo6egxg+WxsbHp6+nd3t0yg+QxhOQxhOSzt7Wtsa8yheX7+/v4+Pj39/cyg+MxhOTf4N/R1NLO0dC9wL6xs7ExhOMyhOQxheQxhOQzheU0heM0guUzhuY9kvNAv//19vXr6+vl5ubZ29m2uri2urgzhOUyhOb////C5WLpAAAAM3RSTlMAf8wBemRfM5P79trGiw3JtK6imoeBLfHr6cK5t6WijoOBdV1FOSQdFAoE4svBr4mIalHDzk8EAAABLUlEQVRYw+3XW27CMBCF4XqSEKCEQCihlBYopaXcL97/3jB58Vs8Y+lIgPwv4FM0Ao3nJRQKhe69KE1iJSlO0ogldxtKXqPL+WYj+9iM706VX6mbTjzpxE3HnnTsppVvT0IvB0UJof8GRNQH0OsFVbno2S5viujoMiEevdVa50c+XRZETFrfan8OefT/N5GINr1/MejNzweJadNr00X/9olEtC0/1dIZkS9djbyGJk/ajhxA25GDaFNnCKN1D0fvYfRoBqJbnTcFoasfCIQeT0F/mXZPKQRdDbmWXohpO+Sa7EYU0+MpaxUsJxJ6ZIfM2DLrs4A+tMyQBWt3lbFpNZ/LHgt22QDeIWZFQmi72AsEbSqzbAWgAU93zMEBPJOAxx3uJAUe0qFQKPR4XQGV0UOlUcvZ8gAAAABJRU5ErkJggg==");}.zhibo-tip-wrap .zhibo-tip-body .item .tip{font-size:0.42667rem;   color:#333536;   position:absolute;   left:1.41333rem;   top:0.16rem;}.zhibo-tip-wrap .zhibo-tip-body .item .tip.mt-zbkf{top:-0.16rem;   padding-right:0.16rem;}.zhibo-tip-wrap .zhibo-tip-body .item .arrow{position:absolute;   width:9px;   height:20px;   top:1.06667rem;   left:0.42667rem;   background-image:url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABIAAAAoCAYAAADzL6qcAAAAAXNSR0IArs4c6QAAAVBJREFUSA3tVjFLw1AQvu9MI9JNqm7uLv6XLoEaKgFHEXERBGcFHTor1pi0dnRxEF0EncTJIu4ujoJIEVrzzryMr8WXoSiFBG64d3cfl9z78h2R5QnDdjM8a51Y0sixJQjLsi1Hx61AAPfGAiSiymMBgkKXIJIHbMJyivHnuJDF+K2kLdg/YcTP2i3YX7D/T7VfXzhiKpVn3A3P8z5M0vym/VHUripgc8rBLgPkCslS72uwboJoX2v/KP2P44v5RGRHx5QIs+vyFohvmHA7CkhrP4SezFi9Xn1Pm7iE4v3A9+/M+P/7MFs46nQq0wN1TIL7IPAb2TDStcYt8V4/oYO04CpY9Ztm3dDP3wH0x18QyEocn798i8pWv34ihyKySMCcCaJ9Ng/XarU3CLZTe04SvOrxZ0b0kHZ5/VmZbZg1ufzTqPWozZY89GpmQd7V7wdXHKrT7GR+3AAAAABJRU5ErkJggg==");   background-size:cover;}.zhibo-tip-wrap .line{width:257px;   height:1px;   background-image:url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAgMAAAACAQMAAAD/1k2YAAAABlBMVEUAAADW7OPnq/9vAAAAAnRSTlMAgJsrThgAAAAcSURBVAjXY/jB+IH5AfsB/gZ5BjuGGjK4lJsAAMcBLXGRZaK6AAAAAElFTkSuQmCC");   background-size:cover;   position:absolute;   left:50%;   -webkit-transform:translate3d(-50%, 0, 0);   transform:translate3d(-50%, 0, 0);   bottom:1.2rem;}.zhibo-tip-wrap .zhibo-more{position:absolute;   font-size:0.32rem;   color:#698ca7;   right:20px;   bottom:0.4rem;}.zhibo-tip-wrap .zhibo-more:after{content:"";   width:5px;   height:9px;   background-image:url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAsAAAASBAMAAAB/WzlGAAAAD1BMVEUAAABVhp5Se5pSe5pReplhAseqAAAABHRSTlMAFdRq4U2PXAAAACJJREFUCNdjYBZgAAETRTAl5ATmMqoQyYVSEEGCHIRFUGsBYcEFlVc52JMAAAAASUVORK5CYII=");   background-size:cover;   position:absolute;   right:-8px;   position:absolute;   top:50%;   -webkit-transform:translate3d(0, -50%, 0);   transform:translate3d(0, -50%, 0);}.zhibo-tip-wrap .zhibo-close{width:34px;   height:34px;   position:absolute;   left:50%;   -webkit-transform:translate3d(-50%, 0, 0);   transform:translate3d(-50%, 0, 0);   top:50%;   margin-top:4.8rem;   background-image:url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEQAAABECAYAAAA4E5OyAAAAAXNSR0IArs4c6QAAB7pJREFUeAHtnG1rFFccxU2MQVqiJjSIiTELCkbBvoiGUgh5k6bv2w/Q79OvkQ/Qvq/4RoRSon2h4ANU2BiNSIrxgRaJ0fT8Zu5ZZt2dODtP2Q09cObOzM7ce8+Z/32Ymd0dOlIT9vb2vlRRk+IpcTzwuNJj4qgIdsT34jtxO/CV0q2hoaF/lFaOoapKkAFHlfe0OCvOiGNiEbzVyRviuvhMBn0oklnauaUbIiO4+nOBvvKUz5XnanOl/w1kH8J2RTAiYiRR80UgkUVUsc8gkh5CGUMklYbSDJERNId5sZGoHVf1hfhSLBryGDMhnhaT0dbU9p8yZktpYRQ2JPQNi6pJI9SGK74pPheLmhCy7Egw54w4JRJRoCneKtrX5DZERgyrAlfEBZFKYQRt/KlIU6gDNKOz4ozoOqxp/Z6M+ai0Z+QyJETFikojfAHR8FisywjKTAJjzotEDaCZXs8TLT0bIjPOqbBlkQ6T4fG++FrsB5xUJS6LDOd0vDdkyhOlmdGTITLjknJeCrm/UXpXPKioCNXoSIiWr8UT4ZObMuVBx1EpOzIbIjOuKo9rIR+ayCNxL2z3W4Kui6Kb0G2ZcidLJTMZ8okZfyljOs9BAJ3thVDRTKYwUuyL0EwcGfd08KCYgS7qSp3BtaAl3kpZ7muIMqADdZ9BZPydkk8/76bO1B0sBU3xVpdlqiE6kckPowmgzxikyIgqnVhQdzSA5aAt3vpk2dUQncB+5hkMrYwmdKCDDjSgBU0rQWOHpq6G6ChmoEy6mGcwtPbraKKqZQYa0IImtKGxAx2GhHBiOg6YdPXbPCOqWM4FWtAEFro1nQ5DdOCieFSkzfXLDFRVKQ1oQhsa0dqGNkPk2KQ+bYjcqHFvcliBNjQ2guaWzjZDtHc+fEKvnKepfKfzfhZ/FDNN+nRcHpA3ZVAWZfYKtKERWHO00TJETvGkqyHiHLfwecDIxA3W9+JPYhWmkCd5UwZlUWYeoNFRgvYILUO0xWM/sCnmiQ7O/YNFwLdKyzbFZpC3kSzT+7KkaEQrsPYjkSGKDjoY7/QEJjqyx8WvOv73xDllmtLNDMqizLyw1rngQWyIcpsWR0WegRZ57MdYvyqWbUqaGZRVZI6EVjSjHQ9ahsyyIbyIk0LLsk2pygyLtObIA/chM+FTno6XgbJMqdoMtFpz5MGw2g43cWMinUyR5qLT21DUlDrMoMJoRvsYXhAhkyLgJVLZyGtKXWZYr7VPYojH4DKjwwWR9mpK3WZQR2s/hSG8JgS8XqwKWU05CDPQbO3jI9pwhHhn1aaQvydWTldDoUzkvI9dDN98hqFVwtojQ3iHAehYqoYjhXIs3GlyH+t1mUFZ1n6cCOE9BmBeXwc+Zwp1qNMMyrP2Y/QhzNLAbpzUsrQpyRmtC67bDMq19lEM+R8JBzCEd6CA5lMXuo0mLps+pey7ZOedllr7Doa4Q+GOtw50M4Nmkmw+dZti7e9xhqfQTN3pXFmvEmlmrCYK9ajjlM+qHnY9sLwjQrZDZfhOV5XYzwwEd+to64oUa9/GEM/jvbMKUz5nhss8KFOsPTLEEcJdbxXIaobLPghTrP0VEbIVauJ7GlesjLRXM1xm3aZY+9Zw+B4Wj9HoWOyUK1YkzWuGy6zLFDSj/S1eECHA7ygm4s3Cy6JmuAJ1mGLNkQc2ZD3UwN8qdIXypGWZ4bKrNsWaIw9syDOVzoyV+UiRZlO2GVWbglY0ox0P4qfuajvc7T1kh3AmTnItf9BZnlCRQZk3ammRQpl5Ya18Zz6643WEkKENmdI6nUwefJM4qUwznG03U5Jl+rgsKRrRCqy99V7miBxiPtIUmdefFfPguk56Lf4mrooIKBs2hTIoizLzAI1obQbtUR60+Rb0GJ4n8LxVJ3y4wr7x0+qhAtFB08aQX2TIltUlmwxRwgdNkQPPi4cVaEMj0dEyA7FthrBDuCUSIXQ4J8XDBjShDY1obUOHIXKMdxRr4ajLSvN2sG0F9ckGWtAE1oLWeCssOwwJ+/n2Ly+BeSLPF+nb+hptDyLQgBY0oQ2NHehqiJz7qCPpvXfEE+JFcdCBBrSgid/SoLEDXQ3hqBBON8IZtLmZsD6ICXVHA+A3NH51Ge9JLFMN4Rid+ETJzXD8BaVfhfVBSqgzdQf8dgZNqdjXEM5SBg+U3A45XFE6SJFCXakz4OchaNkXmTtLTdquKif/TOS51h+JVcxE961wxg/RRZ/hZpLptzLkndkQDpYpl5QssS68Ee+K/TabZWhlNKEDBdX8xCzOOzLlnNaXRV6B8trivsg9RT+ASRfzDIZWRpNqf4SoAiLw1SOtrIin4z3Rd8cfa/2gooWoYDruJsI8o56fqaqgCDKFDpkOa0HkvuCDuCE+FesyBiO4a6XzdB2YZdf7Q2YV2EKIlkXtaISdGLMp0vGmjvfh2LwJEUo0TIkYAZriwf3UnRokIWMmtT0vNhL7eZpP+L4Ui5qDCRMizZTHfkZTK/3zZwiulVMZM671uUB/94SPaUa8JcQYvsIE2UdE7YpgROSK0xR4mwYxgvcm7DPoMHnK1b9/l+GaOpUxCJsWZ0XaePKqarNnEG0b4ro4OH+okiYz9DU0KyKIK07K8MiVdyRx5YkahnMeaRJRpLX95c5/BHwws1lElusAAAAASUVORK5CYII=");   background-size:cover;}');
+    var ZB = {
+        init: function () {
+            this._initEvent ();
+        },
+        _initEvent: function () {
+            var btn = document.getElementById ("zhibo-close");
+            var panel = document.getElementById ("zhibo-tip-wrap");
+            var moreBtn = document.getElementById ("zhibo-more");
+            var _this = this;
+            btn.addEventListener ("click", function () {
+                API.close ();
+            });
+            // 阻止滚动事件冒泡
+            panel.addEventListener ("touchmove", function (e) {
+                e.preventDefault ();
+            })
+            // 了解更多
+            moreBtn.addEventListener ("click", function () {
+                var url = location.protocol + "//pwebapp.58.com/fang/zhibo?pagetype=fangdong";
+                WBAPP.invoke ("pagetrans", {
+                    tradeline: 'core',
+                    action: 'pagetrans',
+                    content: {
+                        pagetype: 'common',
+                        url: url,
+                        title: "直播看房",
+                        isfinish: 'false'
+                    },
+                })
+            })
+        },
+        addClass: function (el, newClass) {
+            var cla = el.getAttribute ("class") || "";
+            var reg = new RegExp ("(^|\\s+)(" + newClass + ")($|\\s+)", "gi")
+            var b = reg.test (cla);
+            if (!b) {
+                el.setAttribute ("class", cla + " " + newClass);
+            }
+        }, removeClass: function (el, cla) {
+            var odcla = el.getAttribute ("class") || "";
+            var reg = new RegExp ("(^|\\s+)(" + cla + ")($|\\s+)", "gi")
+            cla = odcla.replace (reg, function (_, $1, _$2, $3) {
+                var ret = ""
+                ret += typeof $1 == "string" ? $1 : "";
+                ret += !!$3 ? $3 : "";
+                return ret
+            })
+            el.setAttribute ("class", cla);
+        }
+    };
+    var API = {
+        open: function () {
+            var panel = document.getElementById ("zhibo-tip-wrap");
+            ZB.addClass (panel, "beforeActive");
+            setTimeout (function () {
+                ZB.addClass (panel, "open");
+            }, 20)
+        },
+        close: function () {
+            var panel = document.getElementById ("zhibo-tip-wrap");
+            ZB.removeClass (panel, "open");
+            setTimeout (function () {
+                ZB.removeClass (panel, "beforeActive");
+            }, 400)
+        }
+    }
+    ZB.init ();
+    return API;
+}) ();
+;
 var FANG_POPAPI = {
     LOU_CHOSE: LOU_CHOSE,
     SF_CHANGE: SF_CHANGE,
-    SF_CHOSE: SF_CHOSE
+    SF_CHOSE: SF_CHOSE,
+    ZHIBOTIP: ZHIBOTIP,
 }
 module.exports = FANG_POPAPI;

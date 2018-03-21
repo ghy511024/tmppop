@@ -1,0 +1,6 @@
+// 父层替换
+@mixin ptReplace($old-context, $new-context) {
+  @at-root #{selector-replace(&, $old-context, $new-context)} {
+    @content;
+  }
+}
