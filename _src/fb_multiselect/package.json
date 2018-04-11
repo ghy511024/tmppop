@@ -1,0 +1,11 @@
+{
+  "name": "dialog",
+  "version": "1.0.0",
+  "description": "dialog",
+  "main": "index.js",
+  "scripts": {
+    "build_toast": "node ../../build/build.js dialog"
+  },
+  "author": "wuzhipeng",
+  "license": "ISC"
+}

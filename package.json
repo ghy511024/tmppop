@@ -4,12 +4,47 @@
   "description": "房产整租发布弹窗集合",
   "main": "api/mod/louchoose.js",
   "scripts": {
-    "build": "fis3 release -w -c -d ./api"
+    "build": "webpack  --watch --config ./config/webpack.plug.conf.js --env.cate",
+    "demo": "webpack  --watch --config ./config/webpack.demo.conf.js"
   },
   "author": "FangFE",
   "license": "ISC",
   "devDependencies": {
-    "fis3-parser-nodev8-scss": "^1.0.0",
-    "fis3-parser-jsptpl": "0.0.9"
-  }
+    "babel-core": "^6.26.0",
+    "babel-eslint": "^7.2.3",
+    "babel-helpers": "^6.24.1",
+    "babel-loader": "^7.1.2",
+    "babel-plugin-component": "^1.0.0",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-preset-env": "^1.6.1",
+    "chalk": "^2.3.0",
+    "css-loader": "^0.28.10",
+    "eslint": "^4.14.0",
+    "eslint-config-google": "^0.9.1",
+    "eslint-friendly-formatter": "^3.0.0",
+    "eslint-loader": "^1.9.0",
+    "eslint-plugin-html": "^3.2.1",
+    "extract-text-webpack-plugin": "^3.0.2",
+    "file-loader": "^0.11.2",
+    "less": "^2.7.3",
+    "less-loader": "^4.0.5",
+    "node-sass": "^4.7.2",
+    "optimize-css-assets-webpack-plugin": "^3.1.1",
+    "postcss-cssnext": "^3.0.2",
+    "sass-loader": "^6.0.6",
+    "url-loader": "^0.5.9",
+    "vue-loader": "^13.6.1",
+    "vue-template-compiler": "^2.5.13",
+    "webpack": "^3.10.0",
+    "webpack-bundle-analyzer": "^2.9.1",
+    "webpack-dev-server": "^2.9.7",
+    "webpack-merge": "^4.1.1"
+  },
+  "dependencies": {
+    "vue": "^2.5.13"
+  },
+  "browserslist": [
+    "Android >= 4",
+    "iOS >= 7"
+  ]
 }
