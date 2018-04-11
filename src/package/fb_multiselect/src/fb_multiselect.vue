@@ -32,10 +32,11 @@
 
 
 <style lang="scss" type="text/scss">
+    @import "../../../common/css/mixin";
+
     .dialogMask {
-        /*opacity: .6;*/
         position: fixed;
-        width: 100%;
+        width: rem(600px);
         height: 100%;
         top: 0;
         background: rgba(0, 0, 0, 0.6);
