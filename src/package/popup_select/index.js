@@ -31,14 +31,13 @@ let popup_select = (a) => {
 
     //判断传入的数组数据是只有text类型还是text value类型，进行不同处理（展示不同的样式）
     instance.show = true;
-    if(instance.list_type=="singletext"){
-        instance.radio=true;
-    }else if(instance.list_type=="textvalue"){
-        instance.checkbox=true;
+    if(instance.list_type=="single_text"){
+        instance.single_text=true;
+    }else if(instance.list_type=="multi_text"){
+        instance.multi_text=true;
     }else{
-        instance.radio=true;
+        instance.single_text=true;
     }
-
     instance.isbeforeActive=true;
     setTimeout (function () {
         instance.isactive=true;

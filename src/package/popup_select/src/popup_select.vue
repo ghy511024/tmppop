@@ -11,9 +11,9 @@
                     <ul>
                         <li shenfen-id="jsptpl-style" v-for="(option,index) in list" @click="add_class(option.value,index)"
                             :class="{active:select_map[option.value]}">
-                            <div class="pop-single-info" v-show="radio">{{option.text}}</div>
-                            <div class="pop-info" v-show="checkbox">{{option.text}}</div>
-                            <div class="pop-desc"  v-show="checkbox">{{option.content}}</div>
+                            <div class="pop-single-info" v-show="single_text">{{option.title}}</div>
+                            <div class="pop-info" v-show="multi_text">{{option.title}}</div>
+                            <div class="pop-desc"  v-show="multi_text">{{option.text}}</div>
                             <div class="pop-arrow"></div>
                         </li>
                     </ul>
@@ -34,8 +34,8 @@
                 currentSelect: 0,
                 list:[],
                 show: false,
-                radio:false,
-                checkbox:false,
+                single_text:false,
+                multi_text:false,
                 isbeforeActive: false,
                 isactive: false,
                 currentobj:{},
@@ -52,28 +52,33 @@
 
         },
         methods: {
-            add_class(value,index){
+            add_class(value,index){//select_map初始为空，无法赋值，radio时候先遍历有value直接赋值为false，当前赋值true，然后拷贝进tmp再赋值（监测对象）
                 let _this=this;
-                if(_this.selec_type=="radio"){
+                if(_this.selec_type=="radio"){//单选框遍历所有select_map直接赋值false，当前value的select_map赋值true，存储放当前数据
                     for(let key in _this.select_map){
                         _this.select_map[key]=false;
                     }
                     _this.select_map[value]=true;
                     _this.currentobj=_this.list[index];
                 }
-                else{
-                    if(!_this.select_map[value]){
+                else{//复选框时候状态取反
+                    if(!_this.select_map[value]){//点击的之前状态是false时候，当前就是选中状态，添加当前数据进存储
                         _this.muli_currentobj.push(_this.list[index]);
-                    }else{
+                    }else{//点击的之前状态是true时候，当前就是取消状态，删除存储中当前数据（遍历时候记住当前元素在存储中的下标，遍历结束后删除该元素）
                         let length =_this.muli_currentobj.length||0;
+                        let deleti = null;
                         for(let i=0;i<length;i++){
                             let value_obj=_this.muli_currentobj[i].value;
                             let value_cur=value;
                             if(value_obj==value_cur){
-                                _this.muli_currentobj.splice(i,1);
+                                deleti =i;
                             }
                         }
-
+                        setTimeout(function(){
+                            if(deleti){
+                                _this.muli_currentobj.splice(deleti,1);
+                            }
+                        },0);
                     }
                     _this.select_map[value]=!_this.select_map[value];
                 }
@@ -92,12 +97,14 @@
                     }
                 }else if(_this.selec_type=="checkbox"){
                     if(ret==0){
+                        console.log("取消按钮---=----"+"当前选中元素如下:   ")
                         for(let i =0;i<_this.muli_currentobj.length;i++){
-                            console.log("取消  :   "+_this.muli_currentobj[i].text);
+                            console.log(_this.muli_currentobj[i].text);
                         }
                     }else {
+                        console.log("确定按钮----=----"+"当前选中元素如下:   ")
                         for(let i =0;i<_this.muli_currentobj.length;i++){
-                            console.log("确定  :   "+_this.muli_currentobj[i].text);
+                            console.log(_this.muli_currentobj[i].text);
                         }
                     }
                 }
