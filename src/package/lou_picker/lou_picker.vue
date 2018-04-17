@@ -58,6 +58,15 @@
         overflow: hidden;
     }
 
+    .chose-bord {
+        height: rem(90px);
+        position: absolute;
+        @include border1px(top, 0, #e3e3e4);
+        @include border1px(bottom, 0, #e3e3e4);
+        left: rem(50px);
+        right: rem(50px);
+        top: rem(200px)
+    }
     ul {
         position: absolute;
         top: rem(200px);
@@ -94,6 +103,7 @@
                     <div id="btn-sure" class="choose-sure"></div>
                 </div>
                 <div class="scroll-inner">
+                    <div class="chose-bord"></div>
                     <ul id="list_1" ref="list_1">
                         <li>1层</li>
                         <li>2层</li>
