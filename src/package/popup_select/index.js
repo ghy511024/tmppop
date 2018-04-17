@@ -2,7 +2,7 @@
  * Created by lipan04 on 2018/4/11.
  */
 import Vue from 'vue';
-import Popup_select from './popup_select.vue';
+import Popup_select from './src/popup_select.vue';
 
 let instance;
 let DialogConstructor = Vue.extend(Popup_select);

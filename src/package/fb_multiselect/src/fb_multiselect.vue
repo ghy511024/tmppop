@@ -23,7 +23,6 @@
         methods: {
             btnClick(btnType) {
                 this.show = false;
-
             },
         },
         watch: {},

@@ -6,7 +6,7 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 module.exports = function (env) {
     const cate = env.cate;
     var entry = {};
-    entry[`${cate}/index`] = path.resolve(__dirname, `../src/${cate}/src/index.js`);
+    entry[`${cate}/index`] = path.resolve(__dirname, `../src/package/${cate}/index.js`);
     return {
         externals: [
             {
@@ -45,8 +45,8 @@ module.exports = function (env) {
                     test: /\.vue$/,
                     loader: 'vue-loader',
                     options: {
-                        postcss: [require('postcss-cssnext')()],
-                        extractCSS: config.build.extractCSS
+                        // postcss: [require('postcss-cssnext')()],
+                        // extractCSS: config.build.extractCSS
                     }
                 },
                 {

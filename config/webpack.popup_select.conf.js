@@ -4,18 +4,19 @@ const config = require('./conf/');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = function (env) {
+    const cate = env.cate;
+    var entry = {};
+    entry[`${cate}/${cate}`] = path.resolve(__dirname, `../src/package/${cate}/index.js`);
     return {
         externals: [
             // {
             //     "vue": "commonjs2 vue", // "./f" is external `module.exports = require("./a/b")`
             // },
         ],
-        entry: {
-            popup_select: "./test/popup_select/index.js",
-        },
+        entry: entry,
         output: {
-            filename: 'popup_select.js',
-            path: path.resolve(__dirname, '../test/')
+            filename: `${cate}/${cate}`,
+            path: path.resolve(__dirname, '../lib/')
         },
         resolve: {
             // extensions: ['.js', '.vue'],
@@ -44,7 +45,7 @@ module.exports = function (env) {
                     test: /\.vue$/,
                     loader: 'vue-loader',
                     options: {
-                        postcss: [require('postcss-cssnext')()],
+                        // postcss: [require('postcss-cssnext')()],
                         // extractCSS: true, // 是否单独提取css文件
                     }
                 },

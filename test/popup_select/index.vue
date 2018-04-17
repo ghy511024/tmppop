@@ -26,7 +26,7 @@
                     //type：radio checkbox
                     selec_type:"checkbox",
                     //list_type： singletext textvalue
-                    list_type:"textvalue",
+                    list_type:"multi",
                     list:[
                         {"text": "房东", "content": "房屋所有者，具备认证房本资质",value:"1"},
                         {"text": "转租", "content": "转让自己承租的房子",value:"2"},
