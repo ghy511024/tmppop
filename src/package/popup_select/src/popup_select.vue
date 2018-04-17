@@ -31,7 +31,6 @@
             return {
                 title:"",
                 selec_type:"",
-                currentSelect: 0,
                 list:[],
                 show: false,
                 single_text:false,
@@ -42,7 +41,6 @@
                 muli_currentobj:[],
                 select_map:{},
                 callback:function(){},
-
             };
         },
         creat(){
@@ -51,7 +49,6 @@
         mounted() {
         },
         computed: {
-
         },
         methods: {
             add_class(value,index){//select_map初始为空，无法赋值，radio时候先遍历有value直接赋值为false，当前赋值true，然后拷贝进tmp再赋值（监测对象）
@@ -91,20 +88,26 @@
             decision_click(){
                 let _this=this;
                 if(_this.selec_type=="radio"){
+                    _this.isactive = false;
+                    setTimeout(function () {
+                        _this.isbeforeActive = false;
+                        _this.show = false;
+                    }, 600)
 //                        console.log("确定:   "+_this.currentobj.title);
                     return _this.callback(_this.currentobj,1);
                 }else if(_this.selec_type=="checkbox"){
+                    _this.isactive = false;
+                    setTimeout(function () {
+                        _this.isbeforeActive = false;
+                        _this.show = false;
+                    }, 600)
 //                        console.log("确定按钮----=----"+"当前选中元素如下:   ")
 //                        for(let i =0;i<_this.muli_currentobj.length;i++){
 //                            console.log(_this.muli_currentobj[i].title);
 //                        }
                     return _this.callback(_this.muli_currentobj,1);
                 }
-                _this.isactive = false;
-                setTimeout(function () {
-                    _this.isbeforeActive = false;
-                    _this.show = false;
-                }, 600)
+
 
             },
             close_click() {
