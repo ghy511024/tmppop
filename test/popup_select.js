@@ -8890,7 +8890,8 @@ process.umask = function() { return 0; };
                 if (!_this.select_map[value]) {
                     _this.muli_currentobj.push(_this.list[index]);
                 } else {
-                    for (var i = 0; i < _this.muli_currentobj.length; i++) {
+                    var length = _this.muli_currentobj.length || 0;
+                    for (var i = 0; i < length; i++) {
                         var value_obj = _this.muli_currentobj[i].value;
                         var value_cur = value;
                         if (value_obj == value_cur) {
@@ -8909,22 +8910,18 @@ process.umask = function() { return 0; };
             if (_this.selec_type == "radio") {
                 if (ret == 0) {
                     console.log("取消:   " + _this.currentobj.text);
-                    _this.currentobj = null;
                 } else {
                     console.log("确定:   " + _this.currentobj.text);
-                    _this.currentobj = null;
                 }
             } else if (_this.selec_type == "checkbox") {
                 if (ret == 0) {
                     for (var i = 0; i < _this.muli_currentobj.length; i++) {
                         console.log("取消  :   " + _this.muli_currentobj[i].text);
                     }
-                    _this.muli_currentobj = null;
                 } else {
                     for (var _i = 0; _i < _this.muli_currentobj.length; _i++) {
                         console.log("确定  :   " + _this.muli_currentobj[_i].text);
                     }
-                    _this.muli_currentobj = null;
                 }
             }
 
