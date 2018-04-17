@@ -28,8 +28,7 @@ let popup_select = (a,fun) => {
     instance.selec_type=_defobj["type"];
     instance.list=_defobj["list"];
     instance.list_type=_defobj["list_type"];
-    instance.fun=fun
-
+    instance.callback=fun;
     //判断传入的数组数据是只有text类型还是text value类型，进行不同处理（展示不同的样式）
     instance.show = true;
     if(instance.list_type=="single_text"){
@@ -44,7 +43,6 @@ let popup_select = (a,fun) => {
         instance.isactive=true;
     },60);
 };
-
 
 export default {
     install(Vue, options) {

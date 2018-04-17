@@ -483,7 +483,58 @@ module.exports = function normalizeComponent (
 
 
 /***/ }),
+<<<<<<< HEAD
 /* 3 */
+=======
+/* 4 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["a"] = ({
+    data: function data() {
+        return {};
+    },
+    created: function created() {},
+    mounted: function mounted() {},
+    methods: {
+        test1: function test1() {
+            this.$dialog({
+                content: "haha"
+            });
+        },
+        test2: function test2() {
+            var data = {
+                title: "选择您的身份",
+                //type：radio checkbox
+                selec_type: "checkbox",
+                //list_type： single_text multi_text
+                list_type: "multi_text",
+                list: [{ "title": "房东", "text": "房屋所有者，具备认证房本资质", value: "1" }, { "title": "转租", "text": "转让自己承租的房子", value: "2" }, { "title": "房东", "text": "房屋所有者，具备认证房本资质", value: "3" }, { "title": "转租", "text": "转让自己承租的房子", value: "4" }, { "title": "经纪人", "text": "房产中介，拥有专业的展示空间", value: "5" }, { "title": "职业房东", "text": "公寓经营者/多房源管理者", value: "6" }]
+            };
+            this.$popup_select(data, function (data, status) {
+                //data是返回的数据，status是确定还是取消状态
+                console.log(status);
+                console.log(data);
+            });
+        }
+    }
+});
+
+/***/ }),
+/* 5 */
+>>>>>>> 6c33dccd4b3e7b5df63e42b0befc6c407740f03d
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -9814,7 +9865,257 @@ if (false) {
 }
 
 /***/ }),
+<<<<<<< HEAD
 /* 33 */
+=======
+/* 21 */
+/***/ (function(module, exports) {
+
+// https://github.com/zloirock/core-js/issues/86#issuecomment-115759028
+var global = module.exports = typeof window != 'undefined' && window.Math == Math
+  ? window : typeof self != 'undefined' && self.Math == Math ? self
+  // eslint-disable-next-line no-new-func
+  : Function('return this')();
+if (typeof __g == 'number') __g = global; // eslint-disable-line no-undef
+
+
+/***/ }),
+/* 22 */
+/***/ (function(module, exports) {
+
+module.exports = function (it) {
+  return typeof it === 'object' ? it !== null : typeof it === 'function';
+};
+
+
+/***/ }),
+/* 23 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// Thank's IE8 for his funny defineProperty
+module.exports = !__webpack_require__(24)(function () {
+  return Object.defineProperty({}, 'a', { get: function () { return 7; } }).a != 7;
+});
+
+
+/***/ }),
+/* 24 */
+/***/ (function(module, exports) {
+
+module.exports = function (exec) {
+  try {
+    return !!exec();
+  } catch (e) {
+    return true;
+  }
+};
+
+
+/***/ }),
+/* 25 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_object_assign__ = __webpack_require__(36);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_object_assign___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_object_assign__);
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["a"] = ({
+    name: 'app',
+    data: function data() {
+        return {
+            title: "",
+            selec_type: "",
+            currentSelect: 0,
+            list: [],
+            show: false,
+            single_text: false,
+            multi_text: false,
+            isbeforeActive: false,
+            isactive: false,
+            currentobj: {},
+            muli_currentobj: [],
+            select_map: {},
+            callback: function callback() {}
+
+        };
+    },
+    creat: function creat() {},
+    mounted: function mounted() {},
+
+    computed: {},
+    methods: {
+        add_class: function add_class(value, index) {
+            //select_map初始为空，无法赋值，radio时候先遍历有value直接赋值为false，当前赋值true，然后拷贝进tmp再赋值（监测对象）
+            var _this = this;
+            if (_this.selec_type == "radio") {
+                //单选框遍历所有select_map直接赋值false，当前value的select_map赋值true，存储放当前数据
+                for (var key in _this.select_map) {
+                    _this.select_map[key] = false;
+                }
+                _this.select_map[value] = true;
+                _this.currentobj = _this.list[index];
+            } else {
+                //复选框时候状态取反
+                if (!_this.select_map[value]) {
+                    //点击的之前状态是false时候，当前就是选中状态，添加当前数据进存储
+                    _this.muli_currentobj.push(_this.list[index]);
+                } else {
+                    //点击的之前状态是true时候，当前就是取消状态，删除存储中当前数据（遍历时候记住当前元素在存储中的下标，遍历结束后删除该元素）
+                    var length = _this.muli_currentobj.length || 0;
+                    var deleti = null;
+                    for (var i = 0; i < length; i++) {
+                        var value_obj = _this.muli_currentobj[i].value;
+                        var value_cur = value;
+                        if (value_obj == value_cur) {
+                            deleti = i;
+                        }
+                    }
+                    setTimeout(function () {
+                        if (deleti) {
+                            _this.muli_currentobj.splice(deleti, 1);
+                        }
+                    }, 0);
+                }
+                _this.select_map[value] = !_this.select_map[value];
+            }
+            var tmpmap = __WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_object_assign___default()({}, _this.select_map);
+            _this.select_map = tmpmap;
+        },
+        stop: function stop() {},
+        decision_click: function decision_click() {
+            var _this = this;
+            if (_this.selec_type == "radio") {
+                //                        console.log("确定:   "+_this.currentobj.title);
+                return _this.callback(_this.currentobj, 1);
+            } else if (_this.selec_type == "checkbox") {
+                //                        console.log("确定按钮----=----"+"当前选中元素如下:   ")
+                //                        for(let i =0;i<_this.muli_currentobj.length;i++){
+                //                            console.log(_this.muli_currentobj[i].title);
+                //                        }
+                return _this.callback(_this.muli_currentobj, 1);
+            }
+            _this.isactive = false;
+            setTimeout(function () {
+                _this.isbeforeActive = false;
+                _this.show = false;
+            }, 600);
+        },
+        close_click: function close_click() {
+            var _this = this;
+            if (_this.selec_type == "radio") {
+                //                        console.log("取消:   "+_this.currentobj.title);
+            } else if (_this.selec_type == "checkbox") {
+                //                        console.log("取消按钮---=----"+"当前选中元素如下:   ")
+                //                        for(let i =0;i<_this.muli_currentobj.length;i++){
+                //                            console.log(_this.muli_currentobj[i].title);
+                //                    }
+            }
+            _this.isactive = false;
+            setTimeout(function () {
+                _this.isbeforeActive = false;
+                _this.show = false;
+            }, 600);
+            return _this.callback(null, 0);
+        }
+    },
+    watch: {}
+});
+
+/***/ }),
+/* 26 */
+/***/ (function(module, exports) {
+
+var core = module.exports = { version: '2.5.5' };
+if (typeof __e == 'number') __e = core; // eslint-disable-line no-undef
+
+
+/***/ }),
+/* 27 */
+/***/ (function(module, exports) {
+
+var hasOwnProperty = {}.hasOwnProperty;
+module.exports = function (it, key) {
+  return hasOwnProperty.call(it, key);
+};
+
+
+/***/ }),
+/* 28 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// to indexed object, toObject with fallback for non-array-like ES3 strings
+var IObject = __webpack_require__(29);
+var defined = __webpack_require__(30);
+module.exports = function (it) {
+  return IObject(defined(it));
+};
+
+
+/***/ }),
+/* 29 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// fallback for non-array-like ES3 and non-enumerable old V8 strings
+var cof = __webpack_require__(52);
+// eslint-disable-next-line no-prototype-builtins
+module.exports = Object('z').propertyIsEnumerable(0) ? Object : function (it) {
+  return cof(it) == 'String' ? it.split('') : Object(it);
+};
+
+
+/***/ }),
+/* 30 */
+/***/ (function(module, exports) {
+
+// 7.2.1 RequireObjectCoercible(argument)
+module.exports = function (it) {
+  if (it == undefined) throw TypeError("Can't call method on  " + it);
+  return it;
+};
+
+
+/***/ }),
+/* 31 */
+/***/ (function(module, exports) {
+
+// 7.1.4 ToInteger
+var ceil = Math.ceil;
+var floor = Math.floor;
+module.exports = function (it) {
+  return isNaN(it = +it) ? 0 : (it > 0 ? floor : ceil)(it);
+};
+
+
+/***/ }),
+/* 32 */
+>>>>>>> 6c33dccd4b3e7b5df63e42b0befc6c407740f03d
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -9849,8 +10150,12 @@ var popup_select = function popup_select(a, fun) {
     instance.selec_type = _defobj["type"];
     instance.list = _defobj["list"];
     instance.list_type = _defobj["list_type"];
+<<<<<<< HEAD
     instance.fun = fun;
 
+=======
+    instance.callback = fun;
+>>>>>>> 6c33dccd4b3e7b5df63e42b0befc6c407740f03d
     //判断传入的数组数据是只有text类型还是text value类型，进行不同处理（展示不同的样式）
     instance.show = true;
     if (instance.list_type == "single_text") {
