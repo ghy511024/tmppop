@@ -7,6 +7,7 @@
         z-index: 100;
         height: 100%;
         background: rgba(0, 0, 0, 0.4);
+        top: 0px;
     }
 
     .picker-main {
@@ -30,10 +31,46 @@
         }
         .picker-text {
             color: #ff552e;
+            left: 0px;
+            right: 0px;
             font-size: rem(34px);
             text-align: center;
             position: absolute;
             top: rem(110px);
+        }
+    }
+
+    .picker-placeholder {
+        height: rem(90px);
+        width: 100%;
+        text-align: center;
+        line-height: rem(90px);
+        background: #f9fafc;
+        @include border1px(top, 0, #e3e3e4);
+        @include border1px(bottom, 0, #e3e3e4);
+        color: #999999;
+    }
+
+    .scroll-inner {
+        height: rem(486px);
+        background: #fff;
+        position: relative;
+        overflow: hidden;
+    }
+
+    ul {
+        position: absolute;
+        top: rem(200px);
+        list-style: none;
+        padding: 0px;
+        left: 100px;
+        box-shadow: #000 0px 0px 1px 1px;
+        /*transition: all 0.4s;*/
+        li {
+            height: rem(90px);
+            position: relative;
+            font-size: rem(32px);
+            line-height: rem(100px);
         }
     }
 </style>
@@ -57,20 +94,16 @@
                     <div id="btn-sure" class="choose-sure"></div>
                 </div>
                 <div class="scroll-inner">
-                    <ul>
-                        <li></li>
-                    </ul>
-                    <ul>
-                        <li>至</li>
-                    </ul>
-                    <ul>
-                        <li>共8层</li>
-                        <li>共8层</li>
-                        <li>共8层</li>
-                        <li>共8层</li>
-                        <li>共8层</li>
-                        <li>共8层</li>
-                        <li>共8层</li>
+                    <ul id="list_1" ref="list_1">
+                        <li>1层</li>
+                        <li>2层</li>
+                        <li>3层</li>
+                        <li>4层</li>
+                        <li>5层</li>
+                        <li>6层</li>
+                        <li>7层</li>
+                        <li>8层</li>
+                        <li>9层</li>
                     </ul>
                 </div>
             </div>
@@ -78,6 +111,7 @@
     </div>
 </template>
 <script>
+    import touch from  "./lib/touch";
     export default{
         data: function () {
             return {
@@ -86,8 +120,14 @@
                 ]
             }
         },
-        montead(){
-
+        ready: function () {
+            console.log("333")
+        },
+        mounted(){
+            console.log("touch....")
+            var dom = this.$refs.list_1;
+            console.log(dom, "...")
+            new touch(dom)
         }
 
     }

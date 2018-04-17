@@ -47,7 +47,9 @@
 //                        {"text":"商铺产品"},
                     ],
                 };
-                this.$popup_select(data);
+                this.$popup_select(data,function(state,data){
+
+                });
 
             },
         }

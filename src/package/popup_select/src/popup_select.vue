@@ -9,11 +9,12 @@
                 </div>
                 <div class="pop-list">
                     <ul>
-                        <li shenfen-id="jsptpl-style" v-for="(option,index) in list" @click="add_class(option.value,index)"
+                        <li shenfen-id="jsptpl-style" v-for="(option,index) in list"
+                            @click="add_class(option.value,index)"
                             :class="{active:select_map[option.value]}">
                             <div class="pop-single-info" v-show="single_text">{{option.title}}</div>
                             <div class="pop-info" v-show="multi_text">{{option.title}}</div>
-                            <div class="pop-desc"  v-show="multi_text">{{option.text}}</div>
+                            <div class="pop-desc" v-show="multi_text">{{option.text}}</div>
                             <div class="pop-arrow"></div>
                         </li>
                     </ul>
@@ -29,18 +30,20 @@
         name: 'app',
         data() {
             return {
-                title:"",
-                selec_type:"",
+                title: "",
+                selec_type: "",
                 currentSelect: 0,
-                list:[],
+                list: [],
                 show: false,
-                single_text:false,
-                multi_text:false,
+                single_text: false,
+                multi_text: false,
                 isbeforeActive: false,
                 isactive: false,
-                currentobj:{},
-                muli_currentobj:[],
-                select_map:{},
+                currentobj: {},
+                muli_currentobj: [],
+                select_map: {},
+                callback: function () {
+                }
             };
         },
         creat(){
@@ -48,62 +51,60 @@
         },
         mounted() {
         },
-        computed: {
-
-        },
+        computed: {},
         methods: {
-            add_class(value,index){//select_map初始为空，无法赋值，radio时候先遍历有value直接赋值为false，当前赋值true，然后拷贝进tmp再赋值（监测对象）
-                let _this=this;
-                if(_this.selec_type=="radio"){//单选框遍历所有select_map直接赋值false，当前value的select_map赋值true，存储放当前数据
-                    for(let key in _this.select_map){
-                        _this.select_map[key]=false;
+            add_class(value, index){//select_map初始为空，无法赋值，radio时候先遍历有value直接赋值为false，当前赋值true，然后拷贝进tmp再赋值（监测对象）
+                let _this = this;
+                if (_this.selec_type == "radio") {//单选框遍历所有select_map直接赋值false，当前value的select_map赋值true，存储放当前数据
+                    for (let key in _this.select_map) {
+                        _this.select_map[key] = false;
                     }
-                    _this.select_map[value]=true;
-                    _this.currentobj=_this.list[index];
+                    _this.select_map[value] = true;
+                    _this.currentobj = _this.list[index];
                 }
-                else{//复选框时候状态取反
-                    if(!_this.select_map[value]){//点击的之前状态是false时候，当前就是选中状态，添加当前数据进存储
+                else {//复选框时候状态取反
+                    if (!_this.select_map[value]) {//点击的之前状态是false时候，当前就是选中状态，添加当前数据进存储
                         _this.muli_currentobj.push(_this.list[index]);
-                    }else{//点击的之前状态是true时候，当前就是取消状态，删除存储中当前数据（遍历时候记住当前元素在存储中的下标，遍历结束后删除该元素）
-                        let length =_this.muli_currentobj.length||0;
+                    } else {//点击的之前状态是true时候，当前就是取消状态，删除存储中当前数据（遍历时候记住当前元素在存储中的下标，遍历结束后删除该元素）
+                        let length = _this.muli_currentobj.length || 0;
                         let deleti = null;
-                        for(let i=0;i<length;i++){
-                            let value_obj=_this.muli_currentobj[i].value;
-                            let value_cur=value;
-                            if(value_obj==value_cur){
-                                deleti =i;
+                        for (let i = 0; i < length; i++) {
+                            let value_obj = _this.muli_currentobj[i].value;
+                            let value_cur = value;
+                            if (value_obj == value_cur) {
+                                deleti = i;
                             }
                         }
-                        setTimeout(function(){
-                            if(deleti){
-                                _this.muli_currentobj.splice(deleti,1);
+                        setTimeout(function () {
+                            if (deleti) {
+                                _this.muli_currentobj.splice(deleti, 1);
                             }
-                        },0);
+                        }, 0);
                     }
-                    _this.select_map[value]=!_this.select_map[value];
+                    _this.select_map[value] = !_this.select_map[value];
                 }
-                let tmpmap=Object.assign({},_this.select_map);
-                _this.select_map=tmpmap;
+                let tmpmap = Object.assign({}, _this.select_map);
+                _this.select_map = tmpmap;
             },
             stop(){
             },
             close_class(ret){
-                let _this=this;
-                if(_this.selec_type=="radio"){
-                    if(ret==0){
-                        console.log("取消:   "+_this.currentobj.text);
-                    }else {
-                        console.log("确定:   "+_this.currentobj.text);
+                let _this = this;
+                if (_this.selec_type == "radio") {
+                    if (ret == 0) {
+                        console.log("取消:   " + _this.currentobj.text);
+                    } else {
+                        console.log("确定:   " + _this.currentobj.text);
                     }
-                }else if(_this.selec_type=="checkbox"){
-                    if(ret==0){
-                        console.log("取消按钮---=----"+"当前选中元素如下:   ")
-                        for(let i =0;i<_this.muli_currentobj.length;i++){
+                } else if (_this.selec_type == "checkbox") {
+                    if (ret == 0) {
+                        console.log("取消按钮---=----" + "当前选中元素如下:   ")
+                        for (let i = 0; i < _this.muli_currentobj.length; i++) {
                             console.log(_this.muli_currentobj[i].text);
                         }
-                    }else {
-                        console.log("确定按钮----=----"+"当前选中元素如下:   ")
-                        for(let i =0;i<_this.muli_currentobj.length;i++){
+                    } else {
+                        console.log("确定按钮----=----" + "当前选中元素如下:   ")
+                        for (let i = 0; i < _this.muli_currentobj.length; i++) {
                             console.log(_this.muli_currentobj[i].text);
                         }
                     }
@@ -116,11 +117,11 @@
                 }, 600)
             },
             decision_click(){
-                let _this=this;
+                let _this = this;
                 _this.close_class(1);
             },
             close_click() {
-                let _this=this;
+                let _this = this;
                 _this.close_class(0);
             },
 
@@ -242,14 +243,16 @@
         color: #333333;
         left: 0.06667rem;
     }
+
     .pop-select .pop-list ul li .pop-single-info {
         position: absolute;
         top: 50%;
-        margin-top:-11px;
+        margin-top: -11px;
         font-size: 0.45333rem;
         color: #333333;
         left: 0.06667rem;
     }
+
     .pop-select .pop-list ul li .pop-desc {
         font-size: 0.32rem;
         position: absolute;
