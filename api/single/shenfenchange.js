@@ -107,7 +107,6 @@ var SFPOPRP = (function () {
             data = data || {};
             var optionlist = data["option"] || []
             this.layout (optionlist);
-
             this._initEvent ();
         },
 
@@ -121,7 +120,7 @@ var SFPOPRP = (function () {
             for (var i = 0; i < list.length; i++) {
                 var option = list[i]
                 var item = $ (TPL.getTpl ("shenfenitem") || ""); // 获取字符串
-                var desc = _this.getDesc (option["text"])
+                var desc = _this.getDesc (option["text"]);
 
                 $ (item).attr ("shenfen-id", option["value"]);
                 $ (item).find (".pop-info").html (option["text"]);

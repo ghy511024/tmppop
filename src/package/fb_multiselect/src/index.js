@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import Dialog from './fb_multiselect.vue';
 
+
 let instance;
 let DialogConstructor = Vue.extend(Dialog);
 

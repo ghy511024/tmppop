@@ -6,6 +6,7 @@
 <template>
     <div class="main">
         <button @click="test1">测试1</button>
+
     </div>
 </template>
 <script>

@@ -5,7 +5,8 @@
   "main": "api/mod/louchoose.js",
   "scripts": {
     "build": "webpack  --watch --config ./config/webpack.plug.conf.js --env.cate",
-    "demo": "webpack  --watch --config ./config/webpack.demo.conf.js"
+    "demo": "webpack  --watch --config ./config/webpack.demo.conf.js",
+    "popup_select": "webpack  --watch --config ./config/webpack.popup_select.conf.js"
   },
   "author": "FangFE",
   "license": "ISC",
