@@ -547,7 +547,11 @@ module.exports = function normalizeComponent (
                 list_type: "multi_text",
                 list: [{ "title": "房东", "text": "房屋所有者，具备认证房本资质", value: "1" }, { "title": "转租", "text": "转让自己承租的房子", value: "2" }, { "title": "房东", "text": "房屋所有者，具备认证房本资质", value: "3" }, { "title": "转租", "text": "转让自己承租的房子", value: "4" }, { "title": "经纪人", "text": "房产中介，拥有专业的展示空间", value: "5" }, { "title": "职业房东", "text": "公寓经营者/多房源管理者", value: "6" }]
             };
-            this.$popup_select(data);
+            this.$popup_select(data, function (data, status) {
+                //data是返回的数据，status是确定还是取消状态
+                console.log(status);
+                console.log(data);
+            });
         }
     }
 });
@@ -9520,7 +9524,9 @@ module.exports = function (exec) {
             isactive: false,
             currentobj: {},
             muli_currentobj: [],
-            select_map: {}
+            select_map: {},
+            callback: function callback() {}
+
         };
     },
     creat: function creat() {},
@@ -9566,41 +9572,40 @@ module.exports = function (exec) {
             _this.select_map = tmpmap;
         },
         stop: function stop() {},
-        close_class: function close_class(ret) {
+        decision_click: function decision_click() {
             var _this = this;
             if (_this.selec_type == "radio") {
-                if (ret == 0) {
-                    console.log("取消:   " + _this.currentobj.text);
-                } else {
-                    console.log("确定:   " + _this.currentobj.text);
-                }
+                //                        console.log("确定:   "+_this.currentobj.title);
+                return _this.callback(_this.currentobj, 1);
             } else if (_this.selec_type == "checkbox") {
-                if (ret == 0) {
-                    console.log("取消按钮---=----" + "当前选中元素如下:   ");
-                    for (var i = 0; i < _this.muli_currentobj.length; i++) {
-                        console.log(_this.muli_currentobj[i].text);
-                    }
-                } else {
-                    console.log("确定按钮----=----" + "当前选中元素如下:   ");
-                    for (var _i = 0; _i < _this.muli_currentobj.length; _i++) {
-                        console.log(_this.muli_currentobj[_i].text);
-                    }
-                }
+                //                        console.log("确定按钮----=----"+"当前选中元素如下:   ")
+                //                        for(let i =0;i<_this.muli_currentobj.length;i++){
+                //                            console.log(_this.muli_currentobj[i].title);
+                //                        }
+                return _this.callback(_this.muli_currentobj, 1);
             }
-
             _this.isactive = false;
             setTimeout(function () {
                 _this.isbeforeActive = false;
                 _this.show = false;
             }, 600);
         },
-        decision_click: function decision_click() {
-            var _this = this;
-            _this.close_class(1);
-        },
         close_click: function close_click() {
             var _this = this;
-            _this.close_class(0);
+            if (_this.selec_type == "radio") {
+                //                        console.log("取消:   "+_this.currentobj.title);
+            } else if (_this.selec_type == "checkbox") {
+                //                        console.log("取消按钮---=----"+"当前选中元素如下:   ")
+                //                        for(let i =0;i<_this.muli_currentobj.length;i++){
+                //                            console.log(_this.muli_currentobj[i].title);
+                //                    }
+            }
+            _this.isactive = false;
+            setTimeout(function () {
+                _this.isbeforeActive = false;
+                _this.show = false;
+            }, 600);
+            return _this.callback(null, 0);
         }
     },
     watch: {}
@@ -9694,7 +9699,7 @@ var initInstance = function initInstance(bottom) {
     document.body.appendChild(instance.$el);
 };
 
-var popup_select = function popup_select(a) {
+var popup_select = function popup_select(a, fun) {
 
     var _defobj = {
         title: a.title,
@@ -9707,7 +9712,7 @@ var popup_select = function popup_select(a) {
     instance.selec_type = _defobj["type"];
     instance.list = _defobj["list"];
     instance.list_type = _defobj["list_type"];
-
+    instance.callback = fun;
     //判断传入的数组数据是只有text类型还是text value类型，进行不同处理（展示不同的样式）
     instance.show = true;
     if (instance.list_type == "single_text") {

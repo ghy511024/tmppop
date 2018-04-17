@@ -47,7 +47,10 @@
 //                        {"text":"商铺产品"},
                     ],
                 };
-                this.$popup_select(data);
+                this.$popup_select(data,function(data,status){ //data是返回的数据，status是确定还是取消状态
+                    console.log(status);
+                    console.log(data)
+                });
 
             },
         }
