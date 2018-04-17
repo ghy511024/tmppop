@@ -6,6 +6,7 @@
 <template>
     <div class="main">
         <button @click="test1">测试1</button>
+        <button @click="test1">测试2</button>
 
     </div>
 </template>
@@ -22,6 +23,11 @@
         },
         methods: {
             test1(){
+                this.$dialog({
+                    content:"haha"
+                });
+            },
+            test2(){
                 this.$dialog({
                     content:"haha"
                 });
