@@ -8899,6 +8899,7 @@ process.umask = function() { return 0; };
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["a"] = ({
     name: 'app',
@@ -8949,11 +8950,11 @@ process.umask = function() { return 0; };
                             deleti = i;
                         }
                     }
-                    //                        setTimeout(function(){
-                    //                            if(deleti){
-                    _this.muli_currentobj.splice(deleti, 1);
-                    //                            }
-                    //                        },0);
+                    setTimeout(function () {
+                        if (deleti) {
+                            _this.muli_currentobj.splice(deleti, 1);
+                        }
+                    }, 0);
                 }
                 _this.select_map[value] = !_this.select_map[value];
             }
@@ -8962,6 +8963,7 @@ process.umask = function() { return 0; };
         },
         stop: function stop() {},
         decision_click: function decision_click() {
+
             var _this = this;
             if (_this.selec_type == "radio") {
                 _this.isactive = false;
@@ -8977,6 +8979,7 @@ process.umask = function() { return 0; };
                     _this.isbeforeActive = false;
                     _this.show = false;
                 }, 600);
+
                 //                        console.log("确定按钮----=----"+"当前选中元素如下:   ")
                 //                        for(let i =0;i<_this.muli_currentobj.length;i++){
                 //                            console.log(_this.muli_currentobj[i].title);
@@ -9080,6 +9083,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__src_package_fb_multiselect_src_index__ = __webpack_require__(27);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__src_package_popup_select_index__ = __webpack_require__(32);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__src_package_lou_picker_index__ = __webpack_require__(65);
+
 
 
 
@@ -9087,6 +9092,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 __WEBPACK_IMPORTED_MODULE_1_vue__["a" /* default */].use(__WEBPACK_IMPORTED_MODULE_2__src_package_fb_multiselect_src_index__["a" /* default */]);
 __WEBPACK_IMPORTED_MODULE_1_vue__["a" /* default */].use(__WEBPACK_IMPORTED_MODULE_3__src_package_popup_select_index__["a" /* default */]);
+__WEBPACK_IMPORTED_MODULE_1_vue__["a" /* default */].use(__WEBPACK_IMPORTED_MODULE_4__src_package_lou_picker_index__["a" /* default */]);
 
 new __WEBPACK_IMPORTED_MODULE_1_vue__["a" /* default */]({
     el: '#app',
@@ -10419,6 +10425,663 @@ if (false) {
   module.hot.accept()
   if (module.hot.data) {
     require("vue-loader/node_modules/vue-hot-reload-api")      .rerender("data-v-d0f06cf0", esExports)
+  }
+}
+
+/***/ }),
+/* 64 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__lib_touch__ = __webpack_require__(69);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+/* harmony default export */ __webpack_exports__["a"] = ({
+    data: function data() {
+        return {
+            list1: [{}]
+        };
+    },
+    ready: function ready() {
+        console.log("333");
+    },
+    mounted: function mounted() {
+        console.log("touch....");
+        var dom = this.$refs.list_1;
+        console.log(dom, "...");
+        new __WEBPACK_IMPORTED_MODULE_0__lib_touch__["a" /* default */](dom);
+    }
+});
+
+/***/ }),
+/* 65 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__lou_picker_vue__ = __webpack_require__(66);
+/**
+ * Created by lipan04 on 2018/4/11.
+ */
+
+
+
+var instance = void 0;
+var LouPickerConstructor = __WEBPACK_IMPORTED_MODULE_0_vue__["a" /* default */].extend(__WEBPACK_IMPORTED_MODULE_1__lou_picker_vue__["a" /* default */]);
+
+var initInstance = function initInstance(bottom) {
+    instance = new LouPickerConstructor({
+        el: document.createElement('div')
+    });
+    document.body.appendChild(instance.$el);
+};
+
+var LouPicker = function LouPicker(a) {
+
+    var _defobj = {
+        title: a.title,
+        type: a.selec_type,
+        list: a.list,
+        list_type: a.list_type
+    };
+    //debugger;
+    instance.title = _defobj["title"];
+    instance.selec_type = _defobj["type"];
+    instance.list = _defobj["list"];
+    instance.list_type = _defobj["list_type"];
+
+    //判断传入的数组数据是只有text类型还是text value类型，进行不同处理（展示不同的样式）
+    instance.show = true;
+    if (instance.list_type == "singletext") {
+        instance.radio = true;
+    } else if (instance.list_type == "textvalue") {
+        instance.checkbox = true;
+    } else {
+        instance.radio = true;
+    }
+
+    instance.isbeforeActive = true;
+    setTimeout(function () {
+        instance.isactive = true;
+    }, 60);
+};
+/* harmony default export */ __webpack_exports__["a"] = ({
+    install: function install(Vue, options) {
+        initInstance();
+        Vue.prototype.$lou_picker = LouPicker;
+    }
+});
+
+/***/ }),
+/* 66 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_13_7_1_vue_loader_lib_selector_type_script_index_0_lou_picker_vue__ = __webpack_require__(64);
+/* unused harmony namespace reexport */
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_13_7_1_vue_loader_lib_template_compiler_index_id_data_v_0c9dc0d0_hasScoped_false_buble_transforms_node_modules_vue_loader_13_7_1_vue_loader_lib_selector_type_template_index_0_lou_picker_vue__ = __webpack_require__(73);
+var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__(67)
+}
+var normalizeComponent = __webpack_require__(2)
+/* script */
+
+
+/* template */
+
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = injectStyle
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_13_7_1_vue_loader_lib_selector_type_script_index_0_lou_picker_vue__["a" /* default */],
+  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_13_7_1_vue_loader_lib_template_compiler_index_id_data_v_0c9dc0d0_hasScoped_false_buble_transforms_node_modules_vue_loader_13_7_1_vue_loader_lib_selector_type_template_index_0_lou_picker_vue__["a" /* default */],
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "src\\package\\lou_picker\\lou_picker.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-loader/node_modules/vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-0c9dc0d0", Component.options)
+  } else {
+    hotAPI.reload("data-v-0c9dc0d0", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+/* harmony default export */ __webpack_exports__["a"] = (Component.exports);
+
+
+/***/ }),
+/* 67 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(68);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(1)("7ed6222b", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../node_modules/_css-loader@0.28.11@css-loader/index.js!../../../node_modules/_vue-loader@13.7.1@vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-0c9dc0d0\",\"scoped\":false,\"hasInlineConfig\":true}!../../../node_modules/_sass-loader@6.0.7@sass-loader/lib/loader.js!../../../node_modules/_vue-loader@13.7.1@vue-loader/lib/selector.js?type=styles&index=0!./lou_picker.vue", function() {
+     var newContent = require("!!../../../node_modules/_css-loader@0.28.11@css-loader/index.js!../../../node_modules/_vue-loader@13.7.1@vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-0c9dc0d0\",\"scoped\":false,\"hasInlineConfig\":true}!../../../node_modules/_sass-loader@6.0.7@sass-loader/lib/loader.js!../../../node_modules/_vue-loader@13.7.1@vue-loader/lib/selector.js?type=styles&index=0!./lou_picker.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 68 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(0)(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n@charset \"UTF-8\";\n/*\r\nTo change this license header, choose License Headers in Project Properties.\r\nTo change this template file, choose Tools | Templates\r\nand open the template in the editor.\r\n*/\n/* \r\n    Created on : 2017-8-31, 23:11:17\r\n    Author     : ghy\r\n*/\n/**\r\n * @param $line       超出显示省略号的行数，默认：1\r\n * @param $substract  为预留区域百分比%，默认：0\r\n */\n/*\r\nTo change this license header, choose License Headers in Project Properties.\r\nTo change this template file, choose Tools | Templates\r\nand open the template in the editor.\r\n*/\n/* \r\n    Created on : 2017-8-31, 23:12:32\r\n    Author     : ghy\r\n*/\n/* @author 龚虹宇 */\n/** -------------------------------------------\r\n    Generic Mixins\r\n    ------------------------------------------- **/\n/**\r\n * Adds prefixed version of values in a property\r\n */\n#picker-wrap {\n  width: 100%;\n  position: absolute;\n  z-index: 100;\n  height: 100%;\n  background: rgba(0, 0, 0, .4);\n  top: 0px;\n}\n.picker-main {\n  position: absolute;\n  bottom: 0px;\n  width: 100%;\n}\n.picker-header {\n  width: 100%;\n  height: 2.93333rem;\n  background: #fff;\n}\n.picker-header .title {\n    position: absolute;\n    left: 0px;\n    right: 0px;\n    text-align: center;\n    top: 0.74667rem;\n    font-size: 0.32rem;\n    color: #999999;\n}\n.picker-header .picker-text {\n    color: #ff552e;\n    left: 0px;\n    right: 0px;\n    font-size: 0.45333rem;\n    text-align: center;\n    position: absolute;\n    top: 1.46667rem;\n}\n.picker-placeholder {\n  height: 1.2rem;\n  width: 100%;\n  text-align: center;\n  line-height: 1.2rem;\n  background: #f9fafc;\n  position: relative;\n  position: relative;\n  color: #999999;\n}\n.picker-placeholder:after {\n    position: absolute;\n    content: \"\";\n    top: 0;\n    left: 0;\n    box-sizing: border-box;\n    width: 100%;\n    height: 100%;\n    border-top: 1px solid #e3e3e4;\n    point-events: none;\n}\n@media (min--moz-device-pixel-ratio: 1.5), (-webkit-min-device-pixel-ratio: 1.5), (min-device-pixel-ratio: 1.5), (min-resolution: 144dpi), (min-resolution: 1.5dppx), (-ms-high-contrast: active), (-ms-high-contrast: none) {\n.picker-placeholder:after {\n      width: 200%;\n      height: 200%;\n      transform: scale(0.5);\n      transform-origin: 0 0;\n      -webkit-transform: scale(0.5);\n      -webkit-transform-origin: 0 0;\n      border-radius: 0px;\n}\n}\n@media (-webkit-device-pixel-ratio: 1.5) {\n.picker-placeholder:after {\n      width: 150%;\n      height: 150%;\n      transform: scale(0.6666);\n      transform-origin: 0 0;\n      -webkit-transform: scale(0.6666);\n      -webkit-transform-origin: 0 0;\n      border-radius: 0px;\n}\n}\n@media (-webkit-device-pixel-ratio: 3) {\n.picker-placeholder:after {\n      width: 300%;\n      height: 300%;\n      transform: scale(0.3333);\n      transform-origin: 0 0;\n      -webkit-transform: scale(0.3333);\n      -webkit-transform-origin: 0 0;\n      border-radius: 0px;\n}\n}\n.picker-placeholder:after {\n    position: absolute;\n    content: \"\";\n    top: 0;\n    left: 0;\n    box-sizing: border-box;\n    width: 100%;\n    height: 100%;\n    border-bottom: 1px solid #e3e3e4;\n    point-events: none;\n}\n@media (min--moz-device-pixel-ratio: 1.5), (-webkit-min-device-pixel-ratio: 1.5), (min-device-pixel-ratio: 1.5), (min-resolution: 144dpi), (min-resolution: 1.5dppx), (-ms-high-contrast: active), (-ms-high-contrast: none) {\n.picker-placeholder:after {\n      width: 200%;\n      height: 200%;\n      transform: scale(0.5);\n      transform-origin: 0 0;\n      -webkit-transform: scale(0.5);\n      -webkit-transform-origin: 0 0;\n      border-radius: 0px;\n}\n}\n@media (-webkit-device-pixel-ratio: 1.5) {\n.picker-placeholder:after {\n      width: 150%;\n      height: 150%;\n      transform: scale(0.6666);\n      transform-origin: 0 0;\n      -webkit-transform: scale(0.6666);\n      -webkit-transform-origin: 0 0;\n      border-radius: 0px;\n}\n}\n@media (-webkit-device-pixel-ratio: 3) {\n.picker-placeholder:after {\n      width: 300%;\n      height: 300%;\n      transform: scale(0.3333);\n      transform-origin: 0 0;\n      -webkit-transform: scale(0.3333);\n      -webkit-transform-origin: 0 0;\n      border-radius: 0px;\n}\n}\n.scroll-inner {\n  height: 6.48rem;\n  background: #fff;\n  position: relative;\n  overflow: hidden;\n}\n.chose-bord {\n  height: 1.2rem;\n  position: absolute;\n  position: relative;\n  position: relative;\n  left: 0.66667rem;\n  right: 0.66667rem;\n  top: 2.66667rem;\n}\n.chose-bord:after {\n    position: absolute;\n    content: \"\";\n    top: 0;\n    left: 0;\n    box-sizing: border-box;\n    width: 100%;\n    height: 100%;\n    border-top: 1px solid #e3e3e4;\n    point-events: none;\n}\n@media (min--moz-device-pixel-ratio: 1.5), (-webkit-min-device-pixel-ratio: 1.5), (min-device-pixel-ratio: 1.5), (min-resolution: 144dpi), (min-resolution: 1.5dppx), (-ms-high-contrast: active), (-ms-high-contrast: none) {\n.chose-bord:after {\n      width: 200%;\n      height: 200%;\n      transform: scale(0.5);\n      transform-origin: 0 0;\n      -webkit-transform: scale(0.5);\n      -webkit-transform-origin: 0 0;\n      border-radius: 0px;\n}\n}\n@media (-webkit-device-pixel-ratio: 1.5) {\n.chose-bord:after {\n      width: 150%;\n      height: 150%;\n      transform: scale(0.6666);\n      transform-origin: 0 0;\n      -webkit-transform: scale(0.6666);\n      -webkit-transform-origin: 0 0;\n      border-radius: 0px;\n}\n}\n@media (-webkit-device-pixel-ratio: 3) {\n.chose-bord:after {\n      width: 300%;\n      height: 300%;\n      transform: scale(0.3333);\n      transform-origin: 0 0;\n      -webkit-transform: scale(0.3333);\n      -webkit-transform-origin: 0 0;\n      border-radius: 0px;\n}\n}\n.chose-bord:after {\n    position: absolute;\n    content: \"\";\n    top: 0;\n    left: 0;\n    box-sizing: border-box;\n    width: 100%;\n    height: 100%;\n    border-bottom: 1px solid #e3e3e4;\n    point-events: none;\n}\n@media (min--moz-device-pixel-ratio: 1.5), (-webkit-min-device-pixel-ratio: 1.5), (min-device-pixel-ratio: 1.5), (min-resolution: 144dpi), (min-resolution: 1.5dppx), (-ms-high-contrast: active), (-ms-high-contrast: none) {\n.chose-bord:after {\n      width: 200%;\n      height: 200%;\n      transform: scale(0.5);\n      transform-origin: 0 0;\n      -webkit-transform: scale(0.5);\n      -webkit-transform-origin: 0 0;\n      border-radius: 0px;\n}\n}\n@media (-webkit-device-pixel-ratio: 1.5) {\n.chose-bord:after {\n      width: 150%;\n      height: 150%;\n      transform: scale(0.6666);\n      transform-origin: 0 0;\n      -webkit-transform: scale(0.6666);\n      -webkit-transform-origin: 0 0;\n      border-radius: 0px;\n}\n}\n@media (-webkit-device-pixel-ratio: 3) {\n.chose-bord:after {\n      width: 300%;\n      height: 300%;\n      transform: scale(0.3333);\n      transform-origin: 0 0;\n      -webkit-transform: scale(0.3333);\n      -webkit-transform-origin: 0 0;\n      border-radius: 0px;\n}\n}\nul {\n  position: absolute;\n  top: 2.66667rem;\n  list-style: none;\n  padding: 0px;\n  left: 100px;\n  box-shadow: #000 0px 0px 1px 1px;\n  /*transition: all 0.4s;*/\n}\nul li {\n    height: 1.2rem;\n    position: relative;\n    font-size: 0.42667rem;\n    line-height: 1.33333rem;\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 69 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_object_define_property__ = __webpack_require__(70);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_object_define_property___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_object_define_property__);
+
+/**
+ * Created by ghy on 2018/4/17.
+ */
+;(function () {
+    'use strict';
+
+    if (!Date.now) Date.now = function () {
+        return new Date().getTime();
+    };
+
+    var vendors = ['webkit', 'moz'];
+    for (var i = 0; i < vendors.length && !window.requestAnimationFrame; ++i) {
+        var vp = vendors[i];
+        window.requestAnimationFrame = window[vp + 'RequestAnimationFrame'];
+        window.cancelAnimationFrame = window[vp + 'CancelAnimationFrame'] || window[vp + 'CancelRequestAnimationFrame'];
+    }
+    if (/iP(ad|hone|od).*OS 6/.test(window.navigator.userAgent) // iOS6 is buggy
+    || !window.requestAnimationFrame || !window.cancelAnimationFrame) {
+        var lastTime = 0;
+        window.requestAnimationFrame = function (callback) {
+            var now = Date.now();
+            var nextTime = Math.max(lastTime + 16, now);
+            return setTimeout(function () {
+                callback(lastTime = nextTime);
+            }, nextTime - now);
+        };
+        window.cancelAnimationFrame = clearTimeout;
+    }
+})();
+
+var Touch = function Touch(target) {
+    var _this = this;
+    target.addEventListener("touchstart", this._start.bind(this));
+    target.addEventListener("touchmove", this._move.bind(this));
+    target.addEventListener("touchend", this._end.bind(this));
+
+    watch(target, "translateY", function () {
+        var trand = target.translateY;
+        var transform = "translateY(" + trand + "px)";
+        // console.log(trand, "current")
+        target.style.transform = target.style.msTransform = target.style.OTransform = target.style.MozTransform = target.style.webkitTransform = transform;
+    });
+    this.target = target;
+    this.target.translateY = 0;
+    this.min = -405 + 45;
+    setTimeout(function () {}.bind(this), 100);
+};
+Touch.prototype = {
+    max: 0,
+    step: 10,
+    sensitivity: 1, //灵敏度
+    deceleration: 0.0006, // 减速率
+    maxRegion: 600,
+    springMaxRegion: 60, // 弹性
+    animationEnd: function animationEnd() {
+        console.log("动画结束");
+    },
+    _start: function _start(evt) {
+        this.y1 = this.preY = evt.touches[0].pageY;
+        cancelAnimationFrame(this.tickID);
+        this.start = this.preY;
+        this.isTouchStart = true;
+        this.startTime = new Date().getTime();
+        this._firstTouchMove = true;
+        this._preventMove = false;
+    },
+    _move: function _move(evt) {
+        if (this.isTouchStart) {
+            var len = evt.touches.length,
+                currentY = evt.touches[0].pageY;
+            if (this._firstTouchMove) {
+                this._firstTouchMove = false;
+            }
+            if (!this._preventMove) {
+                var d = currentY - this.preY;
+                var f = 0.7;
+                d = d * f;
+                this.target["translateY"] += d;
+                this.preY = currentY;
+            }
+            evt.preventDefault();
+            this.y2 = currentY;
+        }
+    },
+    _end: function _end(evt) {
+        if (this.isTouchStart) {
+            this.isTouchStart = false;
+            var self = this;
+            var current = this.target["translateY"];
+            console.log("touche end..", current, this.max);
+
+            var triggerTap = Math.abs(evt.changedTouches[0].pageX - this.x1) < 30 && Math.abs(evt.changedTouches[0].pageY - this.y1) < 30;
+            if (current > this.max) {
+                this._to(this.max, 200, ease, this.change, function (value) {}.bind(this));
+            } else if (current < this.min) {
+                this._to(this.min, 200, ease, this.change, function (value) {}.bind(this));
+            } else if (!this._preventMove) {
+                var dt = new Date().getTime() - this.startTime;
+                if (dt < 300) {
+                    var distance = (evt.changedTouches[0].pageY - this.start) * this.sensitivity;
+
+                    var speed = Math.abs(distance) / dt;
+                    var speed2 = 1 * speed;
+                    if (this.hasMaxSpeed && speed2 > this.maxSpeed) {
+                        speed2 = this.maxSpeed;
+                    }
+                    var destination = current + speed2 * speed2 / (2 * this.deceleration) * (distance < 0 ? -1 : 1);
+                    var tRatio = 1;
+                    // 持续时间
+                    if (destination < this.min) {
+                        if (destination < this.min - this.maxRegion) {
+                            tRatio = reverseEase((current - this.min + this.springMaxRegion) / (current - destination));
+                            destination = this.min - this.springMaxRegion;
+                        } else {
+                            tRatio = reverseEase((current - this.min + this.springMaxRegion * (this.min - destination) / this.maxRegion) / (current - destination));
+                            destination = this.min - this.springMaxRegion * (this.min - destination) / this.maxRegion;
+                        }
+                    } else if (destination > this.max) {
+                        if (destination > this.max + this.maxRegion) {
+                            tRatio = reverseEase((this.max + this.springMaxRegion - current) / (destination - current));
+                            destination = this.max + this.springMaxRegion;
+                        } else {
+                            tRatio = reverseEase((this.max + this.springMaxRegion * (destination - this.max) / this.maxRegion - current) / (destination - current));
+                            destination = this.max + this.springMaxRegion * (destination - this.max) / this.maxRegion;
+                        }
+                    }
+
+                    var duration = Math.round(speed / self.deceleration) * tRatio;
+                    // console.log(destination, duration, "准本..")
+                    self._to(Math.round(destination), duration, ease, self.change, function (value) {
+                        if (self.target["translateY"] > self.max) {
+                            cancelAnimationFrame(self.tickID);
+                            self._to(self.max, 600, ease, self.change, self.animationEnd);
+                        } else if (self.target["translateY"] < self.min) {
+                            cancelAnimationFrame(self.tickID);
+                            self._to(self.min, 600, ease, self.change, self.animationEnd);
+                        } else {
+                            if (self.step) {
+                                self._correction();
+                            } else {
+                                self.animationEnd.call(self, value);
+                            }
+                        }
+                    });
+                } else {
+                    self._correction();
+                }
+            } else {
+                self._correction();
+            }
+        }
+    },
+    _to: function _to(value, time, ease, onChange, onEnd) {
+        var beginTime = new Date();
+        var el = this.target;
+        var current = this.target["translateY"];
+        value = this._getAutoScrollTo(value);
+        var dv = value - current;
+        var self = this;
+        var toTick = function toTick() {
+            var dt = new Date() - beginTime;
+            if (dt >= time) {
+                el["translateY"] = value;
+                onEnd && onEnd.call(self, value);
+                return;
+            }
+            el["translateY"] = dv * ease(dt / time) + current;
+            self.tickID = requestAnimationFrame(toTick);
+        };
+        toTick();
+    },
+    _correction: function _correction() {
+        var el = this.target;
+        var value = el["translateY"];
+        var rpt = Math.floor(Math.abs(value / this.step));
+        var dy = value % this.step;
+        if (Math.abs(dy) > this.step / 2) {
+            this._to((value < 0 ? -1 : 1) * (rpt + 1) * this.step, 400, ease, this.change, function (value) {
+                this.animationEnd.call(this, value);
+            }.bind(this));
+        } else {
+            this._to((value < 0 ? -1 : 1) * rpt * this.step, 400, ease, this.change, function (value) {
+                this.animationEnd.call(this, value);
+            }.bind(this));
+        }
+    },
+    _getAutoScrollTo: function _getAutoScrollTo(value) {
+        // if (value > this.max || value < this.min) {
+        //     return value;
+        // }
+        var ret = value;
+        console.log(ret, "before");
+        this.item_h = this.target.offsetHeight / 9;
+        var _val = Math.abs(value % 45);
+        if (_val > 23) {
+            ret = value + (45 - _val) * (value > 0 ? 1 : -1);
+        } else {
+            ret = value - _val * (value > 0 ? 1 : -1);
+        }
+        console.log(ret, "after");
+        return ret;
+        // console.log(this.item_h, "bbbbbb")
+    }
+};
+function ease(x) {
+    return Math.sqrt(1 - Math.pow(x - 1, 2));
+}
+
+function watch(target, prop, callback) {
+    __WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_object_define_property___default()(target, prop, {
+        get: function get() {
+            return this["_" + prop];
+        },
+        set: function set(value) {
+            this["_" + prop] = value;
+            callback();
+        }
+    });
+}
+function reverseEase(y) {
+    return 1 - Math.sqrt(1 - y * y);
+}
+
+function touch(el) {
+    el.addEventListener("touchstart", function (e) {
+        console.log("touch start");
+    });
+    el.addEventListener("touchmove", function (e) {
+        console.log("touch move");
+    });
+    el.addEventListener("touchend", function (e) {
+        console.log("touch end");
+    });
+}
+/* harmony default export */ __webpack_exports__["a"] = (Touch);
+
+/***/ }),
+/* 70 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = { "default": __webpack_require__(71), __esModule: true };
+
+/***/ }),
+/* 71 */
+/***/ (function(module, exports, __webpack_require__) {
+
+__webpack_require__(72);
+var $Object = __webpack_require__(13).Object;
+module.exports = function defineProperty(it, key, desc) {
+  return $Object.defineProperty(it, key, desc);
+};
+
+
+/***/ }),
+/* 72 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var $export = __webpack_require__(39);
+// 19.1.2.4 / 15.2.3.6 Object.defineProperty(O, P, Attributes)
+$export($export.S + $export.F * !__webpack_require__(7), 'Object', { defineProperty: __webpack_require__(43).f });
+
+
+/***/ }),
+/* 73 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { attrs: { id: "picker-wrap" } }, [
+    _c("div", { staticClass: "picker-main" }, [
+      _vm._m(0),
+      _vm._v(" "),
+      _c("div", { staticClass: "picker-placeholder" }, [
+        _vm._v("\n            请选择楼层\n        ")
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "picker-scroll" }, [
+        _vm._m(1),
+        _vm._v(" "),
+        _c("div", { staticClass: "scroll-inner" }, [
+          _c("div", { staticClass: "chose-bord" }),
+          _vm._v(" "),
+          _c("ul", { ref: "list_1", attrs: { id: "list_1" } }, [
+            _c("li", [_vm._v("1层")]),
+            _vm._v(" "),
+            _c("li", [_vm._v("2层")]),
+            _vm._v(" "),
+            _c("li", [_vm._v("3层")]),
+            _vm._v(" "),
+            _c("li", [_vm._v("4层")]),
+            _vm._v(" "),
+            _c("li", [_vm._v("5层")]),
+            _vm._v(" "),
+            _c("li", [_vm._v("6层")]),
+            _vm._v(" "),
+            _c("li", [_vm._v("7层")]),
+            _vm._v(" "),
+            _c("li", [_vm._v("8层")]),
+            _vm._v(" "),
+            _c("li", [_vm._v("9层")])
+          ])
+        ])
+      ])
+    ])
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "picker-header" }, [
+      _c("div", { staticClass: "title" }, [_vm._v("楼层")]),
+      _vm._v(" "),
+      _c("div", { staticClass: "picker-text" }, [_vm._v("1-3层/8层")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "scroll-choose" }, [
+      _c("div", { staticClass: "picker-title" }, [_vm._v("楼层：")]),
+      _vm._v(" "),
+      _c("div", { staticClass: "choose-inner" }, [
+        _c("label", { attrs: { for: "" } }, [_vm._v("单层")]),
+        _vm._v(" "),
+        _c("label", { attrs: { for: "" } }, [_vm._v("多层")])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "choose-sure", attrs: { id: "btn-sure" } })
+    ])
+  }
+]
+render._withStripped = true
+var esExports = { render: render, staticRenderFns: staticRenderFns }
+/* harmony default export */ __webpack_exports__["a"] = (esExports);
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-loader/node_modules/vue-hot-reload-api")      .rerender("data-v-0c9dc0d0", esExports)
   }
 }
 

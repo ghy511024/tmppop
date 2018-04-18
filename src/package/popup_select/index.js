@@ -44,7 +44,6 @@ let popup_select = (a,fun) => {
     },60);
 };
 
-
 export default {
     install(Vue, options) {
         initInstance();
