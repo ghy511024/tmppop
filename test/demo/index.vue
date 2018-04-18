@@ -40,11 +40,6 @@
                         {"title": "转租", "text": "转让自己承租的房子", value: "4"},
                         {"title": "经纪人", "text": "房产中介，拥有专业的展示空间", value: "5"},
                         {"title": "职业房东", "text": "公寓经营者/多房源管理者", value: "6"},
-//                        {"title":"商铺产品"},
-//                        {"title":"商铺产品"},
-//                        {"title":"商铺产品"},
-//                        {"title":"商铺产品"},
-//                        {"text":"商铺产品"},
                     ],
                 };
                 this.$popup_select(data,function(data,status){ //data是返回的数据，status是确定还是取消状态
