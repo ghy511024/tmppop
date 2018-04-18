@@ -84,16 +84,4 @@ function watch(target, prop, callback) {
         }
     });
 }
-
-function touch(el) {
-    el.addEventListener("touchstart", function (e) {
-        console.log("touch start")
-    })
-    el.addEventListener("touchmove", function (e) {
-        console.log("touch move")
-    })
-    el.addEventListener("touchend", function (e) {
-        console.log("touch end")
-    })
-}
 export  default Touch;
