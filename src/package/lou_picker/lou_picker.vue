@@ -1,7 +1,6 @@
 
 <style lang="scss" scoped>
 
-
     @import "../../common/css/mixin.scss";
 
     #picker-wrap {
@@ -52,9 +51,50 @@
         background: #f9fafc;
         @include border1px(top, 0, #e3e3e4);
         @include border1px(bottom, 0, #e3e3e4);
+        font-size: rem(30px);
         color: #999999;
     }
-
+    .scroll-choose{
+        height: rem(90px);
+        width: 100%;
+        background: #ffffff;
+        @include border1px(bottom, 0, #e3e3e4);
+        font-size: rem(30px);
+        color: #999999;
+    }
+    .picker-title{
+        position: absolute;
+        z-index: 1;
+        width:rem(120px);
+        height:rem(90px);
+        line-height: rem(90px);
+        text-align: right;
+        top: 0px;
+        right: auto;
+    }
+    .choose-inner{
+        position: absolute;
+        z-index: 1;
+        width:rem(300px);
+        height:rem(90px);
+        line-height: rem(90px);
+        text-align: center;
+        top: 0px;
+        left: rem(120px);
+        background: red;
+    }
+    .choose-sure{
+        position: absolute;
+        z-index: 1;
+        width:rem(120px);
+        height:rem(90px);
+        line-height: rem(90px);
+        text-align: left;
+        font-size: rem(34px);
+        color: #ff552e;
+        top: 0px;
+        right: 0px;
+    }
     .scroll-inner {
         height: rem(486px);
         background: #fff;
@@ -102,10 +142,10 @@
                 <div class="scroll-choose">
                     <div class="picker-title">楼层：</div>
                     <div class="choose-inner">
-                        <label for="">单层</label>
-                        <label for="">多层</label>
+                        <label for="" class="choose-level">单层</label>
+                        <label for="" class="choose-level">多层</label>
                     </div>
-                    <div id="btn-sure" class="choose-sure"></div>
+                    <div id="btn-sure" class="choose-sure">确定</div>
                 </div>
                 <div class="scroll-inner">
                     <div class="chose-bord"></div>

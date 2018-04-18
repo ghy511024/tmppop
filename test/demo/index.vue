@@ -7,6 +7,7 @@
     <div class="main">
         <button @click="test1">测试dialog</button>
         <button @click="test2">测试popup_select</button>
+        <button @click="test3">测试lou_picker</button>
     </div>
 </template>
 <script>
@@ -33,7 +34,7 @@
                     selec_type: "checkbox",
                     //list_type： single_text multi_text
                     list_type: "multi_text",
-                    list: [
+                    options: [
                         {"title": "房东", "text": "房屋所有者，具备认证房本资质", value: "1"},
                         {"title": "转租", "text": "转让自己承租的房子", value: "2"},
                         {"title": "房东", "text": "房屋所有者，具备认证房本资质", value: "3"},
@@ -47,12 +48,13 @@
 //                        {"text":"商铺产品"},
                     ],
                 };
-                this.$popup_select(data,function(data,status){ //data是返回的数据，status是确定还是取消状态
+                this.$popup_select(data,function(status,data){ //data是返回的数据，status是确定还是取消状态
                     console.log(status);
                     console.log(data)
                 });
 
             },
+            test3(){},
         }
     }
 </script>
