@@ -1,7 +1,8 @@
-<style lang="scss">
+<style lang="scss" scoped>
     @import "../../common/css/mixin.scss";
 
     #picker-wrap {
+        display: none;
         width: 100%;
         position: absolute;
         z-index: 100;
