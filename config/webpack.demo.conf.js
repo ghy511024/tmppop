@@ -20,7 +20,9 @@ module.exports = function (env) {
         resolve: {
             // extensions: ['.js', '.vue'],
             // alias: {
-            //     'vue$': 'vue/dist/vue.runtime.esm.js',
+            //     'vu
+            //
+            // e$': 'vue/dist/vue.runtime.esm.js',
             // }
         },
         module: {

@@ -41,9 +41,7 @@ var Touch = function (target, option) {
     watch(target, "translateY", function () {
         var trand = target.translateY;
         var transform = "translateY(" + trand + "px)"
-        // console.log(trand, "current")
         target.style.transform = target.style.msTransform = target.style.OTransform = target.style.MozTransform = target.style.webkitTransform = transform;
-
     });
     this.target = target;
     this.target.translateY = 0;
@@ -64,7 +62,6 @@ Touch.prototype = {
     animationEnd: function () {
         // console.log("动画结束")
     },
-
     _start: function (evt) {
         this._full();
         this.y1 = this.preY = evt.touches[0].pageY;
@@ -167,7 +164,6 @@ Touch.prototype = {
                             }
                         }
                     });
-
                 } else {
                     self._correction();
                 }
@@ -214,14 +210,12 @@ Touch.prototype = {
     _getAutoScrollTo(value){
         var ret = value;
         var _val = Math.abs(value % this.dom_item_height);
-        // console.log(this.dom_item_height, "bbbbbbbbb")
         if (_val > this.dom_item_height / 2) {
             ret = value + (this.dom_item_height - _val) * (value > 0 ? 1 : -1);
         } else {
             ret = value - _val * (value > 0 ? 1 : -1);
         }
         return ret;
-        // console.log(this.item_h, "bbbbbb")
     }
 }
 function ease(x) {

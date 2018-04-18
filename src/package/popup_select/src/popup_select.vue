@@ -9,10 +9,10 @@
                 </div>
                 <div class="pop-list">
                     <ul>
-                        <li shenfen-id="jsptpl-style" v-for="(option,index) in list"
+                        <li shenfen-id="jsptpl-style" v-for="(option,index) in options"
                             @click="add_class(option.value,index)"
                             :class="{active:select_map[option.value]}">
-                            <div class="pop-single-info" v-show="single_text">{{option.title}}</div>
+                            <div class="pop-single-info" v-show="single_text">{{option.text}}</div>
                             <div class="pop-info" v-show="multi_text">{{option.title}}</div>
                             <div class="pop-desc" v-show="multi_text">{{option.text}}</div>
                             <div class="pop-arrow"></div>
@@ -30,20 +30,18 @@
         name: 'app',
         data() {
             return {
-                title: "",
-                selec_type: "",
-                currentSelect: 0,
-                list: [],
+                title:"",
+                selec_type:"",
+                options:[],
                 show: false,
                 single_text: false,
                 multi_text: false,
                 isbeforeActive: false,
                 isactive: false,
-                currentobj: {},
-                muli_currentobj: [],
-                select_map: {},
-                callback: function () {
-                },
+                currentobj:{},
+                muli_currentobj:[],
+                select_map:{},
+                callback:function(){},
             };
         },
         creat(){
@@ -60,11 +58,11 @@
                         _this.select_map[key] = false;
                     }
                     _this.select_map[value] = true;
-                    _this.currentobj = _this.list[index];
+                    _this.currentobj = _this.options[index];
                 }
                 else {//复选框时候状态取反
                     if (!_this.select_map[value]) {//点击的之前状态是false时候，当前就是选中状态，添加当前数据进存储
-                        _this.muli_currentobj.push(_this.list[index]);
+                        _this.muli_currentobj.push(_this.options[index]);
                     } else {//点击的之前状态是true时候，当前就是取消状态，删除存储中当前数据（遍历时候记住当前元素在存储中的下标，遍历结束后删除该元素）
                         let length = _this.muli_currentobj.length || 0;
                         let deleti = null;
@@ -75,11 +73,10 @@
                                 deleti = i;
                             }
                         }
-                        setTimeout(function () {
-                            if (deleti) {
-                                _this.muli_currentobj.splice(deleti, 1);
+                            if (deleti!=null) {
+                                 _this.muli_currentobj.splice(deleti, 1);
                             }
-                        }, 0);
+
                     }
                     _this.select_map[value] = !_this.select_map[value];
                 }
@@ -89,22 +86,29 @@
             stop(){
             },
             decision_click(){
-                let _this = this;
-                if (_this.selec_type == "radio") {
+                let _this=this;
+                if(_this.selec_type=="radio"){
+                    _this.isactive = false;
+                    setTimeout(function () {
+                        _this.isbeforeActive = false;
+                        _this.show = false;
+                    }, 600)
 //                        console.log("确定:   "+_this.currentobj.title);
-                    return _this.callback(_this.currentobj, 1);
-                } else if (_this.selec_type == "checkbox") {
+                    return _this.callback(0,_this.currentobj);
+                }else if(_this.selec_type=="checkbox"){
+                    _this.isactive = false;
+                    setTimeout(function () {
+                        _this.isbeforeActive = false;
+                        _this.show = false;
+                    }, 600)
+
 //                        console.log("确定按钮----=----"+"当前选中元素如下:   ")
 //                        for(let i =0;i<_this.muli_currentobj.length;i++){
 //                            console.log(_this.muli_currentobj[i].title);
 //                        }
-                    return _this.callback(_this.muli_currentobj, 1);
+                    return _this.callback(0,_this.muli_currentobj);
                 }
-                _this.isactive = false;
-                setTimeout(function () {
-                    _this.isbeforeActive = false;
-                    _this.show = false;
-                }, 600)
+
             },
             close_click() {
                 let _this = this;
@@ -121,7 +125,7 @@
                     _this.isbeforeActive = false;
                     _this.show = false;
                 }, 600)
-                return _this.callback(null, 0);
+                return _this.callback(1,null);
             },
 
         },
@@ -145,9 +149,11 @@
         position: fixed;
         top: 0px;
         transition: all 0.4s ease;
+        /*background: rgba(0,0,0,0.4);*/
     }
 
     .pop-select .pop-wrap {
+        z-index: 1;
         transition: all 0.4s ease;
         position: absolute;
         width: 100%;
@@ -285,7 +291,7 @@
     }
 
     .pop-select.active {
-        /*background: rgba(0, 0, 0, 0.7);*/
+        background: rgba(0, 0, 0, 0.3);
     }
 
     .pop-select.active .pop-wrap {
