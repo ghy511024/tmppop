@@ -31,7 +31,8 @@
     }
 }());
 
-var Touch = function (target) {
+var Touch = function (target, option) {
+    option = option || {};
     var _this = this;
     target.addEventListener("touchstart", this._start.bind(this))
     target.addEventListener("touchmove", this._move.bind(this))
@@ -46,23 +47,26 @@ var Touch = function (target) {
     });
     this.target = target;
     this.target.translateY = 0;
-    this.min = -405+45;
-    setTimeout(function () {
 
-    }.bind(this), 100)
+    this.dom_len = option.dom_len//  条数
+    // this.min = -405 + 45;
 
 }
 Touch.prototype = {
     max: 0,
     step: 10,
+    dom_len: 1,
+    dom_item_height: 1,
     sensitivity: 1,//灵敏度
     deceleration: 0.0006,// 减速率
     maxRegion: 600,
     springMaxRegion: 60,// 弹性
     animationEnd: function () {
-        console.log("动画结束")
+        // console.log("动画结束")
     },
+
     _start: function (evt) {
+        this._full();
         this.y1 = this.preY = evt.touches[0].pageY;
         cancelAnimationFrame(this.tickID);
         this.start = this.preY;
@@ -70,6 +74,14 @@ Touch.prototype = {
         this.startTime = new Date().getTime();
         this._firstTouchMove = true;
         this._preventMove = false;
+    },
+    _full: function () {
+        if (!this.dom_height) {
+            this.dom_height = this.target.offsetHeight;
+            this.dom_item_height = this.dom_height / this.dom_len;
+            this.min = -this.dom_height + this.dom_item_height;
+            // console.log(this.dom_height, this.dom_item_height, this.min)
+        }
     },
     _move: function (evt) {
         if (this.isTouchStart) {
@@ -94,7 +106,7 @@ Touch.prototype = {
             this.isTouchStart = false;
             var self = this;
             var current = this.target["translateY"];
-            console.log("touche end..", current, this.max)
+            // console.log("touche end..", current, this.max)
 
             var triggerTap = (Math.abs(evt.changedTouches[0].pageX - this.x1) < 30 && Math.abs(evt.changedTouches[0].pageY - this.y1) < 30);
             if (current > this.max) {
@@ -200,19 +212,14 @@ Touch.prototype = {
         }
     },
     _getAutoScrollTo(value){
-        // if (value > this.max || value < this.min) {
-        //     return value;
-        // }
         var ret = value;
-        console.log(ret, "before")
-        this.item_h = this.target.offsetHeight / 9;
-        var _val = Math.abs(value % 45);
-        if (_val > 23) {
-            ret = value + (45 - _val) * (value > 0 ? 1 : -1);
+        var _val = Math.abs(value % this.dom_item_height);
+        // console.log(this.dom_item_height, "bbbbbbbbb")
+        if (_val > this.dom_item_height / 2) {
+            ret = value + (this.dom_item_height - _val) * (value > 0 ? 1 : -1);
         } else {
             ret = value - _val * (value > 0 ? 1 : -1);
         }
-        console.log(ret, "after")
         return ret;
         // console.log(this.item_h, "bbbbbb")
     }
@@ -220,7 +227,9 @@ Touch.prototype = {
 function ease(x) {
     return Math.sqrt(1 - Math.pow(x - 1, 2));
 }
-
+function reverseEase(y) {
+    return 1 - Math.sqrt(1 - y * y);
+}
 function watch(target, prop, callback) {
     Object.defineProperty(target, prop, {
         get: function () {
@@ -231,20 +240,5 @@ function watch(target, prop, callback) {
             callback();
         }
     });
-}
-function reverseEase(y) {
-    return 1 - Math.sqrt(1 - y * y);
-}
-
-function touch(el) {
-    el.addEventListener("touchstart", function (e) {
-        console.log("touch start")
-    })
-    el.addEventListener("touchmove", function (e) {
-        console.log("touch move")
-    })
-    el.addEventListener("touchend", function (e) {
-        console.log("touch end")
-    })
 }
 export  default Touch;

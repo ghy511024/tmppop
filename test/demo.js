@@ -9290,6 +9290,10 @@ module.exports = function (it) {
 //
 //
 //
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["a"] = ({
@@ -9302,10 +9306,10 @@ module.exports = function (it) {
         console.log("333");
     },
     mounted: function mounted() {
-        console.log("touch....");
+        console.log("touch....", { dom_len: 9 });
         var dom = this.$refs.list_1;
         console.log(dom, "...");
-        new __WEBPACK_IMPORTED_MODULE_0__lib_touch__["a" /* default */](dom);
+        new __WEBPACK_IMPORTED_MODULE_0__lib_touch__["a" /* default */](dom, { dom_len: 9 });
     }
 });
 
@@ -10767,7 +10771,8 @@ exports.push([module.i, "\n@charset \"UTF-8\";\n/*\r\nTo change this license hea
     }
 })();
 
-var Touch = function Touch(target) {
+var Touch = function Touch(target, option) {
+    option = option || {};
     var _this = this;
     target.addEventListener("touchstart", this._start.bind(this));
     target.addEventListener("touchmove", this._move.bind(this));
@@ -10781,20 +10786,25 @@ var Touch = function Touch(target) {
     });
     this.target = target;
     this.target.translateY = 0;
-    this.min = -405 + 45;
-    setTimeout(function () {}.bind(this), 100);
+
+    this.dom_len = option.dom_len; //  条数
+    // this.min = -405 + 45;
 };
 Touch.prototype = {
     max: 0,
     step: 10,
+    dom_len: 1,
+    dom_item_height: 1,
     sensitivity: 1, //灵敏度
     deceleration: 0.0006, // 减速率
     maxRegion: 600,
     springMaxRegion: 60, // 弹性
     animationEnd: function animationEnd() {
-        console.log("动画结束");
+        // console.log("动画结束")
     },
+
     _start: function _start(evt) {
+        this._full();
         this.y1 = this.preY = evt.touches[0].pageY;
         cancelAnimationFrame(this.tickID);
         this.start = this.preY;
@@ -10802,6 +10812,14 @@ Touch.prototype = {
         this.startTime = new Date().getTime();
         this._firstTouchMove = true;
         this._preventMove = false;
+    },
+    _full: function _full() {
+        if (!this.dom_height) {
+            this.dom_height = this.target.offsetHeight;
+            this.dom_item_height = this.dom_height / this.dom_len;
+            this.min = -this.dom_height + this.dom_item_height;
+            // console.log(this.dom_height, this.dom_item_height, this.min)
+        }
     },
     _move: function _move(evt) {
         if (this.isTouchStart) {
@@ -10826,7 +10844,7 @@ Touch.prototype = {
             this.isTouchStart = false;
             var self = this;
             var current = this.target["translateY"];
-            console.log("touche end..", current, this.max);
+            // console.log("touche end..", current, this.max)
 
             var triggerTap = Math.abs(evt.changedTouches[0].pageX - this.x1) < 30 && Math.abs(evt.changedTouches[0].pageY - this.y1) < 30;
             if (current > this.max) {
@@ -10924,19 +10942,14 @@ Touch.prototype = {
         }
     },
     _getAutoScrollTo: function _getAutoScrollTo(value) {
-        // if (value > this.max || value < this.min) {
-        //     return value;
-        // }
         var ret = value;
-        console.log(ret, "before");
-        this.item_h = this.target.offsetHeight / 9;
-        var _val = Math.abs(value % 45);
-        if (_val > 23) {
-            ret = value + (45 - _val) * (value > 0 ? 1 : -1);
+        var _val = Math.abs(value % this.dom_item_height);
+        // console.log(this.dom_item_height, "bbbbbbbbb")
+        if (_val > this.dom_item_height / 2) {
+            ret = value + (this.dom_item_height - _val) * (value > 0 ? 1 : -1);
         } else {
             ret = value - _val * (value > 0 ? 1 : -1);
         }
-        console.log(ret, "after");
         return ret;
         // console.log(this.item_h, "bbbbbb")
     }
@@ -10944,7 +10957,9 @@ Touch.prototype = {
 function ease(x) {
     return Math.sqrt(1 - Math.pow(x - 1, 2));
 }
-
+function reverseEase(y) {
+    return 1 - Math.sqrt(1 - y * y);
+}
 function watch(target, prop, callback) {
     __WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_object_define_property___default()(target, prop, {
         get: function get() {
@@ -10954,21 +10969,6 @@ function watch(target, prop, callback) {
             this["_" + prop] = value;
             callback();
         }
-    });
-}
-function reverseEase(y) {
-    return 1 - Math.sqrt(1 - y * y);
-}
-
-function touch(el) {
-    el.addEventListener("touchstart", function (e) {
-        console.log("touch start");
-    });
-    el.addEventListener("touchmove", function (e) {
-        console.log("touch move");
-    });
-    el.addEventListener("touchend", function (e) {
-        console.log("touch end");
     });
 }
 /* harmony default export */ __webpack_exports__["a"] = (Touch);

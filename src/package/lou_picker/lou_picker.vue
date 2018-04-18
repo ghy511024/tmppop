@@ -1,4 +1,7 @@
+
 <style lang="scss" scoped>
+
+
     @import "../../common/css/mixin.scss";
 
     #picker-wrap {
@@ -68,6 +71,7 @@
         right: rem(50px);
         top: rem(200px)
     }
+
     ul {
         position: absolute;
         top: rem(200px);
@@ -135,10 +139,10 @@
             console.log("333")
         },
         mounted(){
-            console.log("touch....")
+            console.log("touch....", {dom_len: 9})
             var dom = this.$refs.list_1;
             console.log(dom, "...")
-            new touch(dom)
+            new touch(dom,{dom_len: 9})
         }
 
     }
