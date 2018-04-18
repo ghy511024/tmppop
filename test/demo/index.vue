@@ -7,12 +7,44 @@
     <div class="main">
         <button @click="test1">测试dialog</button>
         <button @click="test2">测试popup_select</button>
+          <button @click="test3">测试输入控件</button>
     </div>
 </template>
 <script>
     export default{
         data: function () {
-            return {}
+            return {
+                rentKeyoardData: {
+                    dataArrSel: {
+                        value: 0
+                    },
+                    dataArr: [
+                        {
+                            defaultValue: "123",
+                            defaultUnit: [{"text": "元/㎡.天", "value": "3"}, {
+                                "text": "元/月",
+                                "value": "1",
+                                "selected": true
+                            }],
+                            suggest: "请填写租金1",
+                            title: "租金1",
+                            placeholder: "请填写1",
+                            type: "zujin1"
+                        },
+                        {
+                            defaultValue: "123",
+                            defaultUnit: [{"text": "元/㎡.天", "value": "3", "selected": true}, {
+                                "text": "元/月",
+                                "value": "1",
+                            }],
+                            suggest: "请填写租金2",
+                            title: "租金2",
+                            placeholder: "请填写2",
+                            type: "zujin2"
+                        }
+                    ],
+                },
+            }
         },
         created: function () {
 
@@ -53,6 +85,11 @@
                 });
 
             },
+            test3(){
+                this.$rentKeyboard(this.rentKeyoardData, (res) => {
+                    console.log('返回数据为：', res);
+                });
+            }
         }
     }
 </script>

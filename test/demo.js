@@ -8617,10 +8617,39 @@ module.exports = function (exec) {
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["a"] = ({
     data: function data() {
-        return {};
+        return {
+            rentKeyoardData: {
+                dataArrSel: {
+                    value: 0
+                },
+                dataArr: [{
+                    defaultValue: "123",
+                    defaultUnit: [{ "text": "元/㎡.天", "value": "3" }, {
+                        "text": "元/月",
+                        "value": "1",
+                        "selected": true
+                    }],
+                    suggest: "请填写租金1",
+                    title: "租金1",
+                    placeholder: "请填写1",
+                    type: "zujin1"
+                }, {
+                    defaultValue: "123",
+                    defaultUnit: [{ "text": "元/㎡.天", "value": "3", "selected": true }, {
+                        "text": "元/月",
+                        "value": "1"
+                    }],
+                    suggest: "请填写租金2",
+                    title: "租金2",
+                    placeholder: "请填写2",
+                    type: "zujin2"
+                }]
+            }
+        };
     },
     created: function created() {},
     mounted: function mounted() {},
@@ -8643,6 +8672,11 @@ module.exports = function (exec) {
                 //data是返回的数据，status是确定还是取消状态
                 console.log(status);
                 console.log(data);
+            });
+        },
+        test3: function test3() {
+            this.$rentKeyboard(this.rentKeyoardData, function (res) {
+                console.log('返回数据为：', res);
             });
         }
     }
@@ -9286,6 +9320,8 @@ module.exports = function (it) {
 //
 //
 //
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["a"] = ({
@@ -9316,6 +9352,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__src_package_fb_multiselect_src_index__ = __webpack_require__(30);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__src_package_popup_select_index__ = __webpack_require__(35);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__src_package_lou_picker_index__ = __webpack_require__(65);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__src_package_rentKeyboard_index__ = __webpack_require__(76);
+
 
 
 
@@ -9325,6 +9363,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 __WEBPACK_IMPORTED_MODULE_1_vue__["a" /* default */].use(__WEBPACK_IMPORTED_MODULE_2__src_package_fb_multiselect_src_index__["a" /* default */]);
 __WEBPACK_IMPORTED_MODULE_1_vue__["a" /* default */].use(__WEBPACK_IMPORTED_MODULE_3__src_package_popup_select_index__["a" /* default */]);
 __WEBPACK_IMPORTED_MODULE_1_vue__["a" /* default */].use(__WEBPACK_IMPORTED_MODULE_4__src_package_lou_picker_index__["a" /* default */]);
+__WEBPACK_IMPORTED_MODULE_1_vue__["a" /* default */].use(__WEBPACK_IMPORTED_MODULE_5__src_package_rentKeyboard_index__["a" /* default */]);
 
 new __WEBPACK_IMPORTED_MODULE_1_vue__["a" /* default */]({
     el: '#app',
@@ -9474,7 +9513,9 @@ var render = function() {
   return _c("div", { staticClass: "main" }, [
     _c("button", { on: { click: _vm.test1 } }, [_vm._v("测试dialog")]),
     _vm._v(" "),
-    _c("button", { on: { click: _vm.test2 } }, [_vm._v("测试popup_select")])
+    _c("button", { on: { click: _vm.test2 } }, [_vm._v("测试popup_select")]),
+    _vm._v(" "),
+    _c("button", { on: { click: _vm.test3 } }, [_vm._v("测试输入控件")])
   ])
 }
 var staticRenderFns = []
@@ -9492,15 +9533,16 @@ if (false) {
 /* 28 */
 /***/ (function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function(global) {var apply = Function.prototype.apply;
+/* WEBPACK VAR INJECTION */(function(global) {var scope = (typeof self !== "undefined" && self) || window;
+var apply = Function.prototype.apply;
 
 // DOM APIs, for completeness
 
 exports.setTimeout = function() {
-  return new Timeout(apply.call(setTimeout, window, arguments), clearTimeout);
+  return new Timeout(apply.call(setTimeout, scope, arguments), clearTimeout);
 };
 exports.setInterval = function() {
-  return new Timeout(apply.call(setInterval, window, arguments), clearInterval);
+  return new Timeout(apply.call(setInterval, scope, arguments), clearInterval);
 };
 exports.clearTimeout =
 exports.clearInterval = function(timeout) {
@@ -9515,7 +9557,7 @@ function Timeout(id, clearFn) {
 }
 Timeout.prototype.unref = Timeout.prototype.ref = function() {};
 Timeout.prototype.close = function() {
-  this._clearFn.call(window, this._id);
+  this._clearFn.call(scope, this._id);
 };
 
 // Does not start the time, just sets up the members needed.
@@ -9543,7 +9585,7 @@ exports._unrefActive = exports.active = function(item) {
 
 // setimmediate attaches itself to the global object
 __webpack_require__(29);
-// On some exotic environments, it's not clear which object `setimmeidate` was
+// On some exotic environments, it's not clear which object `setimmediate` was
 // able to install onto.  Search each possibility in the same order as the
 // `setimmediate` library.
 exports.setImmediate = (typeof self !== "undefined" && self.setImmediate) ||
@@ -9875,7 +9917,7 @@ exports = module.exports = __webpack_require__(0)(false);
 
 
 // module
-exports.push([module.i, "\n@charset \"UTF-8\";\n/*\r\nTo change this license header, choose License Headers in Project Properties.\r\nTo change this template file, choose Tools | Templates\r\nand open the template in the editor.\r\n*/\n/* \r\n    Created on : 2017-8-31, 23:11:17\r\n    Author     : ghy\r\n*/\n/**\r\n * @param $line       超出显示省略号的行数，默认：1\r\n * @param $substract  为预留区域百分比%，默认：0\r\n */\n/*\r\nTo change this license header, choose License Headers in Project Properties.\r\nTo change this template file, choose Tools | Templates\r\nand open the template in the editor.\r\n*/\n/* \r\n    Created on : 2017-8-31, 23:12:32\r\n    Author     : ghy\r\n*/\n/* @author 龚虹宇 */\n/** -------------------------------------------\r\n    Generic Mixins\r\n    ------------------------------------------- **/\n/**\r\n * Adds prefixed version of values in a property\r\n */\n.dialogMask {\n  position: fixed;\n  width: 8rem;\n  height: 100%;\n  top: 0;\n  background: rgba(0, 0, 0, .6);\n}\n", ""]);
+exports.push([module.i, "\n@charset \"UTF-8\";\n/*\nTo change this license header, choose License Headers in Project Properties.\nTo change this template file, choose Tools | Templates\nand open the template in the editor.\n*/\n/* \n    Created on : 2017-8-31, 23:11:17\n    Author     : ghy\n*/\n/**\n * @param $line       超出显示省略号的行数，默认：1\n * @param $substract  为预留区域百分比%，默认：0\n */\n/*\nTo change this license header, choose License Headers in Project Properties.\nTo change this template file, choose Tools | Templates\nand open the template in the editor.\n*/\n/* \n    Created on : 2017-8-31, 23:12:32\n    Author     : ghy\n*/\n/* @author 龚虹宇 */\n/** -------------------------------------------\n    Generic Mixins\n    ------------------------------------------- **/\n/**\n * Adds prefixed version of values in a property\n */\n.dialogMask {\n  position: fixed;\n  width: 8rem;\n  height: 100%;\n  top: 0;\n  background: rgba(0, 0, 0, .6);\n}\n", ""]);
 
 // exports
 
@@ -10067,7 +10109,7 @@ exports = module.exports = __webpack_require__(0)(false);
 
 
 // module
-exports.push([module.i, "\n@charset \"UTF-8\";\n/*\r\nTo change this license header, choose License Headers in Project Properties.\r\nTo change this template file, choose Tools | Templates\r\nand open the template in the editor.\r\n*/\n/* \r\n    Created on : 2017-8-31, 23:11:17\r\n    Author     : ghy\r\n*/\n/**\r\n * @param $line       超出显示省略号的行数，默认：1\r\n * @param $substract  为预留区域百分比%，默认：0\r\n */\n/*\r\nTo change this license header, choose License Headers in Project Properties.\r\nTo change this template file, choose Tools | Templates\r\nand open the template in the editor.\r\n*/\n/* \r\n    Created on : 2017-8-31, 23:12:32\r\n    Author     : ghy\r\n*/\n/* @author 龚虹宇 */\n/** -------------------------------------------\r\n    Generic Mixins\r\n    ------------------------------------------- **/\n/**\r\n * Adds prefixed version of values in a property\r\n */\n* {\n  margin: 0px;\n  padding: 0px;\n  list-style: none;\n}\n.pop-select {\n  width: 100%;\n  height: 100%;\n  position: fixed;\n  top: 0px;\n  -webkit-transition: all 0.4s ease;\n  transition: all 0.4s ease;\n}\n.pop-select .pop-wrap {\n  -webkit-transition: all 0.4s ease;\n  transition: all 0.4s ease;\n  position: absolute;\n  width: 100%;\n  bottom: 0px;\n  background: #ffffff;\n  -webkit-transform: translateY(100%);\n          transform: translateY(100%);\n}\n.pop-select .pop-title {\n  height: 1.2rem;\n  background: #f9fafc;\n  text-align: center;\n  font-size: 0.37333rem;\n  color: #999999;\n  line-height: 1.2rem;\n  position: relative;\n}\n.pop-select .pop-title:after {\n  content: \"\";\n  position: absolute;\n  top: 0;\n  left: 0;\n  border: 1px solid #e3e3e4;\n  box-sizing: border-box;\n  width: 200%;\n  height: 200%;\n  -webkit-transform: scale(0.5);\n  transform: scale(0.5);\n  -webkit-transform-origin: left top;\n  transform-origin: left top;\n}\n.pop-select .pop-title .pop-sure, .pop-select .pop-title .pop-cancel {\n  position: absolute;\n  z-index: 1;\n  width: 1.6rem;\n  height: 1.2rem;\n  line-height: 1.22667rem;\n  color: #ff552e;\n  top: 0px;\n  right: 0px;\n}\n.pop-select .pop-title .pop-sure.pop-cancel, .pop-select .pop-title .pop-cancel.pop-cancel {\n  right: auto;\n  left: 0px;\n  color: #7b7b7b;\n}\n.pop-select .pop-list {\n  widtH: 100%;\n  max-height: 350px;\n  overflow: hidden;\n  overflow-y: scroll;\n}\n.pop-select .pop-list ul {\n  width: 9.33333rem;\n  margin: 0 auto;\n}\n.pop-select .pop-list ul li {\n  width: 100%;\n  height: 1.86667rem;\n  position: relative;\n}\n.pop-select .pop-list ul li:after {\n  border-radius: 0px;\n  content: \"\";\n  position: absolute;\n  top: 0;\n  left: 0;\n  z-index: -1;\n  border-bottom: 1px solid #f1f1f1;\n  box-sizing: border-box;\n  width: 200%;\n  height: 200%;\n  -webkit-transform: scale(0.5);\n  transform: scale(0.5);\n  -webkit-transform-origin: left top;\n  transform-origin: left top;\n}\n.pop-select .pop-list ul li .pop-info {\n  position: absolute;\n  top: 0.4rem;\n  font-size: 0.45333rem;\n  color: #333333;\n  left: 0.06667rem;\n}\n.pop-select .pop-list ul li .pop-single-info {\n  position: absolute;\n  top: 50%;\n  margin-top: -11px;\n  font-size: 0.45333rem;\n  color: #333333;\n  left: 0.06667rem;\n}\n.pop-select .pop-list ul li .pop-desc {\n  font-size: 0.32rem;\n  position: absolute;\n  left: 0.06667rem;\n  top: 0.98667rem;\n  color: #7b7b7b;\n}\n.pop-select .pop-list ul li .pop-arrow {\n  position: absolute;\n  right: 0.26667rem;\n  width: 22px;\n  height: 22px;\n  top: 50%;\n  margin-top: -11px;\n  background-image: url(\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACwAAAAsCAMAAAApWqozAAAASFBMVEUAAADHx87IyM7IyM7Kys/IyM7Jyc/IyNHKytHW1tb////Hx87IyM3IyM3IyM7IyM3Jyc7IyM7Jyc7Ly9HIyNPHx83IyM3Hx81MCBRBAAAAF3RSTlMA8qt/QttXOCQMAennw7+ZjYNtLBf2kCIzlTUAAAEGSURBVDjLjJFbbsMwDAQpUpIl+R07mfvftEBdFE7ih+ZzMSB2QfmgNLMOwbkw6NwUucKPHTu60Z+qTQ+EKfqUc/JxCkDfHKpJobVlHy3WgqaDBg5n+TPN5nBfXR6gqxywKjzeoxfYyfZi8Hq/+4xySnzub3uIckGE/97JYXKJ4ZJsKFqu5aLo3y9wq9ywOrbv9JjcYvTbujbfy7n93ThiUoExipSOpUZe6Io0BKki0MjMVCdPzKLEOjmiMuDrZM8ggVQnJ4I4cp2ccT+V1TkBAAAIxDD/rqMhOwPP0VZxtVED1urqKHXuCtJEtMI/b1UPOygoyAy+BoyD3IH5aGIE1Gp7aZaOAVpkFMUoYaaBAAAAAElFTkSuQmCC\");\n  background-size: cover;\n}\n.pop-select .pop-list ul li.active .pop-arrow {\n  background-image: url(\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACwAAAAsCAMAAAApWqozAAAAPFBMVEUAAAD/VS7/VjH/VzL/VS7/Vi//VS7/VS//VS//VS7/VS7/Vi//Vy//WjX/VS7/VS7/Yz//4tv/////m4Tfv1CvAAAAD3RSTlMA8UQ459nDv62lmYNtIpDE1s/TAAAA6klEQVQ4y53VS5KDMAwEUPmP7ZAmk/vfdRaZcoKITDO95ZWqjGVJdEKvJTmXSu1BpvEt4iOxeZOGjEPy9/Lrgq9Z1qP1Dkac1/aGSW57e8c0d7auru1xGj/+gzvHbv3DC4gsLxtA5XU7mcP5/HTbc3fGNrWPn6GbiMS5fWyjB0UCa4EgnbboUmmLKoW2KJJoiySOtnAf+Llpe8Bp2PHZsEhSFLAtilQobVpU6VDatOgSoPTO6o6OSps2jhZ9a8uijeZ/a2XVA897bdl8/cHyo4AfMtfHFz8Y+ZHLD/Ora4JfQPxq+//S5NfxLzPrWEC1LMpOAAAAAElFTkSuQmCC\");\n}\n.pop-select.beforeActive {\n  display: block;\n  background: transparent;\n}\n.pop-select.beforeActive .pop-wrap {\n  -webkit-transform: translateY(100%);\n          transform: translateY(100%);\n}\n.pop-select.active {\n  /*background: rgba(0, 0, 0, 0.7);*/\n}\n.pop-select.active .pop-wrap {\n  -webkit-transform: translateY(0);\n          transform: translateY(0);\n}\n", ""]);
+exports.push([module.i, "\n@charset \"UTF-8\";\n/*\nTo change this license header, choose License Headers in Project Properties.\nTo change this template file, choose Tools | Templates\nand open the template in the editor.\n*/\n/* \n    Created on : 2017-8-31, 23:11:17\n    Author     : ghy\n*/\n/**\n * @param $line       超出显示省略号的行数，默认：1\n * @param $substract  为预留区域百分比%，默认：0\n */\n/*\nTo change this license header, choose License Headers in Project Properties.\nTo change this template file, choose Tools | Templates\nand open the template in the editor.\n*/\n/* \n    Created on : 2017-8-31, 23:12:32\n    Author     : ghy\n*/\n/* @author 龚虹宇 */\n/** -------------------------------------------\n    Generic Mixins\n    ------------------------------------------- **/\n/**\n * Adds prefixed version of values in a property\n */\n* {\n  margin: 0px;\n  padding: 0px;\n  list-style: none;\n}\n.pop-select {\n  width: 100%;\n  height: 100%;\n  position: fixed;\n  top: 0px;\n  -webkit-transition: all 0.4s ease;\n  transition: all 0.4s ease;\n}\n.pop-select .pop-wrap {\n  -webkit-transition: all 0.4s ease;\n  transition: all 0.4s ease;\n  position: absolute;\n  width: 100%;\n  bottom: 0px;\n  background: #ffffff;\n  -webkit-transform: translateY(100%);\n          transform: translateY(100%);\n}\n.pop-select .pop-title {\n  height: 1.2rem;\n  background: #f9fafc;\n  text-align: center;\n  font-size: 0.37333rem;\n  color: #999999;\n  line-height: 1.2rem;\n  position: relative;\n}\n.pop-select .pop-title:after {\n  content: \"\";\n  position: absolute;\n  top: 0;\n  left: 0;\n  border: 1px solid #e3e3e4;\n  box-sizing: border-box;\n  width: 200%;\n  height: 200%;\n  -webkit-transform: scale(0.5);\n  transform: scale(0.5);\n  -webkit-transform-origin: left top;\n  transform-origin: left top;\n}\n.pop-select .pop-title .pop-sure, .pop-select .pop-title .pop-cancel {\n  position: absolute;\n  z-index: 1;\n  width: 1.6rem;\n  height: 1.2rem;\n  line-height: 1.22667rem;\n  color: #ff552e;\n  top: 0px;\n  right: 0px;\n}\n.pop-select .pop-title .pop-sure.pop-cancel, .pop-select .pop-title .pop-cancel.pop-cancel {\n  right: auto;\n  left: 0px;\n  color: #7b7b7b;\n}\n.pop-select .pop-list {\n  widtH: 100%;\n  max-height: 350px;\n  overflow: hidden;\n  overflow-y: scroll;\n}\n.pop-select .pop-list ul {\n  width: 9.33333rem;\n  margin: 0 auto;\n}\n.pop-select .pop-list ul li {\n  width: 100%;\n  height: 1.86667rem;\n  position: relative;\n}\n.pop-select .pop-list ul li:after {\n  border-radius: 0px;\n  content: \"\";\n  position: absolute;\n  top: 0;\n  left: 0;\n  z-index: -1;\n  border-bottom: 1px solid #f1f1f1;\n  box-sizing: border-box;\n  width: 200%;\n  height: 200%;\n  -webkit-transform: scale(0.5);\n  transform: scale(0.5);\n  -webkit-transform-origin: left top;\n  transform-origin: left top;\n}\n.pop-select .pop-list ul li .pop-info {\n  position: absolute;\n  top: 0.4rem;\n  font-size: 0.45333rem;\n  color: #333333;\n  left: 0.06667rem;\n}\n.pop-select .pop-list ul li .pop-single-info {\n  position: absolute;\n  top: 50%;\n  margin-top: -11px;\n  font-size: 0.45333rem;\n  color: #333333;\n  left: 0.06667rem;\n}\n.pop-select .pop-list ul li .pop-desc {\n  font-size: 0.32rem;\n  position: absolute;\n  left: 0.06667rem;\n  top: 0.98667rem;\n  color: #7b7b7b;\n}\n.pop-select .pop-list ul li .pop-arrow {\n  position: absolute;\n  right: 0.26667rem;\n  width: 22px;\n  height: 22px;\n  top: 50%;\n  margin-top: -11px;\n  background-image: url(\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACwAAAAsCAMAAAApWqozAAAASFBMVEUAAADHx87IyM7IyM7Kys/IyM7Jyc/IyNHKytHW1tb////Hx87IyM3IyM3IyM7IyM3Jyc7IyM7Jyc7Ly9HIyNPHx83IyM3Hx81MCBRBAAAAF3RSTlMA8qt/QttXOCQMAennw7+ZjYNtLBf2kCIzlTUAAAEGSURBVDjLjJFbbsMwDAQpUpIl+R07mfvftEBdFE7ih+ZzMSB2QfmgNLMOwbkw6NwUucKPHTu60Z+qTQ+EKfqUc/JxCkDfHKpJobVlHy3WgqaDBg5n+TPN5nBfXR6gqxywKjzeoxfYyfZi8Hq/+4xySnzub3uIckGE/97JYXKJ4ZJsKFqu5aLo3y9wq9ywOrbv9JjcYvTbujbfy7n93ThiUoExipSOpUZe6Io0BKki0MjMVCdPzKLEOjmiMuDrZM8ggVQnJ4I4cp2ccT+V1TkBAAAIxDD/rqMhOwPP0VZxtVED1urqKHXuCtJEtMI/b1UPOygoyAy+BoyD3IH5aGIE1Gp7aZaOAVpkFMUoYaaBAAAAAElFTkSuQmCC\");\n  background-size: cover;\n}\n.pop-select .pop-list ul li.active .pop-arrow {\n  background-image: url(\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACwAAAAsCAMAAAApWqozAAAAPFBMVEUAAAD/VS7/VjH/VzL/VS7/Vi//VS7/VS//VS//VS7/VS7/Vi//Vy//WjX/VS7/VS7/Yz//4tv/////m4Tfv1CvAAAAD3RSTlMA8UQ459nDv62lmYNtIpDE1s/TAAAA6klEQVQ4y53VS5KDMAwEUPmP7ZAmk/vfdRaZcoKITDO95ZWqjGVJdEKvJTmXSu1BpvEt4iOxeZOGjEPy9/Lrgq9Z1qP1Dkac1/aGSW57e8c0d7auru1xGj/+gzvHbv3DC4gsLxtA5XU7mcP5/HTbc3fGNrWPn6GbiMS5fWyjB0UCa4EgnbboUmmLKoW2KJJoiySOtnAf+Llpe8Bp2PHZsEhSFLAtilQobVpU6VDatOgSoPTO6o6OSps2jhZ9a8uijeZ/a2XVA897bdl8/cHyo4AfMtfHFz8Y+ZHLD/Ora4JfQPxq+//S5NfxLzPrWEC1LMpOAAAAAElFTkSuQmCC\");\n}\n.pop-select.beforeActive {\n  display: block;\n  background: transparent;\n}\n.pop-select.beforeActive .pop-wrap {\n  -webkit-transform: translateY(100%);\n          transform: translateY(100%);\n}\n.pop-select.active {\n  /*background: rgba(0, 0, 0, 0.7);*/\n}\n.pop-select.active .pop-wrap {\n  -webkit-transform: translateY(0);\n          transform: translateY(0);\n}\n", ""]);
 
 // exports
 
@@ -10636,11 +10678,11 @@ var LouPicker = function LouPicker(a) {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_lou_picker_vue__ = __webpack_require__(21);
 /* unused harmony namespace reexport */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_0c9dc0d0_hasScoped_true_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_lou_picker_vue__ = __webpack_require__(76);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_0c9dc0d0_hasScoped_true_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_lou_picker_vue__ = __webpack_require__(73);
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(74)
+  __webpack_require__(67)
 }
 var normalizeComponent = __webpack_require__(2)
 /* script */
@@ -10686,8 +10728,46 @@ if (false) {(function () {
 
 
 /***/ }),
-/* 67 */,
-/* 68 */,
+/* 67 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(68);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(1)("72dfc998", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../node_modules/css-loader/index.js!../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-0c9dc0d0\",\"scoped\":true,\"hasInlineConfig\":true}!../../../node_modules/sass-loader/lib/loader.js!../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./lou_picker.vue", function() {
+     var newContent = require("!!../../../node_modules/css-loader/index.js!../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-0c9dc0d0\",\"scoped\":true,\"hasInlineConfig\":true}!../../../node_modules/sass-loader/lib/loader.js!../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./lou_picker.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 68 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(0)(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n@charset \"UTF-8\";\n/*\nTo change this license header, choose License Headers in Project Properties.\nTo change this template file, choose Tools | Templates\nand open the template in the editor.\n*/\n/* \n    Created on : 2017-8-31, 23:11:17\n    Author     : ghy\n*/\n/**\n * @param $line       超出显示省略号的行数，默认：1\n * @param $substract  为预留区域百分比%，默认：0\n */\n/*\nTo change this license header, choose License Headers in Project Properties.\nTo change this template file, choose Tools | Templates\nand open the template in the editor.\n*/\n/* \n    Created on : 2017-8-31, 23:12:32\n    Author     : ghy\n*/\n/* @author 龚虹宇 */\n/** -------------------------------------------\n    Generic Mixins\n    ------------------------------------------- **/\n/**\n * Adds prefixed version of values in a property\n */\n#picker-wrap[data-v-0c9dc0d0] {\n  display: none;\n  width: 100%;\n  position: absolute;\n  z-index: 100;\n  height: 100%;\n  background: rgba(0, 0, 0, .4);\n  top: 0px;\n}\n.picker-main[data-v-0c9dc0d0] {\n  position: absolute;\n  bottom: 0px;\n  width: 100%;\n}\n.picker-header[data-v-0c9dc0d0] {\n  width: 100%;\n  height: 2.93333rem;\n  background: #fff;\n}\n.picker-header .title[data-v-0c9dc0d0] {\n    position: absolute;\n    left: 0px;\n    right: 0px;\n    text-align: center;\n    top: 0.74667rem;\n    font-size: 0.32rem;\n    color: #999999;\n}\n.picker-header .picker-text[data-v-0c9dc0d0] {\n    color: #ff552e;\n    left: 0px;\n    right: 0px;\n    font-size: 0.45333rem;\n    text-align: center;\n    position: absolute;\n    top: 1.46667rem;\n}\n.picker-placeholder[data-v-0c9dc0d0] {\n  height: 1.2rem;\n  width: 100%;\n  text-align: center;\n  line-height: 1.2rem;\n  background: #f9fafc;\n  position: relative;\n  position: relative;\n  color: #999999;\n}\n.picker-placeholder[data-v-0c9dc0d0]:after {\n    position: absolute;\n    content: \"\";\n    top: 0;\n    left: 0;\n    box-sizing: border-box;\n    width: 100%;\n    height: 100%;\n    border-top: 1px solid #e3e3e4;\n    point-events: none;\n}\n@media (min--moz-device-pixel-ratio: 1.5), (-webkit-min-device-pixel-ratio: 1.5), (min-device-pixel-ratio: 1.5), (min-resolution: 144dpi), (min-resolution: 1.5dppx), (-ms-high-contrast: active), (-ms-high-contrast: none) {\n.picker-placeholder[data-v-0c9dc0d0]:after {\n      width: 200%;\n      height: 200%;\n      transform: scale(0.5);\n      transform-origin: 0 0;\n      -webkit-transform: scale(0.5);\n      -webkit-transform-origin: 0 0;\n      border-radius: 0px;\n}\n}\n@media (-webkit-device-pixel-ratio: 1.5) {\n.picker-placeholder[data-v-0c9dc0d0]:after {\n      width: 150%;\n      height: 150%;\n      transform: scale(0.6666);\n      transform-origin: 0 0;\n      -webkit-transform: scale(0.6666);\n      -webkit-transform-origin: 0 0;\n      border-radius: 0px;\n}\n}\n@media (-webkit-device-pixel-ratio: 3) {\n.picker-placeholder[data-v-0c9dc0d0]:after {\n      width: 300%;\n      height: 300%;\n      transform: scale(0.3333);\n      transform-origin: 0 0;\n      -webkit-transform: scale(0.3333);\n      -webkit-transform-origin: 0 0;\n      border-radius: 0px;\n}\n}\n.picker-placeholder[data-v-0c9dc0d0]:after {\n    position: absolute;\n    content: \"\";\n    top: 0;\n    left: 0;\n    box-sizing: border-box;\n    width: 100%;\n    height: 100%;\n    border-bottom: 1px solid #e3e3e4;\n    point-events: none;\n}\n@media (min--moz-device-pixel-ratio: 1.5), (-webkit-min-device-pixel-ratio: 1.5), (min-device-pixel-ratio: 1.5), (min-resolution: 144dpi), (min-resolution: 1.5dppx), (-ms-high-contrast: active), (-ms-high-contrast: none) {\n.picker-placeholder[data-v-0c9dc0d0]:after {\n      width: 200%;\n      height: 200%;\n      transform: scale(0.5);\n      transform-origin: 0 0;\n      -webkit-transform: scale(0.5);\n      -webkit-transform-origin: 0 0;\n      border-radius: 0px;\n}\n}\n@media (-webkit-device-pixel-ratio: 1.5) {\n.picker-placeholder[data-v-0c9dc0d0]:after {\n      width: 150%;\n      height: 150%;\n      transform: scale(0.6666);\n      transform-origin: 0 0;\n      -webkit-transform: scale(0.6666);\n      -webkit-transform-origin: 0 0;\n      border-radius: 0px;\n}\n}\n@media (-webkit-device-pixel-ratio: 3) {\n.picker-placeholder[data-v-0c9dc0d0]:after {\n      width: 300%;\n      height: 300%;\n      transform: scale(0.3333);\n      transform-origin: 0 0;\n      -webkit-transform: scale(0.3333);\n      -webkit-transform-origin: 0 0;\n      border-radius: 0px;\n}\n}\n.scroll-inner[data-v-0c9dc0d0] {\n  height: 6.48rem;\n  background: #fff;\n  position: relative;\n  overflow: hidden;\n}\n.chose-bord[data-v-0c9dc0d0] {\n  height: 1.2rem;\n  position: absolute;\n  position: relative;\n  position: relative;\n  left: 0.66667rem;\n  right: 0.66667rem;\n  top: 2.66667rem;\n}\n.chose-bord[data-v-0c9dc0d0]:after {\n    position: absolute;\n    content: \"\";\n    top: 0;\n    left: 0;\n    box-sizing: border-box;\n    width: 100%;\n    height: 100%;\n    border-top: 1px solid #e3e3e4;\n    point-events: none;\n}\n@media (min--moz-device-pixel-ratio: 1.5), (-webkit-min-device-pixel-ratio: 1.5), (min-device-pixel-ratio: 1.5), (min-resolution: 144dpi), (min-resolution: 1.5dppx), (-ms-high-contrast: active), (-ms-high-contrast: none) {\n.chose-bord[data-v-0c9dc0d0]:after {\n      width: 200%;\n      height: 200%;\n      transform: scale(0.5);\n      transform-origin: 0 0;\n      -webkit-transform: scale(0.5);\n      -webkit-transform-origin: 0 0;\n      border-radius: 0px;\n}\n}\n@media (-webkit-device-pixel-ratio: 1.5) {\n.chose-bord[data-v-0c9dc0d0]:after {\n      width: 150%;\n      height: 150%;\n      transform: scale(0.6666);\n      transform-origin: 0 0;\n      -webkit-transform: scale(0.6666);\n      -webkit-transform-origin: 0 0;\n      border-radius: 0px;\n}\n}\n@media (-webkit-device-pixel-ratio: 3) {\n.chose-bord[data-v-0c9dc0d0]:after {\n      width: 300%;\n      height: 300%;\n      transform: scale(0.3333);\n      transform-origin: 0 0;\n      -webkit-transform: scale(0.3333);\n      -webkit-transform-origin: 0 0;\n      border-radius: 0px;\n}\n}\n.chose-bord[data-v-0c9dc0d0]:after {\n    position: absolute;\n    content: \"\";\n    top: 0;\n    left: 0;\n    box-sizing: border-box;\n    width: 100%;\n    height: 100%;\n    border-bottom: 1px solid #e3e3e4;\n    point-events: none;\n}\n@media (min--moz-device-pixel-ratio: 1.5), (-webkit-min-device-pixel-ratio: 1.5), (min-device-pixel-ratio: 1.5), (min-resolution: 144dpi), (min-resolution: 1.5dppx), (-ms-high-contrast: active), (-ms-high-contrast: none) {\n.chose-bord[data-v-0c9dc0d0]:after {\n      width: 200%;\n      height: 200%;\n      transform: scale(0.5);\n      transform-origin: 0 0;\n      -webkit-transform: scale(0.5);\n      -webkit-transform-origin: 0 0;\n      border-radius: 0px;\n}\n}\n@media (-webkit-device-pixel-ratio: 1.5) {\n.chose-bord[data-v-0c9dc0d0]:after {\n      width: 150%;\n      height: 150%;\n      transform: scale(0.6666);\n      transform-origin: 0 0;\n      -webkit-transform: scale(0.6666);\n      -webkit-transform-origin: 0 0;\n      border-radius: 0px;\n}\n}\n@media (-webkit-device-pixel-ratio: 3) {\n.chose-bord[data-v-0c9dc0d0]:after {\n      width: 300%;\n      height: 300%;\n      transform: scale(0.3333);\n      transform-origin: 0 0;\n      -webkit-transform: scale(0.3333);\n      -webkit-transform-origin: 0 0;\n      border-radius: 0px;\n}\n}\nul[data-v-0c9dc0d0] {\n  position: absolute;\n  top: 2.66667rem;\n  list-style: none;\n  padding: 0px;\n  left: 100px;\n  box-shadow: #000 0px 0px 1px 1px;\n  /*transition: all 0.4s;*/\n}\nul li[data-v-0c9dc0d0] {\n    height: 1.2rem;\n    position: relative;\n    font-size: 0.42667rem;\n    line-height: 1.33333rem;\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
 /* 69 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -10754,7 +10834,7 @@ Touch.prototype = {
     maxRegion: 600,
     springMaxRegion: 60, // 弹性
     animationEnd: function animationEnd() {
-        console.log("动画结束");
+        // console.log("动画结束")
     },
 
     _start: function _start(evt) {
@@ -10772,7 +10852,7 @@ Touch.prototype = {
             this.dom_height = this.target.offsetHeight;
             this.dom_item_height = this.dom_height / this.dom_len;
             this.min = -this.dom_height + this.dom_item_height;
-            console.log(this.dom_height, this.dom_item_height, this.min);
+            // console.log(this.dom_height, this.dom_item_height, this.min)
         }
     },
     _move: function _move(evt) {
@@ -10798,7 +10878,7 @@ Touch.prototype = {
             this.isTouchStart = false;
             var self = this;
             var current = this.target["translateY"];
-            console.log("touche end..", current, this.max);
+            // console.log("touche end..", current, this.max)
 
             var triggerTap = Math.abs(evt.changedTouches[0].pageX - this.x1) < 30 && Math.abs(evt.changedTouches[0].pageY - this.y1) < 30;
             if (current > this.max) {
@@ -10898,7 +10978,7 @@ Touch.prototype = {
     _getAutoScrollTo: function _getAutoScrollTo(value) {
         var ret = value;
         var _val = Math.abs(value % this.dom_item_height);
-        console.log(this.dom_item_height, "bbbbbbbbb");
+        // console.log(this.dom_item_height, "bbbbbbbbb")
         if (_val > this.dom_item_height / 2) {
             ret = value + (this.dom_item_height - _val) * (value > 0 ? 1 : -1);
         } else {
@@ -10954,48 +11034,7 @@ $export($export.S + $export.F * !__webpack_require__(4), 'Object', { definePrope
 
 
 /***/ }),
-/* 73 */,
-/* 74 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(75);
-if(typeof content === 'string') content = [[module.i, content, '']];
-if(content.locals) module.exports = content.locals;
-// add the styles to the DOM
-var update = __webpack_require__(1)("72dfc998", content, false, {});
-// Hot Module Replacement
-if(false) {
- // When the styles change, update the <style> tags
- if(!content.locals) {
-   module.hot.accept("!!../../../node_modules/css-loader/index.js!../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-0c9dc0d0\",\"scoped\":true,\"hasInlineConfig\":true}!../../../node_modules/sass-loader/lib/loader.js!../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./lou_picker.vue", function() {
-     var newContent = require("!!../../../node_modules/css-loader/index.js!../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-0c9dc0d0\",\"scoped\":true,\"hasInlineConfig\":true}!../../../node_modules/sass-loader/lib/loader.js!../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./lou_picker.vue");
-     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-     update(newContent);
-   });
- }
- // When the module is disposed, remove the <style> tags
- module.hot.dispose(function() { update(); });
-}
-
-/***/ }),
-/* 75 */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(0)(false);
-// imports
-
-
-// module
-exports.push([module.i, "\n@charset \"UTF-8\";\n/*\r\nTo change this license header, choose License Headers in Project Properties.\r\nTo change this template file, choose Tools | Templates\r\nand open the template in the editor.\r\n*/\n/* \r\n    Created on : 2017-8-31, 23:11:17\r\n    Author     : ghy\r\n*/\n/**\r\n * @param $line       超出显示省略号的行数，默认：1\r\n * @param $substract  为预留区域百分比%，默认：0\r\n */\n/*\r\nTo change this license header, choose License Headers in Project Properties.\r\nTo change this template file, choose Tools | Templates\r\nand open the template in the editor.\r\n*/\n/* \r\n    Created on : 2017-8-31, 23:12:32\r\n    Author     : ghy\r\n*/\n/* @author 龚虹宇 */\n/** -------------------------------------------\r\n    Generic Mixins\r\n    ------------------------------------------- **/\n/**\r\n * Adds prefixed version of values in a property\r\n */\n#picker-wrap[data-v-0c9dc0d0] {\n  width: 100%;\n  position: absolute;\n  z-index: 100;\n  height: 100%;\n  background: rgba(0, 0, 0, .4);\n  top: 0px;\n}\n.picker-main[data-v-0c9dc0d0] {\n  position: absolute;\n  bottom: 0px;\n  width: 100%;\n}\n.picker-header[data-v-0c9dc0d0] {\n  width: 100%;\n  height: 2.93333rem;\n  background: #fff;\n}\n.picker-header .title[data-v-0c9dc0d0] {\n    position: absolute;\n    left: 0px;\n    right: 0px;\n    text-align: center;\n    top: 0.74667rem;\n    font-size: 0.32rem;\n    color: #999999;\n}\n.picker-header .picker-text[data-v-0c9dc0d0] {\n    color: #ff552e;\n    left: 0px;\n    right: 0px;\n    font-size: 0.45333rem;\n    text-align: center;\n    position: absolute;\n    top: 1.46667rem;\n}\n.picker-placeholder[data-v-0c9dc0d0] {\n  height: 1.2rem;\n  width: 100%;\n  text-align: center;\n  line-height: 1.2rem;\n  background: #f9fafc;\n  position: relative;\n  position: relative;\n  color: #999999;\n}\n.picker-placeholder[data-v-0c9dc0d0]:after {\n    position: absolute;\n    content: \"\";\n    top: 0;\n    left: 0;\n    box-sizing: border-box;\n    width: 100%;\n    height: 100%;\n    border-top: 1px solid #e3e3e4;\n    point-events: none;\n}\n@media (min--moz-device-pixel-ratio: 1.5), (-webkit-min-device-pixel-ratio: 1.5), (min-device-pixel-ratio: 1.5), (min-resolution: 144dpi), (min-resolution: 1.5dppx), (-ms-high-contrast: active), (-ms-high-contrast: none) {\n.picker-placeholder[data-v-0c9dc0d0]:after {\n      width: 200%;\n      height: 200%;\n      transform: scale(0.5);\n      transform-origin: 0 0;\n      -webkit-transform: scale(0.5);\n      -webkit-transform-origin: 0 0;\n      border-radius: 0px;\n}\n}\n@media (-webkit-device-pixel-ratio: 1.5) {\n.picker-placeholder[data-v-0c9dc0d0]:after {\n      width: 150%;\n      height: 150%;\n      transform: scale(0.6666);\n      transform-origin: 0 0;\n      -webkit-transform: scale(0.6666);\n      -webkit-transform-origin: 0 0;\n      border-radius: 0px;\n}\n}\n@media (-webkit-device-pixel-ratio: 3) {\n.picker-placeholder[data-v-0c9dc0d0]:after {\n      width: 300%;\n      height: 300%;\n      transform: scale(0.3333);\n      transform-origin: 0 0;\n      -webkit-transform: scale(0.3333);\n      -webkit-transform-origin: 0 0;\n      border-radius: 0px;\n}\n}\n.picker-placeholder[data-v-0c9dc0d0]:after {\n    position: absolute;\n    content: \"\";\n    top: 0;\n    left: 0;\n    box-sizing: border-box;\n    width: 100%;\n    height: 100%;\n    border-bottom: 1px solid #e3e3e4;\n    point-events: none;\n}\n@media (min--moz-device-pixel-ratio: 1.5), (-webkit-min-device-pixel-ratio: 1.5), (min-device-pixel-ratio: 1.5), (min-resolution: 144dpi), (min-resolution: 1.5dppx), (-ms-high-contrast: active), (-ms-high-contrast: none) {\n.picker-placeholder[data-v-0c9dc0d0]:after {\n      width: 200%;\n      height: 200%;\n      transform: scale(0.5);\n      transform-origin: 0 0;\n      -webkit-transform: scale(0.5);\n      -webkit-transform-origin: 0 0;\n      border-radius: 0px;\n}\n}\n@media (-webkit-device-pixel-ratio: 1.5) {\n.picker-placeholder[data-v-0c9dc0d0]:after {\n      width: 150%;\n      height: 150%;\n      transform: scale(0.6666);\n      transform-origin: 0 0;\n      -webkit-transform: scale(0.6666);\n      -webkit-transform-origin: 0 0;\n      border-radius: 0px;\n}\n}\n@media (-webkit-device-pixel-ratio: 3) {\n.picker-placeholder[data-v-0c9dc0d0]:after {\n      width: 300%;\n      height: 300%;\n      transform: scale(0.3333);\n      transform-origin: 0 0;\n      -webkit-transform: scale(0.3333);\n      -webkit-transform-origin: 0 0;\n      border-radius: 0px;\n}\n}\n.scroll-inner[data-v-0c9dc0d0] {\n  height: 6.48rem;\n  background: #fff;\n  position: relative;\n  overflow: hidden;\n}\n.chose-bord[data-v-0c9dc0d0] {\n  height: 1.2rem;\n  position: absolute;\n  position: relative;\n  position: relative;\n  left: 0.66667rem;\n  right: 0.66667rem;\n  top: 2.66667rem;\n}\n.chose-bord[data-v-0c9dc0d0]:after {\n    position: absolute;\n    content: \"\";\n    top: 0;\n    left: 0;\n    box-sizing: border-box;\n    width: 100%;\n    height: 100%;\n    border-top: 1px solid #e3e3e4;\n    point-events: none;\n}\n@media (min--moz-device-pixel-ratio: 1.5), (-webkit-min-device-pixel-ratio: 1.5), (min-device-pixel-ratio: 1.5), (min-resolution: 144dpi), (min-resolution: 1.5dppx), (-ms-high-contrast: active), (-ms-high-contrast: none) {\n.chose-bord[data-v-0c9dc0d0]:after {\n      width: 200%;\n      height: 200%;\n      transform: scale(0.5);\n      transform-origin: 0 0;\n      -webkit-transform: scale(0.5);\n      -webkit-transform-origin: 0 0;\n      border-radius: 0px;\n}\n}\n@media (-webkit-device-pixel-ratio: 1.5) {\n.chose-bord[data-v-0c9dc0d0]:after {\n      width: 150%;\n      height: 150%;\n      transform: scale(0.6666);\n      transform-origin: 0 0;\n      -webkit-transform: scale(0.6666);\n      -webkit-transform-origin: 0 0;\n      border-radius: 0px;\n}\n}\n@media (-webkit-device-pixel-ratio: 3) {\n.chose-bord[data-v-0c9dc0d0]:after {\n      width: 300%;\n      height: 300%;\n      transform: scale(0.3333);\n      transform-origin: 0 0;\n      -webkit-transform: scale(0.3333);\n      -webkit-transform-origin: 0 0;\n      border-radius: 0px;\n}\n}\n.chose-bord[data-v-0c9dc0d0]:after {\n    position: absolute;\n    content: \"\";\n    top: 0;\n    left: 0;\n    box-sizing: border-box;\n    width: 100%;\n    height: 100%;\n    border-bottom: 1px solid #e3e3e4;\n    point-events: none;\n}\n@media (min--moz-device-pixel-ratio: 1.5), (-webkit-min-device-pixel-ratio: 1.5), (min-device-pixel-ratio: 1.5), (min-resolution: 144dpi), (min-resolution: 1.5dppx), (-ms-high-contrast: active), (-ms-high-contrast: none) {\n.chose-bord[data-v-0c9dc0d0]:after {\n      width: 200%;\n      height: 200%;\n      transform: scale(0.5);\n      transform-origin: 0 0;\n      -webkit-transform: scale(0.5);\n      -webkit-transform-origin: 0 0;\n      border-radius: 0px;\n}\n}\n@media (-webkit-device-pixel-ratio: 1.5) {\n.chose-bord[data-v-0c9dc0d0]:after {\n      width: 150%;\n      height: 150%;\n      transform: scale(0.6666);\n      transform-origin: 0 0;\n      -webkit-transform: scale(0.6666);\n      -webkit-transform-origin: 0 0;\n      border-radius: 0px;\n}\n}\n@media (-webkit-device-pixel-ratio: 3) {\n.chose-bord[data-v-0c9dc0d0]:after {\n      width: 300%;\n      height: 300%;\n      transform: scale(0.3333);\n      transform-origin: 0 0;\n      -webkit-transform: scale(0.3333);\n      -webkit-transform-origin: 0 0;\n      border-radius: 0px;\n}\n}\nul[data-v-0c9dc0d0] {\n  position: absolute;\n  top: 2.66667rem;\n  list-style: none;\n  padding: 0px;\n  left: 100px;\n  box-shadow: #000 0px 0px 1px 1px;\n  /*transition: all 0.4s;*/\n}\nul li[data-v-0c9dc0d0] {\n    height: 1.2rem;\n    position: relative;\n    font-size: 0.42667rem;\n    line-height: 1.33333rem;\n}\n", ""]);
-
-// exports
-
-
-/***/ }),
-/* 76 */
+/* 73 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -11076,6 +11115,860 @@ if (false) {
   module.hot.accept()
   if (module.hot.data) {
     require("vue-hot-reload-api")      .rerender("data-v-0c9dc0d0", esExports)
+  }
+}
+
+/***/ }),
+/* 74 */,
+/* 75 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["a"] = ({
+    name: 'RentComponent',
+    data: function data() {
+        return {
+            visible: false,
+            dataArrSel: { //默认选择的
+                value: 0
+            },
+            dataArr: [//几个数值选项
+            ],
+            callback: function callback() {}
+        };
+    },
+
+    computed: {
+        c_demo: function c_demo() {
+            var _this = this,
+                res = '';
+            return res;
+        },
+        c_dataArr: function c_dataArr() {
+            var _this = this;
+            if (_this.dataArr && _this.dataArr.length && _this.isArray(_this.dataArr)) {
+                _this.dataArr.map(function (item) {
+                    if (item.defaultUnit && item.defaultUnit.length) {
+                        if (_this.isArray(item.defaultUnit)) {
+                            item.defaultUnit.map(function (unit) {
+                                if (unit.selected) {
+                                    item.current_unit_text = unit.text;
+                                }
+                                return unit;
+                            });
+                        } else {
+                            item.current_unit_text = item.defaultUnit;
+                        }
+                    }
+                    return item;
+                });
+            }
+            return _this.dataArr;
+        },
+
+        // dataArr中当前显示的
+        current_data: function current_data() {
+            var _this = this,
+                res = null;
+            if (_this.dataArr && _this.dataArr.length && _this.isArray(_this.dataArr)) {
+                res = _this.dataArr[_this.dataArrSel.value];
+            } else {
+                console.error && console.error('错误，请传入正确的数组：dataArr');
+            }
+            return res;
+        },
+
+        // 当前的所有单位
+        current_units: function current_units() {
+            var _this = this,
+                res = [];
+            if (_this.current_data) {
+                if (_this.current_data.defaultUnit && _this.current_data.defaultUnit.length) {
+                    res = _this.current_data.defaultUnit;
+                }
+            }
+            return res;
+        },
+
+        //当前选中的单位
+        current_unit: function current_unit() {
+            var _this = this,
+                res = [];
+            if (_this.current_data) {
+                if (_this.current_data.defaultUnit && _this.current_data.defaultUnit.length) {
+                    if (_this.isArray(_this.current_data.defaultUnit)) {
+                        res = _this.current_data.defaultUnit.filter(function (item) {
+                            return item.selected;
+                        });
+                    } else if (typeof _this.current_data.defaultUnit == 'string') {
+                        res = _this.current_data.defaultUnit;
+                    }
+                }
+            }
+            return res;
+        },
+
+        //当前显示的租金
+        c_value: function c_value() {
+            var _this = this,
+                res = '';
+            if (_this.current_data) {
+                res = _this.current_data.defaultValue;
+            }
+            return res;
+        },
+
+        //当前提醒
+        c_suggest: function c_suggest() {
+            var _this = this,
+                res = '';
+            if (_this.current_data) {
+                res = _this.current_data.suggest;
+            }
+            return res;
+        }
+    },
+    methods: {
+        isArray: function isArray(obj) {
+            return Object.prototype.toString.call(obj) === '[object Array]';
+        },
+        hide: function hide() {
+            this.visible = false;
+        },
+        handleClickSingleValue: function handleClickSingleValue(index) {
+            var _this = this;
+            _this.dataArrSel.value = index;
+        },
+        handleClickUnit: function handleClickUnit(item) {
+            var _this = this;
+            _this.dataArr[_this.dataArrSel.value].defaultUnit.map(function (unit) {
+                unit.selected = false;
+                return unit;
+            });
+            item.selected = true;
+        },
+        handleClick: function handleClick(val) {
+            var _this = this;
+            if (_this.dataArr && _this.isArray(_this.dataArr)) {
+                _this.dataArr[_this.dataArrSel.value].defaultValue = String(_this.c_value) + val;
+            }
+        },
+        handleDel: function handleDel() {
+            var _this = this;
+            if (_this.c_value) {
+                _this.dataArr[_this.dataArrSel.value].defaultValue = _this.c_value.substring(0, _this.c_value.length - 1);
+            } else {
+                return;
+            }
+        },
+        handleConfirm: function handleConfirm() {
+            var _this = this,
+                resData = []; //返回值数组
+            // 如果最后一位是小数点，自动去掉
+            if (_this.c_value && _this.c_value.substring(_this.c_value.length - 1) == '.') {
+                _this.dataArr[_this.dataArrSel.value].defaultValue = _this.c_value.substring(0, _this.c_value.length - 1);
+            }
+            // 调用callback返回值
+
+            if (_this.dataArr && _this.dataArr.length) {
+                _this.dataArr.map(function (item) {
+                    if (item.defaultUnit && item.defaultUnit.length) {
+                        //有单位
+                        if (_this.isArray(item.defaultUnit)) {
+                            //单位是数组
+                            item.defaultUnit.map(function (unit) {
+                                if (unit.selected) {
+                                    resData.push({
+                                        value: item.defaultValue,
+                                        unit_str: unit.text,
+                                        unit_value: unit.value || ''
+                                    });
+                                }
+                            });
+                        } else {
+                            //单位是字符串
+                            resData.push({
+                                value: item.defaultValue,
+                                unit_str: item.defaultUnit,
+                                unit_value: ''
+                            });
+                        }
+                    } else {
+                        //没有单位
+                        resData.push({
+                            value: item.defaultValue,
+                            unit_str: '',
+                            unit_value: ''
+                        });
+                    }
+                    return item;
+                });
+            }
+            // console.log('处理后的数据：', resData);
+            _this.callback(resData);
+            // 隐藏键盘
+            _this.visible = false;
+        },
+        handleClickMain: function handleClickMain() {}
+    }
+});
+
+/***/ }),
+/* 76 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__src_rentKeyboard_vue__ = __webpack_require__(77);
+/**
+ * Created by thb on 2018/4/18.
+ */
+
+
+
+var instance = void 0;
+var MyConstructor = __WEBPACK_IMPORTED_MODULE_0_vue__["a" /* default */].extend(__WEBPACK_IMPORTED_MODULE_1__src_rentKeyboard_vue__["a" /* default */]);
+
+var initInstance = function initInstance(bottom) {
+    instance = new MyConstructor({
+        el: document.createElement('div')
+    });
+    document.body.appendChild(instance.$el);
+};
+
+var _rentKeyboard = function _rentKeyboard(a, fun) {
+
+    var _defobj = {
+        dataArrSel: a.dataArrSel,
+        dataArr: a.dataArr
+    };
+    //debugger;
+    instance.dataArrSel = _defobj["dataArrSel"];
+    instance.dataArr = _defobj["dataArr"];
+    instance.callback = fun;
+    //出现键盘
+    instance.visible = true;
+};
+
+/* harmony default export */ __webpack_exports__["a"] = ({
+    install: function install(Vue, options) {
+        initInstance();
+        Vue.prototype.$rentKeyboard = _rentKeyboard;
+    }
+});
+
+/***/ }),
+/* 77 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_rentKeyboard_vue__ = __webpack_require__(75);
+/* unused harmony namespace reexport */
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_0b5185a8_hasScoped_true_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_rentKeyboard_vue__ = __webpack_require__(80);
+var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__(78)
+}
+var normalizeComponent = __webpack_require__(2)
+/* script */
+
+
+/* template */
+
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = injectStyle
+/* scopeId */
+var __vue_scopeId__ = "data-v-0b5185a8"
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_rentKeyboard_vue__["a" /* default */],
+  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_0b5185a8_hasScoped_true_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_rentKeyboard_vue__["a" /* default */],
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "src\\package\\rentKeyboard\\src\\rentKeyboard.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-0b5185a8", Component.options)
+  } else {
+    hotAPI.reload("data-v-0b5185a8", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+/* harmony default export */ __webpack_exports__["a"] = (Component.exports);
+
+
+/***/ }),
+/* 78 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(79);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(1)("24380ea5", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-0b5185a8\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../node_modules/less-loader/dist/cjs.js!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./rentKeyboard.vue", function() {
+     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-0b5185a8\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../node_modules/less-loader/dist/cjs.js!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./rentKeyboard.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 79 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(0)(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n.rent-component[data-v-0b5185a8] {\n  width: 100vw;\n  height: 100vh;\n  background: rgba(0, 0, 0, .6);\n  position: fixed;\n  top: 0;\n  left: 0;\n}\n.rent-component .rent-component-main[data-v-0b5185a8] {\n  position: absolute;\n  bottom: 0;\n  left: 0;\n  width: 100%;\n  background: #fff;\n  /* S值显示区域 */\n  /* E值显示区域 */\n  /* S提醒显示区域 */\n  /* E提醒显示区域 */\n  /* S单位显示区域 */\n  /* E单位显示区域 */\n  /* S按钮显示区域 */\n  /* E按钮显示区域 */\n}\n.rent-component .rent-component-main .value-area[data-v-0b5185a8] {\n  height: 100px;\n  display: -moz-box;\n  display: -webkit-box;\n  display: box;\n  -webkit-box-align: center;\n  box-align: center;\n  -webkit-box-pack: justify;\n  box-pack: justify;\n}\n.rent-component .rent-component-main .value-area .single-value[data-v-0b5185a8] {\n  -webkit-box-flex: 1;\n  -webkit-flex-grow: 1;\n          flex-grow: 1;\n  position: relative;\n  height: 100%;\n  box-sizing: border-box;\n}\n.rent-component .rent-component-main .value-area .single-value .single-value-shadow[data-v-0b5185a8] {\n  width: 0;\n  height: 0;\n  position: absolute;\n  top: -1px;\n  left: 0;\n}\n.rent-component .rent-component-main .value-area .single-value.active[data-v-0b5185a8] {\n  border-top: 3px solid red;\n}\n.rent-component .rent-component-main .value-area .single-value.active .single-value-shadow[data-v-0b5185a8] {\n  width: 100%;\n  height: 100%;\n  background: -webkit-linear-gradient(rgba(62, 162, 229, .1), rgba(255, 255, 255, 0));\n  background: linear-gradient(rgba(62, 162, 229, .1), rgba(255, 255, 255, 0));\n}\n.rent-component .rent-component-main .value-area .single-value .value-area-title[data-v-0b5185a8] {\n  display: block;\n  text-align: center;\n  width: 100%;\n  height: 28px;\n  line-height: 28px;\n  font-size: 14px;\n  color: #666;\n  margin-top: 14px;\n}\n.rent-component .rent-component-main .value-area .single-value .value-area-val[data-v-0b5185a8] {\n  display: block;\n  width: 100%;\n  text-align: center;\n  font-size: 22px;\n  color: red;\n}\n.rent-component .rent-component-main .value-area .single-value .value-area-val.placeholder[data-v-0b5185a8] {\n  color: #999;\n}\n.rent-component .rent-component-main .tip-area[data-v-0b5185a8] {\n  width: 100%;\n  height: 50px;\n  line-height: 50px;\n  border-top: 1px solid #ddd;\n  border-bottom: 1px solid #ddd;\n  background: #eff;\n  text-align: center;\n  font-size: 15px;\n  color: #999;\n}\n.rent-component .rent-component-main .unit-area[data-v-0b5185a8] {\n  text-align: center;\n  width: 100%;\n  height: 50px;\n  line-height: 50px;\n  font-size: 16px;\n  color: #666;\n  box-sizing: border-box;\n  padding: 0 14px;\n  text-align: left;\n}\n.rent-component .rent-component-main .unit-area .single-unit[data-v-0b5185a8] {\n  display: inline-block;\n  width: 80px;\n  height: 36px;\n  line-height: 36px;\n  border-radius: 80px;\n  text-align: center;\n  font-size: 15px;\n  color: #333;\n  background: #eee;\n}\n.rent-component .rent-component-main .unit-area .single-unit[data-v-0b5185a8]:not(:last-child) {\n  margin-right: 8px;\n}\n.rent-component .rent-component-main .unit-area .single-unit.active[data-v-0b5185a8] {\n  background: red;\n  color: #fff;\n}\n.rent-component .rent-component-main .btns-area[data-v-0b5185a8] {\n  text-align: center;\n  width: 100%;\n  overflow: hidden;\n}\n.rent-component .rent-component-main .btns-area .left-btns[data-v-0b5185a8] {\n  float: left;\n  width: 100%;\n}\n.rent-component .rent-component-main .btns-area .left-btns .left-btns-table[data-v-0b5185a8] {\n  width: 100%;\n}\n.rent-component .rent-component-main .btns-area .left-btns .left-btns-table tr[data-v-0b5185a8] {\n  height: 70px;\n}\n.rent-component .rent-component-main .btns-area .left-btns .left-btns-table tr td[data-v-0b5185a8] {\n  font-size: 30px;\n  color: #000;\n  border: 1px solid #eee;\n}\n.rent-component .rent-component-main .btns-area .left-btns .left-btns-table tr .del-btn[data-v-0b5185a8] {\n  width: 100px;\n  background: #eee;\n  color: #222;\n  font-size: 20px;\n}\n.rent-component .rent-component-main .btns-area .left-btns .left-btns-table tr .confirm-btn[data-v-0b5185a8] {\n  width: 100px;\n  background: red;\n  color: #fff;\n  font-size: 20px;\n}\n.router-fade-enter-active[data-v-0b5185a8],\n.router-fade-leave-active[data-v-0b5185a8] {\n  -webkit-transition: opacity .3s;\n  transition: opacity .3s;\n}\n.router-fade-enter[data-v-0b5185a8],\n.router-fade-leave-active[data-v-0b5185a8] {\n  opacity: 0;\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 80 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("transition", { attrs: { name: "router-fade", mode: "out-in" } }, [
+    _vm.visible
+      ? _c(
+          "div",
+          {
+            staticClass: "rent-component",
+            on: {
+              click: function($event) {
+                $event.stopPropagation()
+                return _vm.hide($event)
+              }
+            }
+          },
+          [
+            _c(
+              "div",
+              {
+                staticClass: "rent-component-main",
+                on: {
+                  click: function($event) {
+                    $event.stopPropagation()
+                    return _vm.handleClickMain($event)
+                  }
+                }
+              },
+              [
+                _c(
+                  "div",
+                  { staticClass: "value-area" },
+                  _vm._l(_vm.c_dataArr, function(item, index) {
+                    return _c(
+                      "div",
+                      {
+                        staticClass: "single-value",
+                        class: { active: index == _vm.dataArrSel.value },
+                        on: {
+                          click: function($event) {
+                            _vm.handleClickSingleValue(index)
+                          }
+                        }
+                      },
+                      [
+                        _c("div", { staticClass: "single-value-shadow" }),
+                        _vm._v(" "),
+                        _c("span", { staticClass: "value-area-title" }, [
+                          _vm._v(_vm._s(item.title))
+                        ]),
+                        _vm._v(" "),
+                        _c(
+                          "span",
+                          {
+                            staticClass: "value-area-val",
+                            class: { placeholder: !item.defaultValue }
+                          },
+                          [
+                            _vm._v(
+                              _vm._s(
+                                item.defaultValue
+                                  ? item.defaultValue + item.current_unit_text
+                                  : item.placeholder
+                              )
+                            )
+                          ]
+                        )
+                      ]
+                    )
+                  })
+                ),
+                _vm._v(" "),
+                _c("div", { staticClass: "tip-area" }, [
+                  _vm._v(_vm._s(_vm.c_suggest))
+                ]),
+                _vm._v(" "),
+                _vm.isArray(_vm.current_units)
+                  ? _c(
+                      "div",
+                      { staticClass: "unit-area" },
+                      [
+                        _vm._v("\n                租金单位:\n                "),
+                        _vm._l(_vm.current_units, function(unit) {
+                          return _c(
+                            "span",
+                            {
+                              staticClass: "single-unit",
+                              class: { active: unit.selected },
+                              on: {
+                                click: function($event) {
+                                  _vm.handleClickUnit(unit)
+                                }
+                              }
+                            },
+                            [_vm._v(_vm._s(unit.text))]
+                          )
+                        })
+                      ],
+                      2
+                    )
+                  : _vm._e(),
+                _vm._v(" "),
+                _c("div", { staticClass: "btns-area" }, [
+                  _c("div", { staticClass: "left-btns" }, [
+                    _c(
+                      "table",
+                      {
+                        staticClass: "left-btns-table",
+                        attrs: { cellspacing: "0" }
+                      },
+                      [
+                        _c("tbody", [
+                          _c("tr", [
+                            _c(
+                              "td",
+                              {
+                                on: {
+                                  click: function($event) {
+                                    _vm.handleClick("1")
+                                  }
+                                }
+                              },
+                              [_vm._v("1")]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "td",
+                              {
+                                on: {
+                                  click: function($event) {
+                                    _vm.handleClick("2")
+                                  }
+                                }
+                              },
+                              [_vm._v("2")]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "td",
+                              {
+                                on: {
+                                  click: function($event) {
+                                    _vm.handleClick("3")
+                                  }
+                                }
+                              },
+                              [_vm._v("3")]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "td",
+                              {
+                                staticClass: "del-btn",
+                                attrs: { rowspan: "2" },
+                                on: { click: _vm.handleDel }
+                              },
+                              [_vm._v("删除")]
+                            )
+                          ]),
+                          _vm._v(" "),
+                          _c("tr", [
+                            _c(
+                              "td",
+                              {
+                                on: {
+                                  click: function($event) {
+                                    _vm.handleClick("4")
+                                  }
+                                }
+                              },
+                              [_vm._v("4")]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "td",
+                              {
+                                on: {
+                                  click: function($event) {
+                                    _vm.handleClick("5")
+                                  }
+                                }
+                              },
+                              [_vm._v("5")]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "td",
+                              {
+                                on: {
+                                  click: function($event) {
+                                    _vm.handleClick("6")
+                                  }
+                                }
+                              },
+                              [_vm._v("6")]
+                            )
+                          ]),
+                          _vm._v(" "),
+                          _c("tr", [
+                            _c(
+                              "td",
+                              {
+                                on: {
+                                  click: function($event) {
+                                    _vm.handleClick("7")
+                                  }
+                                }
+                              },
+                              [_vm._v("7")]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "td",
+                              {
+                                on: {
+                                  click: function($event) {
+                                    _vm.handleClick("8")
+                                  }
+                                }
+                              },
+                              [_vm._v("8")]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "td",
+                              {
+                                on: {
+                                  click: function($event) {
+                                    _vm.handleClick("9")
+                                  }
+                                }
+                              },
+                              [_vm._v("9")]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "td",
+                              {
+                                staticClass: "confirm-btn",
+                                attrs: { rowspan: "2" },
+                                on: { click: _vm.handleConfirm }
+                              },
+                              [_vm._v("确定")]
+                            )
+                          ]),
+                          _vm._v(" "),
+                          _c("tr", [
+                            _c("td"),
+                            _vm._v(" "),
+                            _c(
+                              "td",
+                              {
+                                on: {
+                                  click: function($event) {
+                                    _vm.handleClick("0")
+                                  }
+                                }
+                              },
+                              [_vm._v("0")]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "td",
+                              {
+                                on: {
+                                  click: function($event) {
+                                    _vm.handleClick(".")
+                                  }
+                                }
+                              },
+                              [_vm._v(".")]
+                            )
+                          ])
+                        ])
+                      ]
+                    )
+                  ])
+                ])
+              ]
+            )
+          ]
+        )
+      : _vm._e()
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+var esExports = { render: render, staticRenderFns: staticRenderFns }
+/* harmony default export */ __webpack_exports__["a"] = (esExports);
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-0b5185a8", esExports)
   }
 }
 
