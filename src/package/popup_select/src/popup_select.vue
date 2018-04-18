@@ -9,12 +9,12 @@
                 </div>
                 <div class="pop-list">
                     <ul>
-                        <li shenfen-id="jsptpl-style" v-for="(option,index) in options"
-                            @click="add_class(option.value,index)"
-                            :class="{active:select_map[option.value]}">
-                            <div class="pop-single-info" v-show="single_text">{{option.text}}</div>
-                            <div class="pop-info" v-show="multi_text">{{option.title}}</div>
-                            <div class="pop-desc" v-show="multi_text">{{option.text}}</div>
+                        <li shenfen-id="jsptpl-style" v-for="(item,index) in option"
+                            @click="add_class(item.value,index)"
+                            :class="{active:select_map[item.value]}">
+                            <div class="pop-single-info" v-show="single_text">{{item.text}}</div>
+                            <div class="pop-info" v-show="multi_text">{{item.title}}</div>
+                            <div class="pop-desc" v-show="multi_text">{{item.text}}</div>
                             <div class="pop-arrow"></div>
                         </li>
                     </ul>
@@ -32,7 +32,7 @@
             return {
                 title:"",
                 selec_type:"",
-                options:[],
+                option:[],
                 show: false,
                 single_text: false,
                 multi_text: false,
@@ -58,11 +58,11 @@
                         _this.select_map[key] = false;
                     }
                     _this.select_map[value] = true;
-                    _this.currentobj = _this.options[index];
+                    _this.currentobj = _this.option[index];
                 }
                 else {//复选框时候状态取反
                     if (!_this.select_map[value]) {//点击的之前状态是false时候，当前就是选中状态，添加当前数据进存储
-                        _this.muli_currentobj.push(_this.options[index]);
+                        _this.muli_currentobj.push(_this.option[index]);
                     } else {//点击的之前状态是true时候，当前就是取消状态，删除存储中当前数据（遍历时候记住当前元素在存储中的下标，遍历结束后删除该元素）
                         let length = _this.muli_currentobj.length || 0;
                         let deleti = null;
