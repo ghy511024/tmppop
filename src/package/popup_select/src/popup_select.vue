@@ -73,11 +73,11 @@
                                 deleti =i;
                             }
                         }
-                        setTimeout(function(){
-                            if(deleti){
+//                        setTimeout(function(){
+//                            if(deleti){
                                 _this.muli_currentobj.splice(deleti,1);
-                            }
-                        },0);
+//                            }
+//                        },0);
                     }
                     _this.select_map[value]=!_this.select_map[value];
                 }
