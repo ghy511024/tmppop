@@ -30,20 +30,18 @@
         name: 'app',
         data() {
             return {
-                title: "",
-                selec_type: "",
-                currentSelect: 0,
-                list: [],
+                title:"",
+                selec_type:"",
+                list:[],
                 show: false,
                 single_text: false,
                 multi_text: false,
                 isbeforeActive: false,
                 isactive: false,
-                currentobj: {},
-                muli_currentobj: [],
-                select_map: {},
-                callback: function () {
-                },
+                currentobj:{},
+                muli_currentobj:[],
+                select_map:{},
+                callback:function(){},
             };
         },
         creat(){
@@ -75,11 +73,10 @@
                                 deleti = i;
                             }
                         }
-                        setTimeout(function () {
-                            if (deleti) {
-                                _this.muli_currentobj.splice(deleti, 1);
+                            if (deleti!=null) {
+                                 _this.muli_currentobj.splice(deleti, 1);
                             }
-                        }, 0);
+
                     }
                     _this.select_map[value] = !_this.select_map[value];
                 }
@@ -89,22 +86,30 @@
             stop(){
             },
             decision_click(){
-                let _this = this;
-                if (_this.selec_type == "radio") {
+
+                let _this=this;
+                if(_this.selec_type=="radio"){
+                    _this.isactive = false;
+                    setTimeout(function () {
+                        _this.isbeforeActive = false;
+                        _this.show = false;
+                    }, 600)
 //                        console.log("确定:   "+_this.currentobj.title);
-                    return _this.callback(_this.currentobj, 1);
-                } else if (_this.selec_type == "checkbox") {
+                    return _this.callback(_this.currentobj,1);
+                }else if(_this.selec_type=="checkbox"){
+                    _this.isactive = false;
+                    setTimeout(function () {
+                        _this.isbeforeActive = false;
+                        _this.show = false;
+                    }, 600)
+
 //                        console.log("确定按钮----=----"+"当前选中元素如下:   ")
 //                        for(let i =0;i<_this.muli_currentobj.length;i++){
 //                            console.log(_this.muli_currentobj[i].title);
 //                        }
                     return _this.callback(_this.muli_currentobj, 1);
                 }
-                _this.isactive = false;
-                setTimeout(function () {
-                    _this.isbeforeActive = false;
-                    _this.show = false;
-                }, 600)
+
             },
             close_click() {
                 let _this = this;
