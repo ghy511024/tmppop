@@ -62,7 +62,7 @@ Touch.prototype = {
     maxRegion: 600,
     springMaxRegion: 60,// 弹性
     animationEnd: function () {
-        console.log("动画结束")
+        // console.log("动画结束")
     },
 
     _start: function (evt) {
@@ -80,7 +80,7 @@ Touch.prototype = {
             this.dom_height = this.target.offsetHeight;
             this.dom_item_height = this.dom_height / this.dom_len;
             this.min = -this.dom_height + this.dom_item_height;
-            console.log(this.dom_height, this.dom_item_height, this.min)
+            // console.log(this.dom_height, this.dom_item_height, this.min)
         }
     },
     _move: function (evt) {
@@ -106,7 +106,7 @@ Touch.prototype = {
             this.isTouchStart = false;
             var self = this;
             var current = this.target["translateY"];
-            console.log("touche end..", current, this.max)
+            // console.log("touche end..", current, this.max)
 
             var triggerTap = (Math.abs(evt.changedTouches[0].pageX - this.x1) < 30 && Math.abs(evt.changedTouches[0].pageY - this.y1) < 30);
             if (current > this.max) {
@@ -214,7 +214,7 @@ Touch.prototype = {
     _getAutoScrollTo(value){
         var ret = value;
         var _val = Math.abs(value % this.dom_item_height);
-        console.log(this.dom_item_height, "bbbbbbbbb")
+        // console.log(this.dom_item_height, "bbbbbbbbb")
         if (_val > this.dom_item_height / 2) {
             ret = value + (this.dom_item_height - _val) * (value > 0 ? 1 : -1);
         } else {
