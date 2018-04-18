@@ -142,8 +142,8 @@
                 <div class="scroll-choose">
                     <div class="picker-title">楼层：</div>
                     <div class="choose-inner">
-                        <label for="" class="choose-level">单层</label>
-                        <label for="" class="choose-level">多层</label>
+                        <label for="" class="choose-level choose-default">单层</label>
+                        <label for="" class="choose-level choose-highlight">多层</label>
                     </div>
                     <div id="btn-sure" class="choose-sure">确定</div>
                 </div>

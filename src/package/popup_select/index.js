@@ -20,13 +20,13 @@ let popup_select = (a,fun) => {
     let _defobj={
         title:a.title,
         type:a.selec_type,
-        options:a.options,
+        option:a.option,
         list_type:a.list_type,
     };
     //debugger;
     instance.title=_defobj["title"];
     instance.selec_type=_defobj["type"];
-    instance.options=_defobj["options"];
+    instance.option=_defobj["option"];
     instance.list_type=_defobj["list_type"];
     instance.callback=fun;
     //判断传入的数组数据是只有text类型还是text value类型，进行不同处理（展示不同的样式）

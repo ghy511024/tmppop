@@ -8666,7 +8666,7 @@ module.exports = function (exec) {
                 selec_type: "checkbox",
                 //list_type： single_text multi_text
                 list_type: "multi_text",
-                options: [{ "title": "房东", "text": "房屋所有者，具备认证房本资质", value: "1" }, { "title": "转租", "text": "转让自己承租的房子", value: "2" }, { "title": "房东", "text": "房屋所有者，具备认证房本资质", value: "3" }, { "title": "转租", "text": "转让自己承租的房子", value: "4" }, { "title": "经纪人", "text": "房产中介，拥有专业的展示空间", value: "5" }, { "title": "职业房东", "text": "公寓经营者/多房源管理者", value: "6" }]
+                option: [{ "title": "房东", "text": "房屋所有者，具备认证房本资质", value: "1" }, { "title": "转租", "text": "转让自己承租的房子", value: "2" }, { "title": "房东", "text": "房屋所有者，具备认证房本资质", value: "3" }, { "title": "转租", "text": "转让自己承租的房子", value: "4" }, { "title": "经纪人", "text": "房产中介，拥有专业的展示空间", value: "5" }, { "title": "职业房东", "text": "公寓经营者/多房源管理者", value: "6" }]
             };
             this.$popup_select(data, function (status, data) {
                 //data是返回的数据，status是确定还是取消状态
@@ -8953,7 +8953,7 @@ process.umask = function() { return 0; };
         return {
             title: "",
             selec_type: "",
-            options: [],
+            option: [],
             show: false,
             single_text: false,
             multi_text: false,
@@ -8979,12 +8979,12 @@ process.umask = function() { return 0; };
                     _this.select_map[key] = false;
                 }
                 _this.select_map[value] = true;
-                _this.currentobj = _this.options[index];
+                _this.currentobj = _this.option[index];
             } else {
                 //复选框时候状态取反
                 if (!_this.select_map[value]) {
                     //点击的之前状态是false时候，当前就是选中状态，添加当前数据进存储
-                    _this.muli_currentobj.push(_this.options[index]);
+                    _this.muli_currentobj.push(_this.option[index]);
                 } else {
                     //点击的之前状态是true时候，当前就是取消状态，删除存储中当前数据（遍历时候记住当前元素在存储中的下标，遍历结束后删除该元素）
                     var length = _this.muli_currentobj.length || 0;
@@ -10043,13 +10043,13 @@ var popup_select = function popup_select(a, fun) {
     var _defobj = {
         title: a.title,
         type: a.selec_type,
-        options: a.options,
+        option: a.option,
         list_type: a.list_type
     };
     //debugger;
     instance.title = _defobj["title"];
     instance.selec_type = _defobj["type"];
-    instance.options = _defobj["options"];
+    instance.option = _defobj["option"];
     instance.list_type = _defobj["list_type"];
     instance.callback = fun;
     //判断传入的数组数据是只有text类型还是text value类型，进行不同处理（展示不同的样式）
@@ -10587,15 +10587,15 @@ var render = function() {
               _c("div", { staticClass: "pop-list" }, [
                 _c(
                   "ul",
-                  _vm._l(_vm.options, function(option, index) {
+                  _vm._l(_vm.option, function(item, index) {
                     return _c(
                       "li",
                       {
-                        class: { active: _vm.select_map[option.value] },
+                        class: { active: _vm.select_map[item.value] },
                         attrs: { "shenfen-id": "jsptpl-style" },
                         on: {
                           click: function($event) {
-                            _vm.add_class(option.value, index)
+                            _vm.add_class(item.value, index)
                           }
                         }
                       },
@@ -10613,7 +10613,7 @@ var render = function() {
                             ],
                             staticClass: "pop-single-info"
                           },
-                          [_vm._v(_vm._s(option.text))]
+                          [_vm._v(_vm._s(item.text))]
                         ),
                         _vm._v(" "),
                         _c(
@@ -10629,7 +10629,7 @@ var render = function() {
                             ],
                             staticClass: "pop-info"
                           },
-                          [_vm._v(_vm._s(option.title))]
+                          [_vm._v(_vm._s(item.title))]
                         ),
                         _vm._v(" "),
                         _c(
@@ -10645,7 +10645,7 @@ var render = function() {
                             ],
                             staticClass: "pop-desc"
                           },
-                          [_vm._v(_vm._s(option.text))]
+                          [_vm._v(_vm._s(item.text))]
                         ),
                         _vm._v(" "),
                         _c("div", { staticClass: "pop-arrow" })
@@ -11176,13 +11176,17 @@ var staticRenderFns = [
       _c("div", { staticClass: "picker-title" }, [_vm._v("楼层：")]),
       _vm._v(" "),
       _c("div", { staticClass: "choose-inner" }, [
-        _c("label", { staticClass: "choose-level", attrs: { for: "" } }, [
-          _vm._v("单层")
-        ]),
+        _c(
+          "label",
+          { staticClass: "choose-level choose-default", attrs: { for: "" } },
+          [_vm._v("单层")]
+        ),
         _vm._v(" "),
-        _c("label", { staticClass: "choose-level", attrs: { for: "" } }, [
-          _vm._v("多层")
-        ])
+        _c(
+          "label",
+          { staticClass: "choose-level choose-highlight", attrs: { for: "" } },
+          [_vm._v("多层")]
+        )
       ]),
       _vm._v(" "),
       _c("div", { staticClass: "choose-sure", attrs: { id: "btn-sure" } }, [
