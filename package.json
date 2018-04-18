@@ -1,5 +1,5 @@
 {
-  "name": "louchoose",
+  "name": "release-pop",
   "version": "1.0.1",
   "description": "房产整租发布弹窗集合",
   "main": "api/mod/louchoose.js",
