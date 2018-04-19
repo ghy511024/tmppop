@@ -207,7 +207,7 @@
 
     .pop-select .pop-list {
         widtH: 100%;
-        max-height: 350px;
+        max-height: 7.46668rem;
         overflow: hidden;
         overflow-y: scroll;
     }
