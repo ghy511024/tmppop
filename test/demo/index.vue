@@ -74,17 +74,13 @@
                         {"title": "职业房东", "text": "公寓经营者/多房源管理者", value: "6"},
                     ],
                 };
-                this.$popup_select(data,function(status,data){ //data是返回的数据，status是确定还是取消状态
+                this.$popup_select(data, function (status, data) { //data是返回的数据，status是确定还是取消状态
                     console.log(status);
                     console.log(data)
                 });
 
             },
-            test3(){
-                this.$rentKeyboard(this.rentKeyoardData, (res) => {
-                    console.log('返回数据为：', res);
-                });
-            }
+        }
     }
 </script>
 

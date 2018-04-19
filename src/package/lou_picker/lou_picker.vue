@@ -4,7 +4,7 @@
     @import "../../common/css/mixin.scss";
 
     #picker-wrap {
-        display: none;
+        /*display: none;*/
         width: 100%;
         position: absolute;
         z-index: 100;
