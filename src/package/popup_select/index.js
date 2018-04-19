@@ -31,12 +31,17 @@ let popup_select = (a,fun) => {
     instance.callback=fun;
     //判断传入的数组数据是只有text类型还是text value类型，进行不同处理（展示不同的样式）
     instance.show = true;
+    if(!instance.list_type){
+        instance.list_type="single_text";
+    }
     if(instance.list_type=="single_text"){
         instance.single_text=true;
-    }else if(instance.list_type=="multi_text"){
-        instance.multi_text=true;
     }else{
-        instance.single_text=true;
+        instance.multi_text=true;
+    }
+
+    if(!instance.selec_type){
+        instance.selec_type="radio"
     }
     instance.isbeforeActive=true;
     setTimeout (function () {
