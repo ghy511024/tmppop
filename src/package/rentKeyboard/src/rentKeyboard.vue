@@ -25,7 +25,8 @@
                 -webkit-box-pack: justify;
                 box-pack: justify;
                 .single-value {
-                    flex-grow: 1;
+                    flex: 1;
+                    width: 0;
                     position: relative;
                     height: 100%;
                     box-sizing: border-box;

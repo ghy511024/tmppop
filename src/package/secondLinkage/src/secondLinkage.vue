@@ -65,7 +65,8 @@
                 -webkit-box-pack: justify;
                 box-pack: justify;
                 .single-slot {
-                    flex-grow: 1;
+                    flex: 1;
+                    width: 0;
                     height: 100%;
                     overflow: hidden;
                     overflow-y: scroll;
