@@ -206,7 +206,6 @@
         z-index:10;
         left: 0;
     }
-
     .span-top{
         height: rem(200px);
         top:0;
@@ -243,57 +242,49 @@
                     </div>
                     <div id="btn-sure" class="choose-sure">确定</div>
                 </div>
-                <div class="scroll-inner">
-                    <span class="span span-top"></span>
-                    <div>
-                        <div class="chose-bord">
-                            <div class="text-style">至</div>
-                        </div>
-                        <div>
-                            <ul id="list_1" ref="list_1" class="mulit-left">
-                                <li>1层</li>
-                                <li>2层</li>
-                                <li>3层</li>
-                                <li>4层</li>
-                                <li>5层</li>
-                                <li>6层</li>
-                                <li>7层</li>
-                                <li>8层</li>
-                                <li>9层</li>
-                            </ul>
-                            <div id="bind_1" ref="bind_1" class="ul-same ul-left"></div>
-                        </div>
-                        <div>
-                            <ul id="list_2" ref="list_2" class="mulit-center">
-                                <li>1层</li>
-                                <li>2层</li>
-                                <li>3层</li>
-                                <li>4层</li>
-                                <li>5层</li>
-                                <li>6层</li>
-                                <li>7层</li>
-                                <li>8层</li>
-                                <li>9层</li>
-                            </ul>
-                            <div class="ul-same ul-center"></div>
-                        </div>
-                        <div>
-                            <ul id="list_3" ref="list_3" class="mulit-right">
-                                <li>1层</li>
-                                <li>2层</li>
-                                <li>3层</li>
-                                <li>4层</li>
-                                <li>5层</li>
-                                <li>6层</li>
-                                <li>7层</li>
-                                <li>8层</li>
-                                <li>9层</li>
-                            </ul>
-                            <div class="ul-same ul-right"></div>
-                        </div>
-                    </div>
 
+                <div class="scroll-inner">
+                    <div class="chose-bord">
+                        <div class="text-style">至</div>
+                    </div>
+                    <span class="span span-top"></span>
+                    <ul id="list_1" ref="list_1" class="mulit-left">
+                        <li>1层</li>
+                        <li>2层</li>
+                        <li>3层</li>
+                        <li>4层</li>
+                        <li>5层</li>
+                        <li>6层</li>
+                        <li>7层</li>
+                        <li>8层</li>
+                        <li>9层</li>
+                    </ul>
+                    <ul id="list_2" ref="list_2" class="mulit-center">
+                        <li>1层</li>
+                        <li>2层</li>
+                        <li>3层</li>
+                        <li>4层</li>
+                        <li>5层</li>
+                        <li>6层</li>
+                        <li>7层</li>
+                        <li>8层</li>
+                        <li>9层</li>
+                    </ul>
+                    <ul id="list_3" ref="list_3" class="mulit-right">
+                        <li>1层</li>
+                        <li>2层</li>
+                        <li>3层</li>
+                        <li>4层</li>
+                        <li>5层</li>
+                        <li>6层</li>
+                        <li>7层</li>
+                        <li>8层</li>
+                        <li>9层</li>
+                    </ul>
                     <span class="span span-bottom"></span>
+                    <div class="ul-same ul-left"></div>
+                    <div class="ul-same ul-center"></div>
+                    <div class="ul-same ul-right"></div>
                 </div>
             </div>
         </div>
@@ -312,16 +303,14 @@
         ready: function () {
         },
         mounted(){
+            console.log("touch....", {dom_len: 9})
             var dom1 = this.$refs.list_1;
             new touch(dom1, {dom_len: 9})
             var dom2 = this.$refs.list_2;
             new touch(dom2, {dom_len: 9})
             var dom3 = this.$refs.list_3;
             new touch(dom3, {dom_len: 9})
-        },
-        mathods:{
+        }
 
-        },
-        watch:{},
     }
 </script>

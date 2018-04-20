@@ -31,7 +31,7 @@
     }
 }());
 
-var Touch = function (target, option) {
+var Touch = function (source,target, option) {
     option = option || {};
     var _this = this;
     target.addEventListener("touchstart", this._start.bind(this))
