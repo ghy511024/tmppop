@@ -8,6 +8,7 @@
         <button @click="test1">测试dialog</button>
         <button @click="test2">测试popup_select</button>
         <button @click="test3">测试输入控件</button>
+        <button @click="test4">测试二级联动控件</button>
     </div>
 </template>
 <script>
@@ -44,6 +45,40 @@
                         }
                     ],
                 },
+                secondLinkageData: {
+                    defaultValue: '',//默认选中的行业，为空默认选择第一个。
+                    slots: [
+                        {
+                            values: [
+                                {text: '餐饮美食', parentId: 0, id: 1},
+                                {text: '美容美发', parentId: 0, id: 2},
+                                {text: '服装鞋包', parentId: 0, id: 3},
+                            ],
+                        },
+                        {
+                            values: [
+                                {text: '餐饮美食1', parentId: 1, id: 10},
+                                {text: '餐饮美食2', parentId: 1, id: 11},
+                                {text: '餐饮美食3', parentId: 1, id: 12},
+                                {text: '餐饮美食4', parentId: 1, id: 13},
+                                {text: '美容美发1', parentId: 2, id: 20},
+                                {text: '美容美发2', parentId: 2, id: 21},
+                                {text: '美容美发3', parentId: 2, id: 22},
+                                {text: '美容美发4', parentId: 2, id: 23},
+                                {text: '美容美发5', parentId: 2, id: 24},
+                                {text: '服装鞋包1', parentId: 3, id: 30},
+                                {text: '服装鞋包2', parentId: 3, id: 31},
+                                {text: '服装鞋包3', parentId: 3, id: 32},
+                                {text: '服装鞋包4', parentId: 3, id: 33},
+                                {text: '服装鞋包5', parentId: 3, id: 34},
+                                {text: '服装鞋包6', parentId: 3, id: 35},
+                                {text: '服装鞋包7', parentId: 3, id: 36},
+                                {text: '服装鞋包8', parentId: 3, id: 37},
+                                {text: '服装鞋包9', parentId: 3, id: 38},
+                            ],
+                        },
+                    ],
+                },
             }
         },
         created: function () {
@@ -62,9 +97,9 @@
                 let data = {
                     title: "选择您的身份",
                     //type：radio checkbox
-                    selec_type: "checkbox",
+                    selec_type: "",
                     //list_type： single_text multi_text
-                    list_type: "multi_text",
+                    list_type: "",
                     option: [
                         {"title": "房东", "text": "房屋所有者，具备认证房本资质", value: "1"},
                         {"title": "转租", "text": "转让自己承租的房子", value: "2"},
@@ -78,7 +113,17 @@
                     console.log(status);
                     console.log(data)
                 });
-
+            },
+            test3(){
+                this.$rentKeyboard(this.rentKeyoardData, (res) => {
+                    console.log(this.rentKeyoardData);
+                    console.log('返回数据为：', res);
+                });
+            },
+            test4(){
+                this.$secondLinkage(this.secondLinkageData, (res) => {
+                    console.log('返回数据为：', res);
+                });
             },
         }
     }

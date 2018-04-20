@@ -1,11 +1,11 @@
 /**
- * Created by thb on 2018/4/17.
+ * Created by thb on 2018/4/19.
  */
 import Vue from 'vue';
-import RentKeyboard from './src/rentKeyboard.vue';
+import SecondLinkage from './src/secondLinkage.vue';
 
 let instance;
-let MyConstructor = Vue.extend(RentKeyboard);
+let MyConstructor = Vue.extend(SecondLinkage);
 
 let initInstance = (bottom) => {
     instance = new MyConstructor({
@@ -14,24 +14,22 @@ let initInstance = (bottom) => {
     document.body.appendChild(instance.$el);
 };
 
-let _rentKeyboard = (a,fun) => {
+let _secondLinkage = (a,fun) => {
 
     let _defobj={
-        dataArrSel: a.dataArrSel,
-        dataArr: a.dataArr,
+        dataObj: a,
     };
     //debugger;
-    instance.dataArrSel = _defobj["dataArrSel"];
-    instance.dataArr = _defobj["dataArr"];
+    instance.dataObj = _defobj["dataObj"];
     instance.callback = fun;
-    //出现键盘
+    //出现级联组件
     instance.visible = true;
 };
 
 export default {
     install(Vue, options) {
         initInstance();
-        Vue.prototype.$rentKeyboard = _rentKeyboard;
+        Vue.prototype.$secondLinkage = _secondLinkage;
     },
 };
 
