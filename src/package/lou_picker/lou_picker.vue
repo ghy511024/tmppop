@@ -149,7 +149,7 @@
 
     ul {
         position: absolute;
-        z-index:8;
+        z-index: 8;
         top: rem(200px);
         list-style: none;
         padding: 0px;
@@ -160,7 +160,6 @@
             line-height: rem(100px);
         }
     }
-
 
     .mulit-left {
         left: rem(5px);
@@ -180,44 +179,49 @@
         text-align: center;
     }
 
-    .ul-same{
+    .ul-same {
         position: absolute;
-        z-index:12;
+        z-index: 12;
         list-style: none;
         padding: 0px;
-        height:100%;
+        height: 100%;
     }
-    .ul-left{
+
+    .ul-left {
         left: rem(5px);
         width: rem(210px);
     }
-    .ul-center{
+
+    .ul-center {
         left: rem(215px);
         width: rem(210px);
     }
-    .ul-right{
+
+    .ul-right {
         right: rem(5px);
         width: rem(315px);
     }
+
     .span {
         display: block;
         width: 100%;
         position: absolute;
-        z-index:10;
+        z-index: 10;
         left: 0;
     }
 
-    .span-top{
+    .span-top {
         height: rem(200px);
-        top:0;
+        top: 0;
         position: absolute;
-        z-index:11;
-        background-image:-webkit-linear-gradient(top, rgba(255,255,255,1) 0%,rgba(255,255,255,0.3) 100%);
+        z-index: 11;
+        background-image: -webkit-linear-gradient(top, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0.3) 100%);
     }
-    .span-bottom{
-        height:rem(195px);
+
+    .span-bottom {
+        height: rem(195px);
         top: rem(290px);
-        background-image:-webkit-linear-gradient(bottom, rgba(255,255,255,1) 0%,rgba(255,255,255,0.3) 100%);
+        background-image: -webkit-linear-gradient(bottom, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0.3) 100%);
     }
 </style>
 <template>
@@ -225,7 +229,7 @@
         <div class="picker-main">
             <div class="picker-header">
                 <div class="title">楼层</div>
-                <div class="picker-text">1-3层/8层</div>
+                <div class="picker-text">{{ghy1}}-3层/8层</div>
             </div>
             <div class="picker-placeholder">
                 请选择楼层
@@ -275,7 +279,7 @@
                                 <li>8层</li>
                                 <li>9层</li>
                             </ul>
-                            <div class="ul-same ul-center"></div>
+                            <div ref="bind_2" class="ul-same ul-center"></div>
                         </div>
                         <div>
                             <ul id="list_3" ref="list_3" class="mulit-right">
@@ -289,10 +293,9 @@
                                 <li>8层</li>
                                 <li>9层</li>
                             </ul>
-                            <div class="ul-same ul-right"></div>
+                            <div ref="bind_3" class="ul-same ul-right"></div>
                         </div>
                     </div>
-
                     <span class="span span-bottom"></span>
                 </div>
             </div>
@@ -304,6 +307,10 @@
     export default{
         data: function () {
             return {
+                ghy1: 1,
+                map: {
+                    0: "1"
+                },
                 list1: [
                     {}
                 ]
@@ -312,16 +319,26 @@
         ready: function () {
         },
         mounted(){
+            var _this = this;
             var dom1 = this.$refs.list_1;
-            new touch(dom1, {dom_len: 9})
+            var bind1 = this.$refs.bind_1;
+            new touch(bind1, dom1, {
+                dom_len: 9, change: function (index) {
+                    console.log("回调", index)
+                    _this.ghy1 = index + 1;
+                }
+            })
+
             var dom2 = this.$refs.list_2;
-            new touch(dom2, {dom_len: 9})
+            var bind2 = this.$refs.bind_2;
+            new touch(bind2, dom2, {dom_len: 9})
+
             var dom3 = this.$refs.list_3;
-            new touch(dom3, {dom_len: 9})
-        },
-        mathods:{
+            var bind3 = this.$refs.bind_3;
+            new touch(bind3, dom3, {dom_len: 9})
 
         },
-        watch:{},
+        mathods: {},
+        watch: {},
     }
 </script>

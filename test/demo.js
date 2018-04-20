@@ -8684,7 +8684,10 @@ module.exports = function (exec) {
             });
         },
         test3: function test3() {
+            var _this = this;
+
             this.$rentKeyboard(this.rentKeyoardData, function (res) {
+                console.log(_this.rentKeyoardData);
                 console.log('返回数据为：', res);
             });
         },
@@ -9515,22 +9518,40 @@ module.exports = function (it) {
 //
 //
 //
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["a"] = ({
     data: function data() {
         return {
+            ghy1: 1,
+            map: {
+                0: "1"
+            },
             list1: [{}]
         };
     },
     ready: function ready() {},
     mounted: function mounted() {
+        var _this = this;
         var dom1 = this.$refs.list_1;
-        new __WEBPACK_IMPORTED_MODULE_0__lib_touch__["a" /* default */](dom1, { dom_len: 9 });
+        var bind1 = this.$refs.bind_1;
+        new __WEBPACK_IMPORTED_MODULE_0__lib_touch__["a" /* default */](bind1, dom1, {
+            dom_len: 9, change: function change(index) {
+                console.log("回调", index);
+                _this.ghy1 = index + 1;
+            }
+        });
+
         var dom2 = this.$refs.list_2;
-        new __WEBPACK_IMPORTED_MODULE_0__lib_touch__["a" /* default */](dom2, { dom_len: 9 });
+        var bind2 = this.$refs.bind_2;
+        new __WEBPACK_IMPORTED_MODULE_0__lib_touch__["a" /* default */](bind2, dom2, { dom_len: 9 });
+
         var dom3 = this.$refs.list_3;
-        new __WEBPACK_IMPORTED_MODULE_0__lib_touch__["a" /* default */](dom3, { dom_len: 9 });
+        var bind3 = this.$refs.bind_3;
+        new __WEBPACK_IMPORTED_MODULE_0__lib_touch__["a" /* default */](bind3, dom3, { dom_len: 9 });
     },
 
     mathods: {},
@@ -11010,7 +11031,7 @@ exports.push([module.i, "\n@charset \"UTF-8\";\n/*\r\nTo change this license hea
     }
 })();
 
-var Touch = function Touch(source, target, option) {
+var Touch = function Touch(target, move_target, option) {
     option = option || {};
     var _this = this;
     target.addEventListener("touchstart", this._start.bind(this));
@@ -11018,19 +11039,28 @@ var Touch = function Touch(source, target, option) {
     target.addEventListener("touchend", this._end.bind(this));
 
     watch(target, "translateY", function () {
+        // console.log("sdfsdf")
         var trand = target.translateY;
         var transform = "translateY(" + trand + "px)";
-        target.style.transform = target.style.msTransform = target.style.OTransform = target.style.MozTransform = target.style.webkitTransform = transform;
+        move_target.style.transform = move_target.style.msTransform = move_target.style.OTransform = move_target.style.MozTransform = move_target.style.webkitTransform = transform;
+        var index = _this._getCount(trand);
+        if (index != _this.c_index) {
+            _this.c_index = index;
+            _this.change(index);
+        }
     });
     this.target = target;
+    this.move_target = move_target;
     this.target.translateY = 0;
 
     this.dom_len = option.dom_len; //  条数
+    this.change = option.change || function () {};
     // this.min = -405 + 45;
 };
 Touch.prototype = {
     max: 0,
     step: 10,
+    c_index: 0, // 默认选中
     dom_len: 1,
     dom_item_height: 1,
     sensitivity: 1, //灵敏度
@@ -11052,7 +11082,7 @@ Touch.prototype = {
     },
     _full: function _full() {
         if (!this.dom_height) {
-            this.dom_height = this.target.offsetHeight;
+            this.dom_height = this.move_target.offsetHeight;
             this.dom_item_height = this.dom_height / this.dom_len;
             this.min = -this.dom_height + this.dom_item_height;
             // console.log(this.dom_height, this.dom_item_height, this.min)
@@ -11082,7 +11112,6 @@ Touch.prototype = {
             var self = this;
             var current = this.target["translateY"];
             // console.log("touche end..", current, this.max)
-
             var triggerTap = Math.abs(evt.changedTouches[0].pageX - this.x1) < 30 && Math.abs(evt.changedTouches[0].pageY - this.y1) < 30;
             if (current > this.max) {
                 this._to(this.max, 200, ease, this.change, function (value) {}.bind(this));
@@ -11187,6 +11216,23 @@ Touch.prototype = {
             ret = value - _val * (value > 0 ? 1 : -1);
         }
         return ret;
+    },
+    _getCount: function _getCount(value) {
+        var ret = value;
+        var _val = Math.abs(value % this.dom_item_height);
+        if (_val > this.dom_item_height / 2) {
+            ret = value + (this.dom_item_height - _val) * (value > 0 ? 1 : -1);
+        } else {
+            ret = value - _val * (value > 0 ? 1 : -1);
+        }
+
+        var index = -(ret / this.dom_item_height);
+
+        // index = Math.abs(index);
+        index = Math.min(this.dom_len - 1, index);
+        index = Math.max(0, index);
+        console.log(index, "............");
+        return index;
     }
 };
 function ease(x) {
@@ -11245,20 +11291,26 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", { attrs: { id: "picker-wrap" } }, [
     _c("div", { staticClass: "picker-main" }, [
-      _vm._m(0),
+      _c("div", { staticClass: "picker-header" }, [
+        _c("div", { staticClass: "title" }, [_vm._v("楼层")]),
+        _vm._v(" "),
+        _c("div", { staticClass: "picker-text" }, [
+          _vm._v(_vm._s(_vm.ghy1) + "-3层/8层")
+        ])
+      ]),
       _vm._v(" "),
       _c("div", { staticClass: "picker-placeholder" }, [
         _vm._v("\n            请选择楼层\n        ")
       ]),
       _vm._v(" "),
       _c("div", { staticClass: "picker-scroll" }, [
-        _vm._m(1),
+        _vm._m(0),
         _vm._v(" "),
         _c("div", { staticClass: "scroll-inner" }, [
           _c("span", { staticClass: "span span-top" }),
           _vm._v(" "),
           _c("div", [
-            _vm._m(2),
+            _vm._m(1),
             _vm._v(" "),
             _c("div", [
               _c(
@@ -11325,7 +11377,7 @@ var render = function() {
                 ]
               ),
               _vm._v(" "),
-              _c("div", { staticClass: "ul-same ul-center" })
+              _c("div", { ref: "bind_2", staticClass: "ul-same ul-center" })
             ]),
             _vm._v(" "),
             _c("div", [
@@ -11357,7 +11409,7 @@ var render = function() {
                 ]
               ),
               _vm._v(" "),
-              _c("div", { staticClass: "ul-same ul-right" })
+              _c("div", { ref: "bind_3", staticClass: "ul-same ul-right" })
             ])
           ]),
           _vm._v(" "),
@@ -11368,16 +11420,6 @@ var render = function() {
   ])
 }
 var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "picker-header" }, [
-      _c("div", { staticClass: "title" }, [_vm._v("楼层")]),
-      _vm._v(" "),
-      _c("div", { staticClass: "picker-text" }, [_vm._v("1-3层/8层")])
-    ])
-  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
@@ -11424,6 +11466,7 @@ if (false) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+//
 //
 //
 //
@@ -11981,7 +12024,7 @@ exports = module.exports = __webpack_require__(0)(false);
 
 
 // module
-exports.push([module.i, "\n.rent-component[data-v-0b5185a8] {\n  width: 100vw;\n  height: 100vh;\n  background: rgba(0, 0, 0, .6);\n  position: fixed;\n  top: 0;\n  left: 0;\n}\n.rent-component .rent-component-main[data-v-0b5185a8] {\n  position: absolute;\n  bottom: 0;\n  left: 0;\n  width: 100%;\n  background: #fff;\n  /* S值显示区域 */\n  /* E值显示区域 */\n  /* S提醒显示区域 */\n  /* E提醒显示区域 */\n  /* S单位显示区域 */\n  /* E单位显示区域 */\n  /* S按钮显示区域 */\n  /* E按钮显示区域 */\n}\n.rent-component .rent-component-main .value-area[data-v-0b5185a8] {\n  height: 100px;\n  display: -moz-box;\n  display: -webkit-box;\n  display: box;\n  -webkit-box-align: center;\n  box-align: center;\n  -webkit-box-pack: justify;\n  box-pack: justify;\n}\n.rent-component .rent-component-main .value-area .single-value[data-v-0b5185a8] {\n  -webkit-box-flex: 1;\n  -webkit-flex-grow: 1;\n          flex-grow: 1;\n  position: relative;\n  height: 100%;\n  box-sizing: border-box;\n}\n.rent-component .rent-component-main .value-area .single-value .single-value-shadow[data-v-0b5185a8] {\n  width: 0;\n  height: 0;\n  position: absolute;\n  top: -1px;\n  left: 0;\n}\n.rent-component .rent-component-main .value-area .single-value.active[data-v-0b5185a8] {\n  border-top: 3px solid red;\n}\n.rent-component .rent-component-main .value-area .single-value.active .single-value-shadow[data-v-0b5185a8] {\n  width: 100%;\n  height: 100%;\n  background: -webkit-linear-gradient(rgba(62, 162, 229, .1), rgba(255, 255, 255, 0));\n  background: linear-gradient(rgba(62, 162, 229, .1), rgba(255, 255, 255, 0));\n}\n.rent-component .rent-component-main .value-area .single-value .value-area-title[data-v-0b5185a8] {\n  display: block;\n  text-align: center;\n  width: 100%;\n  height: 28px;\n  line-height: 28px;\n  font-size: 14px;\n  color: #666;\n  margin-top: 14px;\n}\n.rent-component .rent-component-main .value-area .single-value .value-area-val[data-v-0b5185a8] {\n  display: block;\n  width: 100%;\n  text-align: center;\n  font-size: 22px;\n  color: red;\n}\n.rent-component .rent-component-main .value-area .single-value .value-area-val.placeholder[data-v-0b5185a8] {\n  color: #999;\n}\n.rent-component .rent-component-main .tip-area[data-v-0b5185a8] {\n  width: 100%;\n  height: 50px;\n  line-height: 50px;\n  border-top: 1px solid #ddd;\n  border-bottom: 1px solid #ddd;\n  background: #eff;\n  text-align: center;\n  font-size: 15px;\n  color: #999;\n}\n.rent-component .rent-component-main .unit-area[data-v-0b5185a8] {\n  text-align: center;\n  width: 100%;\n  height: 50px;\n  line-height: 50px;\n  font-size: 16px;\n  color: #666;\n  box-sizing: border-box;\n  padding: 0 14px;\n  text-align: left;\n}\n.rent-component .rent-component-main .unit-area .single-unit[data-v-0b5185a8] {\n  display: inline-block;\n  width: 80px;\n  height: 36px;\n  line-height: 36px;\n  border-radius: 80px;\n  text-align: center;\n  font-size: 15px;\n  color: #333;\n  background: #eee;\n}\n.rent-component .rent-component-main .unit-area .single-unit[data-v-0b5185a8]:not(:last-child) {\n  margin-right: 8px;\n}\n.rent-component .rent-component-main .unit-area .single-unit.active[data-v-0b5185a8] {\n  background: red;\n  color: #fff;\n}\n.rent-component .rent-component-main .btns-area[data-v-0b5185a8] {\n  text-align: center;\n  width: 100%;\n  overflow: hidden;\n}\n.rent-component .rent-component-main .btns-area .left-btns[data-v-0b5185a8] {\n  float: left;\n  width: 100%;\n}\n.rent-component .rent-component-main .btns-area .left-btns .left-btns-table[data-v-0b5185a8] {\n  width: 100%;\n}\n.rent-component .rent-component-main .btns-area .left-btns .left-btns-table tr[data-v-0b5185a8] {\n  height: 70px;\n}\n.rent-component .rent-component-main .btns-area .left-btns .left-btns-table tr td[data-v-0b5185a8] {\n  font-size: 30px;\n  color: #000;\n  border: 1px solid #eee;\n}\n.rent-component .rent-component-main .btns-area .left-btns .left-btns-table tr .del-btn[data-v-0b5185a8] {\n  width: 100px;\n  background: #eee;\n  color: #222;\n  font-size: 20px;\n}\n.rent-component .rent-component-main .btns-area .left-btns .left-btns-table tr .confirm-btn[data-v-0b5185a8] {\n  width: 100px;\n  background: red;\n  color: #fff;\n  font-size: 20px;\n}\n.router-fade-enter-active[data-v-0b5185a8],\n.router-fade-leave-active[data-v-0b5185a8] {\n  -webkit-transition: opacity .3s;\n  transition: opacity .3s;\n}\n.router-fade-enter[data-v-0b5185a8],\n.router-fade-leave-active[data-v-0b5185a8] {\n  opacity: 0;\n}\n", ""]);
+exports.push([module.i, "\n.rent-component[data-v-0b5185a8] {\n  width: 100vw;\n  height: 100vh;\n  background: rgba(0, 0, 0, .6);\n  position: fixed;\n  top: 0;\n  left: 0;\n}\n.rent-component .rent-component-main[data-v-0b5185a8] {\n  position: absolute;\n  bottom: 0;\n  left: 0;\n  width: 100%;\n  background: #fff;\n  /* S值显示区域 */\n  /* E值显示区域 */\n  /* S提醒显示区域 */\n  /* E提醒显示区域 */\n  /* S单位显示区域 */\n  /* E单位显示区域 */\n  /* S按钮显示区域 */\n  /* E按钮显示区域 */\n}\n.rent-component .rent-component-main .value-area[data-v-0b5185a8] {\n  height: 100px;\n  display: -moz-box;\n  display: -webkit-box;\n  display: box;\n  -webkit-box-align: center;\n  box-align: center;\n  -webkit-box-pack: justify;\n  box-pack: justify;\n}\n.rent-component .rent-component-main .value-area .single-value[data-v-0b5185a8] {\n  -webkit-box-flex: 1;\n  -webkit-flex: 1;\n          flex: 1;\n  width: 0;\n  position: relative;\n  height: 100%;\n  box-sizing: border-box;\n}\n.rent-component .rent-component-main .value-area .single-value .single-value-shadow[data-v-0b5185a8] {\n  width: 0;\n  height: 0;\n  position: absolute;\n  top: -1px;\n  left: 0;\n}\n.rent-component .rent-component-main .value-area .single-value.active[data-v-0b5185a8] {\n  border-top: 3px solid red;\n}\n.rent-component .rent-component-main .value-area .single-value.active .single-value-shadow[data-v-0b5185a8] {\n  width: 100%;\n  height: 100%;\n  background: -webkit-linear-gradient(rgba(62, 162, 229, .1), rgba(255, 255, 255, 0));\n  background: linear-gradient(rgba(62, 162, 229, .1), rgba(255, 255, 255, 0));\n}\n.rent-component .rent-component-main .value-area .single-value .value-area-title[data-v-0b5185a8] {\n  display: block;\n  text-align: center;\n  width: 100%;\n  height: 28px;\n  line-height: 28px;\n  font-size: 14px;\n  color: #666;\n  margin-top: 14px;\n}\n.rent-component .rent-component-main .value-area .single-value .value-area-val[data-v-0b5185a8] {\n  display: block;\n  width: 100%;\n  text-align: center;\n  font-size: 22px;\n  color: red;\n}\n.rent-component .rent-component-main .value-area .single-value .value-area-val.placeholder[data-v-0b5185a8] {\n  color: #999;\n}\n.rent-component .rent-component-main .tip-area[data-v-0b5185a8] {\n  width: 100%;\n  height: 50px;\n  line-height: 50px;\n  border-top: 1px solid #ddd;\n  border-bottom: 1px solid #ddd;\n  background: #eff;\n  text-align: center;\n  font-size: 15px;\n  color: #999;\n}\n.rent-component .rent-component-main .unit-area[data-v-0b5185a8] {\n  text-align: center;\n  width: 100%;\n  height: 50px;\n  line-height: 50px;\n  font-size: 16px;\n  color: #666;\n  box-sizing: border-box;\n  padding: 0 14px;\n  text-align: left;\n}\n.rent-component .rent-component-main .unit-area .single-unit[data-v-0b5185a8] {\n  display: inline-block;\n  width: 80px;\n  height: 36px;\n  line-height: 36px;\n  border-radius: 80px;\n  text-align: center;\n  font-size: 15px;\n  color: #333;\n  background: #eee;\n}\n.rent-component .rent-component-main .unit-area .single-unit[data-v-0b5185a8]:not(:last-child) {\n  margin-right: 8px;\n}\n.rent-component .rent-component-main .unit-area .single-unit.active[data-v-0b5185a8] {\n  background: red;\n  color: #fff;\n}\n.rent-component .rent-component-main .btns-area[data-v-0b5185a8] {\n  text-align: center;\n  width: 100%;\n  overflow: hidden;\n}\n.rent-component .rent-component-main .btns-area .left-btns[data-v-0b5185a8] {\n  float: left;\n  width: 100%;\n}\n.rent-component .rent-component-main .btns-area .left-btns .left-btns-table[data-v-0b5185a8] {\n  width: 100%;\n}\n.rent-component .rent-component-main .btns-area .left-btns .left-btns-table tr[data-v-0b5185a8] {\n  height: 70px;\n}\n.rent-component .rent-component-main .btns-area .left-btns .left-btns-table tr td[data-v-0b5185a8] {\n  font-size: 30px;\n  color: #000;\n  border: 1px solid #eee;\n}\n.rent-component .rent-component-main .btns-area .left-btns .left-btns-table tr .del-btn[data-v-0b5185a8] {\n  width: 100px;\n  background: #eee;\n  color: #222;\n  font-size: 20px;\n}\n.rent-component .rent-component-main .btns-area .left-btns .left-btns-table tr .confirm-btn[data-v-0b5185a8] {\n  width: 100px;\n  background: red;\n  color: #fff;\n  font-size: 20px;\n}\n.router-fade-enter-active[data-v-0b5185a8],\n.router-fade-leave-active[data-v-0b5185a8] {\n  -webkit-transition: opacity .3s;\n  transition: opacity .3s;\n}\n.router-fade-enter[data-v-0b5185a8],\n.router-fade-leave-active[data-v-0b5185a8] {\n  opacity: 0;\n}\n", ""]);
 
 // exports
 
@@ -12502,6 +12545,7 @@ exports.f = Object.getOwnPropertyNames || function getOwnPropertyNames(O) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+//
 //
 //
 //
@@ -13604,7 +13648,7 @@ exports = module.exports = __webpack_require__(0)(false);
 
 
 // module
-exports.push([module.i, "\n.second-linkage[data-v-4aac8abc] {\n  width: 100vw;\n  height: 100vh;\n  background: rgba(0, 0, 0, .6);\n  position: fixed;\n  top: 0;\n  left: 0;\n}\n.second-linkage .second-linkage-main[data-v-4aac8abc] {\n  position: absolute;\n  bottom: 0;\n  left: 0;\n  width: 100%;\n  background: #fff;\n  /* S title显示区域 */\n  /* E title显示区域 */\n  /* S按钮显示区域 */\n  /* E按钮显示区域 */\n}\n.second-linkage .second-linkage-main .title-area[data-v-4aac8abc] {\n  text-align: center;\n  width: 100%;\n  height: 50px;\n  line-height: 50px;\n  border-top: 1px solid #ddd;\n  border-bottom: 1px solid #ddd;\n  background: #eff;\n  position: relative;\n}\n.second-linkage .second-linkage-main .title-area .cancel-btn[data-v-4aac8abc] {\n  position: absolute;\n  width: 40px;\n  height: 100%;\n  line-height: 50px;\n  left: 10px;\n  top: 0;\n  font-size: 16px;\n  color: #666;\n}\n.second-linkage .second-linkage-main .title-area .title[data-v-4aac8abc] {\n  width: 100%;\n  height: 100%;\n  line-height: 50px;\n  font-size: 14px;\n  color: #666;\n}\n.second-linkage .second-linkage-main .title-area .confirm-btn[data-v-4aac8abc] {\n  position: absolute;\n  width: 40px;\n  height: 100%;\n  line-height: 50px;\n  right: 10px;\n  top: 0;\n  color: red;\n  font-size: 16px;\n}\n.second-linkage .second-linkage-main .btns-area[data-v-4aac8abc] {\n  width: 100%;\n  height: 350px;\n  display: -moz-box;\n  display: -webkit-box;\n  display: box;\n  -webkit-box-align: center;\n  box-align: center;\n  -webkit-box-pack: justify;\n  box-pack: justify;\n}\n.second-linkage .second-linkage-main .btns-area .single-slot[data-v-4aac8abc] {\n  -webkit-box-flex: 1;\n  -webkit-flex-grow: 1;\n          flex-grow: 1;\n  height: 100%;\n  overflow: hidden;\n  overflow-y: scroll;\n}\n.second-linkage .second-linkage-main .btns-area .single-slot .single-slot-inner[data-v-4aac8abc] {\n  width: 100%;\n  height: 100%;\n  overflow: auto;\n  box-sizing: content-box;\n  padding-right: 17px;\n  -webkit-overflow-scrolling: touch;\n}\n.second-linkage .second-linkage-main .btns-area .single-slot .single-slot-inner .single-slot-item[data-v-4aac8abc] {\n  width: 100%;\n  height: 50px;\n  line-height: 50px;\n  box-sizing: border-box;\n  padding: 0 10px;\n  color: #333;\n  font-size: 14px;\n  text-overflow: ellipsis;\n  overflow: hidden;\n  white-space: nowrap;\n}\n.second-linkage .second-linkage-main .btns-area .single-slot .single-slot-inner .single-slot-item.active[data-v-4aac8abc] {\n  background: #eee;\n}\n.router-fade-enter-active[data-v-4aac8abc],\n.router-fade-leave-active[data-v-4aac8abc] {\n  -webkit-transition: opacity .3s;\n  transition: opacity .3s;\n}\n.router-fade-enter[data-v-4aac8abc],\n.router-fade-leave-active[data-v-4aac8abc] {\n  opacity: 0;\n}\n", ""]);
+exports.push([module.i, "\n.second-linkage[data-v-4aac8abc] {\n  width: 100vw;\n  height: 100vh;\n  background: rgba(0, 0, 0, .6);\n  position: fixed;\n  top: 0;\n  left: 0;\n}\n.second-linkage .second-linkage-main[data-v-4aac8abc] {\n  position: absolute;\n  bottom: 0;\n  left: 0;\n  width: 100%;\n  background: #fff;\n  /* S title显示区域 */\n  /* E title显示区域 */\n  /* S按钮显示区域 */\n  /* E按钮显示区域 */\n}\n.second-linkage .second-linkage-main .title-area[data-v-4aac8abc] {\n  text-align: center;\n  width: 100%;\n  height: 50px;\n  line-height: 50px;\n  border-top: 1px solid #ddd;\n  border-bottom: 1px solid #ddd;\n  background: #eff;\n  position: relative;\n}\n.second-linkage .second-linkage-main .title-area .cancel-btn[data-v-4aac8abc] {\n  position: absolute;\n  width: 40px;\n  height: 100%;\n  line-height: 50px;\n  left: 10px;\n  top: 0;\n  font-size: 16px;\n  color: #666;\n}\n.second-linkage .second-linkage-main .title-area .title[data-v-4aac8abc] {\n  width: 100%;\n  height: 100%;\n  line-height: 50px;\n  font-size: 14px;\n  color: #666;\n}\n.second-linkage .second-linkage-main .title-area .confirm-btn[data-v-4aac8abc] {\n  position: absolute;\n  width: 40px;\n  height: 100%;\n  line-height: 50px;\n  right: 10px;\n  top: 0;\n  color: red;\n  font-size: 16px;\n}\n.second-linkage .second-linkage-main .btns-area[data-v-4aac8abc] {\n  width: 100%;\n  height: 350px;\n  display: -moz-box;\n  display: -webkit-box;\n  display: box;\n  -webkit-box-align: center;\n  box-align: center;\n  -webkit-box-pack: justify;\n  box-pack: justify;\n}\n.second-linkage .second-linkage-main .btns-area .single-slot[data-v-4aac8abc] {\n  -webkit-box-flex: 1;\n  -webkit-flex: 1;\n          flex: 1;\n  width: 0;\n  height: 100%;\n  overflow: hidden;\n  overflow-y: scroll;\n}\n.second-linkage .second-linkage-main .btns-area .single-slot .single-slot-inner[data-v-4aac8abc] {\n  width: 100%;\n  height: 100%;\n  overflow: auto;\n  box-sizing: content-box;\n  padding-right: 17px;\n  -webkit-overflow-scrolling: touch;\n}\n.second-linkage .second-linkage-main .btns-area .single-slot .single-slot-inner .single-slot-item[data-v-4aac8abc] {\n  width: 100%;\n  height: 50px;\n  line-height: 50px;\n  box-sizing: border-box;\n  padding: 0 10px;\n  color: #333;\n  font-size: 14px;\n  text-overflow: ellipsis;\n  overflow: hidden;\n  white-space: nowrap;\n}\n.second-linkage .second-linkage-main .btns-area .single-slot .single-slot-inner .single-slot-item.active[data-v-4aac8abc] {\n  background: #eee;\n}\n.router-fade-enter-active[data-v-4aac8abc],\n.router-fade-leave-active[data-v-4aac8abc] {\n  -webkit-transition: opacity .3s;\n  transition: opacity .3s;\n}\n.router-fade-enter[data-v-4aac8abc],\n.router-fade-leave-active[data-v-4aac8abc] {\n  opacity: 0;\n}\n", ""]);
 
 // exports
 

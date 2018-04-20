@@ -31,7 +31,7 @@
     }
 }());
 
-var Touch = function (source,target, option) {
+var Touch = function (target, move_target, option) {
     option = option || {};
     var _this = this;
     target.addEventListener("touchstart", this._start.bind(this))
@@ -39,20 +39,29 @@ var Touch = function (source,target, option) {
     target.addEventListener("touchend", this._end.bind(this))
 
     watch(target, "translateY", function () {
+        // console.log("sdfsdf")
         var trand = target.translateY;
         var transform = "translateY(" + trand + "px)"
-        target.style.transform = target.style.msTransform = target.style.OTransform = target.style.MozTransform = target.style.webkitTransform = transform;
+        move_target.style.transform = move_target.style.msTransform = move_target.style.OTransform = move_target.style.MozTransform = move_target.style.webkitTransform = transform;
+        var index = _this._getCount(trand);
+        if (index != _this.c_index) {
+            _this.c_index = index;
+            _this.change(index);
+        }
     });
     this.target = target;
+    this.move_target = move_target;
     this.target.translateY = 0;
 
     this.dom_len = option.dom_len//  条数
+    this.change = option.change || function () {
+        }
     // this.min = -405 + 45;
-
 }
 Touch.prototype = {
     max: 0,
     step: 10,
+    c_index: 0,// 默认选中
     dom_len: 1,
     dom_item_height: 1,
     sensitivity: 1,//灵敏度
@@ -74,7 +83,7 @@ Touch.prototype = {
     },
     _full: function () {
         if (!this.dom_height) {
-            this.dom_height = this.target.offsetHeight;
+            this.dom_height = this.move_target.offsetHeight;
             this.dom_item_height = this.dom_height / this.dom_len;
             this.min = -this.dom_height + this.dom_item_height;
             // console.log(this.dom_height, this.dom_item_height, this.min)
@@ -104,7 +113,6 @@ Touch.prototype = {
             var self = this;
             var current = this.target["translateY"];
             // console.log("touche end..", current, this.max)
-
             var triggerTap = (Math.abs(evt.changedTouches[0].pageX - this.x1) < 30 && Math.abs(evt.changedTouches[0].pageY - this.y1) < 30);
             if (current > this.max) {
                 this._to(this.max, 200, ease, this.change, function (value) {
@@ -216,7 +224,25 @@ Touch.prototype = {
             ret = value - _val * (value > 0 ? 1 : -1);
         }
         return ret;
+    },
+    _getCount(value){
+        var ret = value;
+        var _val = Math.abs(value % this.dom_item_height);
+        if (_val > this.dom_item_height / 2) {
+            ret = value + (this.dom_item_height - _val) * (value > 0 ? 1 : -1);
+        } else {
+            ret = value - _val * (value > 0 ? 1 : -1);
+        }
+
+        var index = -(ret / this.dom_item_height);
+
+        // index = Math.abs(index);
+        index = Math.min(this.dom_len - 1, index)
+        index = Math.max(0, index)
+        console.log(index,"............")
+        return index
     }
+
 }
 function ease(x) {
     return Math.sqrt(1 - Math.pow(x - 1, 2));
