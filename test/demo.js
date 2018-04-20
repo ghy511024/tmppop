@@ -9785,22 +9785,40 @@ module.exports = function (it) {
 //
 //
 //
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["a"] = ({
     data: function data() {
         return {
+            ghy1: 1,
+            map: {
+                0: "1"
+            },
             list1: [{}]
         };
     },
     ready: function ready() {},
     mounted: function mounted() {
+        var _this = this;
         var dom1 = this.$refs.list_1;
-        new __WEBPACK_IMPORTED_MODULE_0__lib_touch__["a" /* default */](dom1, { dom_len: 9 });
+        var bind1 = this.$refs.bind_1;
+        new __WEBPACK_IMPORTED_MODULE_0__lib_touch__["a" /* default */](bind1, dom1, {
+            dom_len: 9, change: function change(index) {
+                console.log("回调", index);
+                _this.ghy1 = index + 1;
+            }
+        });
+
         var dom2 = this.$refs.list_2;
-        new __WEBPACK_IMPORTED_MODULE_0__lib_touch__["a" /* default */](dom2, { dom_len: 9 });
+        var bind2 = this.$refs.bind_2;
+        new __WEBPACK_IMPORTED_MODULE_0__lib_touch__["a" /* default */](bind2, dom2, { dom_len: 9 });
+
         var dom3 = this.$refs.list_3;
-        new __WEBPACK_IMPORTED_MODULE_0__lib_touch__["a" /* default */](dom3, { dom_len: 9 });
+        var bind3 = this.$refs.bind_3;
+        new __WEBPACK_IMPORTED_MODULE_0__lib_touch__["a" /* default */](bind3, dom3, { dom_len: 9 });
     },
 
     mathods: {},
@@ -11956,7 +11974,7 @@ exports.push([module.i, "\n@charset \"UTF-8\";\n/*\r\nTo change this license hea
     }
 })();
 
-var Touch = function Touch(source, target, option) {
+var Touch = function Touch(target, move_target, option) {
     option = option || {};
     var _this = this;
     target.addEventListener("touchstart", this._start.bind(this));
@@ -11964,19 +11982,28 @@ var Touch = function Touch(source, target, option) {
     target.addEventListener("touchend", this._end.bind(this));
 
     watch(target, "translateY", function () {
+        // console.log("sdfsdf")
         var trand = target.translateY;
         var transform = "translateY(" + trand + "px)";
-        target.style.transform = target.style.msTransform = target.style.OTransform = target.style.MozTransform = target.style.webkitTransform = transform;
+        move_target.style.transform = move_target.style.msTransform = move_target.style.OTransform = move_target.style.MozTransform = move_target.style.webkitTransform = transform;
+        var index = _this._getCount(trand);
+        if (index != _this.c_index) {
+            _this.c_index = index;
+            _this.change(index);
+        }
     });
     this.target = target;
+    this.move_target = move_target;
     this.target.translateY = 0;
 
     this.dom_len = option.dom_len; //  条数
+    this.change = option.change || function () {};
     // this.min = -405 + 45;
 };
 Touch.prototype = {
     max: 0,
     step: 10,
+    c_index: 0, // 默认选中
     dom_len: 1,
     dom_item_height: 1,
     sensitivity: 1, //灵敏度
@@ -11998,7 +12025,7 @@ Touch.prototype = {
     },
     _full: function _full() {
         if (!this.dom_height) {
-            this.dom_height = this.target.offsetHeight;
+            this.dom_height = this.move_target.offsetHeight;
             this.dom_item_height = this.dom_height / this.dom_len;
             this.min = -this.dom_height + this.dom_item_height;
             // console.log(this.dom_height, this.dom_item_height, this.min)
@@ -12028,7 +12055,6 @@ Touch.prototype = {
             var self = this;
             var current = this.target["translateY"];
             // console.log("touche end..", current, this.max)
-
             var triggerTap = Math.abs(evt.changedTouches[0].pageX - this.x1) < 30 && Math.abs(evt.changedTouches[0].pageY - this.y1) < 30;
             if (current > this.max) {
                 this._to(this.max, 200, ease, this.change, function (value) {}.bind(this));
@@ -12133,6 +12159,23 @@ Touch.prototype = {
             ret = value - _val * (value > 0 ? 1 : -1);
         }
         return ret;
+    },
+    _getCount: function _getCount(value) {
+        var ret = value;
+        var _val = Math.abs(value % this.dom_item_height);
+        if (_val > this.dom_item_height / 2) {
+            ret = value + (this.dom_item_height - _val) * (value > 0 ? 1 : -1);
+        } else {
+            ret = value - _val * (value > 0 ? 1 : -1);
+        }
+
+        var index = -(ret / this.dom_item_height);
+
+        // index = Math.abs(index);
+        index = Math.min(this.dom_len - 1, index);
+        index = Math.max(0, index);
+        console.log(index, "............");
+        return index;
     }
 };
 function ease(x) {
@@ -12191,20 +12234,26 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", { attrs: { id: "picker-wrap" } }, [
     _c("div", { staticClass: "picker-main" }, [
-      _vm._m(0),
+      _c("div", { staticClass: "picker-header" }, [
+        _c("div", { staticClass: "title" }, [_vm._v("楼层")]),
+        _vm._v(" "),
+        _c("div", { staticClass: "picker-text" }, [
+          _vm._v(_vm._s(_vm.ghy1) + "-3层/8层")
+        ])
+      ]),
       _vm._v(" "),
       _c("div", { staticClass: "picker-placeholder" }, [
         _vm._v("\n            请选择楼层\n        ")
       ]),
       _vm._v(" "),
       _c("div", { staticClass: "picker-scroll" }, [
-        _vm._m(1),
+        _vm._m(0),
         _vm._v(" "),
         _c("div", { staticClass: "scroll-inner" }, [
           _c("span", { staticClass: "span span-top" }),
           _vm._v(" "),
           _c("div", [
-            _vm._m(2),
+            _vm._m(1),
             _vm._v(" "),
             _c("div", [
               _c(
@@ -12271,7 +12320,7 @@ var render = function() {
                 ]
               ),
               _vm._v(" "),
-              _c("div", { staticClass: "ul-same ul-center" })
+              _c("div", { ref: "bind_2", staticClass: "ul-same ul-center" })
             ]),
             _vm._v(" "),
             _c("div", [
@@ -12303,7 +12352,7 @@ var render = function() {
                 ]
               ),
               _vm._v(" "),
-              _c("div", { staticClass: "ul-same ul-right" })
+              _c("div", { ref: "bind_3", staticClass: "ul-same ul-right" })
             ])
           ]),
           _vm._v(" "),
@@ -12314,16 +12363,6 @@ var render = function() {
   ])
 }
 var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "picker-header" }, [
-      _c("div", { staticClass: "title" }, [_vm._v("楼层")]),
-      _vm._v(" "),
-      _c("div", { staticClass: "picker-text" }, [_vm._v("1-3层/8层")])
-    ])
-  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
