@@ -1,8 +1,18 @@
 /**
- * Created by thb on 2018/4/18.
+ * Created by thb on 2018/4/17.
  */
 import Vue from 'vue';
 import RentKeyboard from './src/rentKeyboard.vue';
+
+function copyArr(arr){
+    return arr.map((e)=>{
+        if(typeof e === 'object'){
+            return Object.assign({},e)
+        }else{
+            return e
+        }
+    })
+}
 
 let instance;
 let MyConstructor = Vue.extend(RentKeyboard);
@@ -22,7 +32,7 @@ let _rentKeyboard = (a,fun) => {
     };
     //debugger;
     instance.dataArrSel = _defobj["dataArrSel"];
-    instance.dataArr = _defobj["dataArr"];
+    instance.dataArr = copyArr(_defobj["dataArr"]);
     instance.callback = fun;
     //出现键盘
     instance.visible = true;
