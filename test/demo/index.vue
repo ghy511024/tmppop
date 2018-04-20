@@ -9,6 +9,7 @@
         <button @click="test2">测试popup_select</button>
         <button @click="test3">测试输入控件</button>
         <button @click="test4">测试二级联动控件</button>
+        <button @click="test5">楼层选择</button>
     </div>
 </template>
 <script>
@@ -125,6 +126,20 @@
                     console.log('返回数据为：', res);
                 });
             },
+            test5(){
+                var def = {
+                    defaultType: "multi",//single,multi 单层|多层
+                    datasouce: ['-2,99', '-2,99', '1,99'],
+                    unit: ['%d层', '%d层', '共%d层'],
+                    suggest: "请选择楼层",
+                    title: "楼层",
+                    defaultselect: "-1,5,8",
+                    placeholder: "请选择"
+                }
+                this.$lou_picker(def, (res) => {
+                    console.log('返回数据为：', res);
+                });
+            }
         }
     }
 </script>

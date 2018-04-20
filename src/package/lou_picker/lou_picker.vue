@@ -165,18 +165,30 @@
         left: rem(5px);
         width: rem(210px);
         text-align: center;
+        box-shadow: 0px 0px 0px 1px #ccc;
+        &.isMulti {
+            width: rem(320px);
+        }
     }
 
     .mulit-center {
         left: rem(215px);
         width: rem(210px);
         text-align: center;
+        box-shadow: 0px 0px 0px 1px #ccc;
+        &.isMulti {
+            width: rem(320px);
+        }
     }
 
     .mulit-right {
         right: rem(5px);
         width: rem(315px);
         text-align: center;
+        box-shadow: 0px 0px 0px 1px #ccc;
+        &.isMulti {
+            width: rem(300px);
+        }
     }
 
     .ul-same {
@@ -225,11 +237,11 @@
     }
 </style>
 <template>
-    <div id="picker-wrap">
+    <div id="picker-wrap" v-show="show">
         <div class="picker-main">
             <div class="picker-header">
                 <div class="title">楼层</div>
-                <div class="picker-text">{{ghy1}}-3层/8层</div>
+                <div class="picker-text">{{show_text}}</div>
             </div>
             <div class="picker-placeholder">
                 请选择楼层
@@ -247,51 +259,27 @@
                     </div>
                     <div id="btn-sure" class="choose-sure">确定</div>
                 </div>
-                <div class="scroll-inner">
+                <div class="scroll-inner" :class="{isMulti:defaultType=='multi'}">
                     <span class="span span-top"></span>
                     <div>
                         <div class="chose-bord">
-                            <div class="text-style">至</div>
+                            <div v-show="defaultType!='multi'" class="text-style">至</div>
                         </div>
                         <div>
                             <ul id="list_1" ref="list_1" class="mulit-left">
-                                <li>1层</li>
-                                <li>2层</li>
-                                <li>3层</li>
-                                <li>4层</li>
-                                <li>5层</li>
-                                <li>6层</li>
-                                <li>7层</li>
-                                <li>8层</li>
-                                <li>9层</li>
+                                <li v-for="(item,index) in data_1.list">{{item}}层</li>
                             </ul>
                             <div id="bind_1" ref="bind_1" class="ul-same ul-left"></div>
                         </div>
-                        <div>
+                        <div v-show="defaultType!='multi'">
                             <ul id="list_2" ref="list_2" class="mulit-center">
-                                <li>1层</li>
-                                <li>2层</li>
-                                <li>3层</li>
-                                <li>4层</li>
-                                <li>5层</li>
-                                <li>6层</li>
-                                <li>7层</li>
-                                <li>8层</li>
-                                <li>9层</li>
+                                <li v-for="(item,index) in data_2.list">{{item}}层</li>
                             </ul>
                             <div ref="bind_2" class="ul-same ul-center"></div>
                         </div>
                         <div>
                             <ul id="list_3" ref="list_3" class="mulit-right">
-                                <li>1层</li>
-                                <li>2层</li>
-                                <li>3层</li>
-                                <li>4层</li>
-                                <li>5层</li>
-                                <li>6层</li>
-                                <li>7层</li>
-                                <li>8层</li>
-                                <li>9层</li>
+                                <li v-for="(item,index) in data_3.list">共{{item}}层</li>
                             </ul>
                             <div ref="bind_3" class="ul-same ul-right"></div>
                         </div>
@@ -307,38 +295,90 @@
     export default{
         data: function () {
             return {
-                ghy1: 1,
-                map: {
-                    0: "1"
+                show: false,
+                defaultType: "multi",//multi
+                suggest: "请选择楼层",
+                title: "楼层",
+                placeholder: "请选择",
+                data_1: {
+//                    select: 0,
+//                    unit: "",
+//                    list: [1, 2, 3, 4, 5, 6]
                 },
-                list1: [
-                    {}
-                ]
+                data_2: {},
+                data_3: {},
             }
         },
         ready: function () {
         },
+        props: {},
         mounted(){
             var _this = this;
-            var dom1 = this.$refs.list_1;
-            var bind1 = this.$refs.bind_1;
-            new touch(bind1, dom1, {
-                dom_len: 9, change: function (index) {
-                    console.log("回调", index)
-                    _this.ghy1 = index + 1;
-                }
-            })
 
-            var dom2 = this.$refs.list_2;
-            var bind2 = this.$refs.bind_2;
-            new touch(bind2, dom2, {dom_len: 9})
-
-            var dom3 = this.$refs.list_3;
-            var bind3 = this.$refs.bind_3;
-            new touch(bind3, dom3, {dom_len: 9})
 
         },
-        mathods: {},
+        methods: {
+            up_sec(type, index){
+                if (type == "sec1") {
+                    var num = this.data_1.list[index];
+                    this.data_1.select = num;
+                }
+                if (type == "sec2") {
+                    var num = this.data_2.list[index];
+                    this.data_2.select = num;
+                }
+                if (type == "sec3") {
+                    var num = this.data_3.list[index];
+                    this.data_3.select = num;
+                }
+            },
+            bindTouch(){
+                var _this = this;
+                var dom1 = this.$refs.list_1;
+                var bind1 = this.$refs.bind_1;
+                var len1 = this.data_1.list.length || 1;
+                var len2 = this.data_2.list.length || 1;
+                var len3 = this.data_3.list.length || 1;
+                var touch_1 = new touch(bind1, dom1, {
+                    dom_len: len1, change: function (index) {
+                        _this.up_sec("sec1", index)
+                    }
+                })
+
+                var dom2 = this.$refs.list_2;
+                var bind2 = this.$refs.bind_2;
+                var touch_2 = new touch(bind2, dom2, {
+                    dom_len: len2, change: function (index) {
+                        _this.up_sec("sec2", index)
+                    }
+                })
+
+                var dom3 = this.$refs.list_3;
+                var bind3 = this.$refs.bind_3;
+                var touch_3 = new touch(bind3, dom3, {
+                    dom_len: len3, change: function (index) {
+                        _this.up_sec("sec3", index)
+                    }
+                })
+
+                setTimeout(function () {
+                    touch_1.goto(_this.data_1.list.indexOf(Number(_this.data_1.select)))
+                    touch_2.goto(_this.data_2.list.indexOf(Number(_this.data_2.select)))
+                    touch_3.goto(_this.data_3.list.indexOf(Number(_this.data_3.select)))
+                }, 50)
+            }
+        },
+        computed: {
+            show_text: function () {
+                var str = "请选择";
+                if (this.data_1.select == -1 && this.data_2.select == -1 && this.data_3.select == -1) {
+                    return str;
+                }
+                var str = `${this.data_1.select}-${this.data_2.select}层/共${this.data_3.select}`
+                return str;
+            }
+
+        },
         watch: {},
     }
 </script>

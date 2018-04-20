@@ -8948,6 +8948,7 @@ module.exports = function (name) {
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["a"] = ({
     data: function data() {
@@ -9022,6 +9023,20 @@ module.exports = function (name) {
         },
         test4: function test4() {
             this.$secondLinkage(this.secondLinkageData, function (res) {
+                console.log('返回数据为：', res);
+            });
+        },
+        test5: function test5() {
+            var def = {
+                defaultType: "multi", //single,multi 单层|多层
+                datasouce: ['-2,99', '-2,99', '1,99'],
+                unit: ['%d层', '%d层', '共%d层'],
+                suggest: "请选择楼层",
+                title: "楼层",
+                defaultselect: "-1,5,8",
+                placeholder: "请选择"
+            };
+            this.$lou_picker(def, function (res) {
                 console.log('返回数据为：', res);
             });
         }
@@ -9776,52 +9791,93 @@ module.exports = function (it) {
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["a"] = ({
     data: function data() {
         return {
-            ghy1: 1,
-            map: {
-                0: "1"
+            show: false,
+            defaultType: "multi", //multi
+            suggest: "请选择楼层",
+            title: "楼层",
+            placeholder: "请选择",
+            data_1: {
+                //                    select: 0,
+                //                    unit: "",
+                //                    list: [1, 2, 3, 4, 5, 6]
             },
-            list1: [{}]
+            data_2: {},
+            data_3: {}
         };
     },
     ready: function ready() {},
+    props: {},
     mounted: function mounted() {
         var _this = this;
-        var dom1 = this.$refs.list_1;
-        var bind1 = this.$refs.bind_1;
-        new __WEBPACK_IMPORTED_MODULE_0__lib_touch__["a" /* default */](bind1, dom1, {
-            dom_len: 9, change: function change(index) {
-                console.log("回调", index);
-                _this.ghy1 = index + 1;
-            }
-        });
-
-        var dom2 = this.$refs.list_2;
-        var bind2 = this.$refs.bind_2;
-        new __WEBPACK_IMPORTED_MODULE_0__lib_touch__["a" /* default */](bind2, dom2, { dom_len: 9 });
-
-        var dom3 = this.$refs.list_3;
-        var bind3 = this.$refs.bind_3;
-        new __WEBPACK_IMPORTED_MODULE_0__lib_touch__["a" /* default */](bind3, dom3, { dom_len: 9 });
     },
 
-    mathods: {},
+    methods: {
+        up_sec: function up_sec(type, index) {
+            if (type == "sec1") {
+                var num = this.data_1.list[index];
+                this.data_1.select = num;
+            }
+            if (type == "sec2") {
+                var num = this.data_2.list[index];
+                this.data_2.select = num;
+            }
+            if (type == "sec3") {
+                var num = this.data_3.list[index];
+                this.data_3.select = num;
+            }
+        },
+        bindTouch: function bindTouch() {
+            var _this = this;
+            var dom1 = this.$refs.list_1;
+            var bind1 = this.$refs.bind_1;
+            var len1 = this.data_1.list.length || 1;
+            var len2 = this.data_2.list.length || 1;
+            var len3 = this.data_3.list.length || 1;
+            var touch_1 = new __WEBPACK_IMPORTED_MODULE_0__lib_touch__["a" /* default */](bind1, dom1, {
+                dom_len: len1, change: function change(index) {
+                    _this.up_sec("sec1", index);
+                }
+            });
+
+            var dom2 = this.$refs.list_2;
+            var bind2 = this.$refs.bind_2;
+            var touch_2 = new __WEBPACK_IMPORTED_MODULE_0__lib_touch__["a" /* default */](bind2, dom2, {
+                dom_len: len2, change: function change(index) {
+                    _this.up_sec("sec2", index);
+                }
+            });
+
+            var dom3 = this.$refs.list_3;
+            var bind3 = this.$refs.bind_3;
+            var touch_3 = new __WEBPACK_IMPORTED_MODULE_0__lib_touch__["a" /* default */](bind3, dom3, {
+                dom_len: len3, change: function change(index) {
+                    _this.up_sec("sec3", index);
+                }
+            });
+
+            setTimeout(function () {
+                touch_1.goto(_this.data_1.list.indexOf(Number(_this.data_1.select)));
+                touch_2.goto(_this.data_2.list.indexOf(Number(_this.data_2.select)));
+                touch_3.goto(_this.data_3.list.indexOf(Number(_this.data_3.select)));
+            }, 50);
+        }
+    },
+    computed: {
+        show_text: function show_text() {
+            var str = "请选择";
+            if (this.data_1.select == -1 && this.data_2.select == -1 && this.data_3.select == -1) {
+                return str;
+            }
+            var str = this.data_1.select + "-" + this.data_2.select + "\u5C42/\u5171" + this.data_3.select;
+            return str;
+        }
+
+    },
     watch: {}
 });
 
@@ -10881,7 +10937,9 @@ var render = function() {
     _vm._v(" "),
     _c("button", { on: { click: _vm.test3 } }, [_vm._v("测试输入控件")]),
     _vm._v(" "),
-    _c("button", { on: { click: _vm.test4 } }, [_vm._v("测试二级联动控件")])
+    _c("button", { on: { click: _vm.test4 } }, [_vm._v("测试二级联动控件")]),
+    _vm._v(" "),
+    _c("button", { on: { click: _vm.test5 } }, [_vm._v("楼层选择")])
   ])
 }
 var staticRenderFns = []
@@ -11804,35 +11862,42 @@ var initInstance = function initInstance(bottom) {
     document.body.appendChild(instance.$el);
 };
 
-var LouPicker = function LouPicker(a) {
-
-    var _defobj = {
-        title: a.title,
-        type: a.selec_type,
-        list: a.list,
-        list_type: a.list_type
-    };
-    //debugger;
-    instance.title = _defobj["title"];
-    instance.selec_type = _defobj["type"];
-    instance.list = _defobj["list"];
-    instance.list_type = _defobj["list_type"];
-
-    //判断传入的数组数据是只有text类型还是text value类型，进行不同处理（展示不同的样式）
-    instance.show = true;
-    if (instance.list_type == "singletext") {
-        instance.radio = true;
-    } else if (instance.list_type == "textvalue") {
-        instance.checkbox = true;
-    } else {
-        instance.radio = true;
-    }
-
-    instance.isbeforeActive = true;
-    setTimeout(function () {
-        instance.isactive = true;
-    }, 60);
+var def = {
+    type: "single", //single,multi 单层|多层
+    datasouce: ['4,99', '-2,99', '-2,9'],
+    unit: ['%d层', '%d层', '共%d层'],
+    suggest: "请选择楼层",
+    title: "楼层",
+    defaultselect: "0,3,0",
+    placeholder: "请选择"
 };
+
+var LouPicker = function LouPicker(option) {
+    instance.defaultType = option.defaultType || "single";
+    for (var i = 0; i < option.datasouce.length; i++) {
+        var item = option.datasouce[i];
+        var unit = option.unit[i];
+        var tmpdata = {};
+        var d_arry = [];
+        var arr = item.split(",");
+        for (var j = Number(arr[0]); j <= Number(arr[1]); j++) {
+            if (j == 0) {
+                continue;
+            }
+            d_arry.push(j);
+        }
+        tmpdata["list"] = d_arry;
+        tmpdata["select"] = d_arry[0];
+        instance["data_" + (i + 1)] = tmpdata;
+    }
+    var arr2 = option.defaultselect.split(",");
+    for (var m = 0; m < arr2.length; m++) {
+        instance["data_" + (m + 1)]["select"] = arr2[m];
+    }
+    instance.show = true;
+    instance.bindTouch();
+};
+
 /* harmony default export */ __webpack_exports__["a"] = ({
     install: function install(Vue, options) {
         initInstance();
@@ -11931,7 +11996,7 @@ exports = module.exports = __webpack_require__(4)(false);
 
 
 // module
-exports.push([module.i, "\n@charset \"UTF-8\";\n/*\r\nTo change this license header, choose License Headers in Project Properties.\r\nTo change this template file, choose Tools | Templates\r\nand open the template in the editor.\r\n*/\n/* \r\n    Created on : 2017-8-31, 23:11:17\r\n    Author     : ghy\r\n*/\n/**\r\n * @param $line       超出显示省略号的行数，默认：1\r\n * @param $substract  为预留区域百分比%，默认：0\r\n */\n/*\r\nTo change this license header, choose License Headers in Project Properties.\r\nTo change this template file, choose Tools | Templates\r\nand open the template in the editor.\r\n*/\n/* \r\n    Created on : 2017-8-31, 23:12:32\r\n    Author     : ghy\r\n*/\n/* @author 龚虹宇 */\n/** -------------------------------------------\r\n    Generic Mixins\r\n    ------------------------------------------- **/\n/**\r\n * Adds prefixed version of values in a property\r\n */\n#picker-wrap[data-v-0c9dc0d0] {\n  /*display: none;*/\n  width: 100%;\n  position: absolute;\n  z-index: 100;\n  height: 100%;\n  background: rgba(0, 0, 0, .4);\n  top: 0px;\n}\n.picker-main[data-v-0c9dc0d0] {\n  position: absolute;\n  bottom: 0px;\n  width: 100%;\n}\n.picker-header[data-v-0c9dc0d0] {\n  width: 100%;\n  height: 2.93333rem;\n  background: #fff;\n}\n.picker-header .title[data-v-0c9dc0d0] {\n    position: absolute;\n    left: 0px;\n    right: 0px;\n    text-align: center;\n    top: 0.74667rem;\n    font-size: 0.32rem;\n    color: #999999;\n}\n.picker-header .picker-text[data-v-0c9dc0d0] {\n    color: #ff552e;\n    left: 0px;\n    right: 0px;\n    font-size: 0.45333rem;\n    text-align: center;\n    position: absolute;\n    top: 1.46667rem;\n}\n.picker-placeholder[data-v-0c9dc0d0] {\n  height: 1.2rem;\n  width: 100%;\n  text-align: center;\n  line-height: 1.2rem;\n  background: #f9fafc;\n  position: relative;\n  position: relative;\n  font-size: 0.4rem;\n  color: #999999;\n}\n.picker-placeholder[data-v-0c9dc0d0]:after {\n    position: absolute;\n    content: \"\";\n    top: 0;\n    left: 0;\n    box-sizing: border-box;\n    width: 100%;\n    height: 100%;\n    border-top: 1px solid #e3e3e4;\n    point-events: none;\n}\n@media (min--moz-device-pixel-ratio: 1.5), (-webkit-min-device-pixel-ratio: 1.5), (min-device-pixel-ratio: 1.5), (min-resolution: 144dpi), (min-resolution: 1.5dppx), (-ms-high-contrast: active), (-ms-high-contrast: none) {\n.picker-placeholder[data-v-0c9dc0d0]:after {\n      width: 200%;\n      height: 200%;\n      transform: scale(0.5);\n      transform-origin: 0 0;\n      -webkit-transform: scale(0.5);\n      -webkit-transform-origin: 0 0;\n      border-radius: 0px;\n}\n}\n@media (-webkit-device-pixel-ratio: 1.5) {\n.picker-placeholder[data-v-0c9dc0d0]:after {\n      width: 150%;\n      height: 150%;\n      transform: scale(0.6666);\n      transform-origin: 0 0;\n      -webkit-transform: scale(0.6666);\n      -webkit-transform-origin: 0 0;\n      border-radius: 0px;\n}\n}\n@media (-webkit-device-pixel-ratio: 3) {\n.picker-placeholder[data-v-0c9dc0d0]:after {\n      width: 300%;\n      height: 300%;\n      transform: scale(0.3333);\n      transform-origin: 0 0;\n      -webkit-transform: scale(0.3333);\n      -webkit-transform-origin: 0 0;\n      border-radius: 0px;\n}\n}\n.picker-placeholder[data-v-0c9dc0d0]:after {\n    position: absolute;\n    content: \"\";\n    top: 0;\n    left: 0;\n    box-sizing: border-box;\n    width: 100%;\n    height: 100%;\n    border-bottom: 1px solid #e3e3e4;\n    point-events: none;\n}\n@media (min--moz-device-pixel-ratio: 1.5), (-webkit-min-device-pixel-ratio: 1.5), (min-device-pixel-ratio: 1.5), (min-resolution: 144dpi), (min-resolution: 1.5dppx), (-ms-high-contrast: active), (-ms-high-contrast: none) {\n.picker-placeholder[data-v-0c9dc0d0]:after {\n      width: 200%;\n      height: 200%;\n      transform: scale(0.5);\n      transform-origin: 0 0;\n      -webkit-transform: scale(0.5);\n      -webkit-transform-origin: 0 0;\n      border-radius: 0px;\n}\n}\n@media (-webkit-device-pixel-ratio: 1.5) {\n.picker-placeholder[data-v-0c9dc0d0]:after {\n      width: 150%;\n      height: 150%;\n      transform: scale(0.6666);\n      transform-origin: 0 0;\n      -webkit-transform: scale(0.6666);\n      -webkit-transform-origin: 0 0;\n      border-radius: 0px;\n}\n}\n@media (-webkit-device-pixel-ratio: 3) {\n.picker-placeholder[data-v-0c9dc0d0]:after {\n      width: 300%;\n      height: 300%;\n      transform: scale(0.3333);\n      transform-origin: 0 0;\n      -webkit-transform: scale(0.3333);\n      -webkit-transform-origin: 0 0;\n      border-radius: 0px;\n}\n}\n.scroll-choose[data-v-0c9dc0d0] {\n  height: 1.2rem;\n  width: 100%;\n  background: #ffffff;\n  position: relative;\n  font-size: 0.4rem;\n  color: #999999;\n}\n.scroll-choose[data-v-0c9dc0d0]:after {\n    position: absolute;\n    content: \"\";\n    top: 0;\n    left: 0;\n    box-sizing: border-box;\n    width: 100%;\n    height: 100%;\n    border-bottom: 1px solid #e3e3e4;\n    point-events: none;\n}\n@media (min--moz-device-pixel-ratio: 1.5), (-webkit-min-device-pixel-ratio: 1.5), (min-device-pixel-ratio: 1.5), (min-resolution: 144dpi), (min-resolution: 1.5dppx), (-ms-high-contrast: active), (-ms-high-contrast: none) {\n.scroll-choose[data-v-0c9dc0d0]:after {\n      width: 200%;\n      height: 200%;\n      transform: scale(0.5);\n      transform-origin: 0 0;\n      -webkit-transform: scale(0.5);\n      -webkit-transform-origin: 0 0;\n      border-radius: 0px;\n}\n}\n@media (-webkit-device-pixel-ratio: 1.5) {\n.scroll-choose[data-v-0c9dc0d0]:after {\n      width: 150%;\n      height: 150%;\n      transform: scale(0.6666);\n      transform-origin: 0 0;\n      -webkit-transform: scale(0.6666);\n      -webkit-transform-origin: 0 0;\n      border-radius: 0px;\n}\n}\n@media (-webkit-device-pixel-ratio: 3) {\n.scroll-choose[data-v-0c9dc0d0]:after {\n      width: 300%;\n      height: 300%;\n      transform: scale(0.3333);\n      transform-origin: 0 0;\n      -webkit-transform: scale(0.3333);\n      -webkit-transform-origin: 0 0;\n      border-radius: 0px;\n}\n}\n.picker-title[data-v-0c9dc0d0] {\n  position: absolute;\n  z-index: 1;\n  width: 1.6rem;\n  height: 1.2rem;\n  line-height: 1.2rem;\n  text-align: right;\n  top: 0px;\n  right: auto;\n}\n.choose-inner[data-v-0c9dc0d0] {\n  position: absolute;\n  z-index: 1;\n  width: 5.06667rem;\n  height: 1.2rem;\n  line-height: 1.2rem;\n  text-align: center;\n  top: 0px;\n  left: 1.6rem;\n  /*background: red;*/\n}\n.choose-inner .choose-level[data-v-0c9dc0d0] {\n    position: absolute;\n    z-index: 2;\n    width: 1.73333rem;\n    height: 0.74667rem;\n    line-height: 0.74667rem;\n    background: #f6f6f6;\n    border: 1px solid #f6f6f6;\n    border-radius: 20px;\n    top: 0.2rem;\n}\n.choose-inner .choose-left[data-v-0c9dc0d0] {\n    left: 0.46667rem;\n}\n.choose-inner .choose-right[data-v-0c9dc0d0] {\n    right: 0.46667rem;\n}\n.choose-inner .active[data-v-0c9dc0d0] {\n    color: #ffffff;\n    background: #ff552e;\n}\n.choose-sure[data-v-0c9dc0d0] {\n  position: absolute;\n  z-index: 1;\n  width: 1.6rem;\n  height: 1.2rem;\n  line-height: 1.2rem;\n  text-align: left;\n  font-size: 0.45333rem;\n  color: #ff552e;\n  top: 0px;\n  right: 0px;\n}\n.scroll-inner[data-v-0c9dc0d0] {\n  height: 6.48rem;\n  background: #ffffff;\n  position: relative;\n  overflow: hidden;\n}\n.chose-bord[data-v-0c9dc0d0] {\n  height: 1.2rem;\n  position: absolute !important;\n  position: relative;\n  position: relative;\n  left: 0.66667rem;\n  right: 0.66667rem;\n  top: 2.66667rem;\n}\n.chose-bord[data-v-0c9dc0d0]:after {\n    position: absolute;\n    content: \"\";\n    top: 0;\n    left: 0;\n    box-sizing: border-box;\n    width: 100%;\n    height: 100%;\n    border-top: 1px solid #e3e3e4;\n    point-events: none;\n}\n@media (min--moz-device-pixel-ratio: 1.5), (-webkit-min-device-pixel-ratio: 1.5), (min-device-pixel-ratio: 1.5), (min-resolution: 144dpi), (min-resolution: 1.5dppx), (-ms-high-contrast: active), (-ms-high-contrast: none) {\n.chose-bord[data-v-0c9dc0d0]:after {\n      width: 200%;\n      height: 200%;\n      transform: scale(0.5);\n      transform-origin: 0 0;\n      -webkit-transform: scale(0.5);\n      -webkit-transform-origin: 0 0;\n      border-radius: 0px;\n}\n}\n@media (-webkit-device-pixel-ratio: 1.5) {\n.chose-bord[data-v-0c9dc0d0]:after {\n      width: 150%;\n      height: 150%;\n      transform: scale(0.6666);\n      transform-origin: 0 0;\n      -webkit-transform: scale(0.6666);\n      -webkit-transform-origin: 0 0;\n      border-radius: 0px;\n}\n}\n@media (-webkit-device-pixel-ratio: 3) {\n.chose-bord[data-v-0c9dc0d0]:after {\n      width: 300%;\n      height: 300%;\n      transform: scale(0.3333);\n      transform-origin: 0 0;\n      -webkit-transform: scale(0.3333);\n      -webkit-transform-origin: 0 0;\n      border-radius: 0px;\n}\n}\n.chose-bord[data-v-0c9dc0d0]:after {\n    position: absolute;\n    content: \"\";\n    top: 0;\n    left: 0;\n    box-sizing: border-box;\n    width: 100%;\n    height: 100%;\n    border-bottom: 1px solid #e3e3e4;\n    point-events: none;\n}\n@media (min--moz-device-pixel-ratio: 1.5), (-webkit-min-device-pixel-ratio: 1.5), (min-device-pixel-ratio: 1.5), (min-resolution: 144dpi), (min-resolution: 1.5dppx), (-ms-high-contrast: active), (-ms-high-contrast: none) {\n.chose-bord[data-v-0c9dc0d0]:after {\n      width: 200%;\n      height: 200%;\n      transform: scale(0.5);\n      transform-origin: 0 0;\n      -webkit-transform: scale(0.5);\n      -webkit-transform-origin: 0 0;\n      border-radius: 0px;\n}\n}\n@media (-webkit-device-pixel-ratio: 1.5) {\n.chose-bord[data-v-0c9dc0d0]:after {\n      width: 150%;\n      height: 150%;\n      transform: scale(0.6666);\n      transform-origin: 0 0;\n      -webkit-transform: scale(0.6666);\n      -webkit-transform-origin: 0 0;\n      border-radius: 0px;\n}\n}\n@media (-webkit-device-pixel-ratio: 3) {\n.chose-bord[data-v-0c9dc0d0]:after {\n      width: 300%;\n      height: 300%;\n      transform: scale(0.3333);\n      transform-origin: 0 0;\n      -webkit-transform: scale(0.3333);\n      -webkit-transform-origin: 0 0;\n      border-radius: 0px;\n}\n}\n.chose-bord .text-style[data-v-0c9dc0d0] {\n    z-index: 2;\n    position: absolute;\n    height: 1.2rem;\n    width: 1.2rem;\n    line-height: 1.2rem;\n    text-align: center;\n    font-size: 0.37333rem;\n    left: 1.6rem;\n}\nul[data-v-0c9dc0d0] {\n  position: absolute;\n  z-index: 8;\n  top: 2.66667rem;\n  list-style: none;\n  padding: 0px;\n}\nul li[data-v-0c9dc0d0] {\n    height: 1.2rem;\n    position: relative;\n    font-size: 0.45333rem;\n    line-height: 1.33333rem;\n}\n.mulit-left[data-v-0c9dc0d0] {\n  left: 0.06667rem;\n  width: 2.8rem;\n  text-align: center;\n}\n.mulit-center[data-v-0c9dc0d0] {\n  left: 2.86667rem;\n  width: 2.8rem;\n  text-align: center;\n}\n.mulit-right[data-v-0c9dc0d0] {\n  right: 0.06667rem;\n  width: 4.2rem;\n  text-align: center;\n}\n.ul-same[data-v-0c9dc0d0] {\n  position: absolute;\n  z-index: 12;\n  list-style: none;\n  padding: 0px;\n  height: 100%;\n}\n.ul-left[data-v-0c9dc0d0] {\n  left: 0.06667rem;\n  width: 2.8rem;\n}\n.ul-center[data-v-0c9dc0d0] {\n  left: 2.86667rem;\n  width: 2.8rem;\n}\n.ul-right[data-v-0c9dc0d0] {\n  right: 0.06667rem;\n  width: 4.2rem;\n}\n.span[data-v-0c9dc0d0] {\n  display: block;\n  width: 100%;\n  position: absolute;\n  z-index: 10;\n  left: 0;\n}\n.span-top[data-v-0c9dc0d0] {\n  height: 2.66667rem;\n  top: 0;\n  position: absolute;\n  z-index: 11;\n  background-image: -webkit-linear-gradient(top, white 0%, rgba(255, 255, 255, .3) 100%);\n}\n.span-bottom[data-v-0c9dc0d0] {\n  height: 2.6rem;\n  top: 3.86667rem;\n  background-image: -webkit-linear-gradient(bottom, white 0%, rgba(255, 255, 255, .3) 100%);\n}\n", ""]);
+exports.push([module.i, "\n@charset \"UTF-8\";\n/*\r\nTo change this license header, choose License Headers in Project Properties.\r\nTo change this template file, choose Tools | Templates\r\nand open the template in the editor.\r\n*/\n/* \r\n    Created on : 2017-8-31, 23:11:17\r\n    Author     : ghy\r\n*/\n/**\r\n * @param $line       超出显示省略号的行数，默认：1\r\n * @param $substract  为预留区域百分比%，默认：0\r\n */\n/*\r\nTo change this license header, choose License Headers in Project Properties.\r\nTo change this template file, choose Tools | Templates\r\nand open the template in the editor.\r\n*/\n/* \r\n    Created on : 2017-8-31, 23:12:32\r\n    Author     : ghy\r\n*/\n/* @author 龚虹宇 */\n/** -------------------------------------------\r\n    Generic Mixins\r\n    ------------------------------------------- **/\n/**\r\n * Adds prefixed version of values in a property\r\n */\n#picker-wrap[data-v-0c9dc0d0] {\n  /*display: none;*/\n  width: 100%;\n  position: absolute;\n  z-index: 100;\n  height: 100%;\n  background: rgba(0, 0, 0, .4);\n  top: 0px;\n}\n.picker-main[data-v-0c9dc0d0] {\n  position: absolute;\n  bottom: 0px;\n  width: 100%;\n}\n.picker-header[data-v-0c9dc0d0] {\n  width: 100%;\n  height: 2.93333rem;\n  background: #fff;\n}\n.picker-header .title[data-v-0c9dc0d0] {\n    position: absolute;\n    left: 0px;\n    right: 0px;\n    text-align: center;\n    top: 0.74667rem;\n    font-size: 0.32rem;\n    color: #999999;\n}\n.picker-header .picker-text[data-v-0c9dc0d0] {\n    color: #ff552e;\n    left: 0px;\n    right: 0px;\n    font-size: 0.45333rem;\n    text-align: center;\n    position: absolute;\n    top: 1.46667rem;\n}\n.picker-placeholder[data-v-0c9dc0d0] {\n  height: 1.2rem;\n  width: 100%;\n  text-align: center;\n  line-height: 1.2rem;\n  background: #f9fafc;\n  position: relative;\n  position: relative;\n  font-size: 0.4rem;\n  color: #999999;\n}\n.picker-placeholder[data-v-0c9dc0d0]:after {\n    position: absolute;\n    content: \"\";\n    top: 0;\n    left: 0;\n    box-sizing: border-box;\n    width: 100%;\n    height: 100%;\n    border-top: 1px solid #e3e3e4;\n    point-events: none;\n}\n@media (min--moz-device-pixel-ratio: 1.5), (-webkit-min-device-pixel-ratio: 1.5), (min-device-pixel-ratio: 1.5), (min-resolution: 144dpi), (min-resolution: 1.5dppx), (-ms-high-contrast: active), (-ms-high-contrast: none) {\n.picker-placeholder[data-v-0c9dc0d0]:after {\n      width: 200%;\n      height: 200%;\n      transform: scale(0.5);\n      transform-origin: 0 0;\n      -webkit-transform: scale(0.5);\n      -webkit-transform-origin: 0 0;\n      border-radius: 0px;\n}\n}\n@media (-webkit-device-pixel-ratio: 1.5) {\n.picker-placeholder[data-v-0c9dc0d0]:after {\n      width: 150%;\n      height: 150%;\n      transform: scale(0.6666);\n      transform-origin: 0 0;\n      -webkit-transform: scale(0.6666);\n      -webkit-transform-origin: 0 0;\n      border-radius: 0px;\n}\n}\n@media (-webkit-device-pixel-ratio: 3) {\n.picker-placeholder[data-v-0c9dc0d0]:after {\n      width: 300%;\n      height: 300%;\n      transform: scale(0.3333);\n      transform-origin: 0 0;\n      -webkit-transform: scale(0.3333);\n      -webkit-transform-origin: 0 0;\n      border-radius: 0px;\n}\n}\n.picker-placeholder[data-v-0c9dc0d0]:after {\n    position: absolute;\n    content: \"\";\n    top: 0;\n    left: 0;\n    box-sizing: border-box;\n    width: 100%;\n    height: 100%;\n    border-bottom: 1px solid #e3e3e4;\n    point-events: none;\n}\n@media (min--moz-device-pixel-ratio: 1.5), (-webkit-min-device-pixel-ratio: 1.5), (min-device-pixel-ratio: 1.5), (min-resolution: 144dpi), (min-resolution: 1.5dppx), (-ms-high-contrast: active), (-ms-high-contrast: none) {\n.picker-placeholder[data-v-0c9dc0d0]:after {\n      width: 200%;\n      height: 200%;\n      transform: scale(0.5);\n      transform-origin: 0 0;\n      -webkit-transform: scale(0.5);\n      -webkit-transform-origin: 0 0;\n      border-radius: 0px;\n}\n}\n@media (-webkit-device-pixel-ratio: 1.5) {\n.picker-placeholder[data-v-0c9dc0d0]:after {\n      width: 150%;\n      height: 150%;\n      transform: scale(0.6666);\n      transform-origin: 0 0;\n      -webkit-transform: scale(0.6666);\n      -webkit-transform-origin: 0 0;\n      border-radius: 0px;\n}\n}\n@media (-webkit-device-pixel-ratio: 3) {\n.picker-placeholder[data-v-0c9dc0d0]:after {\n      width: 300%;\n      height: 300%;\n      transform: scale(0.3333);\n      transform-origin: 0 0;\n      -webkit-transform: scale(0.3333);\n      -webkit-transform-origin: 0 0;\n      border-radius: 0px;\n}\n}\n.scroll-choose[data-v-0c9dc0d0] {\n  height: 1.2rem;\n  width: 100%;\n  background: #ffffff;\n  position: relative;\n  font-size: 0.4rem;\n  color: #999999;\n}\n.scroll-choose[data-v-0c9dc0d0]:after {\n    position: absolute;\n    content: \"\";\n    top: 0;\n    left: 0;\n    box-sizing: border-box;\n    width: 100%;\n    height: 100%;\n    border-bottom: 1px solid #e3e3e4;\n    point-events: none;\n}\n@media (min--moz-device-pixel-ratio: 1.5), (-webkit-min-device-pixel-ratio: 1.5), (min-device-pixel-ratio: 1.5), (min-resolution: 144dpi), (min-resolution: 1.5dppx), (-ms-high-contrast: active), (-ms-high-contrast: none) {\n.scroll-choose[data-v-0c9dc0d0]:after {\n      width: 200%;\n      height: 200%;\n      transform: scale(0.5);\n      transform-origin: 0 0;\n      -webkit-transform: scale(0.5);\n      -webkit-transform-origin: 0 0;\n      border-radius: 0px;\n}\n}\n@media (-webkit-device-pixel-ratio: 1.5) {\n.scroll-choose[data-v-0c9dc0d0]:after {\n      width: 150%;\n      height: 150%;\n      transform: scale(0.6666);\n      transform-origin: 0 0;\n      -webkit-transform: scale(0.6666);\n      -webkit-transform-origin: 0 0;\n      border-radius: 0px;\n}\n}\n@media (-webkit-device-pixel-ratio: 3) {\n.scroll-choose[data-v-0c9dc0d0]:after {\n      width: 300%;\n      height: 300%;\n      transform: scale(0.3333);\n      transform-origin: 0 0;\n      -webkit-transform: scale(0.3333);\n      -webkit-transform-origin: 0 0;\n      border-radius: 0px;\n}\n}\n.picker-title[data-v-0c9dc0d0] {\n  position: absolute;\n  z-index: 1;\n  width: 1.6rem;\n  height: 1.2rem;\n  line-height: 1.2rem;\n  text-align: right;\n  top: 0px;\n  right: auto;\n}\n.choose-inner[data-v-0c9dc0d0] {\n  position: absolute;\n  z-index: 1;\n  width: 5.06667rem;\n  height: 1.2rem;\n  line-height: 1.2rem;\n  text-align: center;\n  top: 0px;\n  left: 1.6rem;\n  /*background: red;*/\n}\n.choose-inner .choose-level[data-v-0c9dc0d0] {\n    position: absolute;\n    z-index: 2;\n    width: 1.73333rem;\n    height: 0.74667rem;\n    line-height: 0.74667rem;\n    background: #f6f6f6;\n    border: 1px solid #f6f6f6;\n    border-radius: 20px;\n    top: 0.2rem;\n}\n.choose-inner .choose-left[data-v-0c9dc0d0] {\n    left: 0.46667rem;\n}\n.choose-inner .choose-right[data-v-0c9dc0d0] {\n    right: 0.46667rem;\n}\n.choose-inner .active[data-v-0c9dc0d0] {\n    color: #ffffff;\n    background: #ff552e;\n}\n.choose-sure[data-v-0c9dc0d0] {\n  position: absolute;\n  z-index: 1;\n  width: 1.6rem;\n  height: 1.2rem;\n  line-height: 1.2rem;\n  text-align: left;\n  font-size: 0.45333rem;\n  color: #ff552e;\n  top: 0px;\n  right: 0px;\n}\n.scroll-inner[data-v-0c9dc0d0] {\n  height: 6.48rem;\n  background: #ffffff;\n  position: relative;\n  overflow: hidden;\n}\n.chose-bord[data-v-0c9dc0d0] {\n  height: 1.2rem;\n  position: absolute !important;\n  position: relative;\n  position: relative;\n  left: 0.66667rem;\n  right: 0.66667rem;\n  top: 2.66667rem;\n}\n.chose-bord[data-v-0c9dc0d0]:after {\n    position: absolute;\n    content: \"\";\n    top: 0;\n    left: 0;\n    box-sizing: border-box;\n    width: 100%;\n    height: 100%;\n    border-top: 1px solid #e3e3e4;\n    point-events: none;\n}\n@media (min--moz-device-pixel-ratio: 1.5), (-webkit-min-device-pixel-ratio: 1.5), (min-device-pixel-ratio: 1.5), (min-resolution: 144dpi), (min-resolution: 1.5dppx), (-ms-high-contrast: active), (-ms-high-contrast: none) {\n.chose-bord[data-v-0c9dc0d0]:after {\n      width: 200%;\n      height: 200%;\n      transform: scale(0.5);\n      transform-origin: 0 0;\n      -webkit-transform: scale(0.5);\n      -webkit-transform-origin: 0 0;\n      border-radius: 0px;\n}\n}\n@media (-webkit-device-pixel-ratio: 1.5) {\n.chose-bord[data-v-0c9dc0d0]:after {\n      width: 150%;\n      height: 150%;\n      transform: scale(0.6666);\n      transform-origin: 0 0;\n      -webkit-transform: scale(0.6666);\n      -webkit-transform-origin: 0 0;\n      border-radius: 0px;\n}\n}\n@media (-webkit-device-pixel-ratio: 3) {\n.chose-bord[data-v-0c9dc0d0]:after {\n      width: 300%;\n      height: 300%;\n      transform: scale(0.3333);\n      transform-origin: 0 0;\n      -webkit-transform: scale(0.3333);\n      -webkit-transform-origin: 0 0;\n      border-radius: 0px;\n}\n}\n.chose-bord[data-v-0c9dc0d0]:after {\n    position: absolute;\n    content: \"\";\n    top: 0;\n    left: 0;\n    box-sizing: border-box;\n    width: 100%;\n    height: 100%;\n    border-bottom: 1px solid #e3e3e4;\n    point-events: none;\n}\n@media (min--moz-device-pixel-ratio: 1.5), (-webkit-min-device-pixel-ratio: 1.5), (min-device-pixel-ratio: 1.5), (min-resolution: 144dpi), (min-resolution: 1.5dppx), (-ms-high-contrast: active), (-ms-high-contrast: none) {\n.chose-bord[data-v-0c9dc0d0]:after {\n      width: 200%;\n      height: 200%;\n      transform: scale(0.5);\n      transform-origin: 0 0;\n      -webkit-transform: scale(0.5);\n      -webkit-transform-origin: 0 0;\n      border-radius: 0px;\n}\n}\n@media (-webkit-device-pixel-ratio: 1.5) {\n.chose-bord[data-v-0c9dc0d0]:after {\n      width: 150%;\n      height: 150%;\n      transform: scale(0.6666);\n      transform-origin: 0 0;\n      -webkit-transform: scale(0.6666);\n      -webkit-transform-origin: 0 0;\n      border-radius: 0px;\n}\n}\n@media (-webkit-device-pixel-ratio: 3) {\n.chose-bord[data-v-0c9dc0d0]:after {\n      width: 300%;\n      height: 300%;\n      transform: scale(0.3333);\n      transform-origin: 0 0;\n      -webkit-transform: scale(0.3333);\n      -webkit-transform-origin: 0 0;\n      border-radius: 0px;\n}\n}\n.chose-bord .text-style[data-v-0c9dc0d0] {\n    z-index: 2;\n    position: absolute;\n    height: 1.2rem;\n    width: 1.2rem;\n    line-height: 1.2rem;\n    text-align: center;\n    font-size: 0.37333rem;\n    left: 1.6rem;\n}\nul[data-v-0c9dc0d0] {\n  position: absolute;\n  z-index: 8;\n  top: 2.66667rem;\n  list-style: none;\n  padding: 0px;\n}\nul li[data-v-0c9dc0d0] {\n    height: 1.2rem;\n    position: relative;\n    font-size: 0.45333rem;\n    line-height: 1.33333rem;\n}\n.mulit-left[data-v-0c9dc0d0] {\n  left: 0.06667rem;\n  width: 2.8rem;\n  text-align: center;\n  box-shadow: 0px 0px 0px 1px #ccc;\n}\n.mulit-left.isMulti[data-v-0c9dc0d0] {\n    width: 4.26667rem;\n}\n.mulit-center[data-v-0c9dc0d0] {\n  left: 2.86667rem;\n  width: 2.8rem;\n  text-align: center;\n  box-shadow: 0px 0px 0px 1px #ccc;\n}\n.mulit-center.isMulti[data-v-0c9dc0d0] {\n    width: 4.26667rem;\n}\n.mulit-right[data-v-0c9dc0d0] {\n  right: 0.06667rem;\n  width: 4.2rem;\n  text-align: center;\n  box-shadow: 0px 0px 0px 1px #ccc;\n}\n.mulit-right.isMulti[data-v-0c9dc0d0] {\n    width: 4rem;\n}\n.ul-same[data-v-0c9dc0d0] {\n  position: absolute;\n  z-index: 12;\n  list-style: none;\n  padding: 0px;\n  height: 100%;\n}\n.ul-left[data-v-0c9dc0d0] {\n  left: 0.06667rem;\n  width: 2.8rem;\n}\n.ul-center[data-v-0c9dc0d0] {\n  left: 2.86667rem;\n  width: 2.8rem;\n}\n.ul-right[data-v-0c9dc0d0] {\n  right: 0.06667rem;\n  width: 4.2rem;\n}\n.span[data-v-0c9dc0d0] {\n  display: block;\n  width: 100%;\n  position: absolute;\n  z-index: 10;\n  left: 0;\n}\n.span-top[data-v-0c9dc0d0] {\n  height: 2.66667rem;\n  top: 0;\n  position: absolute;\n  z-index: 11;\n  background-image: -webkit-linear-gradient(top, white 0%, rgba(255, 255, 255, .3) 100%);\n}\n.span-bottom[data-v-0c9dc0d0] {\n  height: 2.6rem;\n  top: 3.86667rem;\n  background-image: -webkit-linear-gradient(bottom, white 0%, rgba(255, 255, 255, .3) 100%);\n}\n", ""]);
 
 // exports
 
@@ -12028,7 +12093,7 @@ Touch.prototype = {
             this.dom_height = this.move_target.offsetHeight;
             this.dom_item_height = this.dom_height / this.dom_len;
             this.min = -this.dom_height + this.dom_item_height;
-            // console.log(this.dom_height, this.dom_item_height, this.min)
+            console.log(this.dom_height, this.dom_item_height, this.min);
         }
     },
     _move: function _move(evt) {
@@ -12168,15 +12233,22 @@ Touch.prototype = {
         } else {
             ret = value - _val * (value > 0 ? 1 : -1);
         }
-
         var index = -(ret / this.dom_item_height);
-
-        // index = Math.abs(index);
         index = Math.min(this.dom_len - 1, index);
         index = Math.max(0, index);
-        console.log(index, "............");
-        return index;
-    }
+        return index | 0;
+    },
+
+    // 设置默认滚动到位置
+
+    goto: function goto(num) {
+        num = Math.max(num, 0);
+        this._full();
+        var _to = num * this.dom_item_height;
+        console.log("sdf", num, this.dom_item_height, _to);
+        this._to(-_to, 600, ease, null, null);
+    },
+    setDomLen: function setDomLen() {}
 };
 function ease(x) {
     return Math.sqrt(1 - Math.pow(x - 1, 2));
@@ -12232,135 +12304,135 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { attrs: { id: "picker-wrap" } }, [
-    _c("div", { staticClass: "picker-main" }, [
-      _c("div", { staticClass: "picker-header" }, [
-        _c("div", { staticClass: "title" }, [_vm._v("楼层")]),
-        _vm._v(" "),
-        _c("div", { staticClass: "picker-text" }, [
-          _vm._v(_vm._s(_vm.ghy1) + "-3层/8层")
-        ])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "picker-placeholder" }, [
-        _vm._v("\n            请选择楼层\n        ")
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "picker-scroll" }, [
-        _vm._m(0),
-        _vm._v(" "),
-        _c("div", { staticClass: "scroll-inner" }, [
-          _c("span", { staticClass: "span span-top" }),
+  return _c(
+    "div",
+    {
+      directives: [
+        { name: "show", rawName: "v-show", value: _vm.show, expression: "show" }
+      ],
+      attrs: { id: "picker-wrap" }
+    },
+    [
+      _c("div", { staticClass: "picker-main" }, [
+        _c("div", { staticClass: "picker-header" }, [
+          _c("div", { staticClass: "title" }, [_vm._v("楼层")]),
           _vm._v(" "),
-          _c("div", [
-            _vm._m(1),
-            _vm._v(" "),
-            _c("div", [
-              _c(
-                "ul",
-                {
-                  ref: "list_1",
-                  staticClass: "mulit-left",
-                  attrs: { id: "list_1" }
-                },
-                [
-                  _c("li", [_vm._v("1层")]),
-                  _vm._v(" "),
-                  _c("li", [_vm._v("2层")]),
-                  _vm._v(" "),
-                  _c("li", [_vm._v("3层")]),
-                  _vm._v(" "),
-                  _c("li", [_vm._v("4层")]),
-                  _vm._v(" "),
-                  _c("li", [_vm._v("5层")]),
-                  _vm._v(" "),
-                  _c("li", [_vm._v("6层")]),
-                  _vm._v(" "),
-                  _c("li", [_vm._v("7层")]),
-                  _vm._v(" "),
-                  _c("li", [_vm._v("8层")]),
-                  _vm._v(" "),
-                  _c("li", [_vm._v("9层")])
-                ]
-              ),
-              _vm._v(" "),
-              _c("div", {
-                ref: "bind_1",
-                staticClass: "ul-same ul-left",
-                attrs: { id: "bind_1" }
-              })
-            ]),
-            _vm._v(" "),
-            _c("div", [
-              _c(
-                "ul",
-                {
-                  ref: "list_2",
-                  staticClass: "mulit-center",
-                  attrs: { id: "list_2" }
-                },
-                [
-                  _c("li", [_vm._v("1层")]),
-                  _vm._v(" "),
-                  _c("li", [_vm._v("2层")]),
-                  _vm._v(" "),
-                  _c("li", [_vm._v("3层")]),
-                  _vm._v(" "),
-                  _c("li", [_vm._v("4层")]),
-                  _vm._v(" "),
-                  _c("li", [_vm._v("5层")]),
-                  _vm._v(" "),
-                  _c("li", [_vm._v("6层")]),
-                  _vm._v(" "),
-                  _c("li", [_vm._v("7层")]),
-                  _vm._v(" "),
-                  _c("li", [_vm._v("8层")]),
-                  _vm._v(" "),
-                  _c("li", [_vm._v("9层")])
-                ]
-              ),
-              _vm._v(" "),
-              _c("div", { ref: "bind_2", staticClass: "ul-same ul-center" })
-            ]),
-            _vm._v(" "),
-            _c("div", [
-              _c(
-                "ul",
-                {
-                  ref: "list_3",
-                  staticClass: "mulit-right",
-                  attrs: { id: "list_3" }
-                },
-                [
-                  _c("li", [_vm._v("1层")]),
-                  _vm._v(" "),
-                  _c("li", [_vm._v("2层")]),
-                  _vm._v(" "),
-                  _c("li", [_vm._v("3层")]),
-                  _vm._v(" "),
-                  _c("li", [_vm._v("4层")]),
-                  _vm._v(" "),
-                  _c("li", [_vm._v("5层")]),
-                  _vm._v(" "),
-                  _c("li", [_vm._v("6层")]),
-                  _vm._v(" "),
-                  _c("li", [_vm._v("7层")]),
-                  _vm._v(" "),
-                  _c("li", [_vm._v("8层")]),
-                  _vm._v(" "),
-                  _c("li", [_vm._v("9层")])
-                ]
-              ),
-              _vm._v(" "),
-              _c("div", { ref: "bind_3", staticClass: "ul-same ul-right" })
-            ])
-          ]),
+          _c("div", { staticClass: "picker-text" }, [
+            _vm._v(_vm._s(_vm.show_text))
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "picker-placeholder" }, [
+          _vm._v("\n            请选择楼层\n        ")
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "picker-scroll" }, [
+          _vm._m(0),
           _vm._v(" "),
-          _c("span", { staticClass: "span span-bottom" })
+          _c(
+            "div",
+            {
+              staticClass: "scroll-inner",
+              class: { isMulti: _vm.defaultType == "multi" }
+            },
+            [
+              _c("span", { staticClass: "span span-top" }),
+              _vm._v(" "),
+              _c("div", [
+                _c("div", { staticClass: "chose-bord" }, [
+                  _c(
+                    "div",
+                    {
+                      directives: [
+                        {
+                          name: "show",
+                          rawName: "v-show",
+                          value: _vm.defaultType != "multi",
+                          expression: "defaultType!='multi'"
+                        }
+                      ],
+                      staticClass: "text-style"
+                    },
+                    [_vm._v("至")]
+                  )
+                ]),
+                _vm._v(" "),
+                _c("div", [
+                  _c(
+                    "ul",
+                    {
+                      ref: "list_1",
+                      staticClass: "mulit-left",
+                      attrs: { id: "list_1" }
+                    },
+                    _vm._l(_vm.data_1.list, function(item, index) {
+                      return _c("li", [_vm._v(_vm._s(item) + "层")])
+                    })
+                  ),
+                  _vm._v(" "),
+                  _c("div", {
+                    ref: "bind_1",
+                    staticClass: "ul-same ul-left",
+                    attrs: { id: "bind_1" }
+                  })
+                ]),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  {
+                    directives: [
+                      {
+                        name: "show",
+                        rawName: "v-show",
+                        value: _vm.defaultType != "multi",
+                        expression: "defaultType!='multi'"
+                      }
+                    ]
+                  },
+                  [
+                    _c(
+                      "ul",
+                      {
+                        ref: "list_2",
+                        staticClass: "mulit-center",
+                        attrs: { id: "list_2" }
+                      },
+                      _vm._l(_vm.data_2.list, function(item, index) {
+                        return _c("li", [_vm._v(_vm._s(item) + "层")])
+                      })
+                    ),
+                    _vm._v(" "),
+                    _c("div", {
+                      ref: "bind_2",
+                      staticClass: "ul-same ul-center"
+                    })
+                  ]
+                ),
+                _vm._v(" "),
+                _c("div", [
+                  _c(
+                    "ul",
+                    {
+                      ref: "list_3",
+                      staticClass: "mulit-right",
+                      attrs: { id: "list_3" }
+                    },
+                    _vm._l(_vm.data_3.list, function(item, index) {
+                      return _c("li", [_vm._v("共" + _vm._s(item) + "层")])
+                    })
+                  ),
+                  _vm._v(" "),
+                  _c("div", { ref: "bind_3", staticClass: "ul-same ul-right" })
+                ])
+              ]),
+              _vm._v(" "),
+              _c("span", { staticClass: "span span-bottom" })
+            ]
+          )
         ])
       ])
-    ])
-  ])
+    ]
+  )
 }
 var staticRenderFns = [
   function() {
@@ -12383,14 +12455,6 @@ var staticRenderFns = [
       _c("div", { staticClass: "choose-sure", attrs: { id: "btn-sure" } }, [
         _vm._v("确定")
       ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "chose-bord" }, [
-      _c("div", { staticClass: "text-style" }, [_vm._v("至")])
     ])
   }
 ]

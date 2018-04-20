@@ -86,7 +86,7 @@ Touch.prototype = {
             this.dom_height = this.move_target.offsetHeight;
             this.dom_item_height = this.dom_height / this.dom_len;
             this.min = -this.dom_height + this.dom_item_height;
-            // console.log(this.dom_height, this.dom_item_height, this.min)
+            console.log(this.dom_height, this.dom_item_height, this.min)
         }
     },
     _move: function (evt) {
@@ -233,16 +233,23 @@ Touch.prototype = {
         } else {
             ret = value - _val * (value > 0 ? 1 : -1);
         }
-
         var index = -(ret / this.dom_item_height);
-
-        // index = Math.abs(index);
         index = Math.min(this.dom_len - 1, index)
         index = Math.max(0, index)
-        console.log(index,"............")
-        return index
-    }
+        return index | 0
+    },
+    // 设置默认滚动到位置
 
+    goto: function (num) {
+        num = Math.max(num, 0);
+        this._full();
+        var _to = num * this.dom_item_height;
+        console.log("sdf", num, this.dom_item_height, _to)
+        this._to(-_to, 600, ease, null, null);
+    },
+    setDomLen: function () {
+
+    }
 }
 function ease(x) {
     return Math.sqrt(1 - Math.pow(x - 1, 2));
