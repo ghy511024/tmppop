@@ -244,7 +244,6 @@ Touch.prototype = {
         num = Math.max(num, 0);
         this._full();
         var _to = num * this.dom_item_height;
-        console.log("sdf", num, this.dom_item_height, _to)
         this._to(-_to, 600, ease, null, null);
     },
     setDomLen: function () {

@@ -420,7 +420,6 @@
                 }
             },
             choose(type){
-                console.log(type)
                 this.defaultType = type === 'single' ? "single" : "multi";
             },
             sure: function () {
