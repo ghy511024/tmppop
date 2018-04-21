@@ -9,7 +9,11 @@
         <button @click="test2">测试popup_select</button>
         <button @click="test3">测试输入控件</button>
         <button @click="test4">测试二级联动控件</button>
+<<<<<<< HEAD
         <button @click="test5">二级联动new</button>
+=======
+        <button @click="test5">楼层选择</button>
+>>>>>>> f81e3db455b30e8ddf0925ca7bf1b8475363b6e3
     </div>
 </template>
 <script>
@@ -128,6 +132,7 @@
                 });
             },
             test5(){
+<<<<<<< HEAD
                 let param = {
                     title: "行业",
                     pname_1: "hangye",
@@ -186,6 +191,21 @@
 
                 });
             },
+=======
+                var def = {
+                    defaultType: "multi",//single,multi 单层|多层
+                    datasouce: ['-2,99', '-2,99', '1,99'],
+                    unit: ['%d层', '%d层', '共%d层'],
+                    suggest: "请选择楼层",
+                    title: "楼层",
+                    defaultselect: "-1,5,8",
+                    placeholder: "请选择"
+                }
+                this.$lou_picker(def, (res) => {
+                    console.log('返回数据为：', res);
+                });
+            }
+>>>>>>> f81e3db455b30e8ddf0925ca7bf1b8475363b6e3
         }
     }
 </script>
