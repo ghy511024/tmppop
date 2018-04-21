@@ -125,7 +125,7 @@
                     _this.isbeforeActive = false;
                     _this.show = false;
                 }, 600)
-                return _this.callback(1,null);
+                return _this.callback(1);
             },
 
         },

@@ -128,7 +128,7 @@
             },
             test5(){
                 var def = {
-                    defaultType: "multi",//single,multi 单层|多层
+                    defaultType: "single",//single,multi 单层|多层
                     datasouce: ['-2,99', '-2,99', '1,99'],
                     unit: ['%d层', '%d层', '共%d层'],
                     suggest: "请选择楼层",
@@ -136,8 +136,8 @@
                     defaultselect: "-1,5,8",
                     placeholder: "请选择"
                 }
-                this.$lou_picker(def, (res) => {
-                    console.log('返回数据为：', res);
+                this.$lou_picker(def, (res, data) => {
+                    console.log('返回数据为：', res, data);
                 });
             }
         }

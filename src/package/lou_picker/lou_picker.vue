@@ -125,120 +125,154 @@
         background: #ffffff;
         position: relative;
         overflow: hidden;
-    }
 
-    .chose-bord {
-        height: rem(90px);
-        position: absolute !important;
-        @include border1px(top, 0, #e3e3e4);
-        @include border1px(bottom, 0, #e3e3e4);
-        left: rem(50px);
-        right: rem(50px);
-        top: rem(200px);
-        .text-style {
-            z-index: 2;
+        .chose-bord {
+            height: rem(90px);
+            position: absolute !important;
+            @include border1px(top, 0, #e3e3e4);
+            @include border1px(bottom, 0, #e3e3e4);
+            left: rem(50px);
+            right: rem(50px);
+            top: rem(200px);
+            .text-style {
+                z-index: 2;
+                position: absolute;
+                height: rem(90px);
+                width: rem(90px);
+                line-height: rem(90px);
+                text-align: center;
+                font-size: rem(28px);
+                left: rem(120px);
+            }
+        }
+        ul {
             position: absolute;
-            height: rem(90px);
-            width: rem(90px);
-            line-height: rem(90px);
+            z-index: 8;
+            top: rem(200px);
+            list-style: none;
+            padding: 0px;
+            li {
+                height: rem(90px);
+                position: relative;
+                font-size: rem(34px);
+                line-height: rem(100px);
+            }
+        }
+
+        .mulit-left {
+            left: rem(5px);
+            width: rem(210px);
             text-align: center;
-            font-size: rem(28px);
-            left: rem(120px);
+            /*box-shadow: 0px 0px 0px 1px #ccc;*/
+            &.isMulti {
+                width: rem(320px);
+            }
+        }
+
+        .mulit-center {
+            left: rem(215px);
+            width: rem(210px);
+            text-align: center;
+            /*box-shadow: 0px 0px 0px 1px #ccc;*/
+            &.isMulti {
+                width: rem(320px);
+            }
+        }
+
+        .mulit-right {
+            right: rem(5px);
+            width: rem(315px);
+            text-align: center;
+            /*box-shadow: 0px 0px 0px 1px #ccc;*/
+            &.isMulti {
+                width: rem(300px);
+            }
+        }
+
+        .ul-same {
+            position: absolute;
+            z-index: 12;
+            list-style: none;
+            padding: 0px;
+            height: 100%;
+        }
+
+        .ul-left {
+            left: rem(5px);
+            width: rem(210px);
+        }
+
+        .ul-center {
+            left: rem(215px);
+            width: rem(210px);
+        }
+
+        .ul-right {
+            right: rem(5px);
+            width: rem(315px);
+        }
+
+        .span {
+            display: block;
+            width: 100%;
+            position: absolute;
+            z-index: 10;
+            left: 0;
+        }
+
+        .span-top {
+            height: rem(200px);
+            top: 0;
+            position: absolute;
+            z-index: 11;
+            background-image: -webkit-linear-gradient(top, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0.3) 100%);
+        }
+
+        .span-bottom {
+            height: rem(195px);
+            top: rem(290px);
+            background-image: -webkit-linear-gradient(bottom, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0.3) 100%);
+        }
+
+        &.isSingle {
+            .mulit-left, .mulit-right, .ul-left, .ul-left {
+                width: rem(320px);
+            }
+            .mulit-left, .ul-left {
+                right: 50%;
+                left: auto;
+            }
+            .mulit-right, .ul-right {
+                left: 50%;
+                right: auto;
+            }
         }
     }
 
-    ul {
-        position: absolute;
-        z-index: 8;
-        top: rem(200px);
-        list-style: none;
-        padding: 0px;
-        li {
-            height: rem(90px);
-            position: relative;
-            font-size: rem(34px);
-            line-height: rem(100px);
+    #picker-wrap {
+        transition: all 0.4s ease;
+        .picker-main {
+            transition: all 0.4s ease;
+        }
+        &.beforeActive {
+            display: block;
+            background: transparent;
+            .picker-main {
+                transform: translateY(100%);
+            }
+        }
+        &.active {
+            background: rgba(0, 0, 0, 0.3);
+            .picker-main {
+                transform: translateY(0);
+            }
         }
     }
 
-    .mulit-left {
-        left: rem(5px);
-        width: rem(210px);
-        text-align: center;
-        box-shadow: 0px 0px 0px 1px #ccc;
-        &.isMulti {
-            width: rem(320px);
-        }
-    }
-
-    .mulit-center {
-        left: rem(215px);
-        width: rem(210px);
-        text-align: center;
-        box-shadow: 0px 0px 0px 1px #ccc;
-        &.isMulti {
-            width: rem(320px);
-        }
-    }
-
-    .mulit-right {
-        right: rem(5px);
-        width: rem(315px);
-        text-align: center;
-        box-shadow: 0px 0px 0px 1px #ccc;
-        &.isMulti {
-            width: rem(300px);
-        }
-    }
-
-    .ul-same {
-        position: absolute;
-        z-index: 12;
-        list-style: none;
-        padding: 0px;
-        height: 100%;
-    }
-
-    .ul-left {
-        left: rem(5px);
-        width: rem(210px);
-    }
-
-    .ul-center {
-        left: rem(215px);
-        width: rem(210px);
-    }
-
-    .ul-right {
-        right: rem(5px);
-        width: rem(315px);
-    }
-
-    .span {
-        display: block;
-        width: 100%;
-        position: absolute;
-        z-index: 10;
-        left: 0;
-    }
-
-    .span-top {
-        height: rem(200px);
-        top: 0;
-        position: absolute;
-        z-index: 11;
-        background-image: -webkit-linear-gradient(top, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0.3) 100%);
-    }
-
-    .span-bottom {
-        height: rem(195px);
-        top: rem(290px);
-        background-image: -webkit-linear-gradient(bottom, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0.3) 100%);
-    }
 </style>
 <template>
-    <div id="picker-wrap" v-show="show">
-        <div class="picker-main">
+    <div id="picker-wrap" v-show="show" :class="{beforeActive:isbeforeActive, active:isactive}"  @click.stop="_close(1)">
+        <div class="picker-main" @click.stop="stop">
             <div class="picker-header">
                 <div class="title">楼层</div>
                 <div class="picker-text">{{show_text}}</div>
@@ -250,20 +284,22 @@
                 <div class="scroll-choose">
                     <div class="picker-title">楼层：</div>
                     <div class="choose-inner">
-                        <div class="choose-level choose-left">
+                        <div class="choose-level choose-left" :class="{active:defaultType=='single'}"
+                             @click="choose('single')">
                             <label for="">单层</label>
                         </div>
-                        <div class="choose-level choose-right active">
+                        <div class="choose-level choose-right" :class="{active:defaultType=='multi'}"
+                             @click="choose('multi')">
                             <label for="">多层</label>
                         </div>
                     </div>
-                    <div id="btn-sure" class="choose-sure">确定</div>
+                    <div id="btn-sure" class="choose-sure" @click="sure">确定</div>
                 </div>
-                <div class="scroll-inner" :class="{isMulti:defaultType=='multi'}">
+                <div class="scroll-inner" :class="{isSingle:defaultType!='multi'}">
                     <span class="span span-top"></span>
                     <div>
                         <div class="chose-bord">
-                            <div v-show="defaultType!='multi'" class="text-style">至</div>
+                            <div v-show="defaultType!='single'" class="text-style">至</div>
                         </div>
                         <div>
                             <ul id="list_1" ref="list_1" class="mulit-left">
@@ -271,7 +307,7 @@
                             </ul>
                             <div id="bind_1" ref="bind_1" class="ul-same ul-left"></div>
                         </div>
-                        <div v-show="defaultType!='multi'">
+                        <div v-show="defaultType!='single'">
                             <ul id="list_2" ref="list_2" class="mulit-center">
                                 <li v-for="(item,index) in data_2.list">{{item}}层</li>
                             </ul>
@@ -295,11 +331,14 @@
     export default{
         data: function () {
             return {
+                hasbind: false,
                 show: false,
                 defaultType: "multi",//multi
                 suggest: "请选择楼层",
                 title: "楼层",
                 placeholder: "请选择",
+                isbeforeActive: false,
+                isactive: false,
                 data_1: {
 //                    select: 0,
 //                    unit: "",
@@ -307,6 +346,11 @@
                 },
                 data_2: {},
                 data_3: {},
+                callback: function () {
+                },
+                touch_1: {},
+                touch_2: {},
+                touch_3: {},
             }
         },
         ready: function () {
@@ -314,8 +358,6 @@
         props: {},
         mounted(){
             var _this = this;
-
-
         },
         methods: {
             up_sec(type, index){
@@ -332,52 +374,101 @@
                     this.data_3.select = num;
                 }
             },
+            stop(){
+              // 空函数阻止冒泡
+            },
             bindTouch(){
                 var _this = this;
-                var dom1 = this.$refs.list_1;
-                var bind1 = this.$refs.bind_1;
-                var len1 = this.data_1.list.length || 1;
-                var len2 = this.data_2.list.length || 1;
-                var len3 = this.data_3.list.length || 1;
-                var touch_1 = new touch(bind1, dom1, {
-                    dom_len: len1, change: function (index) {
-                        _this.up_sec("sec1", index)
-                    }
-                })
+                if (this.hasbind) {
+                    this.touch_1.goto(_this.data_1.list.indexOf(Number(_this.data_1.select)))
+                    this.touch_2.goto(_this.data_2.list.indexOf(Number(_this.data_2.select)))
+                    this.touch_3.goto(_this.data_3.list.indexOf(Number(_this.data_3.select)))
 
-                var dom2 = this.$refs.list_2;
-                var bind2 = this.$refs.bind_2;
-                var touch_2 = new touch(bind2, dom2, {
-                    dom_len: len2, change: function (index) {
-                        _this.up_sec("sec2", index)
-                    }
-                })
+                } else {
+                    var dom1 = this.$refs.list_1;
+                    var bind1 = this.$refs.bind_1;
+                    var len1 = this.data_1.list.length || 1;
+                    var len2 = this.data_2.list.length || 1;
+                    var len3 = this.data_3.list.length || 1;
+                    this.touch_1 = new touch(bind1, dom1, {
+                        dom_len: len1, change: function (index) {
+                            _this.up_sec("sec1", index)
+                        }
+                    })
 
-                var dom3 = this.$refs.list_3;
-                var bind3 = this.$refs.bind_3;
-                var touch_3 = new touch(bind3, dom3, {
-                    dom_len: len3, change: function (index) {
-                        _this.up_sec("sec3", index)
-                    }
-                })
+                    var dom2 = this.$refs.list_2;
+                    var bind2 = this.$refs.bind_2;
+                    this.touch_2 = new touch(bind2, dom2, {
+                        dom_len: len2, change: function (index) {
+                            _this.up_sec("sec2", index)
+                        }
+                    })
 
+                    var dom3 = this.$refs.list_3;
+                    var bind3 = this.$refs.bind_3;
+                    this.touch_3 = new touch(bind3, dom3, {
+                        dom_len: len3, change: function (index) {
+                            _this.up_sec("sec3", index)
+                        }
+                    })
+                    setTimeout(function () {
+                        _this.touch_1.goto(_this.data_1.list.indexOf(Number(_this.data_1.select)))
+                        _this.touch_2.goto(_this.data_2.list.indexOf(Number(_this.data_2.select)))
+                        _this.touch_3.goto(_this.data_3.list.indexOf(Number(_this.data_3.select)))
+                    }, 50)
+                    this.hasbind = true;
+                }
+            },
+            choose(type){
+                console.log(type)
+                this.defaultType = type === 'single' ? "single" : "multi";
+            },
+            sure: function () {
+                var ret = {};
+                var arr = [];
+                if (this.defaultType == "multi") {
+                    arr.push(this.data_1.select);
+                    arr.push(this.data_2.select);
+                    arr.push(this.data_3.select);
+                    ret["value"] = arr.join(",");
+                }
+                else {
+                    arr.push(this.data_1.select);
+                    arr.push(this.data_3.select);
+                    ret["value"] = arr.join(",");
+                }
+                ret["type"] = this.defaultType;
+                ret["text"] = this.show_text;
+                this._close(0, ret);
+            },
+            _close: function (state, ret) {
+                var _this = this;
+                this.isactive = false;
                 setTimeout(function () {
-                    touch_1.goto(_this.data_1.list.indexOf(Number(_this.data_1.select)))
-                    touch_2.goto(_this.data_2.list.indexOf(Number(_this.data_2.select)))
-                    touch_3.goto(_this.data_3.list.indexOf(Number(_this.data_3.select)))
-                }, 50)
+                    _this.isbeforeActive = false;
+                    _this.show = false;
+                }, 600)
+                this.callback(state, ret);
             }
         },
         computed: {
             show_text: function () {
                 var str = "请选择";
-                if (this.data_1.select == -1 && this.data_2.select == -1 && this.data_3.select == -1) {
-                    return str;
+                if (this.defaultType == "multi") {
+                    if (this.data_1.select == -1 && this.data_2.select == -1 && this.data_3.select == -1) {
+                        return str;
+                    } else {
+                        str = `${this.data_1.select}-${this.data_2.select}层/共${this.data_3.select}层`
+                    }
+                } else {
+                    if (this.data_1.select == -1 && this.data_3.select == -1) {
+                        return str;
+                    } else {
+                        str = `${this.data_1.select}层/共${this.data_3.select}层`
+                    }
                 }
-                var str = `${this.data_1.select}-${this.data_2.select}层/共${this.data_3.select}`
                 return str;
             }
-
         },
         watch: {},
     }
