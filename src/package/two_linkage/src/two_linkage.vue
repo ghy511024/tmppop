@@ -189,6 +189,7 @@
             click_parent(item,index) {
                 let _this = this;
                 _this.cur_parent=index;
+                _this.cur_child=0;
                 let tempobj={};
                 tempobj={
                     paramname:_this.dataObj.pname_1||null,
