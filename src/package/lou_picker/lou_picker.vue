@@ -269,6 +269,11 @@
         }
     }
 
+    .hide_center {
+        width: 1px;
+        opacity: 0;
+    }
+
 </style>
 <template>
     <div id="picker-wrap" v-show="show" :class="{beforeActive:isbeforeActive, active:isactive}" @click.stop="_close(1)">
@@ -307,7 +312,7 @@
                             </ul>
                             <div id="bind_1" ref="bind_1" class="ul-same ul-left"></div>
                         </div>
-                        <div v-show="defaultType!='single'">
+                        <div v-show="defaultType!='single'||true" :class="{hide_center:defaultType!='multi'}">
                             <ul id="list_2" ref="list_2" class="mulit-center">
                                 <li v-for="(item,index) in data_2.list">{{item}}层</li>
                             </ul>
@@ -411,17 +416,21 @@
                             _this.up_sec("sec3", index)
                         }
                     })
-                    setTimeout(function () {
+                    this.$nextTick(() => {
                         _this.touch_1.goto(_this.data_1.list.indexOf(Number(_this.data_1.select)))
                         _this.touch_2.goto(_this.data_2.list.indexOf(Number(_this.data_2.select)))
                         _this.touch_3.goto(_this.data_3.list.indexOf(Number(_this.data_3.select)))
-                    }, 50)
+                    });
                     this.hasbind = true;
                 }
             },
             choose(type){
                 this.defaultType = type === 'single' ? "single" : "multi";
-                _this.touch_2.goto(_this.data_2.list.indexOf(Number(_this.data_2.select)))
+                var _this = this;
+                this.$nextTick(() => {
+                    _this.touch_2.goto(_this.data_2.list.indexOf(Number(_this.data_2.select)))
+                });
+
             },
             sure: function () {
                 var ret = {};

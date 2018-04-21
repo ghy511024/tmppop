@@ -193,7 +193,7 @@
                     unit: ['%d层', '%d层', '共%d层'],
                     suggest: "请选择楼层",
                     title: "楼层",
-                    defaultselect: "-1,5,8",
+                    defaultselect: "1,1,8",
                     placeholder: "请选择"
                 }
                 this.$lou_picker(def, (res, data) => {
