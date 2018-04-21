@@ -271,7 +271,7 @@
 
 </style>
 <template>
-    <div id="picker-wrap" v-show="show" :class="{beforeActive:isbeforeActive, active:isactive}"  @click.stop="_close(1)">
+    <div id="picker-wrap" v-show="show" :class="{beforeActive:isbeforeActive, active:isactive}" @click.stop="_close(1)">
         <div class="picker-main" @click.stop="stop">
             <div class="picker-header">
                 <div class="title">楼层</div>
@@ -375,7 +375,7 @@
                 }
             },
             stop(){
-              // 空函数阻止冒泡
+                // 空函数阻止冒泡
             },
             bindTouch(){
                 var _this = this;
@@ -421,21 +421,20 @@
             },
             choose(type){
                 this.defaultType = type === 'single' ? "single" : "multi";
+                _this.touch_2.goto(_this.data_2.list.indexOf(Number(_this.data_2.select)))
             },
             sure: function () {
                 var ret = {};
                 var arr = [];
+                arr.push(this.data_1.select);
                 if (this.defaultType == "multi") {
-                    arr.push(this.data_1.select);
                     arr.push(this.data_2.select);
-                    arr.push(this.data_3.select);
-                    ret["value"] = arr.join(",");
                 }
                 else {
                     arr.push(this.data_1.select);
-                    arr.push(this.data_3.select);
-                    ret["value"] = arr.join(",");
                 }
+                arr.push(this.data_3.select);
+                ret["value"] = arr.join(",");
                 ret["type"] = this.defaultType;
                 ret["text"] = this.show_text;
                 this._close(0, ret);

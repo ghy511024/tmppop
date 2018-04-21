@@ -10025,21 +10025,20 @@ module.exports = function (it) {
         },
         choose: function choose(type) {
             this.defaultType = type === 'single' ? "single" : "multi";
+            _this.touch_2.goto(_this.data_2.list.indexOf(Number(_this.data_2.select)));
         },
 
         sure: function sure() {
             var ret = {};
             var arr = [];
+            arr.push(this.data_1.select);
             if (this.defaultType == "multi") {
-                arr.push(this.data_1.select);
                 arr.push(this.data_2.select);
-                arr.push(this.data_3.select);
-                ret["value"] = arr.join(",");
             } else {
                 arr.push(this.data_1.select);
-                arr.push(this.data_3.select);
-                ret["value"] = arr.join(",");
             }
+            arr.push(this.data_3.select);
+            ret["value"] = arr.join(",");
             ret["type"] = this.defaultType;
             ret["text"] = this.show_text;
             this._close(0, ret);
