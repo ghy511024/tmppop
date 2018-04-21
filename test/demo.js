@@ -8303,6 +8303,7 @@ var Transition = {
       child.data.show = true;
     }
 
+<<<<<<< HEAD
     if (
       oldChild &&
       oldChild.data &&
@@ -8338,6 +8339,145 @@ var Transition = {
     return rawChild
   }
 }
+=======
+/***/ }),
+/* 33 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_Vue__ = __webpack_require__(0);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+/* harmony default export */ __webpack_exports__["a"] = ({
+    data: function data() {
+        return {
+            rentKeyoardData: {
+                dataArrSel: {
+                    value: 0
+                },
+                dataArr: [{
+                    defaultValue: "123",
+                    defaultUnit: [{ "text": "元/㎡.天", "value": "3" }, {
+                        "text": "元/月",
+                        "value": "1",
+                        "selected": true
+                    }],
+                    suggest: "请填写租金1",
+                    title: "租金1",
+                    placeholder: "请填写1",
+                    type: "zujin1"
+                }, {
+                    defaultValue: "123",
+                    defaultUnit: [{ "text": "元/㎡.天", "value": "3", "selected": true }, {
+                        "text": "元/月",
+                        "value": "1"
+                    }],
+                    suggest: "请填写租金2",
+                    title: "租金2",
+                    placeholder: "请填写2",
+                    type: "zujin2"
+                }]
+            },
+            secondLinkageData: {
+                defaultValue: '', //默认选中的行业，为空默认选择第一个。
+                slots: [{
+                    values: [{ text: '餐饮美食', parentId: 0, id: 1 }, { text: '美容美发', parentId: 0, id: 2 }, { text: '服装鞋包', parentId: 0, id: 3 }]
+                }, {
+                    values: [{ text: '餐饮美食1', parentId: 1, id: 10 }, { text: '餐饮美食2', parentId: 1, id: 11 }, { text: '餐饮美食3', parentId: 1, id: 12 }, { text: '餐饮美食4', parentId: 1, id: 13 }, { text: '美容美发1', parentId: 2, id: 20 }, { text: '美容美发2', parentId: 2, id: 21 }, { text: '美容美发3', parentId: 2, id: 22 }, { text: '美容美发4', parentId: 2, id: 23 }, { text: '美容美发5', parentId: 2, id: 24 }, { text: '服装鞋包1', parentId: 3, id: 30 }, { text: '服装鞋包2', parentId: 3, id: 31 }, { text: '服装鞋包3', parentId: 3, id: 32 }, { text: '服装鞋包4', parentId: 3, id: 33 }, { text: '服装鞋包5', parentId: 3, id: 34 }, { text: '服装鞋包6', parentId: 3, id: 35 }, { text: '服装鞋包7', parentId: 3, id: 36 }, { text: '服装鞋包8', parentId: 3, id: 37 }, { text: '服装鞋包9', parentId: 3, id: 38 }]
+                }]
+            }
+        };
+    },
+    created: function created() {},
+    mounted: function mounted() {},
+    methods: {
+        test1: function test1() {
+            this.$dialog({
+                content: "haha"
+            });
+        },
+        test2: function test2() {
+            var data = {
+                title: "选择您的身份",
+                //type：radio checkbox
+                selec_type: "",
+                //list_type： single_text multi_text
+                list_type: "",
+                option: [{ "title": "房东", "text": "房屋所有者，具备认证房本资质", value: "1" }, { "title": "转租", "text": "转让自己承租的房子", value: "2" }, { "title": "房东", "text": "房屋所有者，具备认证房本资质", value: "3" }, { "title": "转租", "text": "转让自己承租的房子", value: "4" }, { "title": "经纪人", "text": "房产中介，拥有专业的展示空间", value: "5" }, { "title": "职业房东", "text": "公寓经营者/多房源管理者", value: "6" }]
+            };
+            this.$popup_select(data, function (status, data) {
+                //data是返回的数据，status是确定还是取消状态
+                console.log(status);
+                console.log(data);
+            });
+        },
+        test3: function test3() {
+            var _this = this;
+
+            this.$rentKeyboard(this.rentKeyoardData, function (res) {
+                console.log(_this.rentKeyoardData);
+                console.log('返回数据为：', res);
+            });
+        },
+        test4: function test4() {
+            this.$secondLinkage(this.secondLinkageData, function (res) {
+                console.log('返回数据为：', res);
+            });
+        },
+        test5: function test5() {
+            var param = {
+                title: "行业",
+                pname_1: "hangye",
+                pname_2: "zhonlei",
+                option: [{
+                    "value": "511574",
+                    "text": "餐饮美食",
+                    "title": "种类",
+                    "option": [{ "text": "餐馆", "value": "511589" }, { "text": "食堂", "value": "511590" }, { "text": "面包店", "value": "511591" }, { "text": "冷饮甜品店", "value": "511592" }, { "text": "咖啡馆", "value": "511593" }, { "text": "茶艺馆", "value": "511594" }, { "text": "小吃店", "value": "511595" }, { "text": "水果食品店", "value": "511596" }, { "text": "凉茶店", "value": "511597" }, { "text": "快餐店", "value": "511598" }]
+                }, {
+                    "text": "美容美发",
+                    "value": "511575",
+                    "title": "种类",
+                    "option": [{ "text": "美容院", "value": "511599" }, { "text": "美发店", "value": "511600" }, { "text": "美甲店", "value": "511601" }, { "text": "SPA馆", "value": "511602" }]
+                }]
+            };
+            this.$two_linkage(param, function (ret, data) {
+                // ret==0 点击确定
+                // ret==1 取消
+                console.log(ret);
+                console.log(data);
+
+                //                    data = [
+                //                        {
+                //                            paramname: "hangye",
+                //                            value: "",
+                //                            text: ""
+                //                        },
+                //                        {
+                //                            paramname: "zhonlei",
+                //                            value: "",
+                //                            text: ""
+                //                        }
+                //                        ]
+            });
+        }
+    }
+});
+>>>>>>> 3fff9ff9f990c67ddec743cd05cb7ea5638366e2
 
 /*  */
 
@@ -10894,6 +11034,263 @@ exports.f = Object.getOwnPropertyNames || function getOwnPropertyNames(O) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+<<<<<<< HEAD
+=======
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["a"] = ({
+    name: 'two_linkage',
+    data: function data() {
+        return {
+            show: false,
+            isbeforeActive: false,
+            isactive: false,
+            cur_parent: 0,
+            cur_child: 0,
+            backobj: [],
+            dataObj: {//级联数值选项
+            },
+            temp: [],
+            callback: function callback() {}
+        };
+    },
+    mounted: function mounted() {
+        console.log(this.dataObj);
+    },
+    creat: function creat() {},
+
+    computed: {},
+    methods: {
+        stop: function stop() {},
+        //处理点击背景关闭键盘时，防止冒泡
+
+        // 点击一级菜单
+        click_parent: function click_parent(item, index) {
+            var _this = this;
+            _this.cur_parent = index;
+            _this.cur_child = 0;
+            var tempobj = {};
+            tempobj = {
+                paramname: _this.dataObj.pname_1 || null,
+                value: item.value || null,
+                text: item.text || "暂无数据"
+            };
+            _this.backobj[0] = tempobj;
+            _this.temp = item.option || [];
+            tempobj = {
+                paramname: _this.dataObj.pname_2 || null,
+                value: _this.temp[0].value || null,
+                text: _this.temp[0].text || "暂无数据"
+            };
+            _this.backobj[1] = tempobj;
+        },
+
+        // 点击二级菜单
+        click_child: function click_child(item, index) {
+            var _this = this;
+            _this.cur_child = index;
+            var tempobj = {};
+            tempobj = {
+                paramname: _this.dataObj.pname_2 || null,
+                value: item.value || null,
+                text: item.text || "暂无数据"
+            };
+            _this.backobj[1] = tempobj;
+        },
+
+        // 点击取消
+        close_click: function close_click() {
+            var _this = this;
+            _this.isactive = false;
+            setTimeout(function () {
+                _this.isbeforeActive = false;
+                _this.show = false;
+            }, 600);
+            return _this.callback(1);
+        },
+
+        // 点击完成
+        decision_click: function decision_click() {
+            var _this = this;
+            _this.isactive = false;
+            setTimeout(function () {
+                _this.isbeforeActive = false;
+                _this.show = false;
+            }, 600);
+            return _this.callback(0, _this.backobj);
+        }
+    },
+    watch: {
+        'visible': function visible(val) {
+            if (val) {
+                console.log(this.dataObj);
+            }
+        }
+    }
+});
+
+/***/ }),
+/* 52 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+>>>>>>> 3fff9ff9f990c67ddec743cd05cb7ea5638366e2
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__index_vue__ = __webpack_require__(52);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue__ = __webpack_require__(7);
@@ -10931,7 +11328,11 @@ new __WEBPACK_IMPORTED_MODULE_1_vue__["a" /* default */]({
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+<<<<<<< HEAD
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_index_vue__ = __webpack_require__(33);
+=======
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_13_7_1_vue_loader_lib_selector_type_script_index_0_index_vue__ = __webpack_require__(33);
+>>>>>>> 3fff9ff9f990c67ddec743cd05cb7ea5638366e2
 /* unused harmony namespace reexport */
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_1bda9085_hasScoped_false_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_index_vue__ = __webpack_require__(56);
 var disposed = false
@@ -10954,8 +11355,13 @@ var __vue_scopeId__ = null
 /* moduleIdentifier (server only) */
 var __vue_module_identifier__ = null
 var Component = normalizeComponent(
+<<<<<<< HEAD
   __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_index_vue__["a" /* default */],
   __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_1bda9085_hasScoped_false_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_index_vue__["a" /* default */],
+=======
+  __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_13_7_1_vue_loader_lib_selector_type_script_index_0_index_vue__["a" /* default */],
+  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_13_7_1_vue_loader_lib_template_compiler_index_id_data_v_1bda9085_hasScoped_false_buble_transforms_node_modules_vue_loader_13_7_1_vue_loader_lib_selector_type_template_index_0_index_vue__["a" /* default */],
+>>>>>>> 3fff9ff9f990c67ddec743cd05cb7ea5638366e2
   __vue_template_functional__,
   __vue_styles__,
   __vue_scopeId__,
@@ -11354,8 +11760,45 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+<<<<<<< HEAD
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue__ = __webpack_require__(7);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__fb_multiselect_vue__ = __webpack_require__(60);
+=======
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "main" }, [
+    _c("button", { on: { click: _vm.test1 } }, [_vm._v("测试dialog")]),
+    _vm._v(" "),
+    _c("button", { on: { click: _vm.test2 } }, [_vm._v("测试popup_select")]),
+    _vm._v(" "),
+    _c("button", { on: { click: _vm.test3 } }, [_vm._v("测试输入控件")]),
+    _vm._v(" "),
+    _c("button", { on: { click: _vm.test4 } }, [_vm._v("测试二级联动控件")]),
+    _vm._v(" "),
+    _c("button", { on: { click: _vm.test5 } }, [_vm._v("二级联动new")])
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+var esExports = { render: render, staticRenderFns: staticRenderFns }
+/* harmony default export */ __webpack_exports__["a"] = (esExports);
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-loader/node_modules/vue-hot-reload-api")      .rerender("data-v-1bda9085", esExports)
+  }
+}
+
+/***/ }),
+/* 60 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__fb_multiselect_vue__ = __webpack_require__(61);
+>>>>>>> 3fff9ff9f990c67ddec743cd05cb7ea5638366e2
 
 
 

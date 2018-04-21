@@ -14,22 +14,18 @@ var param = [
 // 请求接口示例
 var ret = {
     "city": "bj",
-    "bj": [{"listname": "chaoyang", "name": "朝阳", "id": "1142"}, {"listname": "dongcheng", "name": "东城", "id": "1138"}],
-    "chaoyang": [{"listname": "guomao", "name": "国贸", "id": "1195"}, {
-        "listname": "cbd",
-        "name": "CBD ",
-        "id": "6834"
-    }, {"listname": "dawanglu", "name": "大望路", "id": "5785"}, {
-        "listname": "bjsihui",
-        "name": "四惠",
-        "id": "5786"
-    }],
+    "bj": [
+        {"listname": "chaoyang", "name": "朝阳", "id": "1142"},
+        {"listname": "dongcheng", "name": "东城", "id": "1138"}
+    ],
+    "chaoyang": [
+        {"listname": "guomao", "name": "国贸", "id": "1195"},
+        {"listname": "cbd", "name": "CBD ", "id": "6834"},
+        {"listname": "dawanglu", "name": "大望路", "id": "5785"},
+        {"listname": "bjsihui", "name": "四惠", "id": "5786"}
+    ],
     "dongcheng": [
-        {
-            "listname": "dongzhimen",
-            "name": "东直门",
-            "id": "1156"
-        }
+        {"listname": "dongzhimen", "name": "东直门", "id": "1156"}
     ]
 };
 
