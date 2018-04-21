@@ -30,7 +30,7 @@ let popup_select = (a,fun) => {
     instance.list_type=_defobj["list_type"];
     instance.callback=fun;
     //判断传入的数组数据是只有text类型还是text value类型，进行不同处理（展示不同的样式）
-    instance.show = true;
+
     if(!instance.list_type){
         instance.list_type="single_text";
     }
@@ -39,7 +39,7 @@ let popup_select = (a,fun) => {
     }else{
         instance.multi_text=true;
     }
-
+    instance.show = true;
     if(!instance.selec_type){
         instance.selec_type="radio"
     }
