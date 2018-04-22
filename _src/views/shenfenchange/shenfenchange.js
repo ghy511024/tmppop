@@ -14,7 +14,6 @@
             data = data || {};
             var optionlist = data["option"] || []
             this.layout (optionlist);
-
             this._initEvent ();
         },
 

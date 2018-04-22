@@ -5,8 +5,8 @@
     #picker-wrap {
         display: none;
         width: 100%;
-        position: absolute;
-        z-index: 100;
+        position: fixed;
+        z-index: 1000;
         height: 100%;
         background: rgba(0, 0, 0, 0.4);
         top: 0px;
@@ -276,7 +276,7 @@
 
 </style>
 <template>
-    <div id="picker-wrap" v-show="show" :class="{beforeActive:isbeforeActive, active:isactive}" @click.stop="_close(1)">
+    <div id="picker-wrap" v-show="show" :class="{beforeActive:isbeforeActive, active:isactive}" @click.stop="_close(1)" ref="picker">
         <div class="picker-main" @click.stop="stop">
             <div class="picker-header">
                 <div class="title">楼层</div>
@@ -362,7 +362,10 @@
         },
         props: {},
         mounted(){
-            var _this = this;
+           this.$refs.picker.addEventListener("touchmove", function(evt){
+               evt.stopPropagation()
+               evt.preventDefault()
+           })
         },
         methods: {
             up_sec(type, index){

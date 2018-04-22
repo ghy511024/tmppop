@@ -1,6 +1,7 @@
 <style lang="scss">
     body {
         margin: 0px;
+        height: 1000px;
     }
 </style>
 <template>
@@ -10,11 +11,8 @@
         <button @click="test3">测试输入控件</button>
         <button @click="test4">测试二级联动控件</button>
         <button @click="test5">二级联动new</button>
-<<<<<<< HEAD
         <button @click="test7">区域二级联动new</button>
-=======
         <button @click="test6">楼层选择</button>
->>>>>>> f3255932ed3bbe7cac4f5ee5060a74e2a74be104
     </div>
 </template>
 <script>
@@ -25,7 +23,7 @@
                     dataArrSel: {
                         value: 0
                     },
-                    dataArr: [
+                    dataArr_bk: [
                         {
                             defaultValue: "123",
                             defaultUnit: [{"text": "元/㎡.天", "value": "3"}, {
@@ -38,17 +36,38 @@
                             placeholder: "请填写1",
                             type: "zujin1"
                         },
+//                        {
+//                            defaultValue: "123",
+//                            defaultUnit: [{"text": "元/㎡.天", "value": "3", "selected": true}, {
+//                                "text": "元/月",
+//                                "value": "1",
+//                            }],
+//                            suggest: "请填写租金2",
+//                            title: "租金2",
+//                            placeholder: "请填写2",
+//                            type: "zujin2"
+//                        }
+                    ],
+                    dataArr: [
                         {
                             defaultValue: "123",
-                            defaultUnit: [{"text": "元/㎡.天", "value": "3", "selected": true}, {
-                                "text": "元/月",
-                                "value": "1",
-                            }],
-                            suggest: "请填写租金2",
-                            title: "租金2",
-                            placeholder: "请填写2",
-                            type: "zujin2"
+                            defaultUnit: "m",
+                            suggest: "请填写租金1",
+                            title: "租金1",
+                            placeholder: "请填写1",
+                            type: "zujin1"
                         }
+//                        {
+//                            defaultValue: "123",
+//                            defaultUnit: [{"text": "元/㎡.天", "value": "3", "selected": true}, {
+//                                "text": "元/月",
+//                                "value": "1",
+//                            }],
+//                            suggest: "请填写租金2",
+//                            title: "租金2",
+//                            placeholder: "请填写2",
+//                            type: "zujin2"
+//                        }
                     ],
                 },
                 secondLinkageData: {
@@ -187,7 +206,7 @@
                         pname_1: "quyu",
                         pname_2: "diduan"
                     };
-                this.$area_linkage(param,function(ret,data){
+                this.$area_linkage(param, function (ret, data) {
                     // ret==0 点击确定
                     // ret==1 取消
 
@@ -205,6 +224,7 @@
                     console.log(ret)
                     console.log(data)
                 });
+
 
             },
 
