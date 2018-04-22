@@ -10,11 +10,14 @@
         <button @click="test3">测试输入控件</button>
         <button @click="test4">测试二级联动控件</button>
         <button @click="test5">二级联动new</button>
+<<<<<<< HEAD
         <button @click="test7">区域二级联动new</button>
+=======
+        <button @click="test6">楼层选择</button>
+>>>>>>> f3255932ed3bbe7cac4f5ee5060a74e2a74be104
     </div>
 </template>
 <script>
-    import Vue from 'Vue';
     export default{
         data: function () {
             return {
@@ -156,17 +159,16 @@
                             "text": "美容美发",
                             "value": "511575",
                             "title": "种类",
-                            "option":
-                                [
-                                    {"text": "美容院", "value": "511599"},
-                                    {"text": "美发店", "value": "511600"},
-                                    {"text": "美甲店", "value": "511601"},
-                                    {"text": "SPA馆", "value": "511602"}
-                                ]
+                            "option": [
+                                {"text": "美容院", "value": "511599"},
+                                {"text": "美发店", "value": "511600"},
+                                {"text": "美甲店", "value": "511601"},
+                                {"text": "SPA馆", "value": "511602"}
+                            ]
                         }
                     ]
                 };
-                this.$two_linkage(param,function(ret,data){
+                this.$two_linkage(param, function (ret, data) {
                     // ret==0 点击确定
                     // ret==1 取消
                     console.log(ret)
@@ -175,6 +177,7 @@
 
                 });
             },
+
             test7(){
                 let param =
                     {
@@ -204,6 +207,23 @@
                 });
 
             },
+
+
+            test6(){
+                var def = {
+                    defaultType: "single",//single,multi 单层|多层
+                    datasouce: ['-2,99', '-2,99', '1,99'],
+                    unit: ['%d层', '%d层', '共%d层'],
+                    suggest: "请选择楼层",
+                    title: "楼层",
+                    defaultselect: "1,1,8",
+                    placeholder: "请选择"
+                }
+                this.$lou_picker(def, (res, data) => {
+                    console.log('返回数据为：', res, data);
+                });
+            }
+
         }
     }
 </script>

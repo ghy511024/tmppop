@@ -15,17 +15,17 @@ let initInstance = (bottom) => {
 
 };
 
-var def = {
-    type: "single",//single,multi 单层|多层
-    datasouce: ['4,99', '-2,99', '-2,9'],
-    unit: ['%d层', '%d层', '共%d层'],
-    suggest: "请选择楼层",
-    title: "楼层",
-    defaultselect: "0,3,0",
-    placeholder: "请选择"
-}
+// var def = {
+//     type: "single",//single,multi 单层|多层
+//     datasouce: ['4,99', '-2,99', '-2,9'],
+//     unit: ['%d层', '%d层', '共%d层'],
+//     suggest: "请选择楼层",
+//     title: "楼层",
+//     defaultselect: "0,3,0",
+//     placeholder: "请选择"
+// }
 
-let LouPicker = (option) => {
+let LouPicker = (option, fun) => {
     instance.defaultType = option.defaultType || "single"
     for (let i = 0; i < option.datasouce.length; i++) {
         var item = option.datasouce[i]
@@ -49,6 +49,11 @@ let LouPicker = (option) => {
     }
     instance.show = true;
     instance.bindTouch();
+    instance.callback = fun;
+    instance.isbeforeActive=true;
+    setTimeout (function () {
+        instance.isactive=true;
+    },60);
 };
 
 export default {

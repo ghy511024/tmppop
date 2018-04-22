@@ -39,8 +39,9 @@ var Touch = function (target, move_target, option) {
     target.addEventListener("touchend", this._end.bind(this))
 
     watch(target, "translateY", function () {
-        // console.log("sdfsdf")
+
         var trand = target.translateY;
+        // console.log("sdfsdf",trand)
         var transform = "translateY(" + trand + "px)"
         move_target.style.transform = move_target.style.msTransform = move_target.style.OTransform = move_target.style.MozTransform = move_target.style.webkitTransform = transform;
         var index = _this._getCount(trand);
@@ -86,7 +87,6 @@ Touch.prototype = {
             this.dom_height = this.move_target.offsetHeight;
             this.dom_item_height = this.dom_height / this.dom_len;
             this.min = -this.dom_height + this.dom_item_height;
-            console.log(this.dom_height, this.dom_item_height, this.min)
         }
     },
     _move: function (evt) {
@@ -100,7 +100,7 @@ Touch.prototype = {
                 var d = currentY - this.preY;
                 var f = 0.7;
                 d = d * f;
-                this.target["translateY"] += d;
+                this.target["translateY"] = (Number(this.target["translateY"]) || 0) + d;
                 this.preY = currentY;
             }
             evt.preventDefault();
@@ -244,7 +244,6 @@ Touch.prototype = {
         num = Math.max(num, 0);
         this._full();
         var _to = num * this.dom_item_height;
-        console.log("sdf", num, this.dom_item_height, _to)
         this._to(-_to, 600, ease, null, null);
     },
     setDomLen: function () {
