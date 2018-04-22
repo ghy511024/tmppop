@@ -72,46 +72,57 @@
     .linkage .linkage-list {
         widtH: 100%;
         height: 7.46668rem;
-
-    }
-    .border{
-        display: block;
-        position: absolute;
-        z-index:-1;
-        width:50%;
-        height:100%;
-        border-right:1px solid #f6f6f6;
-    }
-    ul{
-        height: 7.46668rem;
-        width:50%;
-        position: absolute;
-        z-index:10;
-        list-style: none;
-        top:rem(90px);
         overflow: hidden;
         overflow-y: scroll;
-        li{
+    }
+
+    /*.border{*/
+    /*display: block;*/
+    /*position:absolute;*/
+    /*width:33.3%;*/
+    /*height:100%;*/
+    /*border-left:1px solid #f6f6f6;*/
+    /*border-right:1px solid #f6f6f6;*/
+    /*left:33.3%;*/
+    /*}*/
+    ul {
+        height: 7.46668rem;
+        position: absolute;
+        z-index: 10;
+        list-style: none;
+        top: rem(90px);
+        overflow: hidden;
+        overflow-y: scroll;
+        width: 33.3%;
+        border-right: 1px solid #e3e3e4;
+        li {
             position: relative;
-            height:1.3rem;
+            height: 1.3rem;
             line-height: 1.3rem;
             font-size: rem(26px);
             color: rgba(0, 0, 0, 0.75);
         }
     }
-    ul.left{
-        left:0;
+
+    ul.left {
+        left: 33.3%;
     }
-    ul.right{
-        right:0;
+
+    ul.right {
+        right: 0;
+        width: 33.4%;
+
     }
-    ul li{
+
+    ul li {
         padding: 0 10px;
     }
-    .btnactive{
+
+    .btnactive {
         background: #f6f6f6;
         color: #ff552e;
     }
+
     .linkage.beforeActive {
         display: block;
         background: transparent;
@@ -135,22 +146,26 @@
     <div v-show="show">
         <div class="linkage" v-bind:class="{beforeActive:isbeforeActive, active:isactive}" @click="close_click">
             <div class="linkage-warp" @click.stop="stop">
-                <div class="linkage-title">{{dataObj.title}}
+                <div class="linkage-title">
+                    {{title}}
                     <div class="linkage-sure" id="linkage-sure" @click="decision_click">确定</div>
                     <div class="linkage-cancel" id="linkage-cancel" @click="close_click">取消</div>
                 </div>
                 <div class="linkage-list">
+                    <ul>
+                        <li class="btnactive">{{title}}</li>
+                    </ul>
                     <ul class="left">
-                        <li v-for="(item,index) in dataObj.option" :class="{btnactive:index==cur_parent}"
+                        <li v-for="(item,index) in parent_obj" :class="{btnactive:index==cur_parent}"
                             @click="click_parent(item,index)">
-                            {{item.text}}
+                            {{item.name}}
                         </li>
                     </ul>
-                    <span class="border"></span>
+                    <!--<span class="border"></span>-->
                     <ul class="right">
-                        <li v-for="(item,index) in temp" :class="{btnactive:index==cur_child}"
+                        <li v-for="(item,index) in child_obj" :class="{btnactive:index==cur_child}"
                             @click="click_child(item,index)">
-                            {{item.text}}
+                            {{item.name}}
                         </li>
                     </ul>
                 </div>
@@ -161,6 +176,7 @@
 </template>
 
 <script>
+    import _ajax from  "../lib/touch";
     export default {
         name: 'two_linkage',
         data () {
@@ -168,59 +184,74 @@
                 show: false,
                 isbeforeActive: false,
                 isactive: false,
-                cur_parent:0,
-                cur_child:0,
-                backobj:[],
-                dataObj: {//级联数值选项
-                    },
-                temp:[],
+                cur_parent: 0,
+                cur_child: 0,
+                parent_obj: [],
+                child_obj: [],
+                backobj: [],
+                dataObj: {},//级联数值选项
+                temp: [],
                 callback: () => {
                 },
             }
         },
         mounted(){
-            console.log(this.dataObj)
-        },
-        creat(){
-        },
-        computed: {
 
         },
+        created(){
+
+        },
+        computed: {
+            title(){
+                let ret = "区域";
+                if (this.dataObj.title) {
+                    ret = this.dataObj.title;
+                }
+                return ret;
+            },
+//            getdata(){
+//
+//                new _ajax();
+//            },
+        },
+
+
         methods: {
             stop(){
+
             },//处理点击背景关闭键盘时，防止冒泡
 
             // 点击一级菜单
-            click_parent(item,index) {
+            click_parent(item, index) {
                 let _this = this;
-                _this.cur_parent=index;
-                _this.cur_child=0;
-                let tempobj={};
-                tempobj={
-                    paramname:_this.dataObj.pname_1||null,
-                    value:item.value||null,
-                    text:item.text||"暂无数据",
-                };
-                _this.backobj[0]=tempobj;
-                _this.temp=item.option||[];
-                tempobj={
-                    paramname:_this.dataObj.pname_2||null,
-                    value:_this.temp[0].value||null,
-                    text:_this.temp[0].text||"暂无数据",
-                };
-                _this.backobj[1]=tempobj;
+                _this.cur_parent = index;
+                _this.cur_child = 0;
+//                let tempobj={};
+//                tempobj={
+//                    paramname:_this.dataObj.pname_1||null,
+//                    value:item.value||null,
+//                    text:item.text||"暂无数据",
+//                };
+//                _this.backobj[0]=tempobj;
+//                _this.temp=item.option||[];
+//                tempobj={
+//                    paramname:_this.dataObj.pname_2||null,
+//                    value:_this.temp[0].value||null,
+//                    text:_this.temp[0].text||"暂无数据",
+//                };
+//                _this.backobj[1]=tempobj;
             },
             // 点击二级菜单
-            click_child(item,index) {
+            click_child(item, index) {
                 let _this = this;
-                _this.cur_child=index;
-                let tempobj={};
-                tempobj={
-                    paramname:_this.dataObj.pname_2||null,
-                    value:item.value||null,
-                    text:item.text||"暂无数据",
-                };
-                _this.backobj[1]=tempobj;
+                _this.cur_child = index;
+//                let tempobj={};
+//                tempobj={
+//                    paramname:_this.dataObj.pname_2||null,
+//                    value:item.value||null,
+//                    text:item.text||"暂无数据",
+//                };
+//                _this.backobj[1]=tempobj;
             },
             // 点击取消
             close_click() {
@@ -240,14 +271,14 @@
                     _this.isbeforeActive = false;
                     _this.show = false;
                 }, 600);
-                return _this.callback(0,_this.backobj);
+                return _this.callback(0, _this.backobj);
             },
 
         },
         watch: {
-            'visible'(val) {
+            'show'(val) {
                 if (val) {
-                    console.log(this.dataObj)
+//                    console.log(this.dataObj)
                 }
             }
         },

@@ -10,6 +10,7 @@
         <button @click="test3">测试输入控件</button>
         <button @click="test4">测试二级联动控件</button>
         <button @click="test5">二级联动new</button>
+        <button @click="test7">区域二级联动new</button>
     </div>
 </template>
 <script>
@@ -171,20 +172,37 @@
                     console.log(ret)
                     console.log(data)
 
-//                    data = [
-//                        {
-//                            paramname: "hangye",
-//                            value: "",
-//                            text: ""
-//                        },
-//                        {
-//                            paramname: "zhonlei",
-//                            value: "",
-//                            text: ""
-//                        }
-//                        ]
 
                 });
+            },
+            test7(){
+                let param =
+                    {
+                        title: "区域",
+                        key: "bj",
+                        url: "http://m.58.com/sublocals/?cityname=",
+                        pname_1: "quyu",
+                        pname_2: "diduan"
+                    };
+                this.$area_linkage(param,function(ret,data){
+                    // ret==0 点击确定
+                    // ret==1 取消
+
+//                    data = [{
+//                        paramname: "quyu",
+//                        name: "chaoyang",
+//                        value: "1142",
+//                        text: "朝阳"
+//                    }, {
+//                        paramname: "diduan",
+//                        name: "chaoyanggongyuan",
+//                        value: "5999",
+//                        text: "朝阳公园"
+//                    }]
+                    console.log(ret)
+                    console.log(data)
+                });
+
             },
         }
     }
