@@ -132,7 +132,7 @@
 
 </style>
 <template>
-    <div v-show="show">
+    <div v-show="show" ref="picker">
         <div class="linkage" v-bind:class="{beforeActive:isbeforeActive, active:isactive}" @click="close_click">
             <div class="linkage-warp" @click.stop="stop">
                 <div class="linkage-title">{{dataObj.title}}
@@ -179,7 +179,10 @@
             }
         },
         mounted(){
-            console.log(this.dataObj)
+            this.$refs.picker.addEventListener("touchmove", function(evt){
+                evt.stopPropagation()
+                evt.preventDefault()
+            })
         },
         creat(){
         },

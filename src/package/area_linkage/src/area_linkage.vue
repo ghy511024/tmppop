@@ -113,6 +113,7 @@
         margin:0 1px;
     }
 
+    .linkage.beforeActive {
         display: block;
         background: transparent;
     }
@@ -133,7 +134,7 @@
 </style>
 <template>
     <div v-show="show">
-        <div class="linkage" v-bind:class="{beforeActive:isbeforeActive, active:isactive}" @click="close_click">
+        <div class="linkage" v-bind:class="{beforeActive:isbeforeActive, active:isactive}" @click="close_click" ref="picker">
             <div class="linkage-warp" @click.stop="stop">
                 <div class="linkage-title">
                     {{title}}
@@ -183,6 +184,10 @@
             }
         },
         mounted(){
+            this.$refs.picker.addEventListener("touchmove", function(evt){
+                evt.stopPropagation()
+                evt.preventDefault()
+            })
         },
         created(){
         },
@@ -243,6 +248,7 @@
                     text: item.name||null
                 };
                 _this.backObj[1]=tempobj;
+                console.log()
             },
             // 点击取消
             close_click() {
