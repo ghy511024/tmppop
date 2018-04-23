@@ -57,17 +57,19 @@
                             placeholder: "请填写1",
                             type: "zujin1"
                         }
-//                        {
-//                            defaultValue: "123",
+                        ,
+                        {
+                            defaultValue: "123",
 //                            defaultUnit: [{"text": "元/㎡.天", "value": "3", "selected": true}, {
 //                                "text": "元/月",
 //                                "value": "1",
 //                            }],
-//                            suggest: "请填写租金2",
-//                            title: "租金2",
-//                            placeholder: "请填写2",
-//                            type: "zujin2"
-//                        }
+                            defaultUnit: "m",
+                            suggest: "请填写租金2",
+                            title: "租金2",
+                            placeholder: "请填写2",
+                            type: "zujin2"
+                        }
                     ],
                 },
                 secondLinkageData: {

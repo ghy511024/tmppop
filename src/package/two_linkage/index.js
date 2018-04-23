@@ -45,6 +45,7 @@ let two_linkage = (a,fun) => {
     instance.cur_child=0;
     instance.show = true;
     instance.isbeforeActive=true;
+    $ ("html,body").css ({ overflow: "hidden", height: "100vh" });
     setTimeout (function () {
         instance.isactive=true;
     },60);

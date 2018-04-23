@@ -8979,17 +8979,17 @@ module.exports = function (name) {
                     title: "租金1",
                     placeholder: "请填写1",
                     type: "zujin1"
-                    //                        {
-                    //                            defaultValue: "123",
+                }, {
+                    defaultValue: "123",
                     //                            defaultUnit: [{"text": "元/㎡.天", "value": "3", "selected": true}, {
                     //                                "text": "元/月",
                     //                                "value": "1",
                     //                            }],
-                    //                            suggest: "请填写租金2",
-                    //                            title: "租金2",
-                    //                            placeholder: "请填写2",
-                    //                            type: "zujin2"
-                    //                        }
+                    defaultUnit: "m",
+                    suggest: "请填写租金2",
+                    title: "租金2",
+                    placeholder: "请填写2",
+                    type: "zujin2"
                 }]
             },
             secondLinkageData: {
@@ -9562,6 +9562,7 @@ module.exports = function (it) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__lib_touch__ = __webpack_require__(83);
+//
 //
 //
 //
@@ -14656,6 +14657,7 @@ var two_linkage = function two_linkage(a, fun) {
     instance.cur_child = 0;
     instance.show = true;
     instance.isbeforeActive = true;
+    $("html,body").css({ overflow: "hidden", height: "100vh" });
     setTimeout(function () {
         instance.isactive = true;
     }, 60);
