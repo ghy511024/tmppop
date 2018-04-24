@@ -214,7 +214,7 @@
                 _this.cur_child = 0;
                 let tempobj={};
                 tempobj={
-                    paramname:_this.dataObj.first_key||null,
+                    paraname:_this.dataObj.first_key||null,
                     name: item.listname||null,
                     value: item.id||null,
                     text: item.name||null
@@ -227,13 +227,14 @@
                     let key=temparr[0].city;
                     _this.child_obj=temparr[0][key];
                     tempobj={
-                        paramname:_this.dataObj.sec_key||null,
+                        paraname:_this.dataObj.sec_key||null,
                         name: _this.child_obj[0].listname||null,
                         value: _this.child_obj[0].id||null,
                         text: _this.child_obj[0].name||null
                     };
                     _this.backObj[1]=tempobj;
                 });
+
             },
             // 点击二级菜单
             click_child(item, index) {
@@ -241,13 +242,12 @@
                 _this.cur_child = index;
                 let tempobj={};
                 tempobj={
-                    paramname:_this.dataObj.sec_key||null,
+                    paraname:_this.dataObj.sec_key||null,
                     name: item.listname||null,
                     value: item.id||null,
                     text: item.name||null
                 };
                 _this.backObj[1]=tempobj;
-                console.log()
             },
             // 点击取消
             close_click() {
@@ -271,7 +271,11 @@
                 }, 600);
                 Tool.removecss(document.body, "overflow");
                 Tool.removecss(document.body, "height");
-                return _this.callback(0, _this.backObj);
+                let obj = [];
+                _this.backObj.forEach(function(item,index){
+                    obj[index] = item;
+                });
+                return _this.callback(0, obj);
             },
 
         },

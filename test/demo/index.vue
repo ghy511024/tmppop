@@ -21,33 +21,35 @@
             return {
                 rentKeyoardData: {
                     dataArrSel: {
-                        value: 0
+                        value: 0,
+                        max_len:5,
+                        unit_position:"",//默认单位再数字后面，当参数是top时候，单位在 title后面
                     },
-                    dataArr_bk: [
-                        {
-                            defaultValue: "123",
-                            defaultUnit: [{"text": "元/㎡.天", "value": "3"}, {
-                                "text": "元/月",
-                                "value": "1",
-                                "selected": true
-                            }],
-                            suggest: "请填写租金1",
-                            title: "租金1",
-                            placeholder: "请填写1",
-                            type: "zujin1"
-                        },
+//                    dataArr_bk: [
 //                        {
 //                            defaultValue: "123",
-//                            defaultUnit: [{"text": "元/㎡.天", "value": "3", "selected": true}, {
+//                            defaultUnit: [{"text": "元/㎡.天", "value": "3"}, {
 //                                "text": "元/月",
 //                                "value": "1",
+//                                "selected": true
 //                            }],
-//                            suggest: "请填写租金2",
-//                            title: "租金2",
-//                            placeholder: "请填写2",
-//                            type: "zujin2"
-//                        }
-                    ],
+//                            suggest: "请填写租金1",
+//                            title: "租金1",
+//                            placeholder: "请填写1",
+//                            type: "zujin1"
+//                        },
+////                        {
+////                            defaultValue: "123",
+////                            defaultUnit: [{"text": "元/㎡.天", "value": "3", "selected": true}, {
+////                                "text": "元/月",
+////                                "value": "1",
+////                            }],
+////                            suggest: "请填写租金2",
+////                            title: "租金2",
+////                            placeholder: "请填写2",
+////                            type: "zujin2"
+////                        }
+//                    ],
                     dataArr: [
                         {
                             defaultValue: "123",
@@ -56,18 +58,29 @@
                             title: "租金1",
                             placeholder: "请填写1",
                             type: "zujin1"
+                        },
+                        {
+                            defaultValue: "123",
+                            defaultUnit: [{"text": "元/㎡.天", "value": "3", "selected": true}, {
+                                "text": "元/月",
+                                "value": "1",
+                            }],
+                            suggest: "请填写租金2",
+                            title: "租金2",
+                            placeholder: "请填写2",
+                            type: "zujin2"
+                        },
+                        {
+                            defaultValue: "123",
+                            defaultUnit: [{"text": "元/㎡.天", "value": "3", "selected": true}, {
+                                "text": "元/月",
+                                "value": "1",
+                            }],
+                            suggest: "请填写租金2",
+                            title: "租金2",
+                            placeholder: "请填写2",
+                            type: "zujin2"
                         }
-//                        {
-//                            defaultValue: "123",
-//                            defaultUnit: [{"text": "元/㎡.天", "value": "3", "selected": true}, {
-//                                "text": "元/月",
-//                                "value": "1",
-//                            }],
-//                            suggest: "请填写租金2",
-//                            title: "租金2",
-//                            placeholder: "请填写2",
-//                            type: "zujin2"
-//                        }
                     ],
                 },
                 secondLinkageData: {
@@ -122,7 +135,7 @@
                 let data = {
                     title: "选择您的身份",
                     //type：radio checkbox
-                    selec_type: "",
+                    selec_type: "radio",
                     //list_type： single_text multi_text
                     list_type: "",
                     option: [
@@ -141,7 +154,6 @@
             },
             test3(){
                 this.$rentKeyboard(this.rentKeyoardData, (status,res) => {
-                    console.log(this.rentKeyoardData);
                     console.log('返回状态为：', status);
                     console.log('返回数据为：', res);
                 });

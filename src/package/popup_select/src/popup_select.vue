@@ -1,6 +1,6 @@
 <template>
 
-    <div v-show="show">
+    <div v-show="show" ref="picker">
         <div class="pop-select" v-bind:class="{beforeActive:isbeforeActive, active:isactive}" @click="close_click">
             <div class="pop-wrap" @click.stop="stop">
                 <div class="pop-title">{{title}}
@@ -86,6 +86,13 @@
             },
             stop(){
             },
+            copy(obj){
+                var newobj = {};
+                for ( var attr in obj) {
+                    newobj[attr] = obj[attr];
+                }
+                return newobj;
+            },
             decision_click(){
                 let _this=this;
                 if(_this.selec_type=="radio"){
@@ -97,7 +104,9 @@
 //                        console.log("确定:   "+_this.currentobj.title);
                     Tool.removecss(document.body, "overflow");
                     Tool.removecss(document.body, "height");
-                    return _this.callback(0,_this.currentobj);
+                    let obj={};
+                    obj=_this.copy(this.currentobj);
+                    return _this.callback(0,obj);
                 }else if(_this.selec_type=="checkbox"){
                     _this.isactive = false;
                     setTimeout(function () {
@@ -111,7 +120,11 @@
 //                        }
                     Tool.removecss(document.body, "overflow");
                     Tool.removecss(document.body, "height");
-                    return _this.callback(0,_this.muli_currentobj);
+                    let array=[];
+                    _this.muli_currentobj.forEach(function(item,index){
+                        array[index]=item;
+                    })
+                    return _this.callback(0,array);
                 }
 
             },

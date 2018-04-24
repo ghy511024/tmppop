@@ -28,14 +28,14 @@ let two_linkage = (a, fun) => {
 
     let tempobj = {};
     tempobj = {
-        paramname: instance.dataObj.pname_1 || null,
+        paraname: instance.dataObj.pname_1 || null,
         value: instance.dataObj.option[0].value || null,
         text: instance.dataObj.option[0].text || "暂无数据",
     };
     instance.backobj[0] = tempobj;
     if (instance.dataObj.option[0]) {
         tempobj = {
-            paramname: instance.dataObj.pname_2 || null,
+            paraname: instance.dataObj.pname_2 || null,
             value: instance.dataObj.option[0].option[0].value || null,
             text: instance.dataObj.option[0].option[0].text || "暂无数据",
         };

@@ -62,7 +62,7 @@
                         display: block;
                         width: 100%;
                         text-align: center;
-                        font-size: 22px;
+                        font-size: 16px;
                         color: #fc5638;
                         &.placeholder {
                             color: #999;
@@ -96,21 +96,22 @@
                 box-sizing: border-box;
                 padding: 0 14px;
                 text-align: left;
+                border-bottom: 1px solid #e3e3e4;
                 .single-unit {
                     display: inline-block;
-                    width: 80px;
-                    height: 36px;
-                    line-height: 36px;
-                    border-radius: 80px;
+                    width: 70px;
+                    height: 33px;
+                    line-height: 33px;
+                    border-radius: 70px;
                     text-align: center;
-                    font-size: 15px;
-                    color: #333;
-                    background: #eee;
+                    font-size: 14px;
+                    color: #999999;
+                    background: #f6f6f6;
                     &:not(:last-child) {
                         margin-right: 8px;
                     }
                     &.active {
-                        background: red;
+                        background: #fc5638;
                         color: #fff;
                     }
                 }
@@ -185,8 +186,8 @@
                 <div class="value-area">
                     <div class="single-value" :class="{'active': index == dataArrSel.value}" v-for="(item, index) in c_dataArr" @click="handleClickSingleValue(index)">
                         <div class="single-value-shadow"></div>
-                        <span class="value-area-title">{{item.title}}</span>
-                        <span class="value-area-val" :class="{'placeholder': !item.defaultValue}">{{item.defaultValue ? item.defaultValue + item.current_unit_text : item.placeholder}}</span>
+                        <span class="value-area-title">{{item.title}}{{dataArrSel.unit_position=="top"?' '+item.current_unit_text:""}}</span>
+                        <span class="value-area-val" :class="{'placeholder': !item.defaultValue}">{{item.defaultValue? item.defaultValue:item.placeholder}}{{dataArrSel.unit_position!="top"?item.current_unit_text:""}}</span>
                     </div>
                 </div>
                 <!-- E值区域 -->
@@ -246,7 +247,7 @@
                 isbeforeActive: false,
                 isactive: false,
                 dataArrSel: {//默认选择的
-                    value: 0,
+//                    value: 0,
                 },
                 dataArr: [//几个数值选项
                 ],
@@ -373,7 +374,7 @@
             handleClick(val) {
                 let _this = this;
                 if (_this.dataArr && _this.isArray(_this.dataArr)) {
-                    if(_this.dataArr[_this.dataArrSel.value].defaultValue.length>4){
+                    if(_this.dataArr[_this.dataArrSel.value].defaultValue.length>_this.dataArrSel.max_len-1){
                         _this.dataArr[_this.dataArrSel.value].defaultValue = _this.c_value;
                     }else{
                         _this.dataArr[_this.dataArrSel.value].defaultValue = (String(_this.c_value) + val);
