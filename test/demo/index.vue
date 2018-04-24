@@ -148,14 +148,16 @@
                     ],
                 };
                 this.$popup_select(data, function (status, data) { //data是返回的数据，status是确定还是取消状态
+                    console.log("单选多选弹窗控件数据为")
                     console.log(status);
                     console.log(data)
                 });
             },
             test3(){
                 this.$rentKeyboard(this.rentKeyoardData, (status,res) => {
-                    console.log('返回状态为：', status);
-                    console.log('返回数据为：', res);
+                    console.log("返回的输入控件数据为")
+                    console.log(status);
+                    console.log(res);
                 });
             },
 //            test4(){
@@ -203,6 +205,7 @@
                 this.$two_linkage(param, function (ret, data) {
                     // ret==0 点击确定
                     // ret==1 取消
+                    console.log("返回的二级联动数据为")
                     console.log(ret)
                     console.log(data)
 
@@ -222,6 +225,7 @@
                 this.$area_linkage(param, function (ret, data) {
                     // ret==0 点击确定
                     // ret==1 取消
+                    console.log("返回的区域二级联动数据为")
                     console.log(ret)
                     console.log(data)
                 });
@@ -241,7 +245,7 @@
                     placeholder: "请选择"
                 }
                 this.$lou_picker(def, (res, data) => {
-                    console.log('返回数据为：', res, data);
+                    console.log('返回楼层选择数据为：', res, data);
                 });
             }
 

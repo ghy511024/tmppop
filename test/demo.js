@@ -9114,14 +9114,16 @@ module.exports = function (name) {
             };
             this.$popup_select(data, function (status, data) {
                 //data是返回的数据，status是确定还是取消状态
+                console.log("单选多选弹窗控件数据为");
                 console.log(status);
                 console.log(data);
             });
         },
         test3: function test3() {
             this.$rentKeyboard(this.rentKeyoardData, function (status, res) {
-                console.log('返回状态为：', status);
-                console.log('返回数据为：', res);
+                console.log("返回的输入控件数据为");
+                console.log(status);
+                console.log(res);
             });
         },
 
@@ -9150,6 +9152,7 @@ module.exports = function (name) {
             this.$two_linkage(param, function (ret, data) {
                 // ret==0 点击确定
                 // ret==1 取消
+                console.log("返回的二级联动数据为");
                 console.log(ret);
                 console.log(data);
             });
@@ -9165,6 +9168,7 @@ module.exports = function (name) {
             this.$area_linkage(param, function (ret, data) {
                 // ret==0 点击确定
                 // ret==1 取消
+                console.log("返回的区域二级联动数据为");
                 console.log(ret);
                 console.log(data);
             });
@@ -9180,7 +9184,7 @@ module.exports = function (name) {
                 placeholder: "请选择"
             };
             this.$lou_picker(def, function (res, data) {
-                console.log('返回数据为：', res, data);
+                console.log('返回楼层选择数据为：', res, data);
             });
         }
     }
@@ -14913,14 +14917,14 @@ var two_linkage = function two_linkage(a, fun) {
 
     var tempobj = {};
     tempobj = {
-        paraname: instance.dataObj.pname_1 || null,
+        paraname: instance.dataObj.first_key || null,
         value: instance.dataObj.option[0].value || null,
         text: instance.dataObj.option[0].text || "暂无数据"
     };
     instance.backobj[0] = tempobj;
     if (instance.dataObj.option[0]) {
         tempobj = {
-            paraname: instance.dataObj.pname_2 || null,
+            paraname: instance.dataObj.sec_key || null,
             value: instance.dataObj.option[0].option[0].value || null,
             text: instance.dataObj.option[0].option[0].text || "暂无数据"
         };
