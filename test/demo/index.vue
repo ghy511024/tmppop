@@ -22,8 +22,8 @@
                 rentKeyoardData: {
                     dataArrSel: {
                         value: 0,
-                        max_len:5,
-                        unit_position:"",//默认单位再数字后面，当参数是top时候，单位在 title后面
+
+                        unit_position:"top",//默认单位再数字后面，当参数是top时候，单位在 title后面
                     },
 //                    dataArr_bk: [
 //                        {
@@ -52,6 +52,7 @@
 //                    ],
                     dataArr: [
                         {
+                            max_len:5,
                             defaultValue: "123",
                             defaultUnit: "m",
                             suggest: "请填写租金1",
@@ -60,6 +61,7 @@
                             type: "zujin1"
                         },
                         {
+                            max_len:5,
                             defaultValue: "123",
                             defaultUnit: [{"text": "元/㎡.天", "value": "3", "selected": true}, {
                                 "text": "元/月",
@@ -71,6 +73,7 @@
                             type: "zujin2"
                         },
                         {
+                            max_len:4,
                             defaultValue: "123",
                             defaultUnit: [{"text": "元/㎡.天", "value": "3", "selected": true}, {
                                 "text": "元/月",

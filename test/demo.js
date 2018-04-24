@@ -9028,8 +9028,8 @@ module.exports = function (name) {
             rentKeyoardData: {
                 dataArrSel: {
                     value: 0,
-                    max_len: 5,
-                    unit_position: "" //默认单位再数字后面，当参数是top时候，单位在 title后面
+
+                    unit_position: "top" //默认单位再数字后面，当参数是top时候，单位在 title后面
                 },
                 //                    dataArr_bk: [
                 //                        {
@@ -9057,6 +9057,7 @@ module.exports = function (name) {
                 ////                        }
                 //                    ],
                 dataArr: [{
+                    max_len: 5,
                     defaultValue: "123",
                     defaultUnit: "m",
                     suggest: "请填写租金1",
@@ -9064,6 +9065,7 @@ module.exports = function (name) {
                     placeholder: "请填写1",
                     type: "zujin1"
                 }, {
+                    max_len: 5,
                     defaultValue: "123",
                     defaultUnit: [{ "text": "元/㎡.天", "value": "3", "selected": true }, {
                         "text": "元/月",
@@ -9074,6 +9076,7 @@ module.exports = function (name) {
                     placeholder: "请填写2",
                     type: "zujin2"
                 }, {
+                    max_len: 4,
                     defaultValue: "123",
                     defaultUnit: [{ "text": "元/㎡.天", "value": "3", "selected": true }, {
                         "text": "元/月",
@@ -10546,6 +10549,7 @@ exports.f = Object.getOwnPropertyNames || function getOwnPropertyNames(O) {
             show: false,
             isbeforeActive: false,
             isactive: false,
+            curindex: 0,
             dataArrSel: {//默认选择的
                 //                    value: 0,
             },
@@ -10669,6 +10673,7 @@ exports.f = Object.getOwnPropertyNames || function getOwnPropertyNames(O) {
         handleClickSingleValue: function handleClickSingleValue(index) {
             var _this = this;
             _this.dataArrSel.value = index;
+            _this.curindex = index;
         },
         handleClickUnit: function handleClickUnit(item) {
             var _this = this;
@@ -10681,7 +10686,7 @@ exports.f = Object.getOwnPropertyNames || function getOwnPropertyNames(O) {
         handleClick: function handleClick(val) {
             var _this = this;
             if (_this.dataArr && _this.isArray(_this.dataArr)) {
-                if (_this.dataArr[_this.dataArrSel.value].defaultValue.length > _this.dataArrSel.max_len - 1) {
+                if (_this.dataArr[_this.dataArrSel.value].defaultValue.length > _this.dataArr[_this.curindex].max_len - 1) {
                     _this.dataArr[_this.dataArrSel.value].defaultValue = _this.c_value;
                 } else {
                     _this.dataArr[_this.dataArrSel.value].defaultValue = String(_this.c_value) + val;
@@ -14298,7 +14303,7 @@ exports = module.exports = __webpack_require__(0)(false);
 
 
 // module
-exports.push([module.i, "\n.rent-component[data-v-0b5185a8] {\n  width: 100vw;\n  height: 100vh;\n  -webkit-transition: all 0.4s ease;\n  transition: all 0.4s ease;\n  /*background: rgba(0, 0, 0, 0.6);*/\n  position: fixed;\n  top: 0;\n  left: 0;\n}\n.rent-component .rent-component-main[data-v-0b5185a8] {\n  position: absolute;\n  z-index: 1;\n  bottom: 0;\n  left: 0;\n  width: 100%;\n  background: #fff;\n  -webkit-transition: all 0.4s ease;\n  transition: all 0.4s ease;\n  -webkit-transform: translateY(100%);\n          transform: translateY(100%);\n  /* S值显示区域 */\n  /* E值显示区域 */\n  /* S提醒显示区域 */\n  /* E提醒显示区域 */\n  /* S单位显示区域 */\n  /* E单位显示区域 */\n  /* S按钮显示区域 */\n  /* E按钮显示区域 */\n}\n.rent-component .rent-component-main .value-area[data-v-0b5185a8] {\n  height: 100px;\n  display: -moz-box;\n  display: -webkit-box;\n  -webkit-box-align: center;\n  box-align: center;\n  -webkit-box-pack: justify;\n  box-pack: justify;\n}\n.rent-component .rent-component-main .value-area .single-value[data-v-0b5185a8] {\n  -webkit-box-flex: 1;\n  -webkit-flex: 1;\n          flex: 1;\n  width: 0;\n  position: relative;\n  height: 100%;\n  box-sizing: border-box;\n}\n.rent-component .rent-component-main .value-area .single-value .single-value-shadow[data-v-0b5185a8] {\n  width: 0;\n  height: 0;\n  position: absolute;\n  top: -1px;\n  left: 0;\n}\n.rent-component .rent-component-main .value-area .single-value.active[data-v-0b5185a8] {\n  border-top: 3px solid #fc5638;\n}\n.rent-component .rent-component-main .value-area .single-value.active .single-value-shadow[data-v-0b5185a8] {\n  width: 100%;\n  height: 100%;\n  background: -webkit-linear-gradient(rgba(244, 199, 255, .1), rgba(255, 255, 255, 0));\n  background: linear-gradient(rgba(244, 199, 255, .1), rgba(255, 255, 255, 0));\n}\n.rent-component .rent-component-main .value-area .single-value .value-area-title[data-v-0b5185a8] {\n  display: block;\n  text-align: center;\n  width: 100%;\n  height: 28px;\n  line-height: 28px;\n  font-size: 14px;\n  color: #999999;\n  margin-top: 14px;\n}\n.rent-component .rent-component-main .value-area .single-value .value-area-val[data-v-0b5185a8] {\n  display: block;\n  width: 100%;\n  text-align: center;\n  font-size: 16px;\n  color: #fc5638;\n}\n.rent-component .rent-component-main .value-area .single-value .value-area-val.placeholder[data-v-0b5185a8] {\n  color: #999;\n}\n.rent-component .rent-component-main .tip-area[data-v-0b5185a8] {\n  width: 100%;\n  height: 50px;\n  line-height: 50px;\n  border-top: 1px solid #e3e3e4;\n  border-bottom: 1px solid #e3e3e4;\n  background: #f9fafc;\n  text-align: center;\n  font-size: 15px;\n  color: #999;\n}\n.rent-component .rent-component-main .unit-area[data-v-0b5185a8] {\n  text-align: center;\n  width: 100%;\n  height: 50px;\n  line-height: 50px;\n  font-size: 16px;\n  color: #666;\n  box-sizing: border-box;\n  padding: 0 14px;\n  text-align: left;\n  border-bottom: 1px solid #e3e3e4;\n}\n.rent-component .rent-component-main .unit-area .single-unit[data-v-0b5185a8] {\n  display: inline-block;\n  width: 70px;\n  height: 33px;\n  line-height: 33px;\n  border-radius: 70px;\n  text-align: center;\n  font-size: 14px;\n  color: #999999;\n  background: #f6f6f6;\n}\n.rent-component .rent-component-main .unit-area .single-unit[data-v-0b5185a8]:not(:last-child) {\n  margin-right: 8px;\n}\n.rent-component .rent-component-main .unit-area .single-unit.active[data-v-0b5185a8] {\n  background: #fc5638;\n  color: #fff;\n}\n.rent-component .rent-component-main .btns-area[data-v-0b5185a8] {\n  text-align: center;\n  width: 100%;\n  overflow: hidden;\n}\n.rent-component .rent-component-main .btns-area .left-btns[data-v-0b5185a8] {\n  float: left;\n  width: 100%;\n}\n.rent-component .rent-component-main .btns-area .left-btns .left-btns-table[data-v-0b5185a8] {\n  width: 100%;\n}\n.rent-component .rent-component-main .btns-area .left-btns .left-btns-table tr[data-v-0b5185a8] {\n  height: 70px;\n}\n.rent-component .rent-component-main .btns-area .left-btns .left-btns-table tr td[data-v-0b5185a8] {\n  font-size: 24px;\n  color: #000;\n  border-right: 1px solid #e3e3e4;\n  border-bottom: 1px solid #e3e3e4;\n}\n.rent-component .rent-component-main .btns-area .left-btns .left-btns-table tr .del-btn[data-v-0b5185a8] {\n  width: 100px;\n  background: #eaecf0;\n  color: #222;\n  font-size: 16px;\n}\n.rent-component .rent-component-main .btns-area .left-btns .left-btns-table tr .confirm-btn[data-v-0b5185a8] {\n  width: 100px;\n  background: #fc5638;\n  color: #fff;\n  font-size: 16px;\n}\n.router-fade-enter-active[data-v-0b5185a8],\n.router-fade-leave-active[data-v-0b5185a8] {\n  -webkit-transition: opacity .3s;\n  transition: opacity .3s;\n}\n.router-fade-enter[data-v-0b5185a8],\n.router-fade-leave-active[data-v-0b5185a8] {\n  opacity: 0;\n}\n.rent-component.beforeActive[data-v-0b5185a8] {\n  display: block;\n  background: transparent;\n}\n.rent-component.beforeActive .rent-component-main[data-v-0b5185a8] {\n  -webkit-transform: translateY(100%);\n          transform: translateY(100%);\n}\n.rent-component.active[data-v-0b5185a8] {\n  background: rgba(0, 0, 0, .3);\n}\n.rent-component.active .rent-component-main[data-v-0b5185a8] {\n  -webkit-transform: translateY(0);\n          transform: translateY(0);\n}\n", ""]);
+exports.push([module.i, "\n.rent-component[data-v-0b5185a8] {\n  width: 100vw;\n  height: 100vh;\n  -webkit-transition: all 0.4s ease;\n  transition: all 0.4s ease;\n  /*background: rgba(0, 0, 0, 0.6);*/\n  position: fixed;\n  top: 0;\n  left: 0;\n}\n.rent-component .rent-component-main[data-v-0b5185a8] {\n  position: absolute;\n  z-index: 1;\n  bottom: 0;\n  left: 0;\n  width: 100%;\n  background: #fff;\n  -webkit-transition: all 0.4s ease;\n  transition: all 0.4s ease;\n  -webkit-transform: translateY(100%);\n          transform: translateY(100%);\n  /* S值显示区域 */\n  /* E值显示区域 */\n  /* S提醒显示区域 */\n  /* E提醒显示区域 */\n  /* S单位显示区域 */\n  /* E单位显示区域 */\n  /* S按钮显示区域 */\n  /* E按钮显示区域 */\n}\n.rent-component .rent-component-main .value-area[data-v-0b5185a8] {\n  height: 100px;\n  display: -moz-box;\n  display: -webkit-box;\n  -webkit-box-align: center;\n  box-align: center;\n  -webkit-box-pack: justify;\n  box-pack: justify;\n}\n.rent-component .rent-component-main .value-area .single-value[data-v-0b5185a8] {\n  -webkit-box-flex: 1;\n  -webkit-flex: 1;\n          flex: 1;\n  width: 0;\n  position: relative;\n  height: 100%;\n  box-sizing: border-box;\n}\n.rent-component .rent-component-main .value-area .single-value .single-value-shadow[data-v-0b5185a8] {\n  width: 0;\n  height: 0;\n  position: absolute;\n  top: -1px;\n  left: 0;\n}\n.rent-component .rent-component-main .value-area .single-value.active[data-v-0b5185a8] {\n  border-top: 3px solid #fc5638;\n}\n.rent-component .rent-component-main .value-area .single-value.active .single-value-shadow[data-v-0b5185a8] {\n  width: 100%;\n  height: 100%;\n  background: -webkit-linear-gradient(rgba(244, 199, 255, .1), rgba(255, 255, 255, 0));\n  background: linear-gradient(rgba(244, 199, 255, .1), rgba(255, 255, 255, 0));\n}\n.rent-component .rent-component-main .value-area .single-value .value-area-title[data-v-0b5185a8] {\n  display: block;\n  text-align: center;\n  width: 100%;\n  height: 28px;\n  line-height: 28px;\n  font-size: 14px;\n  color: #999999;\n  margin-top: 14px;\n}\n.rent-component .rent-component-main .value-area .single-value .value-area-val[data-v-0b5185a8] {\n  display: block;\n  width: 100%;\n  text-align: center;\n  font-size: 18px;\n  color: #fc5638;\n}\n.rent-component .rent-component-main .value-area .single-value .value-area-val.placeholder[data-v-0b5185a8] {\n  color: #999;\n}\n.rent-component .rent-component-main .tip-area[data-v-0b5185a8] {\n  width: 100%;\n  height: 50px;\n  line-height: 50px;\n  border-top: 1px solid #e3e3e4;\n  border-bottom: 1px solid #e3e3e4;\n  background: #f9fafc;\n  text-align: center;\n  font-size: 15px;\n  color: #999;\n}\n.rent-component .rent-component-main .unit-area[data-v-0b5185a8] {\n  text-align: center;\n  width: 100%;\n  height: 50px;\n  line-height: 50px;\n  font-size: 16px;\n  color: #666;\n  box-sizing: border-box;\n  padding: 0 14px;\n  text-align: left;\n  border-bottom: 1px solid #e3e3e4;\n}\n.rent-component .rent-component-main .unit-area .single-unit[data-v-0b5185a8] {\n  display: inline-block;\n  width: 70px;\n  height: 28px;\n  line-height: 28px;\n  border-radius: 70px;\n  text-align: center;\n  font-size: 14px;\n  color: #999999;\n  background: #f6f6f6;\n}\n.rent-component .rent-component-main .unit-area .single-unit[data-v-0b5185a8]:not(:last-child) {\n  margin-right: 8px;\n}\n.rent-component .rent-component-main .unit-area .single-unit.active[data-v-0b5185a8] {\n  background: #fc5638;\n  color: #fff;\n}\n.rent-component .rent-component-main .btns-area[data-v-0b5185a8] {\n  text-align: center;\n  width: 100%;\n  overflow: hidden;\n}\n.rent-component .rent-component-main .btns-area .left-btns[data-v-0b5185a8] {\n  float: left;\n  width: 100%;\n}\n.rent-component .rent-component-main .btns-area .left-btns .left-btns-table[data-v-0b5185a8] {\n  width: 100%;\n}\n.rent-component .rent-component-main .btns-area .left-btns .left-btns-table tr[data-v-0b5185a8] {\n  height: 70px;\n}\n.rent-component .rent-component-main .btns-area .left-btns .left-btns-table tr td[data-v-0b5185a8] {\n  font-size: 24px;\n  color: #000;\n  border-right: 1px solid #e3e3e4;\n  border-bottom: 1px solid #e3e3e4;\n}\n.rent-component .rent-component-main .btns-area .left-btns .left-btns-table tr .del-btn[data-v-0b5185a8] {\n  width: 100px;\n  background: #eaecf0;\n  color: #222;\n  font-size: 16px;\n}\n.rent-component .rent-component-main .btns-area .left-btns .left-btns-table tr .confirm-btn[data-v-0b5185a8] {\n  width: 100px;\n  background: #fc5638;\n  color: #fff;\n  font-size: 16px;\n}\n.router-fade-enter-active[data-v-0b5185a8],\n.router-fade-leave-active[data-v-0b5185a8] {\n  -webkit-transition: opacity .3s;\n  transition: opacity .3s;\n}\n.router-fade-enter[data-v-0b5185a8],\n.router-fade-leave-active[data-v-0b5185a8] {\n  opacity: 0;\n}\n.rent-component.beforeActive[data-v-0b5185a8] {\n  display: block;\n  background: transparent;\n}\n.rent-component.beforeActive .rent-component-main[data-v-0b5185a8] {\n  -webkit-transform: translateY(100%);\n          transform: translateY(100%);\n}\n.rent-component.active[data-v-0b5185a8] {\n  background: rgba(0, 0, 0, .3);\n}\n.rent-component.active .rent-component-main[data-v-0b5185a8] {\n  -webkit-transform: translateY(0);\n          transform: translateY(0);\n}\n", ""]);
 
 // exports
 
@@ -14363,7 +14368,7 @@ var render = function() {
                           _vm._s(item.title) +
                             _vm._s(
                               _vm.dataArrSel.unit_position == "top"
-                                ? " " + item.current_unit_text
+                                ? "(" + item.current_unit_text + ")"
                                 : ""
                             )
                         )

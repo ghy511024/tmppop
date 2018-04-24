@@ -62,7 +62,7 @@
                         display: block;
                         width: 100%;
                         text-align: center;
-                        font-size: 16px;
+                        font-size: 18px;
                         color: #fc5638;
                         &.placeholder {
                             color: #999;
@@ -100,8 +100,8 @@
                 .single-unit {
                     display: inline-block;
                     width: 70px;
-                    height: 33px;
-                    line-height: 33px;
+                    height: 28px;
+                    line-height: 28px;
                     border-radius: 70px;
                     text-align: center;
                     font-size: 14px;
@@ -186,7 +186,7 @@
                 <div class="value-area">
                     <div class="single-value" :class="{'active': index == dataArrSel.value}" v-for="(item, index) in c_dataArr" @click="handleClickSingleValue(index)">
                         <div class="single-value-shadow"></div>
-                        <span class="value-area-title">{{item.title}}{{dataArrSel.unit_position=="top"?' '+item.current_unit_text:""}}</span>
+                        <span class="value-area-title">{{item.title}}{{dataArrSel.unit_position=="top"?'('+item.current_unit_text+')':""}}</span>
                         <span class="value-area-val" :class="{'placeholder': !item.defaultValue}">{{item.defaultValue? item.defaultValue:item.placeholder}}{{dataArrSel.unit_position!="top"?item.current_unit_text:""}}</span>
                     </div>
                 </div>
@@ -246,6 +246,7 @@
                 show: false,
                 isbeforeActive: false,
                 isactive: false,
+                curindex:0,
                 dataArrSel: {//默认选择的
 //                    value: 0,
                 },
@@ -362,6 +363,7 @@
             handleClickSingleValue(index) {
                 let _this = this;
                 _this.dataArrSel.value = index;
+                _this.curindex=index;
             },
             handleClickUnit(item) {
                 let _this = this;
@@ -374,7 +376,7 @@
             handleClick(val) {
                 let _this = this;
                 if (_this.dataArr && _this.isArray(_this.dataArr)) {
-                    if(_this.dataArr[_this.dataArrSel.value].defaultValue.length>_this.dataArrSel.max_len-1){
+                    if(_this.dataArr[_this.dataArrSel.value].defaultValue.length>_this.dataArr[_this.curindex].max_len-1){
                         _this.dataArr[_this.dataArrSel.value].defaultValue = _this.c_value;
                     }else{
                         _this.dataArr[_this.dataArrSel.value].defaultValue = (String(_this.c_value) + val);
