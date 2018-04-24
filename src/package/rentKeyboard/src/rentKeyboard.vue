@@ -2,16 +2,20 @@
     .rent-component {
         width: 100vw;
         height: 100vh;
-        background: rgba(0, 0, 0, 0.6);
+        transition: all 0.4s ease;
+        /*background: rgba(0, 0, 0, 0.6);*/
         position: fixed;
         top: 0;
         left: 0;
         .rent-component-main {
             position: absolute;
+            z-index: 1;
             bottom: 0;
             left: 0;
             width: 100%;
             background: #fff;
+            transition: all 0.4s ease;
+            transform: translateY(100%);
             /* S值显示区域 */
             .value-area {
                 height: 100px;
@@ -155,10 +159,27 @@
     .router-fade-enter, .router-fade-leave-active {
         opacity: 0;
     }
+
+    .rent-component.beforeActive {
+        display: block;
+        background: transparent;
+    }
+
+    .rent-component.beforeActive .rent-component-main {
+        transform: translateY(100%);
+    }
+
+    .rent-component.active {
+        background: rgba(0, 0, 0, 0.3);
+    }
+
+    .rent-component.active .rent-component-main {
+        transform: translateY(0);
+    }
 </style>
 <template>
-    <div>
-        <div class="rent-component" v-if="visible" @click.stop="hide">
+    <div v-show="show">
+        <div class="rent-component" v-bind:class="{beforeActive:isbeforeActive, active:isactive}" @click="close_click">
             <div class="rent-component-main" @click.stop="handleClickMain">
                 <!-- S值区域 -->
                 <div class="value-area">
@@ -216,11 +237,14 @@
 </template>
 
 <script>
+    import Tool from '../../../common/js/Tool'
     export default {
         name: 'RentComponent',
         data () {
             return {
-                visible: false,
+                show: false,
+                isbeforeActive: false,
+                isactive: false,
                 dataArrSel: {//默认选择的
                     value: 0,
                 },
@@ -262,9 +286,10 @@
                       res = null;
                 if (_this.dataArr && _this.dataArr.length && _this.isArray(_this.dataArr)) {
                     res = _this.dataArr[_this.dataArrSel.value];
-                } else {
-                    console.error && console.error('错误，请传入正确的数组：dataArr');
                 }
+//                  else {
+//                    console.error && console.error('错误，请传入正确的数组：dataArr');
+//                }
                 return res;
             },
             // 当前的所有单位
@@ -313,12 +338,26 @@
             },
         },
         methods: {
+
+            // 点击取消
+            close_click() {
+                this._close();
+                return this.callback(1);
+            },
+            _close(){
+                let _this = this;
+                _this.isactive = false;
+                setTimeout(function () {
+                    _this.isbeforeActive = false;
+                    _this.show = false;
+                }, 600);
+                Tool.removecss(document.body, "overflow");
+                Tool.removecss(document.body, "height");
+            },
             isArray(obj) {
                 return Object.prototype.toString.call(obj) === '[object Array]';
             },
-            hide() {
-                this.visible = false;
-            },
+
             handleClickSingleValue(index) {
                 let _this = this;
                 _this.dataArrSel.value = index;
@@ -389,9 +428,9 @@
                     });
                 }
                 // console.log('处理后的数据：', resData);
-                _this.callback(resData);
+                _this.callback(0,resData);
                 // 隐藏键盘
-                _this.visible = false;
+                _this._close();
             },
             handleClickMain() {},//处理点击背景关闭键盘时，防止冒泡
         },

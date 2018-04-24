@@ -1,6 +1,6 @@
 <template>
 
-    <div v-show="show" ref="picker">
+    <div v-show="show">
         <div class="pop-select" v-bind:class="{beforeActive:isbeforeActive, active:isactive}" @click="close_click">
             <div class="pop-wrap" @click.stop="stop">
                 <div class="pop-title">{{title}}
@@ -26,6 +26,7 @@
 </template>
 
 <script>
+    import Tool from '../../../common/js/Tool'
     export default {
         name: 'app',
         data() {
@@ -94,6 +95,8 @@
                         _this.show = false;
                     }, 600)
 //                        console.log("确定:   "+_this.currentobj.title);
+                    Tool.removecss(document.body, "overflow");
+                    Tool.removecss(document.body, "height");
                     return _this.callback(0,_this.currentobj);
                 }else if(_this.selec_type=="checkbox"){
                     _this.isactive = false;
@@ -106,6 +109,8 @@
 //                        for(let i =0;i<_this.muli_currentobj.length;i++){
 //                            console.log(_this.muli_currentobj[i].title);
 //                        }
+                    Tool.removecss(document.body, "overflow");
+                    Tool.removecss(document.body, "height");
                     return _this.callback(0,_this.muli_currentobj);
                 }
 
@@ -124,7 +129,9 @@
                 setTimeout(function () {
                     _this.isbeforeActive = false;
                     _this.show = false;
-                }, 600)
+                }, 600);
+                Tool.removecss(document.body, "overflow");
+                Tool.removecss(document.body, "height");
                 return _this.callback(1);
             },
 

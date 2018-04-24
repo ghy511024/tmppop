@@ -139,7 +139,7 @@
 
 </style>
 <template>
-    <div v-show="show" ref="picker">
+    <div v-show="show">
         <div class="linkage" v-bind:class="{beforeActive:isbeforeActive, active:isactive}" @click="close_click">
             <div class="linkage-warp" @click.stop="stop">
                 <div class="linkage-title">{{dataObj.title}}
@@ -187,10 +187,7 @@
             }
         },
         mounted(){
-//            this.$refs.picker.addEventListener("touchmove", function(evt){
-//                evt.stopPropagation()
-//                evt.preventDefault()
-//            })
+
         },
         creat(){
         },
@@ -206,14 +203,14 @@
                 _this.cur_child = 0;
                 let tempobj = {};
                 tempobj = {
-                    paramname: _this.dataObj.pname_1 || null,
+                    paraname: _this.dataObj.first_key || null,
                     value: item.value || null,
                     text: item.text || "暂无数据",
                 };
                 _this.backobj[0] = tempobj;
                 _this.temp = item.option || [];
                 tempobj = {
-                    paramname: _this.dataObj.pname_2 || null,
+                    paraname: _this.dataObj.sec_key || null,
                     value: _this.temp[0].value || null,
                     text: _this.temp[0].text || "暂无数据",
                 };
@@ -225,7 +222,7 @@
                 _this.cur_child = index;
                 let tempobj = {};
                 tempobj = {
-                    paramname: _this.dataObj.pname_2 || null,
+                    paraname: _this.dataObj.sec_key || null,
                     value: item.value || null,
                     text: item.text || "暂无数据",
                 };
@@ -233,13 +230,15 @@
             },
             // 点击取消
             close_click() {
-                this._close();
-                return this.callback(1);
+                let _this=this;
+                _this._close();
+                return _this.callback(1);
             },
             // 点击完成
             decision_click() {
-                this._close();
-                return this.callback(0, _this.backobj);
+                let _this=this;
+                _this._close();
+                return _this.callback(0, _this.backobj);
             },
             _close(){
                 let _this = this;

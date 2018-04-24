@@ -6,12 +6,12 @@
 </style>
 <template>
     <div class="main">
-        <button @click="test1">测试dialog</button>
-        <button @click="test2">测试popup_select</button>
-        <button @click="test3">测试输入控件</button>
-        <button @click="test4">测试二级联动控件</button>
-        <button @click="test5">二级联动new</button>
-        <button @click="test7">区域二级联动new</button>
+        <!--<button @click="test1">测试dialog</button>-->
+        <button @click="test2">popup_select</button>
+        <button @click="test3">输入控件</button>
+        <!--<button @click="test4">测试二级联动控件</button>-->
+        <button @click="test5">二级联动</button>
+        <button @click="test7">区域二级联动</button>
         <button @click="test6">楼层选择</button>
     </div>
 </template>
@@ -113,11 +113,11 @@
 
         },
         methods: {
-            test1(){
-                this.$dialog({
-                    content: "haha"
-                });
-            },
+//            test1(){
+//                this.$dialog({
+//                    content: "haha"
+//                });
+//            },
             test2(){
                 let data = {
                     title: "选择您的身份",
@@ -140,21 +140,22 @@
                 });
             },
             test3(){
-                this.$rentKeyboard(this.rentKeyoardData, (res) => {
+                this.$rentKeyboard(this.rentKeyoardData, (status,res) => {
                     console.log(this.rentKeyoardData);
+                    console.log('返回状态为：', status);
                     console.log('返回数据为：', res);
                 });
             },
-            test4(){
-                this.$secondLinkage(this.secondLinkageData, (res) => {
-                    console.log('返回数据为：', res);
-                });
-            },
+//            test4(){
+//                this.$secondLinkage(this.secondLinkageData, (res) => {
+//                    console.log('返回数据为：', res);
+//                });
+//            },
             test5(){
                 let param = {
                     title: "行业",
-                    pname_1: "hangye",
-                    pname_2: "zhonlei",
+                    first_key: "hangye",
+                    sec_key: "zhonlei",
                     option: [
                         {
                             "value": "511574",
@@ -202,25 +203,13 @@
                     {
                         title: "区域",
                         key: "bj",
-                        url: "http://m.58.com/sublocals/",
-                        pname_1: "quyu",
-                        pname_2: "diduan"
+//                        url: "http://m.58.com/sublocals/",
+                        first_key: "quyu",
+                        sec_key: "diduan"
                     };
                 this.$area_linkage(param, function (ret, data) {
                     // ret==0 点击确定
                     // ret==1 取消
-
-//                    data = [{
-//                        paramname: "quyu",
-//                        name: "chaoyang",
-//                        value: "1142",
-//                        text: "朝阳"
-//                    }, {
-//                        paramname: "diduan",
-//                        name: "chaoyanggongyuan",
-//                        value: "5999",
-//                        text: "朝阳公园"
-//                    }]
                     console.log(ret)
                     console.log(data)
                 });

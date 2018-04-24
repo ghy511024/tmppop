@@ -44,11 +44,12 @@ let two_linkage = (a, fun) => {
     instance.temp = instance.dataObj.option[0].option;
     instance.cur_parent = 0;
     instance.cur_child = 0;
-    instance.show = true;
-    instance.isbeforeActive = true;
+
 
     Tool.css( document.body,"overflow","hidden");
     Tool.css( document.body,"height","100vh");
+    instance.show = true;
+    instance.isbeforeActive = true;
     setTimeout(function () {
         instance.isactive = true;
     }, 60);

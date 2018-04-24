@@ -3,6 +3,7 @@
  */
 import Vue from 'vue';
 import RentKeyboard from './src/rentKeyboard.vue';
+import Tool from '../../common/js/Tool'
 
 function copyArr(arr){
     return arr.map((e)=>{
@@ -34,8 +35,14 @@ let _rentKeyboard = (a,fun) => {
     instance.dataArrSel = _defobj["dataArrSel"];
     instance.dataArr = copyArr(_defobj["dataArr"]);
     instance.callback = fun;
+    Tool.css( document.body,"overflow","hidden");
+    Tool.css( document.body,"height","100vh");
     //出现键盘
-    instance.visible = true;
+    instance.show = true;
+    instance.isbeforeActive = true;
+    setTimeout(function () {
+        instance.isactive = true;
+    }, 60);
 };
 
 export default {
