@@ -1,6 +1,6 @@
 <template>
 
-    <div v-show="show">
+    <div v-show="show" ref="picker">
         <div class="pop-select" v-bind:class="{beforeActive:isbeforeActive, active:isactive}" @click="close_click">
             <div class="pop-wrap" @click.stop="stop">
                 <div class="pop-title">{{title}}

@@ -76,15 +76,6 @@
         overflow-y: scroll;
     }
 
-    /*.border{*/
-    /*display: block;*/
-    /*position:absolute;*/
-    /*width:33.3%;*/
-    /*height:100%;*/
-    /*border-left:1px solid #f6f6f6;*/
-    /*border-right:1px solid #f6f6f6;*/
-    /*left:33.3%;*/
-    /*}*/
     ul {
         height: 7.46668rem;
         position: absolute;
@@ -110,8 +101,6 @@
 
     ul.right {
         right: 0;
-        width: 33.4%;
-
     }
 
     ul li {
@@ -121,6 +110,7 @@
     .btnactive {
         background: #f6f6f6;
         color: #ff552e;
+        margin:0 1px;
     }
 
     .linkage.beforeActive {
@@ -144,7 +134,7 @@
 </style>
 <template>
     <div v-show="show">
-        <div class="linkage" v-bind:class="{beforeActive:isbeforeActive, active:isactive}" @click="close_click">
+        <div class="linkage" v-bind:class="{beforeActive:isbeforeActive, active:isactive}" @click="close_click" ref="picker">
             <div class="linkage-warp" @click.stop="stop">
                 <div class="linkage-title">
                     {{title}}
@@ -161,7 +151,6 @@
                             {{item.name}}
                         </li>
                     </ul>
-                    <!--<span class="border"></span>-->
                     <ul class="right">
                         <li v-for="(item,index) in child_obj" :class="{btnactive:index==cur_child}"
                             @click="click_child(item,index)">
@@ -184,22 +173,23 @@
                 show: false,
                 isbeforeActive: false,
                 isactive: false,
-                cur_parent: 0,
-                cur_child: 0,
-                parent_obj: [],
-                child_obj: [],
-                backobj: [],
+                cur_parent: 0,//选中的父级索引值
+                cur_child: 0,//选中的子级索引值
+                parent_obj: [],//父级数组数据
+                child_obj: [],//子级数组数据
+                backObj: [],//返回的数据
                 dataObj: {},//级联数值选项
-                temp: [],
                 callback: () => {
                 },
             }
         },
         mounted(){
-
+            this.$refs.picker.addEventListener("touchmove", function(evt){
+                evt.stopPropagation()
+                evt.preventDefault()
+            })
         },
         created(){
-
         },
         computed: {
             title(){
@@ -209,10 +199,7 @@
                 }
                 return ret;
             },
-//            getdata(){
-//
-//                new _ajax();
-//            },
+
         },
 
 
@@ -226,32 +213,42 @@
                 let _this = this;
                 _this.cur_parent = index;
                 _this.cur_child = 0;
-//                let tempobj={};
-//                tempobj={
-//                    paramname:_this.dataObj.pname_1||null,
-//                    value:item.value||null,
-//                    text:item.text||"暂无数据",
-//                };
-//                _this.backobj[0]=tempobj;
-//                _this.temp=item.option||[];
-//                tempobj={
-//                    paramname:_this.dataObj.pname_2||null,
-//                    value:_this.temp[0].value||null,
-//                    text:_this.temp[0].text||"暂无数据",
-//                };
-//                _this.backobj[1]=tempobj;
+                let tempobj={};
+                tempobj={
+                    paramname:_this.dataObj.pname_1||null,
+                    name: item.listname||null,
+                    value: item.id||null,
+                    text: item.name||null
+                };
+                _this.backObj[0]=tempobj;
+                _ajax(_this.dataObj.url, {"cityname":item.listname}, function callback(ret){
+                    let temparr=null;
+                    temparr=ret.data.datastr;
+                    temparr = JSON.parse(temparr);
+                    let key=temparr[0].city;
+                    _this.child_obj=temparr[0][key];
+                    tempobj={
+                        paramname:_this.dataObj.pname_2||null,
+                        name: _this.child_obj[0].listname||null,
+                        value: _this.child_obj[0].id||null,
+                        text: _this.child_obj[0].name||null
+                    };
+                    _this.backObj[1]=tempobj;
+                });
             },
             // 点击二级菜单
             click_child(item, index) {
                 let _this = this;
                 _this.cur_child = index;
-//                let tempobj={};
-//                tempobj={
-//                    paramname:_this.dataObj.pname_2||null,
-//                    value:item.value||null,
-//                    text:item.text||"暂无数据",
-//                };
-//                _this.backobj[1]=tempobj;
+                let tempobj={};
+                tempobj={
+                    paramname:_this.dataObj.pname_2||null,
+                    name: item.listname||null,
+                    value: item.id||null,
+                    text: item.name||null
+                };
+                _this.backObj[1]=tempobj;
+                console.log()
             },
             // 点击取消
             close_click() {
@@ -271,7 +268,7 @@
                     _this.isbeforeActive = false;
                     _this.show = false;
                 }, 600);
-                return _this.callback(0, _this.backobj);
+                return _this.callback(0, _this.backObj);
             },
 
         },

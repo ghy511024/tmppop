@@ -53,7 +53,6 @@ var Touch = function (target, move_target, option) {
     this.target = target;
     this.move_target = move_target;
     this.target.translateY = 0;
-
     this.dom_len = option.dom_len//  条数
     this.change = option.change || function () {
         }

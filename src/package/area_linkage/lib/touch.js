@@ -43,7 +43,7 @@ var _native_ajax=function (options) {
 }
 var _ajax=function (url, param, success) {
     var result;
-    this._native_ajax({
+    _native_ajax({
         url: url,
         data: (param),
         callback: "callback",

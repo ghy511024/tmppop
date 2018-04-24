@@ -40,7 +40,24 @@ var Tool = {
             el.style.cssText = t;
             // console.log(t);
         }
+    },
+    removecss: function (el, key) {
+        // var cla = el.getAttribute("style") || "";
+        var style = el.style.cssText;
+        var reg = new RegExp("(^\\s*|;\\s*)(" + key + ")\\s*(:.*?)(;|!)", "gi")
+        var b = reg.test(style);
+        if (!b) {
+            style += ";" + key + ":" + value;
+            el.style.cssText = style;
+        } else {
+            var t = style.replace(reg, function (_, $1, $2, $3) {
+                return $1 + ";";
+            })
+            el.style.cssText = t;
+            // console.log(t);
+        }
     }
 }
+export default Tool;
 // var str = " background-color : blue; color: rgb(255, 255, 255);"
 // Tool.css(str, "color", "sdf");

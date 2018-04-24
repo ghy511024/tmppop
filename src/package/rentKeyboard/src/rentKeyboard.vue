@@ -17,7 +17,6 @@
                 height: 100px;
                 display: -moz-box;
                 display: -webkit-box;
-                display: box;
                 -moz-box-align: center;
                 -webkit-box-align: center;
                 box-align: center;
@@ -38,11 +37,11 @@
                         left: 0;
                     }
                     &.active {
-                        border-top: 3px solid red;
+                        border-top: 3px solid #fc5638;
                         .single-value-shadow {
                             width: 100%;
                             height: 100%;
-                            background: linear-gradient(rgba(62, 162, 229, 0.1), rgba(255, 255, 255, 0));
+                            background: linear-gradient(rgba(244, 199, 255, 0.1), rgba(255, 255, 255, 0));
                         }
                     }
                     .value-area-title {
@@ -52,7 +51,7 @@
                         height: 28px;
                         line-height: 28px;
                         font-size: 14px;
-                        color: #666;
+                        color: #999999;
                         margin-top: 14px;
                     }
                     .value-area-val {
@@ -60,7 +59,7 @@
                         width: 100%;
                         text-align: center;
                         font-size: 22px;
-                        color: red;
+                        color: #fc5638;
                         &.placeholder {
                             color: #999;
                         }
@@ -74,9 +73,9 @@
                 width: 100%;
                 height: 50px;
                 line-height: 50px;
-                border-top: 1px solid #ddd;
-                border-bottom: 1px solid #ddd;
-                background: #eff;
+                border-top: 1px solid #e3e3e4;
+                border-bottom: 1px solid #e3e3e4;
+                background: #f9fafc;
                 text-align: center;
                 font-size: 15px;
                 color: #999;
@@ -126,21 +125,22 @@
                         tr {
                             height: 70px;
                             td {
-                                font-size: 30px;
+                                font-size: 24px;
                                 color: #000;
-                                border: 1px solid #eee;
+                                border-right: 1px solid #e3e3e4;
+                                border-bottom: 1px solid #e3e3e4;
                             }
                             .del-btn {
                                 width: 100px;
-                                background: #eee;
+                                background: #eaecf0;
                                 color: #222;
-                                font-size: 20px;
+                                font-size: 16px;
                             }
                             .confirm-btn {
                                 width: 100px;
-                                background: red;
+                                background: #fc5638;
                                 color: #fff;
-                                font-size: 20px;
+                                font-size: 16px;
                             }
                         }
                     }
@@ -157,7 +157,7 @@
     }
 </style>
 <template>
-    <transition name="router-fade" mode="out-in">
+    <div>
         <div class="rent-component" v-if="visible" @click.stop="hide">
             <div class="rent-component-main" @click.stop="handleClickMain">
                 <!-- S值区域 -->
@@ -184,19 +184,19 @@
                         <table class="left-btns-table" cellspacing="0">
                             <tbody>
                                 <tr>
-                                    <td@click="handleClick('1')">1</td>
-                                    <td@click="handleClick('2')">2</td>
-                                    <td@click="handleClick('3')">3</td>
+                                    <td @click="handleClick('1')">1</td>
+                                    <td @click="handleClick('2')">2</td>
+                                    <td @click="handleClick('3')">3</td>
                                     <td class="del-btn" rowspan="2" @click="handleDel">删除</td>
                                 </tr>
                                 <tr>
-                                    <td@click="handleClick('4')">4</td>
-                                    <td@click="handleClick('5')">5</td>
-                                    <td@click="handleClick('6')">6</td>
+                                    <td @click="handleClick('4')">4</td>
+                                    <td @click="handleClick('5')">5</td>
+                                    <td @click="handleClick('6')">6</td>
                                 </tr>
                                 <tr>
-                                    <td@click="handleClick('7')">7</td>
-                                    <td@click="handleClick('8')">8</td>
+                                    <td @click="handleClick('7')">7</td>
+                                    <td @click="handleClick('8')">8</td>
                                     <td @click="handleClick('9')">9</td>
                                     <td class="confirm-btn" rowspan="2" @click="handleConfirm">确定</td>
                                 </tr>
@@ -212,7 +212,7 @@
                 <!-- E按钮区域 -->
             </div>
         </div>
-    </transition>
+    </div>
 </template>
 
 <script>
@@ -334,7 +334,11 @@
             handleClick(val) {
                 let _this = this;
                 if (_this.dataArr && _this.isArray(_this.dataArr)) {
-                    _this.dataArr[_this.dataArrSel.value].defaultValue = (String(_this.c_value) + val);
+                    if(_this.dataArr[_this.dataArrSel.value].defaultValue.length>4){
+                        _this.dataArr[_this.dataArrSel.value].defaultValue = _this.c_value;
+                    }else{
+                        _this.dataArr[_this.dataArrSel.value].defaultValue = (String(_this.c_value) + val);
+                    }
                 }
             },
             handleDel() {

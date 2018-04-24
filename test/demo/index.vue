@@ -204,7 +204,7 @@
                     {
                         title: "区域",
                         key: "bj",
-                        url: "http://m.58.com/sublocals/?cityname=",
+                        url: "http://m.58.com/sublocals/",
                         pname_1: "quyu",
                         pname_2: "diduan"
                     };

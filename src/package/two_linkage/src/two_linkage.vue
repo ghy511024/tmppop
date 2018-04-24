@@ -74,44 +74,51 @@
         height: 7.46668rem;
 
     }
-    .border{
+
+    .border {
         display: block;
         position: absolute;
-        z-index:-1;
-        width:50%;
-        height:100%;
-        border-right:1px solid #f6f6f6;
+        z-index: -1;
+        width: 50%;
+        height: 100%;
+        border-right: 1px solid #f6f6f6;
     }
-    ul{
+
+    ul {
         height: 7.46668rem;
-        width:50%;
+        width: 50%;
         position: absolute;
-        z-index:10;
+        z-index: 10;
         list-style: none;
-        top:rem(90px);
+        top: rem(90px);
         overflow: hidden;
         overflow-y: scroll;
-        li{
+        li {
             position: relative;
-            height:1.3rem;
+            height: 1.3rem;
             line-height: 1.3rem;
             font-size: rem(26px);
             color: rgba(0, 0, 0, 0.75);
         }
     }
-    ul.left{
-        left:0;
+
+    ul.left {
+        left: 0;
     }
-    ul.right{
-        right:0;
+
+    ul.right {
+        right: 0;
     }
-    ul li{
+
+    ul li {
         padding: 0 10px;
     }
-    .btnactive{
+
+    .btnactive {
         background: #f6f6f6;
         color: #ff552e;
     }
+
     .linkage.beforeActive {
         display: block;
         background: transparent;
@@ -132,7 +139,7 @@
 
 </style>
 <template>
-    <div v-show="show">
+    <div v-show="show" ref="picker">
         <div class="linkage" v-bind:class="{beforeActive:isbeforeActive, active:isactive}" @click="close_click">
             <div class="linkage-warp" @click.stop="stop">
                 <div class="linkage-title">{{dataObj.title}}
@@ -161,6 +168,7 @@
 </template>
 
 <script>
+    import Tool from '../../../common/js/Tool'
     export default {
         name: 'two_linkage',
         data () {
@@ -168,81 +176,81 @@
                 show: false,
                 isbeforeActive: false,
                 isactive: false,
-                cur_parent:0,
-                cur_child:0,
-                backobj:[],
+                cur_parent: 0,
+                cur_child: 0,
+                backobj: [],
                 dataObj: {//级联数值选项
-                    },
-                temp:[],
+                },
+                temp: [],
                 callback: () => {
                 },
             }
         },
         mounted(){
-            console.log(this.dataObj)
+//            this.$refs.picker.addEventListener("touchmove", function(evt){
+//                evt.stopPropagation()
+//                evt.preventDefault()
+//            })
         },
         creat(){
         },
-        computed: {
-
-        },
+        computed: {},
         methods: {
             stop(){
             },//处理点击背景关闭键盘时，防止冒泡
 
             // 点击一级菜单
-            click_parent(item,index) {
+            click_parent(item, index) {
                 let _this = this;
-                _this.cur_parent=index;
-                _this.cur_child=0;
-                let tempobj={};
-                tempobj={
-                    paramname:_this.dataObj.pname_1||null,
-                    value:item.value||null,
-                    text:item.text||"暂无数据",
+                _this.cur_parent = index;
+                _this.cur_child = 0;
+                let tempobj = {};
+                tempobj = {
+                    paramname: _this.dataObj.pname_1 || null,
+                    value: item.value || null,
+                    text: item.text || "暂无数据",
                 };
-                _this.backobj[0]=tempobj;
-                _this.temp=item.option||[];
-                tempobj={
-                    paramname:_this.dataObj.pname_2||null,
-                    value:_this.temp[0].value||null,
-                    text:_this.temp[0].text||"暂无数据",
+                _this.backobj[0] = tempobj;
+                _this.temp = item.option || [];
+                tempobj = {
+                    paramname: _this.dataObj.pname_2 || null,
+                    value: _this.temp[0].value || null,
+                    text: _this.temp[0].text || "暂无数据",
                 };
-                _this.backobj[1]=tempobj;
+                _this.backobj[1] = tempobj;
             },
             // 点击二级菜单
-            click_child(item,index) {
+            click_child(item, index) {
                 let _this = this;
-                _this.cur_child=index;
-                let tempobj={};
-                tempobj={
-                    paramname:_this.dataObj.pname_2||null,
-                    value:item.value||null,
-                    text:item.text||"暂无数据",
+                _this.cur_child = index;
+                let tempobj = {};
+                tempobj = {
+                    paramname: _this.dataObj.pname_2 || null,
+                    value: item.value || null,
+                    text: item.text || "暂无数据",
                 };
-                _this.backobj[1]=tempobj;
+                _this.backobj[1] = tempobj;
             },
             // 点击取消
             close_click() {
-                let _this = this;
-                _this.isactive = false;
-                setTimeout(function () {
-                    _this.isbeforeActive = false;
-                    _this.show = false;
-                }, 600)
-                return _this.callback(1);
+                this._close();
+                return this.callback(1);
             },
             // 点击完成
             decision_click() {
+                this._close();
+                return this.callback(0, _this.backobj);
+            },
+            _close(){
                 let _this = this;
                 _this.isactive = false;
                 setTimeout(function () {
                     _this.isbeforeActive = false;
                     _this.show = false;
                 }, 600);
-                return _this.callback(0,_this.backobj);
-            },
-
+                Tool.removecss(document.body, "overflow");
+                Tool.removecss(document.body, "height");
+            }
         },
         watch: {
             'visible'(val) {

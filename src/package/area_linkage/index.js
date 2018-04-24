@@ -1,11 +1,10 @@
 /**
  * Created by lipan04 on 2018/4/21.
  */
-/**
- * Created by lipan04 on 2018/4/20.
- */
+
 import Vue from 'vue';
 import Area_linkage from './src/area_linkage.vue';
+import _ajax from  "./lib/touch";
 
 let instance;
 let linkagestructor = Vue.extend(Area_linkage);
@@ -22,42 +21,46 @@ let area_linkage = (a,fun) => {
     let _defobj={
         dataObj: a,
     };
-    // let parent_obj=[
-    //     {"listname": "chaoyang", "name": "朝阳", "id": "1142"},
-    //     {"listname": "dongcheng", "name": "东城", "id": "1138"},
-    // ];
-    // let child_obj=[
-    //     {"listname": "guomao", "name": "国贸", "id": "1195"},
-    //     {"listname": "cbd", "name": "CBD ", "id": "6834"},
-    //     {"listname": "dawanglu", "name": "大望路", "id": "5785"},
-    //     {"listname": "bjsihui", "name": "四惠", "id": "5786"},
-    //     {"listname": "guomao", "name": "国贸", "id": "1195"},
-    //     {"listname": "cbd", "name": "CBD ", "id": "6834"},
-    //     {"listname": "dawanglu", "name": "大望路", "id": "5785"},
-    //     {"listname": "bjsihui", "name": "四惠", "id": "5786"}
-    // ];
-    // instance.parent_obj=parent_obj;
-    // instance.child_obj=child_obj;
-    let cur_parent;
-    let cur_child;
+    a.callback=function(ret){};
+
     instance.dataObj = _defobj["dataObj"];
     instance.callback = fun;
-    // let tempobj={};
-    // tempobj={
-    //     paramname:instance.dataObj.pname_1||null,
-    //     value:instance.dataObj.option[0].value||null,
-    //     text:instance.dataObj.option[0].text||"暂无数据",
-    // };
-    // instance.backobj[0]=tempobj;
-    // if(instance.dataObj.option[0]){
-    //     tempobj={
-    //         paramname:instance.dataObj.pname_2||null,
-    //         value:instance.dataObj.option[0].option[0].value||null,
-    //         text:instance.dataObj.option[0].option[0].text||"暂无数据",
-    //     };
-    // }
-    // instance.backobj[1]=tempobj;
-    // instance.temp=instance.dataObj.option[0].option;
+
+    let parent_obj=[];
+    let child_obj=[];
+    let tempObj={};
+    let backObj=[];
+    _ajax(a.url, {"cityname":a.key}, function callback(ret){
+        let temparr=null;
+        temparr=ret.data.datastr;
+        temparr = JSON.parse(temparr);
+        let key=temparr[0].city;
+        parent_obj=temparr[0][key];
+        instance.parent_obj=parent_obj;
+        tempObj={
+            paramname: instance.dataObj.pname_1,
+            name: instance.parent_obj[0].listname,
+            value: instance.parent_obj[0].id,
+            text: instance.parent_obj[0].name
+        };
+        instance.backObj[0]=tempObj;
+        _ajax(a.url, {"cityname":parent_obj[0].listname}, function callback(ret){
+            let temparr=null;
+            temparr=ret.data.datastr;
+            temparr = JSON.parse(temparr);
+            let key=temparr[0].city;
+            child_obj=temparr[0][key];
+            instance.child_obj=child_obj;
+            tempObj={
+                paramname: instance.dataObj.pname_2,
+                name: instance.child_obj[0].listname,
+                value: instance.child_obj[0].id,
+                text: instance.child_obj[0].name
+            };
+            instance.backObj[1]=tempObj;
+        });
+    });
+
     instance.cur_parent=0;
     instance.cur_child=0;
     instance.show = true;
@@ -65,6 +68,7 @@ let area_linkage = (a,fun) => {
     setTimeout (function () {
         instance.isactive=true;
     },60);
+
 };
 
 export default {

@@ -14,7 +14,7 @@ Vue.use(lou_picker);
 Vue.use(rentKeyboard);
 Vue.use(secondLinkage);
 Vue.use(two_linkage);
-Vue.use(area_linkage)
+Vue.use(area_linkage);
 
 
 new Vue({
