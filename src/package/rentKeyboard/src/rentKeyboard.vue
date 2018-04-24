@@ -59,7 +59,7 @@
                         width: 100%;
                         text-align: center;
                         font-size: 22px;
-                        color: red;
+                        color: #fc5638;
                         &.placeholder {
                             color: #999;
                         }
@@ -73,8 +73,8 @@
                 width: 100%;
                 height: 50px;
                 line-height: 50px;
-                border-top: 1px solid #ddd;
-                border-bottom: 1px solid #ddd;
+                border-top: 1px solid #e3e3e4;
+                border-bottom: 1px solid #e3e3e4;
                 background: #f9fafc;
                 text-align: center;
                 font-size: 15px;
@@ -127,8 +127,8 @@
                             td {
                                 font-size: 24px;
                                 color: #000;
-                                border-right: 1px solid #eee;
-                                border-bottom: 1px solid #eee;
+                                border-right: 1px solid #e3e3e4;
+                                border-bottom: 1px solid #e3e3e4;
                             }
                             .del-btn {
                                 width: 100px;
@@ -157,7 +157,7 @@
     }
 </style>
 <template>
-    <transition name="router-fade" mode="out-in">
+    <div>
         <div class="rent-component" v-if="visible" @click.stop="hide">
             <div class="rent-component-main" @click.stop="handleClickMain">
                 <!-- S值区域 -->
@@ -212,7 +212,7 @@
                 <!-- E按钮区域 -->
             </div>
         </div>
-    </transition>
+    </div>
 </template>
 
 <script>
@@ -334,7 +334,11 @@
             handleClick(val) {
                 let _this = this;
                 if (_this.dataArr && _this.isArray(_this.dataArr)) {
-                    _this.dataArr[_this.dataArrSel.value].defaultValue = (String(_this.c_value) + val);
+                    if(_this.dataArr[_this.dataArrSel.value].defaultValue.length>4){
+                        _this.dataArr[_this.dataArrSel.value].defaultValue = _this.c_value;
+                    }else{
+                        _this.dataArr[_this.dataArrSel.value].defaultValue = (String(_this.c_value) + val);
+                    }
                 }
             },
             handleDel() {
