@@ -52,7 +52,7 @@
 //                    ],
                     dataArr: [
                         {
-                            max_len:5,
+//                            max_len:5,
                             defaultValue: "123",
                             defaultUnit: "m",
                             suggest: "请填写租金1",
@@ -61,7 +61,7 @@
                             type: "zujin1"
                         },
                         {
-                            max_len:5,
+//                            max_len:5,
                             defaultValue: "123",
                             defaultUnit: [{"text": "元/㎡.天", "value": "3", "selected": true}, {
                                 "text": "元/月",
@@ -73,7 +73,7 @@
                             type: "zujin2"
                         },
                         {
-                            max_len:4,
+//                            max_len:4,
                             defaultValue: "123",
                             defaultUnit: [{"text": "元/㎡.天", "value": "3", "selected": true}, {
                                 "text": "元/月",

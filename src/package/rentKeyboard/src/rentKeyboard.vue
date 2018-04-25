@@ -376,7 +376,8 @@
             handleClick(val) {
                 let _this = this;
                 if (_this.dataArr && _this.isArray(_this.dataArr)) {
-                    if(_this.dataArr[_this.dataArrSel.value].defaultValue.length>_this.dataArr[_this.curindex].max_len-1){
+
+                    if(_this.dataArr[_this.dataArrSel.value].defaultValue.length>(_this.dataArr[_this.curindex].max_len?_this.dataArr[_this.curindex].max_len-1:4)){
                         _this.dataArr[_this.dataArrSel.value].defaultValue = _this.c_value;
                     }else{
                         _this.dataArr[_this.dataArrSel.value].defaultValue = (String(_this.c_value) + val);
