@@ -26,7 +26,6 @@ let area_linkage = (a,fun) => {
     let url=location.protocol+"//m.58.com/sublocals/";
     instance.dataObj = _defobj["dataObj"];
     instance.callback = fun;
-
     let parent_obj=[];
     let child_obj=[];
     let tempObj={};
@@ -39,32 +38,110 @@ let area_linkage = (a,fun) => {
         let key=temparr[0].city;
         parent_obj=temparr[0][key];
         instance.parent_obj=parent_obj;
-        tempObj={
-            paraname: instance.dataObj.first_key,
-            name: instance.parent_obj[0].listname,
-            value: instance.parent_obj[0].id,
-            text: instance.parent_obj[0].name
-        };
-        instance.backObj[0]=tempObj;
-        _ajax(url, {"cityname":parent_obj[0].listname}, function callback(ret){
-            let temparr=null;
-            temparr=ret.data.datastr;
-            temparr = JSON.parse(temparr);
-            let key=temparr[0].city;
-            child_obj=temparr[0][key];
-            instance.child_obj=child_obj;
+        let temp_parent_obj={};
+        let temp_child_obj={};
+        if(a.localArea&&(a.localArea!="")){
+            parent_obj.forEach(function(item,index){
+                if(item.id==a.localArea){
+                    instance.cur_parent=index;
+                    temp_parent_obj=item;
+                }
+            });
             tempObj={
-                paraname: instance.dataObj.sec_key,
-                name: instance.child_obj[0].listname,
-                value: instance.child_obj[0].id,
-                text: instance.child_obj[0].name
+                paraname: instance.dataObj.first_key,
+                name: temp_parent_obj.listname,
+                value: temp_parent_obj.id,
+                text: temp_parent_obj.name
             };
-            instance.backObj[1]=tempObj;
-        });
+            if(instance.cur_parent>5){
+                let temp={};
+                temp=parent_obj[0];
+                parent_obj[0]=parent_obj[instance.cur_parent];
+                parent_obj[instance.cur_parent]=temp;
+                instance.cur_parent=0;
+            }
+            instance.backObj[0]=tempObj;
+            if(a.localDiduan&&(a.localDiduan!="")){
+                _ajax(url, {"cityname":parent_obj[instance.cur_parent].listname}, function callback(ret){
+                    let temparr=null;
+                    temparr=ret.data.datastr;
+                    temparr = JSON.parse(temparr);
+                    let key=temparr[0].city;
+                    child_obj=temparr[0][key];
+                    instance.child_obj=child_obj;
+                    child_obj.forEach(function(item,index){
+                        if(item.id==a.localDiduan){
+                            instance.cur_child=index;
+                            temp_child_obj=item;
+                        }
+                    });
+                    tempObj={
+                        paraname: instance.dataObj.sec_key,
+                        name: temp_child_obj.listname,
+                        value: temp_child_obj.id,
+                        text: temp_child_obj.name
+                    };
+                    instance.backObj[1]=tempObj;
+                    if(instance.cur_child>5){
+                        let temp_child={};
+                        temp_child=parent_obj[0];
+                        child_obj[0]=child_obj[instance.cur_child];
+                        child_obj[instance.cur_child]=temp_child;
+                        instance.cur_child=0;
+                    }
+                });
+
+            }else{
+                _ajax(url, {"cityname":parent_obj[instance.cur_parent].listname}, function callback(ret){
+                    let temparr=null;
+                    temparr=ret.data.datastr;
+                    temparr = JSON.parse(temparr);
+                    let key=temparr[0].city;
+                    child_obj=temparr[0][key];
+                    instance.child_obj=child_obj;
+                    tempObj={
+                        paraname: instance.dataObj.sec_key,
+                        name: child_obj[0].listname,
+                        value: child_obj[0].id,
+                        text: child_obj[0].name
+                    };
+                    instance.cur_child=0;
+                    instance.backObj[1]=tempObj;
+                });
+            }
+
+        }else{
+            tempObj={
+                paraname: instance.dataObj.first_key,
+                name: instance.parent_obj[0].listname,
+                value: instance.parent_obj[0].id,
+                text: instance.parent_obj[0].name
+            };
+            instance.backObj[0]=tempObj;
+            _ajax(url, {"cityname":parent_obj[0].listname}, function callback(ret){
+                let temparr=null;
+                temparr=ret.data.datastr;
+                temparr = JSON.parse(temparr);
+                let key=temparr[0].city;
+                child_obj=temparr[0][key];
+                instance.child_obj=child_obj;
+                tempObj={
+                    paraname: instance.dataObj.sec_key,
+                    name: instance.child_obj[0].listname,
+                    value: instance.child_obj[0].id,
+                    text: instance.child_obj[0].name
+                };
+                instance.backObj[1]=tempObj;
+                instance.cur_parent=0;
+                instance.cur_parent=0;
+            });
+
+        }
+
     });
 
-    instance.cur_parent=0;
-    instance.cur_child=0;
+
+
     Tool.css( document.body,"overflow","hidden");
     Tool.css( document.body,"height","100vh");
     instance.show = true;

@@ -7,12 +7,12 @@
 <template>
     <div class="main">
         <!--<button @click="test1">测试dialog</button>-->
-        <button @click="test2">popup_select</button>
-        <button @click="test3">输入控件</button>
+        <button @click="popup_select">popup_select</button>
+        <button @click="rentKeyboard">输入控件</button>
         <!--<button @click="test4">测试二级联动控件</button>-->
-        <button @click="test5">二级联动</button>
-        <button @click="test7">区域二级联动</button>
-        <button @click="test6">楼层选择</button>
+        <button @click="two_linkage">二级联动</button>
+        <button @click="area_linkage">区域二级联动</button>
+        <button @click="lou_picker">楼层选择</button>
     </div>
 </template>
 <script>
@@ -22,37 +22,13 @@
                 rentKeyoardData: {
                     dataArrSel: {
                         value: 0,
-
                         unit_position:"top",//默认单位再数字后面，当参数是top时候，单位在 title后面
                     },
-//                    dataArr_bk: [
-//                        {
-//                            defaultValue: "123",
-//                            defaultUnit: [{"text": "元/㎡.天", "value": "3"}, {
-//                                "text": "元/月",
-//                                "value": "1",
-//                                "selected": true
-//                            }],
-//                            suggest: "请填写租金1",
-//                            title: "租金1",
-//                            placeholder: "请填写1",
-//                            type: "zujin1"
-//                        },
-////                        {
-////                            defaultValue: "123",
-////                            defaultUnit: [{"text": "元/㎡.天", "value": "3", "selected": true}, {
-////                                "text": "元/月",
-////                                "value": "1",
-////                            }],
-////                            suggest: "请填写租金2",
-////                            title: "租金2",
-////                            placeholder: "请填写2",
-////                            type: "zujin2"
-////                        }
-//                    ],
+
                     dataArr: [
                         {
-//                            max_len:5,
+//                            max_len:4,
+//                            dot_max_len:3,
                             defaultValue: "123",
                             defaultUnit: "m",
                             suggest: "请填写租金1",
@@ -61,7 +37,8 @@
                             type: "zujin1"
                         },
                         {
-//                            max_len:5,
+//                            max_len:4,
+//                            dot_max_len:3,
                             defaultValue: "123",
                             defaultUnit: [{"text": "元/㎡.天", "value": "3", "selected": true}, {
                                 "text": "元/月",
@@ -74,6 +51,7 @@
                         },
                         {
 //                            max_len:4,
+//                            dot_max_len:3,
                             defaultValue: "123",
                             defaultUnit: [{"text": "元/㎡.天", "value": "3", "selected": true}, {
                                 "text": "元/月",
@@ -134,7 +112,7 @@
 //                    content: "haha"
 //                });
 //            },
-            test2(){
+            popup_select(){
                 let data = {
                     title: "选择您的身份",
                     //type：radio checkbox
@@ -156,7 +134,7 @@
                     console.log(data)
                 });
             },
-            test3(){
+            rentKeyboard(){
                 this.$rentKeyboard(this.rentKeyoardData, (status,res) => {
                     console.log("返回的输入控件数据为")
                     console.log(status);
@@ -168,11 +146,13 @@
 //                    console.log('返回数据为：', res);
 //                });
 //            },
-            test5(){
+            two_linkage(){
                 let param = {
                     title: "行业",
                     first_key: "hangye",
                     sec_key: "zhonlei",
+                    localArea:"511575",
+                    localDiduan:"511602",
                     option: [
                         {
                             "value": "511574",
@@ -212,18 +192,19 @@
                     console.log(ret)
                     console.log(data)
 
-
                 });
             },
 
-            test7(){
+            area_linkage(){
                 let param =
                     {
                         title: "区域",
                         key: "bj",
 //                        url: "http://m.58.com/sublocals/",
                         first_key: "quyu",
-                        sec_key: "diduan"
+                        sec_key: "diduan",
+                        localArea:"1144",
+                        localDiduan:"5129",
                     };
                 this.$area_linkage(param, function (ret, data) {
                     // ret==0 点击确定
@@ -237,7 +218,7 @@
             },
 
 
-            test6(){
+            lou_picker(){
                 var def = {
                     defaultType: "single",//single,multi 单层|多层
                     datasouce: ['-2,99', '-2,99', '1,99'],
