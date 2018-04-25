@@ -151,8 +151,8 @@
                     title: "行业",
                     first_key: "hangye",
                     sec_key: "zhonlei",
-                    localArea:"511575",
-                    localDiduan:"511602",
+                    first_key_default:"511575",
+                    sec_key_default:"511602",
                     option: [
                         {
                             "value": "511574",
@@ -203,8 +203,8 @@
 //                        url: "http://m.58.com/sublocals/",
                         first_key: "quyu",
                         sec_key: "diduan",
-                        localArea:"1144",
-                        localDiduan:"5129",
+                        first_key_default:"1144",
+                        sec_key_default:"5124",
                     };
                 this.$area_linkage(param, function (ret, data) {
                     // ret==0 点击确定

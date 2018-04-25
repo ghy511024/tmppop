@@ -27,11 +27,11 @@ let two_linkage = (a, fun) => {
     let cur_parent;
     let cur_child;
     let tempobj = {};
-    if(a.localArea&&(a.localArea!="")){
+    if(a.first_key_default&&(a.first_key_default!="")){
         let temp_parent_text=null;
         let cur_parent_index=0;
         a.option.forEach(function(item,index){
-            if(item.value==a.localArea){
+            if(item.value==a.first_key_default){
                 temp_parent_text=a.option[index].text;
                 cur_parent = index;
                 cur_parent_index=index;
@@ -39,16 +39,16 @@ let two_linkage = (a, fun) => {
         });
         tempobj = {
             paraname: instance.dataObj.first_key || null,
-            value: a.localArea || null,
+            value: a.first_key_default || null,
             text: temp_parent_text || "暂无数据",
         };
         instance.backobj[0] = tempobj;
         instance.temp = a.option[cur_parent_index].option;
-        if(a.localDiduan&&(a.localDiduan!="")){
+        if(a.sec_key_default&&(a.sec_key_default!="")){
             let cur_child_index=0;
             let temp_child_text=null;
             a.option[cur_parent_index].option.forEach(function(item,index){
-                if(item.value==a.localDiduan){
+                if(item.value==a.sec_key_default){
                     temp_child_text=a.option[cur_parent_index].option[index].text;
                     cur_child = index;
                     cur_child_index=index;
@@ -56,7 +56,7 @@ let two_linkage = (a, fun) => {
             });
             tempobj = {
                 paraname: instance.dataObj.first_key || null,
-                value: a.localDiduan || null,
+                value: a.sec_key_default || null,
                 text: temp_child_text || "暂无数据",
             };
             instance.backobj[1] = tempobj;

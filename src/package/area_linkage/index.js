@@ -40,9 +40,9 @@ let area_linkage = (a,fun) => {
         instance.parent_obj=parent_obj;
         let temp_parent_obj={};
         let temp_child_obj={};
-        if(a.localArea&&(a.localArea!="")){
+        if(a.first_key_default&&(a.first_key_default!="")){
             parent_obj.forEach(function(item,index){
-                if(item.id==a.localArea){
+                if(item.id==a.first_key_default){
                     instance.cur_parent=index;
                     temp_parent_obj=item;
                 }
@@ -59,9 +59,10 @@ let area_linkage = (a,fun) => {
                 parent_obj[0]=parent_obj[instance.cur_parent];
                 parent_obj[instance.cur_parent]=temp;
                 instance.cur_parent=0;
+                instance.parent_obj=parent_obj
             }
             instance.backObj[0]=tempObj;
-            if(a.localDiduan&&(a.localDiduan!="")){
+            if(a.sec_key_default&&(a.sec_key_default!="")){
                 _ajax(url, {"cityname":parent_obj[instance.cur_parent].listname}, function callback(ret){
                     let temparr=null;
                     temparr=ret.data.datastr;
@@ -69,8 +70,9 @@ let area_linkage = (a,fun) => {
                     let key=temparr[0].city;
                     child_obj=temparr[0][key];
                     instance.child_obj=child_obj;
+                    console.log(child_obj)
                     child_obj.forEach(function(item,index){
-                        if(item.id==a.localDiduan){
+                        if(item.id==a.sec_key_default){
                             instance.cur_child=index;
                             temp_child_obj=item;
                         }
@@ -88,6 +90,7 @@ let area_linkage = (a,fun) => {
                         child_obj[0]=child_obj[instance.cur_child];
                         child_obj[instance.cur_child]=temp_child;
                         instance.cur_child=0;
+                        instance.child_obj
                     }
                 });
 
