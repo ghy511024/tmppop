@@ -31,10 +31,12 @@ let area_linkage = (a,fun) => {
     let tempObj={};
     let backObj=[];
     instance.url=url;
+
     _ajax(url, {"cityname":a.key}, function callback(ret){
         let temparr=null;
         temparr=ret.data.datastr;
         temparr = JSON.parse(temparr);
+        console.log(temparr);
         let key=temparr[0].city;
         parent_obj=temparr[0][key];
         instance.parent_obj=parent_obj;
@@ -70,7 +72,6 @@ let area_linkage = (a,fun) => {
                     let key=temparr[0].city;
                     child_obj=temparr[0][key];
                     instance.child_obj=child_obj;
-                    console.log(child_obj)
                     child_obj.forEach(function(item,index){
                         if(item.id==a.sec_key_default){
                             instance.cur_child=index;

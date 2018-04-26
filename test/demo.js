@@ -9088,9 +9088,10 @@ module.exports = function (name) {
             var data = {
                 title: "选择您的身份",
                 //type：radio checkbox
-                selec_type: "radio",
+                selec_type: "checkbox",
                 //list_type： single_text multi_text
                 list_type: "",
+                default_value: "2|3",
                 option: [{ "title": "房东", "text": "房屋所有者，具备认证房本资质", value: "1" }, { "title": "转租", "text": "转让自己承租的房子", value: "2" }, { "title": "房东", "text": "房屋所有者，具备认证房本资质", value: "3" }, { "title": "转租", "text": "转让自己承租的房子", value: "4" }, { "title": "经纪人", "text": "房产中介，拥有专业的展示空间", value: "5" }, { "title": "职业房东", "text": "公寓经营者/多房源管理者", value: "6" }]
             };
             this.$popup_select(data, function (status, data) {
@@ -9533,7 +9534,7 @@ process.umask = function() { return 0; };
                 __WEBPACK_IMPORTED_MODULE_1__common_js_Tool__["a" /* default */].removecss(document.body, "height");
                 var array = [];
                 _this.muli_currentobj.forEach(function (item, index) {
-                    array[index] = item;
+                    array[index] = _this.copy(item);
                 });
                 return _this.callback(0, array);
             }
@@ -12373,14 +12374,12 @@ var initInstance = function initInstance(bottom) {
 };
 
 var popup_select = function popup_select(a, fun) {
-
     var _defobj = {
         title: a.title,
         type: a.selec_type,
         option: a.option,
         list_type: a.list_type
     };
-    //debugger;
     instance.title = _defobj["title"];
     instance.selec_type = _defobj["type"];
     instance.option = _defobj["option"];
@@ -12396,9 +12395,32 @@ var popup_select = function popup_select(a, fun) {
     } else {
         instance.multi_text = true;
     }
+
     instance.show = true;
     if (!instance.selec_type) {
         instance.selec_type = "radio";
+    }
+    if (a.default_value && a.default_value != "") {
+        if (instance.selec_type == "radio") {
+            instance.select_map[a.default_value] = true;
+            a.option.forEach(function (item) {
+                if (item.value == a.default_value) {
+                    instance.currentobj = item;
+                }
+            });
+        } else {
+            var arr = a.default_value.split("|");
+            arr.forEach(function (item) {
+                instance.select_map[item] = true;
+            });
+            a.option.forEach(function (item) {
+                arr.forEach(function (default_value) {
+                    if (item.value == default_value) {
+                        instance.muli_currentobj.push(item);
+                    }
+                });
+            });
+        }
     }
     __WEBPACK_IMPORTED_MODULE_2__common_js_Tool__["a" /* default */].css(document.body, "overflow", "hidden");
     __WEBPACK_IMPORTED_MODULE_2__common_js_Tool__["a" /* default */].css(document.body, "height", "100vh");
@@ -15261,10 +15283,12 @@ var area_linkage = function area_linkage(a, fun) {
     var tempObj = {};
     var backObj = [];
     instance.url = url;
+
     Object(__WEBPACK_IMPORTED_MODULE_2__lib_touch__["a" /* default */])(url, { "cityname": a.key }, function callback(ret) {
         var temparr = null;
         temparr = ret.data.datastr;
         temparr = JSON.parse(temparr);
+        console.log(temparr);
         var key = temparr[0].city;
         parent_obj = temparr[0][key];
         instance.parent_obj = parent_obj;
@@ -15300,7 +15324,6 @@ var area_linkage = function area_linkage(a, fun) {
                     var key = temparr[0].city;
                     child_obj = temparr[0][key];
                     instance.child_obj = child_obj;
-                    console.log(child_obj);
                     child_obj.forEach(function (item, index) {
                         if (item.id == a.sec_key_default) {
                             instance.cur_child = index;

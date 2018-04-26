@@ -122,7 +122,7 @@
                     Tool.removecss(document.body, "height");
                     let array=[];
                     _this.muli_currentobj.forEach(function(item,index){
-                        array[index]=item;
+                        array[index]=_this.copy(item);
                     })
                     return _this.callback(0,array);
                 }

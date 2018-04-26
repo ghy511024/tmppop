@@ -17,14 +17,12 @@ let initInstance = (bottom) => {
 };
 
 let popup_select = (a,fun) => {
-
     let _defobj={
         title:a.title,
         type:a.selec_type,
         option:a.option,
         list_type:a.list_type,
     };
-    //debugger;
     instance.title=_defobj["title"];
     instance.selec_type=_defobj["type"];
     instance.option=_defobj["option"];
@@ -40,9 +38,33 @@ let popup_select = (a,fun) => {
     }else{
         instance.multi_text=true;
     }
+
     instance.show = true;
     if(!instance.selec_type){
         instance.selec_type="radio"
+    }
+    if(a.default_value&&a.default_value!=""){
+        if(instance.selec_type=="radio"){
+            instance.select_map[a.default_value]=true;
+            a.option.forEach(function(item){
+                if(item.value==a.default_value){
+                    instance.currentobj=item;
+                }
+            });
+        }else{
+            let arr=a.default_value.split("|");
+            arr.forEach(function(item){
+                instance.select_map[item]=true;
+            });
+            a.option.forEach(function(item){
+                arr.forEach(function(default_value){
+                    if(item.value==default_value){
+                        instance.muli_currentobj.push(item);
+                    }
+                });
+
+            });
+        }
     }
     Tool.css( document.body,"overflow","hidden");
     Tool.css( document.body,"height","100vh");
