@@ -239,7 +239,7 @@
             // 点击完成
             decision_click() {
                 this._close();
-                return this.callback(0, _this.backobj);
+                return this.callback(0, this.backobj);
             },
             _close(){
                 let _this = this;

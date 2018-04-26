@@ -11175,7 +11175,7 @@ exports.f = Object.getOwnPropertyNames || function getOwnPropertyNames(O) {
         // 点击完成
         decision_click: function decision_click() {
             this._close();
-            return this.callback(0, _this.backobj);
+            return this.callback(0, this.backobj);
         },
         _close: function _close() {
             var _this = this;

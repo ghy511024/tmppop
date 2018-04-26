@@ -226,11 +226,7 @@
                     console.log(ret)
                     console.log(data)
                 });
-
-
             },
-
-
             test6(){
                 var def = {
                     defaultType: "single",//single,multi 单层|多层
@@ -245,7 +241,6 @@
                     console.log('返回数据为：', res, data);
                 });
             }
-
         }
     }
 </script>
