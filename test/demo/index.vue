@@ -206,8 +206,8 @@
                 let param =
                     {
                         title: "区域",
-//                        key: "ankang",
-                        key: "bj",
+                        key: "ankang",
+//                        key: "bj",
 //                        url: "http://m.58.com/sublocals/",
                         first_key: "quyu",
                         sec_key: "diduan",

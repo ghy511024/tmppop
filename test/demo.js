@@ -9160,8 +9160,8 @@ module.exports = function (name) {
         area_linkage: function area_linkage() {
             var param = {
                 title: "区域",
-                //                        key: "ankang",
-                key: "bj",
+                key: "ankang",
+                //                        key: "bj",
                 //                        url: "http://m.58.com/sublocals/",
                 first_key: "quyu",
                 sec_key: "diduan",
@@ -15701,7 +15701,6 @@ var render = function() {
                         _vm._v(
                           "\n                        " +
                             _vm._s(item.name) +
-                            _vm._s(item.id) +
                             "\n                    "
                         )
                       ]
@@ -15732,7 +15731,6 @@ var render = function() {
                         _vm._v(
                           "\n                        " +
                             _vm._s(item.name) +
-                            _vm._s(item.id) +
                             "\n                    "
                         )
                       ]

@@ -152,7 +152,7 @@
                             :ref="'area_linkage_'+item.id"
                             :_id="item.id"
                         >
-                            {{item.name}}{{item.id}}
+                            {{item.name}}
                         </li>
                     </ul>
                     <ul class="right">
@@ -162,7 +162,7 @@
                             :ref="'area_linkage_'+item.id"
                             :_id="item.id"
                         >
-                            {{item.name}}{{item.id}}
+                            {{item.name}}
                         </li>
                     </ul>
                 </div>
