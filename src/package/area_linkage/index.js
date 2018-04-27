@@ -32,10 +32,7 @@ let area_linkage = (a, fun) => {
     instance.callback = fun;
     let parent_obj = [];
     let child_obj = [];
-<<<<<<< HEAD
     let think = [];
-=======
->>>>>>> 49db59e5e64a359e84f191230800e1c2962fed2d
     let tempObj = {};
     let backObj = [];
 
