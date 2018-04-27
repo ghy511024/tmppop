@@ -135,6 +135,7 @@
                     selec_type: "radio",
                     //list_type： single_text multi_text
                     list_type: "",
+                    default_value:"2|3",
                     option: [
                         {"title": "房东", "text": "房屋所有者，具备认证房本资质", value: "1"},
                         {"title": "转租", "text": "转让自己承租的房子", value: "2"},
@@ -220,7 +221,7 @@
                         first_key: "quyu",
                         sec_key: "diduan",
                         first_key_default:"1144",
-                        sec_key_default:"5124",
+                        sec_key_default:"5129",
                     };
                 this.$area_linkage(param, function (ret, data) {
                     // ret==0 点击确定

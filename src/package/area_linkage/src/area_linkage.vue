@@ -181,6 +181,7 @@
                 child_obj: [],//子级数组数据
                 backObj: [],//返回的数据
                 dataObj: {},//级联数值选项
+                dataStroge:[],//所有数据列表
                 callback: () => {
                 },
             }
@@ -220,21 +221,14 @@
                     text: item.name||null
                 };
                 _this.backObj[0]=tempobj;
-                _ajax(_this.url, {"cityname":item.listname}, function callback(ret){
-                    let temparr=null;
-                    temparr=ret.data.datastr;
-                    temparr = JSON.parse(temparr);
-                    let key=temparr[0].city;
-                    _this.child_obj=temparr[0][key];
-                    tempobj={
-                        paraname:_this.dataObj.sec_key||null,
-                        name: _this.child_obj[0].listname||null,
-                        value: _this.child_obj[0].id||null,
-                        text: _this.child_obj[0].name||null
-                    };
-                    _this.backObj[1]=tempobj;
-                });
-
+                _this.child_obj=_this.dataStroge[0][item.listname];
+                tempobj = {
+                    paraname: _this.dataObj.sec_key || null,
+                    name: _this.child_obj[0].listname || null,
+                    value: _this.child_obj[0].id || null,
+                    text: _this.child_obj[0].name || null
+                };
+                _this.backObj[1] = tempobj;
             },
             // 点击二级菜单
             click_child(item, index) {
@@ -256,7 +250,7 @@
                 setTimeout(function () {
                     _this.isbeforeActive = false;
                     _this.show = false;
-                }, 600)
+                }, 600);
                 Tool.removecss(document.body, "overflow");
                 Tool.removecss(document.body, "height");
                 return _this.callback(1);
@@ -282,7 +276,6 @@
         watch: {
             'show'(val) {
                 if (val) {
-//                    console.log(this.dataObj)
                 }
             }
         },

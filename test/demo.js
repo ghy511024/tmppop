@@ -8540,6 +8540,48 @@ if (typeof __g == 'number') __g = global; // eslint-disable-line no-undef
 
 /***/ }),
 /* 5 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var anObject = __webpack_require__(16);
+var IE8_DOM_DEFINE = __webpack_require__(39);
+var toPrimitive = __webpack_require__(22);
+var dP = Object.defineProperty;
+
+exports.f = __webpack_require__(6) ? Object.defineProperty : function defineProperty(O, P, Attributes) {
+  anObject(O);
+  P = toPrimitive(P, true);
+  anObject(Attributes);
+  if (IE8_DOM_DEFINE) try {
+    return dP(O, P, Attributes);
+  } catch (e) { /* empty */ }
+  if ('get' in Attributes || 'set' in Attributes) throw TypeError('Accessors not supported!');
+  if ('value' in Attributes) O[P] = Attributes.value;
+  return O;
+};
+
+
+/***/ }),
+/* 6 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// Thank's IE8 for his funny defineProperty
+module.exports = !__webpack_require__(14)(function () {
+  return Object.defineProperty({}, 'a', { get: function () { return 7; } }).a != 7;
+});
+
+
+/***/ }),
+/* 7 */
+/***/ (function(module, exports) {
+
+var hasOwnProperty = {}.hasOwnProperty;
+module.exports = function (it, key) {
+  return hasOwnProperty.call(it, key);
+};
+
+
+/***/ }),
+/* 8 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -8608,54 +8650,12 @@ var Tool = {
 // Tool.css(str, "color", "sdf");
 
 /***/ }),
-/* 6 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var anObject = __webpack_require__(16);
-var IE8_DOM_DEFINE = __webpack_require__(39);
-var toPrimitive = __webpack_require__(22);
-var dP = Object.defineProperty;
-
-exports.f = __webpack_require__(7) ? Object.defineProperty : function defineProperty(O, P, Attributes) {
-  anObject(O);
-  P = toPrimitive(P, true);
-  anObject(Attributes);
-  if (IE8_DOM_DEFINE) try {
-    return dP(O, P, Attributes);
-  } catch (e) { /* empty */ }
-  if ('get' in Attributes || 'set' in Attributes) throw TypeError('Accessors not supported!');
-  if ('value' in Attributes) O[P] = Attributes.value;
-  return O;
-};
-
-
-/***/ }),
-/* 7 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// Thank's IE8 for his funny defineProperty
-module.exports = !__webpack_require__(14)(function () {
-  return Object.defineProperty({}, 'a', { get: function () { return 7; } }).a != 7;
-});
-
-
-/***/ }),
-/* 8 */
-/***/ (function(module, exports) {
-
-var hasOwnProperty = {}.hasOwnProperty;
-module.exports = function (it, key) {
-  return hasOwnProperty.call(it, key);
-};
-
-
-/***/ }),
 /* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var dP = __webpack_require__(6);
+var dP = __webpack_require__(5);
 var createDesc = __webpack_require__(17);
-module.exports = __webpack_require__(7) ? function (object, key, value) {
+module.exports = __webpack_require__(6) ? function (object, key, value) {
   return dP.f(object, key, createDesc(1, value));
 } : function (object, key, value) {
   object[key] = value;
@@ -8736,8 +8736,12 @@ var has = __webpack_require__(7);
 var core = __webpack_require__(12);
 var ctx = __webpack_require__(74);
 var hide = __webpack_require__(9);
+<<<<<<< HEAD
 var has = __webpack_require__(8);
 >>>>>>> 03fe161b0f3394cf0c1b12e7cbeff8114b1b637a
+=======
+var has = __webpack_require__(7);
+>>>>>>> a1aefe8b764be0452e035e42b67c66703e98e14a
 var PROTOTYPE = 'prototype';
 
 var $export = function (type, name, source) {
@@ -8979,8 +8983,8 @@ module.exports = {};
 /* 31 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var def = __webpack_require__(6).f;
-var has = __webpack_require__(8);
+var def = __webpack_require__(5).f;
+var has = __webpack_require__(7);
 var TAG = __webpack_require__(11)('toStringTag');
 
 module.exports = function (it, tag, stat) {
@@ -9003,7 +9007,7 @@ var global = __webpack_require__(4);
 var core = __webpack_require__(12);
 var LIBRARY = __webpack_require__(29);
 var wksExt = __webpack_require__(32);
-var defineProperty = __webpack_require__(6).f;
+var defineProperty = __webpack_require__(5).f;
 module.exports = function (name) {
   var $Symbol = core.Symbol || (core.Symbol = LIBRARY ? {} : global.Symbol || {});
   if (name.charAt(0) != '_' && !(name in $Symbol)) defineProperty($Symbol, name, { value: wksExt.f(name) });
@@ -9111,6 +9115,7 @@ module.exports = function (name) {
                 selec_type: "radio",
                 //list_type： single_text multi_text
                 list_type: "",
+                default_value: "2|3",
                 option: [{ "title": "房东", "text": "房屋所有者，具备认证房本资质", value: "1" }, { "title": "转租", "text": "转让自己承租的房子", value: "2" }, { "title": "房东", "text": "房屋所有者，具备认证房本资质", value: "3" }, { "title": "转租", "text": "转让自己承租的房子", value: "4" }, { "title": "经纪人", "text": "房产中介，拥有专业的展示空间", value: "5" }, { "title": "职业房东", "text": "公寓经营者/多房源管理者", value: "6" }]
             };
             this.$popup_select(data, function (status, data) {
@@ -9168,7 +9173,7 @@ module.exports = function (name) {
                 first_key: "quyu",
                 sec_key: "diduan",
                 first_key_default: "1144",
-                sec_key_default: "5124"
+                sec_key_default: "5129"
             };
             this.$area_linkage(param, function (ret, data) {
                 // ret==0 点击确定
@@ -9427,7 +9432,7 @@ process.umask = function() { return 0; };
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_object_assign__ = __webpack_require__(38);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_object_assign___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_object_assign__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__common_js_Tool__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__common_js_Tool__ = __webpack_require__(8);
 
 //
 //
@@ -9553,7 +9558,7 @@ process.umask = function() { return 0; };
                 __WEBPACK_IMPORTED_MODULE_1__common_js_Tool__["a" /* default */].removecss(document.body, "height");
                 var array = [];
                 _this.muli_currentobj.forEach(function (item, index) {
-                    array[index] = item;
+                    array[index] = _this.copy(item);
                 });
                 return _this.callback(0, array);
             }
@@ -9591,7 +9596,7 @@ module.exports = { "default": __webpack_require__(72), __esModule: true };
 /* 39 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = !__webpack_require__(7) && !__webpack_require__(14)(function () {
+module.exports = !__webpack_require__(6) && !__webpack_require__(14)(function () {
   return Object.defineProperty(__webpack_require__(40)('div'), 'a', { get: function () { return 7; } }).a != 7;
 });
 
@@ -9614,12 +9619,16 @@ module.exports = function (it) {
 /***/ (function(module, exports, __webpack_require__) {
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 var has = __webpack_require__(7);
 var toIObject = __webpack_require__(9);
 var arrayIndexOf = __webpack_require__(77)(false);
 var IE_PROTO = __webpack_require__(24)('IE_PROTO');
 =======
 var has = __webpack_require__(8);
+=======
+var has = __webpack_require__(7);
+>>>>>>> a1aefe8b764be0452e035e42b67c66703e98e14a
 var toIObject = __webpack_require__(10);
 var arrayIndexOf = __webpack_require__(77)(false);
 var IE_PROTO = __webpack_require__(25)('IE_PROTO');
@@ -10332,7 +10341,7 @@ exports.f = Object.getOwnPropertyNames || function getOwnPropertyNames(O) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__common_js_Tool__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__common_js_Tool__ = __webpack_require__(8);
 //
 //
 //
@@ -10682,6 +10691,18 @@ exports.f = Object.getOwnPropertyNames || function getOwnPropertyNames(O) {
             return res;
         }
     },
+    mounted: function mounted() {
+        var _this = this;
+        var table = _this.$refs.tab;
+        table.addEventListener("click", function (ev) {
+            var event = ev || window.event;
+            var target = event.target || event.srcElement;
+            if (target.nodeName.toLowerCase() == "td") {
+                _this.handleClick(target.innerHTML);
+            }
+        });
+    },
+
     methods: {
 
         // 点击取消
@@ -11124,10 +11145,14 @@ exports.f = Object.getOwnPropertyNames || function getOwnPropertyNames(O) {
 
 "use strict";
 <<<<<<< HEAD
+<<<<<<< HEAD
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__common_js_Tool__ = __webpack_require__(52);
 =======
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__common_js_Tool__ = __webpack_require__(5);
 >>>>>>> 03fe161b0f3394cf0c1b12e7cbeff8114b1b637a
+=======
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__common_js_Tool__ = __webpack_require__(8);
+>>>>>>> a1aefe8b764be0452e035e42b67c66703e98e14a
 //
 //
 //
@@ -11477,8 +11502,12 @@ var Tool = {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__lib_touch__ = __webpack_require__(54);
 =======
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__lib_touch__ = __webpack_require__(54);
+<<<<<<< HEAD
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__common_js_Tool__ = __webpack_require__(5);
 >>>>>>> 03fe161b0f3394cf0c1b12e7cbeff8114b1b637a
+=======
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__common_js_Tool__ = __webpack_require__(8);
+>>>>>>> a1aefe8b764be0452e035e42b67c66703e98e14a
 //
 //
 //
@@ -11662,6 +11691,7 @@ var Tool = {
             child_obj: [], //子级数组数据
             backObj: [], //返回的数据
             dataObj: {}, //级联数值选项
+            dataStroge: [], //所有数据列表
             callback: function callback() {}
         };
     },
@@ -11695,20 +11725,14 @@ var Tool = {
                 text: item.name || null
             };
             _this.backObj[0] = tempobj;
-            Object(__WEBPACK_IMPORTED_MODULE_0__lib_touch__["a" /* default */])(_this.url, { "cityname": item.listname }, function callback(ret) {
-                var temparr = null;
-                temparr = ret.data.datastr;
-                temparr = JSON.parse(temparr);
-                var key = temparr[0].city;
-                _this.child_obj = temparr[0][key];
-                tempobj = {
-                    paraname: _this.dataObj.sec_key || null,
-                    name: _this.child_obj[0].listname || null,
-                    value: _this.child_obj[0].id || null,
-                    text: _this.child_obj[0].name || null
-                };
-                _this.backObj[1] = tempobj;
-            });
+            _this.child_obj = _this.dataStroge[0][item.listname];
+            tempobj = {
+                paraname: _this.dataObj.sec_key || null,
+                name: _this.child_obj[0].listname || null,
+                value: _this.child_obj[0].id || null,
+                text: _this.child_obj[0].name || null
+            };
+            _this.backObj[1] = tempobj;
         },
 
         // 点击二级菜单
@@ -11757,9 +11781,7 @@ var Tool = {
     },
     watch: {
         'show': function show(val) {
-            if (val) {
-                //                    console.log(this.dataObj)
-            }
+            if (val) {}
         }
     }
 });
@@ -12499,9 +12521,13 @@ if (false) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__src_popup_select_vue__ = __webpack_require__(69);
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__common_js_Tool__ = __webpack_require__(5);
 >>>>>>> 03fe161b0f3394cf0c1b12e7cbeff8114b1b637a
+=======
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__common_js_Tool__ = __webpack_require__(8);
+>>>>>>> a1aefe8b764be0452e035e42b67c66703e98e14a
 /**
  * Created by lipan04 on 2018/4/11.
  */
@@ -12520,14 +12546,12 @@ var initInstance = function initInstance(bottom) {
 };
 
 var popup_select = function popup_select(a, fun) {
-
     var _defobj = {
         title: a.title,
         type: a.selec_type,
         option: a.option,
         list_type: a.list_type
     };
-    //debugger;
     instance.title = _defobj["title"];
     instance.selec_type = _defobj["type"];
     instance.option = _defobj["option"];
@@ -12543,9 +12567,33 @@ var popup_select = function popup_select(a, fun) {
     } else {
         instance.multi_text = true;
     }
+
     instance.show = true;
     if (!instance.selec_type) {
         instance.selec_type = "radio";
+    }
+    if (a.default_value && a.default_value != "") {
+        if (instance.selec_type == "radio") {
+            var arr1 = a.default_value.split("|");
+            instance.select_map[arr1[0]] = true;
+            a.option.forEach(function (item) {
+                if (item.value == arr1[0]) {
+                    instance.currentobj = item;
+                }
+            });
+        } else {
+            var arr = a.default_value.split("|");
+            arr.forEach(function (item) {
+                instance.select_map[item] = true;
+            });
+            a.option.forEach(function (item) {
+                arr.forEach(function (default_value) {
+                    if (item.value == default_value) {
+                        instance.muli_currentobj.push(item);
+                    }
+                });
+            });
+        }
     }
     __WEBPACK_IMPORTED_MODULE_2__common_js_Tool__["a" /* default */].css(document.body, "overflow", "hidden");
     __WEBPACK_IMPORTED_MODULE_2__common_js_Tool__["a" /* default */].css(document.body, "height", "100vh");
@@ -13436,7 +13484,7 @@ module.exports = function defineProperty(it, key, desc) {
 
 var $export = __webpack_require__(15);
 // 19.1.2.4 / 15.2.3.6 Object.defineProperty(O, P, Attributes)
-$export($export.S + $export.F * !__webpack_require__(7), 'Object', { defineProperty: __webpack_require__(6).f });
+$export($export.S + $export.F * !__webpack_require__(6), 'Object', { defineProperty: __webpack_require__(5).f });
 
 
 /***/ }),
@@ -13667,9 +13715,13 @@ if (false) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vue__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__src_rentKeyboard_vue__ = __webpack_require__(115);
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__common_js_Tool__ = __webpack_require__(5);
 >>>>>>> 03fe161b0f3394cf0c1b12e7cbeff8114b1b637a
+=======
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__common_js_Tool__ = __webpack_require__(8);
+>>>>>>> a1aefe8b764be0452e035e42b67c66703e98e14a
 
 
 /**
@@ -13843,11 +13895,11 @@ module.exports = function (Constructor, NAME, next) {
 /* 97 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var dP = __webpack_require__(6);
+var dP = __webpack_require__(5);
 var anObject = __webpack_require__(16);
 var getKeys = __webpack_require__(18);
 
-module.exports = __webpack_require__(7) ? Object.defineProperties : function defineProperties(O, Properties) {
+module.exports = __webpack_require__(6) ? Object.defineProperties : function defineProperties(O, Properties) {
   anObject(O);
   var keys = getKeys(Properties);
   var length = keys.length;
@@ -13871,7 +13923,7 @@ module.exports = document && document.documentElement;
 /***/ (function(module, exports, __webpack_require__) {
 
 // 19.1.2.9 / 15.2.3.2 Object.getPrototypeOf(O)
-var has = __webpack_require__(8);
+var has = __webpack_require__(7);
 var toObject = __webpack_require__(44);
 var IE_PROTO = __webpack_require__(25)('IE_PROTO');
 var ObjectProto = Object.prototype;
@@ -14002,6 +14054,7 @@ module.exports = __webpack_require__(12).Symbol;
 // ECMAScript 6 symbols shim
 var global = __webpack_require__(4);
 <<<<<<< HEAD
+<<<<<<< HEAD
 var has = __webpack_require__(7);
 var DESCRIPTORS = __webpack_require__(6);
 var $export = __webpack_require__(14);
@@ -14029,6 +14082,10 @@ var $keys = __webpack_require__(17);
 =======
 var has = __webpack_require__(8);
 var DESCRIPTORS = __webpack_require__(7);
+=======
+var has = __webpack_require__(7);
+var DESCRIPTORS = __webpack_require__(6);
+>>>>>>> a1aefe8b764be0452e035e42b67c66703e98e14a
 var $export = __webpack_require__(15);
 var redefine = __webpack_require__(47);
 var META = __webpack_require__(107).KEY;
@@ -14049,7 +14106,7 @@ var createDesc = __webpack_require__(17);
 var _create = __webpack_require__(48);
 var gOPNExt = __webpack_require__(110);
 var $GOPD = __webpack_require__(111);
-var $DP = __webpack_require__(6);
+var $DP = __webpack_require__(5);
 var $keys = __webpack_require__(18);
 >>>>>>> 03fe161b0f3394cf0c1b12e7cbeff8114b1b637a
 var gOPD = $GOPD.f;
@@ -14267,8 +14324,8 @@ setToStringTag(global.JSON, 'JSON', true);
 
 var META = __webpack_require__(19)('meta');
 var isObject = __webpack_require__(13);
-var has = __webpack_require__(8);
-var setDesc = __webpack_require__(6).f;
+var has = __webpack_require__(7);
+var setDesc = __webpack_require__(5).f;
 var id = 0;
 var isExtensible = Object.isExtensible || function () {
   return true;
@@ -14385,11 +14442,11 @@ var pIE = __webpack_require__(20);
 var createDesc = __webpack_require__(17);
 var toIObject = __webpack_require__(10);
 var toPrimitive = __webpack_require__(22);
-var has = __webpack_require__(8);
+var has = __webpack_require__(7);
 var IE8_DOM_DEFINE = __webpack_require__(39);
 var gOPD = Object.getOwnPropertyDescriptor;
 
-exports.f = __webpack_require__(7) ? gOPD : function getOwnPropertyDescriptor(O, P) {
+exports.f = __webpack_require__(6) ? gOPD : function getOwnPropertyDescriptor(O, P) {
   O = toIObject(O);
   P = toPrimitive(P, true);
   if (IE8_DOM_DEFINE) try {
@@ -14648,47 +14705,18 @@ var render = function() {
                   _c(
                     "table",
                     {
+                      ref: "tab",
                       staticClass: "left-btns-table",
-                      attrs: { cellspacing: "0" }
+                      attrs: { cellspacing: "0", id: "table" }
                     },
                     [
                       _c("tbody", [
                         _c("tr", [
-                          _c(
-                            "td",
-                            {
-                              on: {
-                                click: function($event) {
-                                  _vm.handleClick("1")
-                                }
-                              }
-                            },
-                            [_vm._v("1")]
-                          ),
+                          _c("td", [_vm._v("1")]),
                           _vm._v(" "),
-                          _c(
-                            "td",
-                            {
-                              on: {
-                                click: function($event) {
-                                  _vm.handleClick("2")
-                                }
-                              }
-                            },
-                            [_vm._v("2")]
-                          ),
+                          _c("td", [_vm._v("2")]),
                           _vm._v(" "),
-                          _c(
-                            "td",
-                            {
-                              on: {
-                                click: function($event) {
-                                  _vm.handleClick("3")
-                                }
-                              }
-                            },
-                            [_vm._v("3")]
-                          ),
+                          _c("td", [_vm._v("3")]),
                           _vm._v(" "),
                           _c(
                             "td",
@@ -14701,80 +14729,14 @@ var render = function() {
                           )
                         ]),
                         _vm._v(" "),
-                        _c("tr", [
-                          _c(
-                            "td",
-                            {
-                              on: {
-                                click: function($event) {
-                                  _vm.handleClick("4")
-                                }
-                              }
-                            },
-                            [_vm._v("4")]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "td",
-                            {
-                              on: {
-                                click: function($event) {
-                                  _vm.handleClick("5")
-                                }
-                              }
-                            },
-                            [_vm._v("5")]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "td",
-                            {
-                              on: {
-                                click: function($event) {
-                                  _vm.handleClick("6")
-                                }
-                              }
-                            },
-                            [_vm._v("6")]
-                          )
-                        ]),
+                        _vm._m(0),
                         _vm._v(" "),
                         _c("tr", [
-                          _c(
-                            "td",
-                            {
-                              on: {
-                                click: function($event) {
-                                  _vm.handleClick("7")
-                                }
-                              }
-                            },
-                            [_vm._v("7")]
-                          ),
+                          _c("td", [_vm._v("7")]),
                           _vm._v(" "),
-                          _c(
-                            "td",
-                            {
-                              on: {
-                                click: function($event) {
-                                  _vm.handleClick("8")
-                                }
-                              }
-                            },
-                            [_vm._v("8")]
-                          ),
+                          _c("td", [_vm._v("8")]),
                           _vm._v(" "),
-                          _c(
-                            "td",
-                            {
-                              on: {
-                                click: function($event) {
-                                  _vm.handleClick("9")
-                                }
-                              }
-                            },
-                            [_vm._v("9")]
-                          ),
+                          _c("td", [_vm._v("9")]),
                           _vm._v(" "),
                           _c(
                             "td",
@@ -14787,33 +14749,7 @@ var render = function() {
                           )
                         ]),
                         _vm._v(" "),
-                        _c("tr", [
-                          _c("td"),
-                          _vm._v(" "),
-                          _c(
-                            "td",
-                            {
-                              on: {
-                                click: function($event) {
-                                  _vm.handleClick("0")
-                                }
-                              }
-                            },
-                            [_vm._v("0")]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "td",
-                            {
-                              on: {
-                                click: function($event) {
-                                  _vm.handleClick(".")
-                                }
-                              }
-                            },
-                            [_vm._v(".")]
-                          )
-                        ])
+                        _vm._m(1)
                       ])
                     ]
                   )
@@ -14826,7 +14762,32 @@ var render = function() {
     ]
   )
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("tr", [
+      _c("td", [_vm._v("4")]),
+      _vm._v(" "),
+      _c("td", [_vm._v("5")]),
+      _vm._v(" "),
+      _c("td", [_vm._v("6")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("tr", [
+      _c("td"),
+      _vm._v(" "),
+      _c("td", [_vm._v("0")]),
+      _vm._v(" "),
+      _c("td", [_vm._v(".")])
+    ])
+  }
+]
 render._withStripped = true
 var esExports = { render: render, staticRenderFns: staticRenderFns }
 /* harmony default export */ __webpack_exports__["a"] = (esExports);
@@ -15111,10 +15072,14 @@ if (false) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__src_two_linkage_vue__ = __webpack_require__(125);
 <<<<<<< HEAD
+<<<<<<< HEAD
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__common_js_Tool__ = __webpack_require__(52);
 =======
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__common_js_Tool__ = __webpack_require__(5);
 >>>>>>> 03fe161b0f3394cf0c1b12e7cbeff8114b1b637a
+=======
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__common_js_Tool__ = __webpack_require__(8);
+>>>>>>> a1aefe8b764be0452e035e42b67c66703e98e14a
 /**
  * Created by lipan04 on 2018/4/20.
  */
@@ -15464,9 +15429,13 @@ if (false) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__src_area_linkage_vue__ = __webpack_require__(130);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__lib_touch__ = __webpack_require__(54);
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__common_js_Tool__ = __webpack_require__(5);
 >>>>>>> 03fe161b0f3394cf0c1b12e7cbeff8114b1b637a
+=======
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__common_js_Tool__ = __webpack_require__(8);
+>>>>>>> a1aefe8b764be0452e035e42b67c66703e98e14a
 /**
  * Created by lipan04 on 2018/4/21.
  */
@@ -15478,6 +15447,8 @@ if (false) {
 
 var instance = void 0;
 var linkagestructor = __WEBPACK_IMPORTED_MODULE_0_vue__["a" /* default */].extend(__WEBPACK_IMPORTED_MODULE_1__src_area_linkage_vue__["a" /* default */]);
+var dataStroge = [];
+var id_to_listname = {};
 
 var initInstance = function initInstance(bottom) {
     instance = new linkagestructor({
@@ -15499,21 +15470,45 @@ var area_linkage = function area_linkage(a, fun) {
     var child_obj = [];
     var tempObj = {};
     var backObj = [];
+
     instance.url = url;
-    Object(__WEBPACK_IMPORTED_MODULE_2__lib_touch__["a" /* default */])(url, { "cityname": a.key }, function callback(ret) {
-        var temparr = null;
-        temparr = ret.data.datastr;
-        temparr = JSON.parse(temparr);
-        var key = temparr[0].city;
-        parent_obj = temparr[0][key];
-        instance.parent_obj = parent_obj;
-        var temp_parent_obj = {};
-        var temp_child_obj = {};
+    if (dataStroge == "") {
+        Object(__WEBPACK_IMPORTED_MODULE_2__lib_touch__["a" /* default */])(url, { "cityname": a.key }, function callback(ret) {
+            var temparr = null;
+            temparr = ret.data.datastr;
+            temparr = JSON.parse(temparr);
+            dataStroge = temparr;
+            var key = temparr[0].city;
+            temparr[0][key].forEach(function (item) {
+                id_to_listname[item.id] = item.listname;
+                // let child_key=item.listname;
+                // let curobj=temparr[0][child_key];
+                // curobj.forEach(function(cur_item){
+                //     id_to_listname[cur_item.id]=cur_item.listname;
+                // })
+            });
+            instance.dataStroge = dataStroge;
+            get_data(dataStroge, id_to_listname);
+        });
+    } else {
+        get_data(dataStroge, id_to_listname);
+    }
+
+    function get_data(dataStroge, id_to_listname) {
+        parent_obj = dataStroge[0][dataStroge[0].city];
         if (a.first_key_default && a.first_key_default != "") {
+            //如果第一个参数存在,则一级默认选中的是a.first_key_default对应的对象，二级数据也是a.first_key_default下对应的数据
+            var temp_parent_obj = {};
+            var temp_child_obj = {};
             parent_obj.forEach(function (item, index) {
                 if (item.id == a.first_key_default) {
                     instance.cur_parent = index;
                     temp_parent_obj = item;
+                    for (var cur_item in dataStroge[0]) {
+                        if (cur_item == id_to_listname[a.first_key_default]) {
+                            child_obj = dataStroge[0][cur_item];
+                        }
+                    }
                 }
             });
             tempObj = {
@@ -15528,85 +15523,177 @@ var area_linkage = function area_linkage(a, fun) {
                 parent_obj[0] = parent_obj[instance.cur_parent];
                 parent_obj[instance.cur_parent] = temp;
                 instance.cur_parent = 0;
-                instance.parent_obj = parent_obj;
             }
             instance.backObj[0] = tempObj;
             if (a.sec_key_default && a.sec_key_default != "") {
-                Object(__WEBPACK_IMPORTED_MODULE_2__lib_touch__["a" /* default */])(url, { "cityname": parent_obj[instance.cur_parent].listname }, function callback(ret) {
-                    var temparr = null;
-                    temparr = ret.data.datastr;
-                    temparr = JSON.parse(temparr);
-                    var key = temparr[0].city;
-                    child_obj = temparr[0][key];
-                    instance.child_obj = child_obj;
-                    console.log(child_obj);
-                    child_obj.forEach(function (item, index) {
-                        if (item.id == a.sec_key_default) {
-                            instance.cur_child = index;
-                            temp_child_obj = item;
-                        }
-                    });
-                    tempObj = {
-                        paraname: instance.dataObj.sec_key,
-                        name: temp_child_obj.listname,
-                        value: temp_child_obj.id,
-                        text: temp_child_obj.name
-                    };
-                    instance.backObj[1] = tempObj;
-                    if (instance.cur_child > 5) {
-                        var temp_child = {};
-                        temp_child = parent_obj[0];
-                        child_obj[0] = child_obj[instance.cur_child];
-                        child_obj[instance.cur_child] = temp_child;
-                        instance.cur_child = 0;
-                        instance.child_obj;
+                //如果第二个参数存在，则二级选中的是a.sec_key_default对应的对象
+                child_obj.forEach(function (item, index) {
+                    if (item.id == a.sec_key_default) {
+                        instance.cur_child = index;
+                        temp_child_obj = item;
                     }
                 });
-            } else {
-                Object(__WEBPACK_IMPORTED_MODULE_2__lib_touch__["a" /* default */])(url, { "cityname": parent_obj[instance.cur_parent].listname }, function callback(ret) {
-                    var temparr = null;
-                    temparr = ret.data.datastr;
-                    temparr = JSON.parse(temparr);
-                    var key = temparr[0].city;
-                    child_obj = temparr[0][key];
-                    instance.child_obj = child_obj;
-                    tempObj = {
-                        paraname: instance.dataObj.sec_key,
-                        name: child_obj[0].listname,
-                        value: child_obj[0].id,
-                        text: child_obj[0].name
-                    };
-                    instance.cur_child = 0;
-                    instance.backObj[1] = tempObj;
-                });
-            }
-        } else {
-            tempObj = {
-                paraname: instance.dataObj.first_key,
-                name: instance.parent_obj[0].listname,
-                value: instance.parent_obj[0].id,
-                text: instance.parent_obj[0].name
-            };
-            instance.backObj[0] = tempObj;
-            Object(__WEBPACK_IMPORTED_MODULE_2__lib_touch__["a" /* default */])(url, { "cityname": parent_obj[0].listname }, function callback(ret) {
-                var temparr = null;
-                temparr = ret.data.datastr;
-                temparr = JSON.parse(temparr);
-                var key = temparr[0].city;
-                child_obj = temparr[0][key];
-                instance.child_obj = child_obj;
                 tempObj = {
                     paraname: instance.dataObj.sec_key,
-                    name: instance.child_obj[0].listname,
-                    value: instance.child_obj[0].id,
-                    text: instance.child_obj[0].name
+                    name: temp_child_obj.listname,
+                    value: temp_child_obj.id,
+                    text: temp_child_obj.name
+                };
+                if (instance.cur_child > 5) {
+                    var _temp = {};
+                    _temp = child_obj[0];
+                    child_obj[0] = child_obj[instance.cur_child];
+                    child_obj[instance.cur_child] = _temp;
+                    instance.cur_child = 0;
+                }
+                instance.backObj[1] = tempObj;
+            } else {
+                //如果第一个参数存在，第二个参数不存在，则二级选中的是a.first_key_default下对应的数据第一项
+                instance.cur_child = 0;
+                tempObj = {
+                    paraname: instance.dataObj.sec_key,
+                    name: child_obj[0].listname,
+                    value: child_obj[0].id,
+                    text: child_obj[0].name
                 };
                 instance.backObj[1] = tempObj;
-                instance.cur_parent = 0;
-                instance.cur_parent = 0;
-            });
+            }
+        } else {
+            //如果两个参数都不存在，则一级默认选中的是city对应下数据的第一项，二级数据是一级数据选中的对象下第一个数据
+            instance.cur_parent = 0;
+            instance.cur_child = 0;
+            parent_obj = dataStroge[0][dataStroge[0].city];
+            tempObj = {
+                paraname: instance.dataObj.first_key,
+                name: parent_obj[0].listname,
+                value: parent_obj[0].id,
+                text: parent_obj[0].name
+            };
+            instance.backObj[0] = tempObj;
+            var key = dataStroge[0][dataStroge[0]["city"]][0].listname;
+            child_obj = dataStroge[0][key];
+            tempObj = {
+                paraname: instance.dataObj.sec_key,
+                name: child_obj[0].listname,
+                value: child_obj[0].id,
+                text: child_obj[0].name
+            };
+            instance.backObj[1] = tempObj;
         }
-    });
+        instance.parent_obj = parent_obj;
+        instance.child_obj = child_obj;
+    }
+
+    // _ajax(url, {"cityname":a.key}, function callback(ret){
+    //     let temparr=null;
+    //     temparr=ret.data.datastr;
+    //     temparr = JSON.parse(temparr);
+    //     let key=temparr[0].city;
+    //     parent_obj=temparr[0][key];
+    //     instance.parent_obj=parent_obj;
+    //     let temp_parent_obj={};
+    //     let temp_child_obj={};
+    //     if(a.first_key_default&&(a.first_key_default!="")){
+    //         parent_obj.forEach(function(item,index){
+    //             if(item.id==a.first_key_default){
+    //                 instance.cur_parent=index;
+    //                 temp_parent_obj=item;
+    //             }
+    //         });
+    //         tempObj={
+    //             paraname: instance.dataObj.first_key,
+    //             name: temp_parent_obj.listname,
+    //             value: temp_parent_obj.id,
+    //             text: temp_parent_obj.name
+    //         };
+    //         if(instance.cur_parent>5){
+    //             let temp={};
+    //             temp=parent_obj[0];
+    //             parent_obj[0]=parent_obj[instance.cur_parent];
+    //             parent_obj[instance.cur_parent]=temp;
+    //             instance.cur_parent=0;
+    //             instance.parent_obj=parent_obj
+    //         }
+    //         instance.backObj[0]=tempObj;
+    //         if(a.sec_key_default&&(a.sec_key_default!="")){
+    //             _ajax(url, {"cityname":parent_obj[instance.cur_parent].listname}, function callback(ret){
+    //                 let temparr=null;
+    //                 temparr=ret.data.datastr;
+    //                 temparr = JSON.parse(temparr);
+    //                 let key=temparr[0].city;
+    //                 child_obj=temparr[0][key];
+    //                 instance.child_obj=child_obj;
+    //                 child_obj.forEach(function(item,index){
+    //                     if(item.id==a.sec_key_default){
+    //                         instance.cur_child=index;
+    //                         temp_child_obj=item;
+    //                     }
+    //                 });
+    //                 tempObj={
+    //                     paraname: instance.dataObj.sec_key,
+    //                     name: temp_child_obj.listname,
+    //                     value: temp_child_obj.id,
+    //                     text: temp_child_obj.name
+    //                 };
+    //                 instance.backObj[1]=tempObj;
+    //                 if(instance.cur_child>5){
+    //                     let temp_child={};
+    //                     temp_child=parent_obj[0];
+    //                     child_obj[0]=child_obj[instance.cur_child];
+    //                     child_obj[instance.cur_child]=temp_child;
+    //                     instance.cur_child=0;
+    //                     instance.child_obj
+    //                 }
+    //             });
+    //
+    //         }else{
+    //             _ajax(url, {"cityname":parent_obj[instance.cur_parent].listname}, function callback(ret){
+    //                 let temparr=null;
+    //                 temparr=ret.data.datastr;
+    //                 temparr = JSON.parse(temparr);
+    //                 let key=temparr[0].city;
+    //                 child_obj=temparr[0][key];
+    //                 instance.child_obj=child_obj;
+    //                 tempObj={
+    //                     paraname: instance.dataObj.sec_key,
+    //                     name: child_obj[0].listname,
+    //                     value: child_obj[0].id,
+    //                     text: child_obj[0].name
+    //                 };
+    //                 instance.cur_child=0;
+    //                 instance.backObj[1]=tempObj;
+    //             });
+    //         }
+    //
+    //     }else{
+    //         tempObj={
+    //             paraname: instance.dataObj.first_key,
+    //             name: instance.parent_obj[0].listname,
+    //             value: instance.parent_obj[0].id,
+    //             text: instance.parent_obj[0].name
+    //         };
+    //         instance.backObj[0]=tempObj;
+    //         _ajax(url, {"cityname":parent_obj[0].listname}, function callback(ret){
+    //             let temparr=null;
+    //             temparr=ret.data.datastr;
+    //             temparr = JSON.parse(temparr);
+    //             let key=temparr[0].city;
+    //             child_obj=temparr[0][key];
+    //             instance.child_obj=child_obj;
+    //             tempObj={
+    //                 paraname: instance.dataObj.sec_key,
+    //                 name: instance.child_obj[0].listname,
+    //                 value: instance.child_obj[0].id,
+    //                 text: instance.child_obj[0].name
+    //             };
+    //             instance.backObj[1]=tempObj;
+    //             instance.cur_parent=0;
+    //             instance.cur_parent=0;
+    //         });
+    //
+    //     }
+    //
+    // });
 
     __WEBPACK_IMPORTED_MODULE_3__common_js_Tool__["a" /* default */].css(document.body, "overflow", "hidden");
     __WEBPACK_IMPORTED_MODULE_3__common_js_Tool__["a" /* default */].css(document.body, "height", "100vh");
