@@ -24,70 +24,93 @@ let two_linkage = (a, fun) => {
 
     instance.dataObj = _defobj["dataObj"];
     instance.callback = fun;
-    let cur_parent;
-    let cur_child;
+    let cur_parent=[];
+    let cur_child=[];
     let tempobj = {};
-    if(a.first_key_default&&(a.first_key_default!="")){
-        let temp_parent_text=null;
-        let cur_parent_index=0;
-        a.option.forEach(function(item,index){
-            if(item.value==a.first_key_default){
-                temp_parent_text=a.option[index].text;
-                cur_parent = index;
-                cur_parent_index=index;
-            }
-        });
-        tempobj = {
-            paraname: instance.dataObj.first_key || null,
-            value: a.first_key_default || null,
-            text: temp_parent_text || "暂无数据",
-        };
-        instance.backobj[0] = tempobj;
-        instance.temp = a.option[cur_parent_index].option;
-        if(a.sec_key_default&&(a.sec_key_default!="")){
-            let cur_child_index=0;
-            let temp_child_text=null;
-            a.option[cur_parent_index].option.forEach(function(item,index){
-                if(item.value==a.sec_key_default){
-                    temp_child_text=a.option[cur_parent_index].option[index].text;
-                    cur_child = index;
-                    cur_child_index=index;
+    if(a.option&&a.option!=""){
+        if(a.first_key_default&&(a.first_key_default!="")){
+            let temp_parent_text="";
+            let cur_parent_index=0;
+            a.option.forEach(function(item,index){
+                if(item.value==a.first_key_default){
+                    temp_parent_text=a.option[index].text;
+                    cur_parent = index;
+                    cur_parent_index=index;
                 }
             });
             tempobj = {
-                paraname: instance.dataObj.first_key || null,
-                value: a.sec_key_default || null,
-                text: temp_child_text || "暂无数据",
+                paraname: instance.dataObj.first_key || "",
+                value: a.first_key_default || "",
+                text: temp_parent_text || "",
             };
-            instance.backobj[1] = tempobj;
+            instance.backobj[0] = tempobj;
+            if(a.option[cur_parent_index].option&&a.option[cur_parent_index].option!=""){
+                instance.temp = a.option[cur_parent_index].option;
+                if(a.sec_key_default&&(a.sec_key_default!="")){
+                    let cur_child_index=0;
+                    let temp_child_text="";
+                    a.option[cur_parent_index].option.forEach(function(item,index){
+                        if(item.value==a.sec_key_default){
+                            temp_child_text=a.option[cur_parent_index].option[index].text;
+                            cur_child = index;
+                            cur_child_index=index;
+                        }
+                    });
+                    tempobj = {
+                        paraname: instance.dataObj.sec_key || "",
+                        value: a.sec_key_default || "",
+                        text: temp_child_text || "",
+                    };
+                    instance.backobj[1] = tempobj;
+                }else{
+                    tempobj = {
+                        paraname: instance.dataObj.sec_key || "",
+                        value: a.option[cur_parent_index].option[0].value || "",
+                        text: a.option[cur_parent_index].option[0].text || "",
+                    };
+                    instance.backobj[1] = tempobj;
+                    cur_child=0;
+                }
+            }else{
+                tempobj = {
+                    paraname: instance.dataObj.sec_key || "",
+                    value:  "",
+                    text:  "",
+                };
+                instance.backobj[1] = tempobj;
+            }
+            
         }else{
             tempobj = {
-                paraname: instance.dataObj.first_key || null,
-                value: a.option[cur_parent_index].option[0].value || null,
-                text: a.option[cur_parent_index].option[0].text || "暂无数据",
+                paraname: instance.dataObj.first_key || "",
+                value: instance.dataObj.option[0].value || "",
+                text: instance.dataObj.option[0].text || "",
             };
-            instance.backobj[1] = tempobj;
-            cur_child=0;
+            instance.backobj[0] = tempobj;
+            cur_parent = 0;
+            if(instance.dataObj.option[0].option||instance.dataObj.option[0].option!=""){
+                if (instance.dataObj.option[0]) {
+                    tempobj = {
+                        paraname: instance.dataObj.sec_key || "",
+                        value: instance.dataObj.option[0].option[0].value || "",
+                        text: instance.dataObj.option[0].option[0].text || "",
+                    };
+                }
+                instance.backobj[1] = tempobj;
+                instance.temp = instance.dataObj.option[0].option;
+                cur_child = 0;
+            }else{
+                tempobj = {
+                    paraname: instance.dataObj.sec_key || "",
+                    value: "",
+                    text:"",
+                };
+                instance.backobj[1] = tempobj;
+            }
+
         }
-    }else{
-        tempobj = {
-            paraname: instance.dataObj.first_key || null,
-            value: instance.dataObj.option[0].value || null,
-            text: instance.dataObj.option[0].text || "暂无数据",
-        };
-        instance.backobj[0] = tempobj;
-        if (instance.dataObj.option[0]) {
-            tempobj = {
-                paraname: instance.dataObj.sec_key || null,
-                value: instance.dataObj.option[0].option[0].value || null,
-                text: instance.dataObj.option[0].option[0].text || "暂无数据",
-            };
-        }
-        instance.backobj[1] = tempobj;
-        instance.temp = instance.dataObj.option[0].option;
-        cur_parent = 0;
-        cur_child = 0;
     }
+
     instance.cur_parent=cur_parent;
     instance.cur_child=cur_child;
     Tool.css( document.body,"overflow","hidden");

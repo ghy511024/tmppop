@@ -183,6 +183,11 @@
                                 {"text": "美甲店", "value": "511601"},
                                 {"text": "SPA馆", "value": "511602"}
                             ]
+                        },
+                        {
+                            "text": "其他",
+                            "value": "511596",
+                            "title": "种类",
                         }
                     ]
                 };
@@ -200,7 +205,7 @@
                 let param =
                     {
                         title: "区域",
-                        key: "bj",
+                        key: "ankang",
 //                        url: "http://m.58.com/sublocals/",
                         first_key: "quyu",
                         sec_key: "diduan",

@@ -9131,6 +9131,10 @@ module.exports = function (name) {
                     "value": "511575",
                     "title": "种类",
                     "option": [{ "text": "美容院", "value": "511599" }, { "text": "美发店", "value": "511600" }, { "text": "美甲店", "value": "511601" }, { "text": "SPA馆", "value": "511602" }]
+                }, {
+                    "text": "其他",
+                    "value": "511596",
+                    "title": "种类"
                 }]
             };
             this.$two_linkage(param, function (ret, data) {
@@ -9144,7 +9148,7 @@ module.exports = function (name) {
         area_linkage: function area_linkage() {
             var param = {
                 title: "区域",
-                key: "bj",
+                key: "ankang",
                 //                        url: "http://m.58.com/sublocals/",
                 first_key: "quyu",
                 sec_key: "diduan"
@@ -11289,18 +11293,28 @@ exports.f = Object.getOwnPropertyNames || function getOwnPropertyNames(O) {
             _this.cur_child = 0;
             var tempobj = {};
             tempobj = {
-                paraname: _this.dataObj.first_key || null,
-                value: item.value || null,
-                text: item.text || "暂无数据"
+                paraname: _this.dataObj.first_key || "",
+                value: item.value || "",
+                text: item.text || ""
             };
             _this.backobj[0] = tempobj;
-            _this.temp = item.option || [];
-            tempobj = {
-                paraname: _this.dataObj.sec_key || null,
-                value: _this.temp[0].value || null,
-                text: _this.temp[0].text || "暂无数据"
-            };
-            _this.backobj[1] = tempobj;
+            if (item.option && item.option != "") {
+                _this.temp = item.option || "";
+                tempobj = {
+                    paraname: _this.dataObj.sec_key || "",
+                    value: _this.temp[0].value || "",
+                    text: _this.temp[0].text || ""
+                };
+                _this.backobj[1] = tempobj;
+            } else {
+                _this.temp = "";
+                tempobj = {
+                    paraname: _this.dataObj.sec_key || "",
+                    value: "",
+                    text: ""
+                };
+                _this.backobj[1] = tempobj;
+            }
         },
 
         // 点击二级菜单
@@ -11309,9 +11323,9 @@ exports.f = Object.getOwnPropertyNames || function getOwnPropertyNames(O) {
             _this.cur_child = index;
             var tempobj = {};
             tempobj = {
-                paraname: _this.dataObj.sec_key || null,
-                value: item.value || null,
-                text: item.text || "暂无数据"
+                paraname: _this.dataObj.sec_key || "",
+                value: item.value || "",
+                text: item.text || ""
             };
             _this.backobj[1] = tempobj;
         },
@@ -14842,70 +14856,91 @@ var two_linkage = function two_linkage(a, fun) {
 
     instance.dataObj = _defobj["dataObj"];
     instance.callback = fun;
-    var cur_parent = void 0;
-    var cur_child = void 0;
+    var cur_parent = [];
+    var cur_child = [];
     var tempobj = {};
-    if (a.first_key_default && a.first_key_default != "") {
-        var temp_parent_text = null;
-        var cur_parent_index = 0;
-        a.option.forEach(function (item, index) {
-            if (item.value == a.first_key_default) {
-                temp_parent_text = a.option[index].text;
-                cur_parent = index;
-                cur_parent_index = index;
-            }
-        });
-        tempobj = {
-            paraname: instance.dataObj.first_key || null,
-            value: a.first_key_default || null,
-            text: temp_parent_text || "暂无数据"
-        };
-        instance.backobj[0] = tempobj;
-        instance.temp = a.option[cur_parent_index].option;
-        if (a.sec_key_default && a.sec_key_default != "") {
-            var cur_child_index = 0;
-            var temp_child_text = null;
-            a.option[cur_parent_index].option.forEach(function (item, index) {
-                if (item.value == a.sec_key_default) {
-                    temp_child_text = a.option[cur_parent_index].option[index].text;
-                    cur_child = index;
-                    cur_child_index = index;
+    if (a.option && a.option != "") {
+        if (a.first_key_default && a.first_key_default != "") {
+            var temp_parent_text = "";
+            var cur_parent_index = 0;
+            a.option.forEach(function (item, index) {
+                if (item.value == a.first_key_default) {
+                    temp_parent_text = a.option[index].text;
+                    cur_parent = index;
+                    cur_parent_index = index;
                 }
             });
             tempobj = {
-                paraname: instance.dataObj.first_key || null,
-                value: a.sec_key_default || null,
-                text: temp_child_text || "暂无数据"
+                paraname: instance.dataObj.first_key || "",
+                value: a.first_key_default || "",
+                text: temp_parent_text || ""
             };
-            instance.backobj[1] = tempobj;
+            instance.backobj[0] = tempobj;
+            if (a.option[cur_parent_index].option && a.option[cur_parent_index].option != "") {
+                instance.temp = a.option[cur_parent_index].option;
+                if (a.sec_key_default && a.sec_key_default != "") {
+                    var cur_child_index = 0;
+                    var temp_child_text = "";
+                    a.option[cur_parent_index].option.forEach(function (item, index) {
+                        if (item.value == a.sec_key_default) {
+                            temp_child_text = a.option[cur_parent_index].option[index].text;
+                            cur_child = index;
+                            cur_child_index = index;
+                        }
+                    });
+                    tempobj = {
+                        paraname: instance.dataObj.sec_key || "",
+                        value: a.sec_key_default || "",
+                        text: temp_child_text || ""
+                    };
+                    instance.backobj[1] = tempobj;
+                } else {
+                    tempobj = {
+                        paraname: instance.dataObj.sec_key || "",
+                        value: a.option[cur_parent_index].option[0].value || "",
+                        text: a.option[cur_parent_index].option[0].text || ""
+                    };
+                    instance.backobj[1] = tempobj;
+                    cur_child = 0;
+                }
+            } else {
+                tempobj = {
+                    paraname: instance.dataObj.sec_key || "",
+                    value: "",
+                    text: ""
+                };
+                instance.backobj[1] = tempobj;
+            }
         } else {
             tempobj = {
-                paraname: instance.dataObj.first_key || null,
-                value: a.option[cur_parent_index].option[0].value || null,
-                text: a.option[cur_parent_index].option[0].text || "暂无数据"
+                paraname: instance.dataObj.first_key || "",
+                value: instance.dataObj.option[0].value || "",
+                text: instance.dataObj.option[0].text || ""
             };
-            instance.backobj[1] = tempobj;
-            cur_child = 0;
+            instance.backobj[0] = tempobj;
+            cur_parent = 0;
+            if (instance.dataObj.option[0].option || instance.dataObj.option[0].option != "") {
+                if (instance.dataObj.option[0]) {
+                    tempobj = {
+                        paraname: instance.dataObj.sec_key || "",
+                        value: instance.dataObj.option[0].option[0].value || "",
+                        text: instance.dataObj.option[0].option[0].text || ""
+                    };
+                }
+                instance.backobj[1] = tempobj;
+                instance.temp = instance.dataObj.option[0].option;
+                cur_child = 0;
+            } else {
+                tempobj = {
+                    paraname: instance.dataObj.sec_key || "",
+                    value: "",
+                    text: ""
+                };
+                instance.backobj[1] = tempobj;
+            }
         }
-    } else {
-        tempobj = {
-            paraname: instance.dataObj.first_key || null,
-            value: instance.dataObj.option[0].value || null,
-            text: instance.dataObj.option[0].text || "暂无数据"
-        };
-        instance.backobj[0] = tempobj;
-        if (instance.dataObj.option[0]) {
-            tempobj = {
-                paraname: instance.dataObj.sec_key || null,
-                value: instance.dataObj.option[0].option[0].value || null,
-                text: instance.dataObj.option[0].option[0].text || "暂无数据"
-            };
-        }
-        instance.backobj[1] = tempobj;
-        instance.temp = instance.dataObj.option[0].option;
-        cur_parent = 0;
-        cur_child = 0;
     }
+
     instance.cur_parent = cur_parent;
     instance.cur_child = cur_child;
     __WEBPACK_IMPORTED_MODULE_2__common_js_Tool__["a" /* default */].css(document.body, "overflow", "hidden");
@@ -15193,14 +15228,13 @@ var area_linkage = function area_linkage(a, fun) {
     instance.callback = fun;
     var parent_obj = [];
     var child_obj = [];
-    var think = [];
     var tempObj = {};
     var backObj = [];
 
     instance.url = url;
     if (dataStroge == "") {
         Object(__WEBPACK_IMPORTED_MODULE_2__lib_touch__["a" /* default */])(url, { "cityname": a.key }, function callback(ret) {
-            var temparr = null;
+            var temparr = "";
             temparr = ret.data.datastr;
             temparr = JSON.parse(temparr);
             dataStroge = temparr;
@@ -15221,211 +15255,126 @@ var area_linkage = function area_linkage(a, fun) {
     }
 
     function get_data(dataStroge, id_to_listname) {
-        parent_obj = dataStroge[0][dataStroge[0].city];
-        if (a.first_key_default && a.first_key_default != "") {
-            //如果第一个参数存在,则一级默认选中的是a.first_key_default对应的对象，二级数据也是a.first_key_default下对应的数据
-            var temp_parent_obj = {};
-            var temp_child_obj = {};
-            parent_obj.forEach(function (item, index) {
-                if (item.id == a.first_key_default) {
-                    instance.cur_parent = index;
-                    temp_parent_obj = item;
-                    for (var cur_item in dataStroge[0]) {
-                        if (cur_item == id_to_listname[a.first_key_default]) {
-                            child_obj = dataStroge[0][cur_item];
-                            // console.log(think=="")
+        parent_obj = dataStroge[0][dataStroge[0].city] || "";
+        if (parent_obj != "") {
+            if (a.first_key_default && a.first_key_default != "") {
+                //如果第一个参数存在,则一级默认选中的是a.first_key_default对应的对象，二级数据也是a.first_key_default下对应的数据
+                var temp_parent_obj = {};
+                var temp_child_obj = {};
+                parent_obj.forEach(function (item, index) {
+                    if (item.id == a.first_key_default) {
+                        instance.cur_parent = index;
+                        temp_parent_obj = item;
+                        for (var cur_item in dataStroge[0]) {
+                            if (cur_item == id_to_listname[a.first_key_default]) {
+                                child_obj = dataStroge[0][cur_item];
+                            }
                         }
                     }
-                }
-            });
-
-            tempObj = {
-                paraname: instance.dataObj.first_key,
-                name: temp_parent_obj.listname || null,
-                value: temp_parent_obj.id || null,
-                text: temp_parent_obj.name || null
-            };
-            if (instance.cur_parent > 5) {
-                var temp = {};
-                temp = parent_obj[0];
-                parent_obj[0] = parent_obj[instance.cur_parent];
-                parent_obj[instance.cur_parent] = temp;
-                instance.cur_parent = 0;
-            }
-            instance.backObj[0] = tempObj;
-            if (a.sec_key_default && a.sec_key_default != "") {
-                //如果第二个参数存在，则二级选中的是a.sec_key_default对应的对象
-                child_obj.forEach(function (item, index) {
-                    if (item.id == a.sec_key_default) {
-                        instance.cur_child = index;
-                        temp_child_obj = item;
-                    }
                 });
-                tempObj = {
-                    paraname: instance.dataObj.sec_key,
-                    name: temp_child_obj.listname,
-                    value: temp_child_obj.id,
-                    text: temp_child_obj.name
-                };
-                if (instance.cur_child > 5) {
-                    var _temp = {};
-                    _temp = child_obj[0];
-                    child_obj[0] = child_obj[instance.cur_child];
-                    child_obj[instance.cur_child] = _temp;
-                    instance.cur_child = 0;
+                if (temp_parent_obj != "") {
+                    tempObj = {
+                        paraname: instance.dataObj.first_key || "",
+                        name: temp_parent_obj.listname || "",
+                        value: temp_parent_obj.id || "",
+                        text: temp_parent_obj.name || ""
+                    };
+                    instance.backObj[0] = tempObj;
+                    if (instance.cur_parent > 5) {
+                        var temp = {};
+                        temp = parent_obj[0];
+                        parent_obj[0] = parent_obj[instance.cur_parent];
+                        parent_obj[instance.cur_parent] = temp;
+                        instance.cur_parent = 0;
+                    }
+                } else {
+                    child_obj = "";
+                    instance.backObj[0];
                 }
-                instance.backObj[1] = tempObj;
+                if (child_obj != "") {
+                    if (a.sec_key_default && a.sec_key_default != "") {
+                        //如果第二个参数存在，则二级选中的是a.sec_key_default对应的对象
+                        child_obj.forEach(function (item, index) {
+                            if (item.id == a.sec_key_default) {
+                                instance.cur_child = index;
+                                temp_child_obj = item;
+                            }
+                        });
+                        if (temp_child_obj != "") {
+                            tempObj = {
+                                paraname: instance.dataObj.sec_key || "",
+                                name: temp_child_obj.listname || "",
+                                value: temp_child_obj.id || "",
+                                text: temp_child_obj.name || ""
+                            };
+                            if (instance.cur_child > 5) {
+                                var _temp = {};
+                                _temp = child_obj[0];
+                                child_obj[0] = child_obj[instance.cur_child];
+                                child_obj[instance.cur_child] = _temp;
+                                instance.cur_child = 0;
+                            }
+                            instance.backObj[1] = tempObj;
+                        } else {
+                            instance.backObj[1] = "";
+                        }
+                    } else {
+                        //如果第一个参数存在，第二个参数不存在，则二级选中的是a.first_key_default下对应的数据第一项
+                        instance.cur_child = 0;
+                        tempObj = {
+                            paraname: instance.dataObj.sec_key || "",
+                            name: child_obj[0].listname || "",
+                            value: child_obj[0].id || "",
+                            text: child_obj[0].name || ""
+                        };
+                        instance.backObj[1] = tempObj;
+                    }
+                }
             } else {
-                //如果第一个参数存在，第二个参数不存在，则二级选中的是a.first_key_default下对应的数据第一项
-                instance.cur_child = 0;
-                tempObj = {
-                    paraname: instance.dataObj.sec_key,
-                    name: child_obj[0].listname,
-                    value: child_obj[0].id,
-                    text: child_obj[0].name
-                };
-                instance.backObj[1] = tempObj;
+                if (a.sec_key_default && a.sec_key_default != "") {//如果第一个参数不存在，第二个参数存在
+
+                } else {
+                    //如果两个参数都不存在，则一级默认选中的是city对应下数据的第一项，二级数据是一级数据选中的对象下第一个数据
+                    instance.cur_parent = 0;
+                    parent_obj = dataStroge[0][dataStroge[0].city];
+                    tempObj = {
+                        paraname: instance.dataObj.first_key || "",
+                        name: parent_obj[0].listname || "",
+                        value: parent_obj[0].id || "",
+                        text: parent_obj[0].name || ""
+                    };
+                    instance.backObj[0] = tempObj;
+                    instance.cur_child = 0;
+
+                    var key = dataStroge[0][dataStroge[0]["city"]][0].listname;
+                    child_obj = dataStroge[0][key];
+                    if (child_obj != "") {
+                        tempObj = {
+                            paraname: instance.dataObj.sec_key || "",
+                            name: child_obj[0].listname || "",
+                            value: child_obj[0].id || "",
+                            text: child_obj[0].name || ""
+                        };
+                        instance.backObj[1] = tempObj;
+                    } else {
+                        tempObj = {
+                            paraname: instance.dataObj.sec_key || "",
+                            name: "",
+                            value: "",
+                            text: ""
+                        };
+                        instance.backObj[1] = tempObj;
+                    }
+                }
             }
         } else {
-            if (a.sec_key_default && a.sec_key_default != "") {//如果第一个参数不存在，第二个参数存在
-
-            } else {
-                //如果两个参数都不存在，则一级默认选中的是city对应下数据的第一项，二级数据是一级数据选中的对象下第一个数据
-                instance.cur_parent = 0;
-                instance.cur_child = 0;
-                // parent_obj = dataStroge[0][dataStroge[0].city];
-                tempObj = {
-                    paraname: instance.dataObj.first_key,
-                    name: parent_obj[0].listname || null,
-                    value: parent_obj[0].id || null,
-                    text: parent_obj[0].name || null
-                };
-                instance.backObj[0] = tempObj;
-                var key = dataStroge[0][dataStroge[0]["city"]][0].listname;
-                child_obj = dataStroge[0][key];
-                tempObj = {
-                    paraname: instance.dataObj.sec_key,
-                    name: child_obj[0].listname || null,
-                    value: child_obj[0].id | null,
-                    text: child_obj[0].name || null
-                };
-                instance.backObj[1] = tempObj;
-            }
+            parent_obj = "";
+            child_obj = "";
         }
+
         instance.parent_obj = parent_obj;
         instance.child_obj = child_obj;
     }
-
-    // _ajax(url, {"cityname":a.key}, function callback(ret){
-    //     let temparr=null;
-    //     temparr=ret.data.datastr;
-    //     temparr = JSON.parse(temparr);
-    //     let key=temparr[0].city;
-    //     parent_obj=temparr[0][key];
-    //     instance.parent_obj=parent_obj;
-    //     let temp_parent_obj={};
-    //     let temp_child_obj={};
-    //     if(a.first_key_default&&(a.first_key_default!="")){
-    //         parent_obj.forEach(function(item,index){
-    //             if(item.id==a.first_key_default){
-    //                 instance.cur_parent=index;
-    //                 temp_parent_obj=item;
-    //             }
-    //         });
-    //         tempObj={
-    //             paraname: instance.dataObj.first_key,
-    //             name: temp_parent_obj.listname,
-    //             value: temp_parent_obj.id,
-    //             text: temp_parent_obj.name
-    //         };
-    //         if(instance.cur_parent>5){
-    //             let temp={};
-    //             temp=parent_obj[0];
-    //             parent_obj[0]=parent_obj[instance.cur_parent];
-    //             parent_obj[instance.cur_parent]=temp;
-    //             instance.cur_parent=0;
-    //             instance.parent_obj=parent_obj
-    //         }
-    //         instance.backObj[0]=tempObj;
-    //         if(a.sec_key_default&&(a.sec_key_default!="")){
-    //             _ajax(url, {"cityname":parent_obj[instance.cur_parent].listname}, function callback(ret){
-    //                 let temparr=null;
-    //                 temparr=ret.data.datastr;
-    //                 temparr = JSON.parse(temparr);
-    //                 let key=temparr[0].city;
-    //                 child_obj=temparr[0][key];
-    //                 instance.child_obj=child_obj;
-    //                 child_obj.forEach(function(item,index){
-    //                     if(item.id==a.sec_key_default){
-    //                         instance.cur_child=index;
-    //                         temp_child_obj=item;
-    //                     }
-    //                 });
-    //                 tempObj={
-    //                     paraname: instance.dataObj.sec_key,
-    //                     name: temp_child_obj.listname,
-    //                     value: temp_child_obj.id,
-    //                     text: temp_child_obj.name
-    //                 };
-    //                 instance.backObj[1]=tempObj;
-    //                 if(instance.cur_child>5){
-    //                     let temp_child={};
-    //                     temp_child=parent_obj[0];
-    //                     child_obj[0]=child_obj[instance.cur_child];
-    //                     child_obj[instance.cur_child]=temp_child;
-    //                     instance.cur_child=0;
-    //                     instance.child_obj
-    //                 }
-    //             });
-    //
-    //         }else{
-    //             _ajax(url, {"cityname":parent_obj[instance.cur_parent].listname}, function callback(ret){
-    //                 let temparr=null;
-    //                 temparr=ret.data.datastr;
-    //                 temparr = JSON.parse(temparr);
-    //                 let key=temparr[0].city;
-    //                 child_obj=temparr[0][key];
-    //                 instance.child_obj=child_obj;
-    //                 tempObj={
-    //                     paraname: instance.dataObj.sec_key,
-    //                     name: child_obj[0].listname,
-    //                     value: child_obj[0].id,
-    //                     text: child_obj[0].name
-    //                 };
-    //                 instance.cur_child=0;
-    //                 instance.backObj[1]=tempObj;
-    //             });
-    //         }
-    //
-    //     }else{
-    //         tempObj={
-    //             paraname: instance.dataObj.first_key,
-    //             name: instance.parent_obj[0].listname,
-    //             value: instance.parent_obj[0].id,
-    //             text: instance.parent_obj[0].name
-    //         };
-    //         instance.backObj[0]=tempObj;
-    //         _ajax(url, {"cityname":parent_obj[0].listname}, function callback(ret){
-    //             let temparr=null;
-    //             temparr=ret.data.datastr;
-    //             temparr = JSON.parse(temparr);
-    //             let key=temparr[0].city;
-    //             child_obj=temparr[0][key];
-    //             instance.child_obj=child_obj;
-    //             tempObj={
-    //                 paraname: instance.dataObj.sec_key,
-    //                 name: instance.child_obj[0].listname,
-    //                 value: instance.child_obj[0].id,
-    //                 text: instance.child_obj[0].name
-    //             };
-    //             instance.backObj[1]=tempObj;
-    //             instance.cur_parent=0;
-    //             instance.cur_parent=0;
-    //         });
-    //
-    //     }
-    //
-    // });
 
     __WEBPACK_IMPORTED_MODULE_3__common_js_Tool__["a" /* default */].css(document.body, "overflow", "hidden");
     __WEBPACK_IMPORTED_MODULE_3__common_js_Tool__["a" /* default */].css(document.body, "height", "100vh");

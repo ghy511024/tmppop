@@ -203,18 +203,29 @@
                 _this.cur_child = 0;
                 let tempobj = {};
                 tempobj = {
-                    paraname: _this.dataObj.first_key || null,
-                    value: item.value || null,
-                    text: item.text || "暂无数据",
+                    paraname: _this.dataObj.first_key || "",
+                    value: item.value || "",
+                    text: item.text || "",
                 };
                 _this.backobj[0] = tempobj;
-                _this.temp = item.option || [];
-                tempobj = {
-                    paraname: _this.dataObj.sec_key || null,
-                    value: _this.temp[0].value || null,
-                    text: _this.temp[0].text || "暂无数据",
-                };
-                _this.backobj[1] = tempobj;
+                if(item.option&&item.option!=""){
+                    _this.temp = item.option || "";
+                    tempobj = {
+                        paraname: _this.dataObj.sec_key || "",
+                        value: _this.temp[0].value || "",
+                        text: _this.temp[0].text || "",
+                    };
+                    _this.backobj[1] = tempobj;
+                }else{
+                    _this.temp=""
+                    tempobj = {
+                        paraname: _this.dataObj.sec_key || "",
+                        value: "",
+                        text:  "",
+                    };
+                    _this.backobj[1] = tempobj;
+                }
+
             },
             // 点击二级菜单
             click_child(item, index) {
@@ -222,9 +233,9 @@
                 _this.cur_child = index;
                 let tempobj = {};
                 tempobj = {
-                    paraname: _this.dataObj.sec_key || null,
-                    value: item.value || null,
-                    text: item.text || "暂无数据",
+                    paraname: _this.dataObj.sec_key || "",
+                    value: item.value || "",
+                    text: item.text || "",
                 };
                 _this.backobj[1] = tempobj;
             },
