@@ -352,6 +352,7 @@
             let _this = this;
             let table = _this.$refs.tab;
             table.addEventListener("touchstart", function (ev) {
+                console.log("ceshi..")
                 let event = ev || window.event;
                 let target = event.target || event.srcElement;
                 ev.stopPropagation();
@@ -376,10 +377,10 @@
                 let target = event.target || event.srcElement;
                 ev.stopPropagation();
                 ev.preventDefault();
-                var _index = target.getAttribute("_index")||"";
-                if(!_index){
-                    var p=target.parentNode;
-                    _index=p.getAttribute("_index")||"";
+                var _index = target.getAttribute("_index") || "";
+                if (!_index) {
+                    var p = target.parentNode;
+                    _index = p.getAttribute("_index") || "";
                 }
                 _this.handleClickSingleValue(_index);
 //                if (_type == "number") {

@@ -10646,6 +10646,7 @@ exports.f = Object.getOwnPropertyNames || function getOwnPropertyNames(O) {
         var _this = this;
         var table = _this.$refs.tab;
         table.addEventListener("touchstart", function (ev) {
+            console.log("ceshi..");
             var event = ev || window.event;
             var target = event.target || event.srcElement;
             ev.stopPropagation();
