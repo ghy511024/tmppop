@@ -4,7 +4,7 @@
 
 import Vue from 'vue';
 import Area_linkage from './src/area_linkage.vue';
-import _ajax from  "./lib/touch";
+import _ajax from  "./lib/Util";
 import Tool from '../../common/js/Tool'
 
 let instance;

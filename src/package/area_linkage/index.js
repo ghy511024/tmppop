@@ -4,7 +4,8 @@
 
 import Vue from 'vue';
 import Area_linkage from './src/area_linkage.vue';
-import _ajax from  "./lib/touch";
+
+import DataApi from "./lib/DataApi"
 import Tool from '../../common/js/Tool'
 
 let instance;
@@ -20,218 +21,62 @@ let initInstance = (bottom) => {
     document.body.appendChild(instance.$el);
 };
 
-let area_linkage = (a, fun) => {
+let area_linkage = (param, fun) => {
 
-    let _defobj = {
-        dataObj: a,
+    param.callback = function (ret) {
     };
-    a.callback = function (ret) {
-    };
-    let url = location.protocol + "//m.58.com/sublocals/";
-    instance.dataObj = _defobj["dataObj"];
+
     instance.callback = fun;
-    let parent_obj = [];
-    let child_obj = [];
-    let think = [];
-    let tempObj = {};
-    let backObj = [];
+    let city_name = param.key;
 
-    instance.url = url;
-    if (dataStroge == "") {
-        _ajax(url, {"cityname": a.key}, function callback(ret) {
-            let temparr = "";
-            temparr = ret.data.datastr;
-            temparr = JSON.parse(temparr);
-            dataStroge = temparr;
-            let key = temparr[0].city;
-            temparr[0][key].forEach(function (item) {
-                id_to_listname[item.id] = item.listname;
-                let child_key = item.listname;
-                let curobj = temparr[0][child_key];
-                curobj.forEach(function (cur_item) {
-                    search_parent[cur_item.id] = item.listname;
-                })
-            });
-            instance.dataStroge = dataStroge;
-            get_data(dataStroge, id_to_listname)
+    instance.first_key = param.first_key;
+    instance.sec_key = param.sec_key;
 
-        });
-    } else {
-        get_data(dataStroge, id_to_listname)
-    }
+    instance.first_linkage_default_value = param.first_key_default;
+    instance.sec_linkage_default_value = param.sec_key_default;
 
+    DataApi.getData(city_name, function (data) {
+        let ret = 0;
+        if (!data) {
+            ret = -1;
+        }
+        if (ret == 0) {
+            var city_obj = data[0];
+            var first_linkage_arry = city_obj[city_name];
+            instance.allMap = city_obj;
+            instance.first_linkage_arry = first_linkage_arry;
+
+            var idMap = {};
+            for (var key in city_obj) {
+                var item = city_obj[key];
+                if (item instanceof Array) {
+                    for (var it of item) {
+                        var _id = it.id;
+
+                        idMap[_id] = it;
+                    }
+                }
+            }
+            instance.idMap = idMap;
+            instance._choose();
+
+        }
+        if (ret == 0) {
+            Tool.css(document.body, "overflow", "hidden");
+            Tool.css(document.body, "height", "100vh");
+            instance.show = true;
+            instance.isbeforeActive = true;
+            setTimeout(function () {
+                instance.isactive = true;
+            }, 60);
+        }
+    })
 
     function get_data(dataStroge, id_to_listname) {
-        // console.log(JSON.stringify(dataStroge))
 
-        parent_obj = dataStroge[0][dataStroge[0].city]
-        var city_obj = dataStroge[0];
-        var city_key = city_obj.city;
-        console.log(city_key, "bejjing")
-        var first_linkage_arry = city_obj[city_key];
-        // var first_linkage_arry=city_obj[city_key];
 
-        instance.allMap = city_obj;
-        // console.log(first_linkage_arry,"bbbbbbbb")
-        instance.first_linkage_arry = first_linkage_arry;
-        instance.first_linkage_default_value = a.first_key_default;
-        instance.sec_linkage_default_value = a.sec_key_default;
-
-        var idMap = {};
-        for (var key in city_obj) {
-            var item = city_obj[key];
-            if (item instanceof Array) {
-                for (var it of item) {
-                    var _id = it.id;
-
-                    idMap[_id] = it;
-                }
-            }
-        }
-        instance.idMap = idMap;
-
-        instance._choose();
-
-        return;
-        if (a.first_key_default && (a.first_key_default != "")) {//如果第一个参数存在,则一级默认选中的是a.first_key_default对应的对象，二级数据也是a.first_key_default下对应的数据
-            let temp_parent_obj = {};
-            let temp_child_obj = {};
-            parent_obj.forEach(function (item, index) {
-                    if (item.id == a.first_key_default) {
-                        instance.cur_parent = index;
-                        temp_parent_obj = item;
-                        for (let cur_item in dataStroge[0]) {
-                            if (cur_item == id_to_listname[a.first_key_default]) {
-                                child_obj = dataStroge[0][cur_item];
-                                // console.log(think=="")
-                            }
-                        }
-                    }
-                }
-            );
-            if (temp_parent_obj != "") {
-                tempObj = {
-                    paraname: instance.dataObj.first_key || "",
-                    name: temp_parent_obj.listname || "",
-                    value: temp_parent_obj.id || "",
-                    text: temp_parent_obj.name || ""
-                };
-                instance.backObj[0] = tempObj;
-                if (instance.cur_parent > 5) {
-                    let temp = {};
-                    temp = parent_obj[0];
-                    parent_obj[0] = parent_obj[instance.cur_parent];
-                    parent_obj[instance.cur_parent] = temp;
-                    instance.cur_parent = 0;
-                }
-            } else {
-                child_obj = "";
-                instance.backObj[0];
-            }
-            if (child_obj != "") {
-                if (a.sec_key_default && (a.sec_key_default != "")) {//如果第二个参数存在，则二级选中的是a.sec_key_default对应的对象
-                    child_obj.forEach(function (item, index) {
-                        if (item.id == a.sec_key_default) {
-                            instance.cur_child = index;
-                            temp_child_obj = item;
-                        }
-                    });
-                    if (temp_child_obj != "") {
-                        tempObj = {
-                            paraname: instance.dataObj.sec_key || "",
-                            name: temp_child_obj.listname || "",
-                            value: temp_child_obj.id || "",
-                            text: temp_child_obj.name || ""
-                        };
-                        if (instance.cur_child > 5) {
-                            let temp = {};
-                            temp = child_obj[0];
-                            child_obj[0] = child_obj[instance.cur_child];
-                            child_obj[instance.cur_child] = temp;
-                            instance.cur_child = 0;
-                        }
-                        instance.backObj[1] = tempObj;
-                    } else {
-                        instance.backObj[1] = ""
-                    }
-                    tempObj = {
-                        paraname: instance.dataObj.first_key,
-                        name: temp_parent_obj.listname || null,
-                        value: temp_parent_obj.id || null,
-                        text: temp_parent_obj.name || null
-                    };
-                    if (instance.cur_parent > 5) {
-                        let temp = {};
-                        temp = parent_obj[0];
-                        parent_obj[0] = parent_obj[instance.cur_parent];
-                        parent_obj[instance.cur_parent] = temp;
-                        instance.cur_parent = 0;
-                    }
-                    instance.backObj[0] = tempObj;
-                    if (a.sec_key_default && (a.sec_key_default != "")) {//如果第二个参数存在，则二级选中的是a.sec_key_default对应的对象
-                        child_obj.forEach(function (item, index) {
-                            if (item.id == a.sec_key_default) {
-                                instance.cur_child = index;
-                                temp_child_obj = item;
-                            }
-                        }
-                        instance.backObj[1] = tempObj;
-                    } else {//如果第一个参数存在，第二个参数不存在，则二级选中的是a.first_key_default下对应的数据第一项
-                        instance.cur_child = 0;
-                        tempObj = {
-                            paraname: instance.dataObj.sec_key,
-                            name: child_obj[0].listname,
-                            value: child_obj[0].id,
-                            text: child_obj[0].name
-                        };
-                        instance.backObj[1] = tempObj;
-                    }
-                }
-                else {
-                    if (a.sec_key_default && (a.sec_key_default != "")) {//如果第一个参数不存在，第二个参数存在
-
-                    }
-                    else {//如果两个参数都不存在，则一级默认选中的是city对应下数据的第一项，二级数据是一级数据选中的对象下第一个数据
-                        instance.cur_parent = 0;
-                        instance.cur_child = 0;
-                        // parent_obj = dataStroge[0][dataStroge[0].city];
-                        tempObj = {
-                            paraname: instance.dataObj.first_key,
-                            name: parent_obj[0].listname || null,
-                            value: parent_obj[0].id || null,
-                            text: parent_obj[0].name || null
-                        };
-                        instance.backObj[0] = tempObj;
-                        let key = dataStroge[0][dataStroge[0]["city"]][0].listname;
-                        child_obj = dataStroge[0][key]
-                        tempObj = {
-                            paraname: instance.dataObj.sec_key,
-                            name: child_obj[0].listname || null,
-                            value: child_obj[0].id | null,
-                            text: child_obj[0].name || null
-                        };
-                        instance.backObj[1] = tempObj;
-                    }
-
-                }
-            }
-        } else {
-            parent_obj = "";
-            child_obj = ""
-        }
-
-        instance.parent_obj = parent_obj;
-        instance.child_obj = child_obj;
     }
 
-
-    Tool.css(document.body, "overflow", "hidden");
-    Tool.css(document.body, "height", "100vh");
-    instance.show = true;
-    instance.isbeforeActive = true;
-    setTimeout(function () {
-        instance.isactive = true;
-    }, 60);
 
 };
 

@@ -165,7 +165,7 @@
 </template>
 
 <script>
-    import _ajax from  "../lib/touch";
+    import _ajax from  "../lib/Util";
     import Tool from '../../../common/js/Tool'
     export default {
         name: 'area_linkage',

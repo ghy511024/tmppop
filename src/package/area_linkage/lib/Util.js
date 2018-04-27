@@ -1,4 +1,4 @@
-var _native_ajax=function (options) {
+var _native_ajax = function (options) {
     options = options || {};
     if (!options.url || !options.callback) {
         throw new Error("参数不合法");
@@ -41,7 +41,7 @@ var _native_ajax=function (options) {
         return arr.join('&');
     }
 }
-var _ajax=function (url, param, success) {
+var _ajax = function (url, param, success) {
     var result;
     _native_ajax({
         url: url,
@@ -77,4 +77,6 @@ var _ajax=function (url, param, success) {
         }
     })
 };
-export  default _ajax;
+export  default {
+    _ajax
+};

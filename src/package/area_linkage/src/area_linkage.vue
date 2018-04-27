@@ -134,12 +134,12 @@
 </style>
 <template>
     <div v-show="show">
-        <div class="linkage" v-bind:class="{beforeActive:isbeforeActive, active:isactive}" @click="close_click">
+        <div class="linkage" v-bind:class="{beforeActive:isbeforeActive, active:isactive}" @click="decision_click">
             <div class="linkage-warp" @click.stop="stop">
                 <div class="linkage-title">
                     {{title}}
-                    <div class="linkage-sure" id="linkage-sure" @click="decision_click">确定</div>
-                    <div class="linkage-cancel" id="linkage-cancel" @click="close_click">取消</div>
+                    <div class="linkage-sure" id="linkage-sure" @click="decision_click('sure')">确定</div>
+                    <div class="linkage-cancel" id="linkage-cancel" @click="decision_click">取消</div>
                 </div>
                 <div class="linkage-list">
                     <ul>
@@ -148,18 +148,21 @@
                     <ul class="left">
                         <li v-for="(item,index) in first_linkage_arry"
                             :class="{btnactive:item.id==first_linkage_default_value}"
-                            @click_bk="click_parent(item,index)"
-                            @click="click_parent2(item.id)">
-                            {{item.name}}
+                            @click="click_parent2(item.id)"
+                            :ref="'area_linkage_'+item.id"
+                            :_id="item.id"
+                        >
+                            {{item.name}}{{item.id}}
                         </li>
                     </ul>
                     <ul class="right">
                         <li v-for="(item,index) in sec_linkage_arry"
                             :class="{btnactive:item.id==sec_linkage_default_value}"
-                            @click_bk="click_child(item,index)"
                             @click="click_child2(item.id)"
+                            :ref="'area_linkage_'+item.id"
+                            :_id="item.id"
                         >
-                            {{item.name}}
+                            {{item.name}}{{item.id}}
                         </li>
                     </ul>
                 </div>
@@ -170,7 +173,7 @@
 </template>
 
 <script>
-    import _ajax from  "../lib/touch";
+    import _ajax from  "../lib/Util";
     import Tool from '../../../common/js/Tool'
     export default {
         name: 'area_linkage',
@@ -188,7 +191,9 @@
                 dataObj: {},//级联数值选项
                 dataStroge: [],//所有数据列表
 
-
+                //=================华丽的分割线===============
+                first_key: "",// quyu
+                sec_key: "",// diduan
                 allMap: {},// eg:{bj:[{"listname": "chaoyang", "name": "朝阳", "id": "1142"}],chaoyang:[...]}
                 idMap: {},
                 first_linkage_arry: [],
@@ -224,45 +229,13 @@
             // 点击一级菜单
             click_parent2(_id){
                 this.first_linkage_default_value = _id;
+                this.sec_linkage_default_value = "";
                 this._choose();
-            },
-            click_parent(item, index) {
-                let _this = this;
-                _this.cur_parent = index;
-                _this.cur_child = 0;
-                let tempobj = {};
-                tempobj = {
-                    paraname: _this.dataObj.first_key || null,
-                    name: item.listname || null,
-                    value: item.id || null,
-                    text: item.name || null
-                };
-                _this.backObj[0] = tempobj;
-                _this.child_obj = _this.dataStroge[0][item.listname];
-                tempobj = {
-                    paraname: _this.dataObj.sec_key || null,
-                    name: _this.child_obj[0].listname || null,
-                    value: _this.child_obj[0].id || null,
-                    text: _this.child_obj[0].name || null
-                };
-                _this.backObj[1] = tempobj;
             },
             // 点击二级菜单
             click_child2(_id){
                 this.sec_linkage_default_value = _id;
                 this._choose();
-            },
-            click_child(item, index) {
-                let _this = this;
-                _this.cur_child = index;
-                let tempobj = {};
-                tempobj = {
-                    paraname: _this.dataObj.sec_key || null,
-                    name: item.listname || null,
-                    value: item.id || null,
-                    text: item.name || null
-                };
-                _this.backObj[1] = tempobj;
             },
             // 点击取消
             close_click() {
@@ -274,11 +247,34 @@
                 }, 600);
                 Tool.removecss(document.body, "overflow");
                 Tool.removecss(document.body, "height");
+
                 return _this.callback(1);
             },
             // 点击完成
-            decision_click() {
+            decision_click(type) {
                 let _this = this;
+                var op = type == "sure" ? 0 : -1;
+
+                var retarry = [];
+                if (op == 0) {
+                    var first_choose = this.idMap[this.first_linkage_default_value] || {};
+                    var sec_choose = this.idMap[this.sec_linkage_default_value] || {};
+                    var obj1 = {
+                        paramname: this.first_key,
+                        name: first_choose["listname"] || "",
+                        value: first_choose["id"] || "",
+                        text: first_choose["name"] || "",
+                    }
+                    var obj2 = {
+                        paramname: this.sec_key,
+                        name: sec_choose["listname"] || "",
+                        value: sec_choose["id"] || "",
+                        text: sec_choose["name"] || "",
+                    }
+
+                    retarry.push(obj1);
+                    retarry.push(obj2);
+                }
                 _this.isactive = false;
                 setTimeout(function () {
                     _this.isbeforeActive = false;
@@ -286,39 +282,60 @@
                 }, 600);
                 Tool.removecss(document.body, "overflow");
                 Tool.removecss(document.body, "height");
-                let obj = [];
-                _this.backObj.forEach(function (item, index) {
-                    obj[index] = item;
-                });
-                return _this.callback(0, obj);
+
+                _this.callback(op, retarry);
             },
 
 
             _choose(){
                 this._clear();
+                let ret = 0;
                 var first_id = this.first_linkage_default_value;
                 var sec_id = this.sec_linkage_default_value;
-                if (!first_id) {
-                    first_id = this.first_linkage_arry[0]["id"]
+
+                var firs_choose;
+                var sec_array;
+                var hasChange = false;
+
+                // 计算一级选中id
+                if (ret == 0) {
+                    if (!first_id) {
+                        first_id = (this.first_linkage_arry[0] || {})["id"]
+                    }
+                    if (!!first_id) {
+                        this.first_linkage_default_value = first_id
+
+                    } else {
+                        ret = -1;
+                    }
                 }
-                this.idMap[first_id]["select"] = true;
-                console.log(first_id, "first_id");
-                var firs_choose = this.idMap[first_id];
-                console.log(firs_choose, "first_choose");
-                var name = firs_choose["listname"];
-                var array = this.allMap[name] || [];
 
-                this.sec_linkage_arry = array;
-
-                // 设置二级选中默认id
-
-                if (!sec_id) {
-                    sec_id = this.sec_linkage_arry[0]["id"];
+                // 寻找 二级数组
+                if (ret == 0) {
+                    firs_choose = this.idMap[first_id]
+                    if (!!firs_choose) {
+                        var name = firs_choose["listname"];
+                        sec_array = this.allMap[name];
+                    }
+                    if (!sec_array) {
+                        ret = -2
+                    }
                 }
-
-                this.idMap[sec_id]["select"] = true;
-                console.log(JSON.stringify(this.idMap[sec_id]));
-
+                // 计算二级选中id
+                if (ret == 0) {
+                    this.sec_linkage_arry = sec_array;
+                    if (!sec_id) {
+                        sec_id = (this.sec_linkage_arry[0] || {})["id"];
+                    }
+                    if (!sec_id) {
+                        ret = -3;
+                    }
+                }
+                // 赋值
+                if (ret == 0) {
+                    this.sec_linkage_default_value = sec_id;
+                }
+                this._scroll_to_choose()
             },
             _clear(){
                 for (var key in this.idMap) {
@@ -327,7 +344,36 @@
             },
             // 滚动到选中的id
             _scroll_to_choose(){
+                var _this = this;
+                _this.$nextTick(function () {
+                    var first_id = this.first_linkage_default_value;
+                    var sec_id = this.sec_linkage_default_value;
 
+                    var dom1 = this.$refs["area_linkage_" + first_id];
+                    var dom2 = this.$refs["area_linkage_" + sec_id];
+                    if (!!dom1) {
+                        this._scroll_dom(dom1, 200);
+                    }
+                    if (!!dom2) {
+                        this._scroll_dom(dom2, 150);
+                    }
+                })
+
+
+//            console.log(dom1.)
+            },
+            _scroll_dom(dom, p_px){
+                var dom_parent_h = dom[0].parentNode.offsetHeight;
+                var dom_parent_scroll = dom[0].parentNode.scrollTop;
+                var dom_ofset_h = dom[0].offsetTop;
+                // 上超出
+                if (dom - dom_ofset_h > 0) {
+                    dom[0].parentNode.scrollTop = dom_parent_scroll - (dom_parent_scroll - dom_ofset_h);
+                }
+                // 下隐藏
+                else if (dom_ofset_h - dom_parent_scroll > dom_parent_h) {
+                    dom[0].parentNode.scrollTop = dom_ofset_h - dom_parent_h + p_px;
+                }
             }
 
         },
