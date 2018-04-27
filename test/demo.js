@@ -11398,8 +11398,16 @@ exports.f = Object.getOwnPropertyNames || function getOwnPropertyNames(O) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__lib_touch__ = __webpack_require__(54);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__common_js_Tool__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_json_stringify__ = __webpack_require__(134);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_json_stringify___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_json_stringify__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__lib_touch__ = __webpack_require__(54);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__common_js_Tool__ = __webpack_require__(8);
+
+//
+//
+//
+//
+//
 //
 //
 //
@@ -11584,6 +11592,14 @@ exports.f = Object.getOwnPropertyNames || function getOwnPropertyNames(O) {
             backObj: [], //返回的数据
             dataObj: {}, //级联数值选项
             dataStroge: [], //所有数据列表
+
+
+            allMap: {}, // eg:{bj:[{"listname": "chaoyang", "name": "朝阳", "id": "1142"}],chaoyang:[...]}
+            idMap: {},
+            first_linkage_arry: [],
+            sec_linkage_arry: [],
+            first_linkage_default_value: "",
+            sec_linkage_default_value: "",
             callback: function callback() {}
         };
     },
@@ -11605,6 +11621,10 @@ exports.f = Object.getOwnPropertyNames || function getOwnPropertyNames(O) {
         //处理点击背景关闭键盘时，防止冒泡
 
         // 点击一级菜单
+        click_parent2: function click_parent2(_id) {
+            this.first_linkage_default_value = _id;
+            this._choose();
+        },
         click_parent: function click_parent(item, index) {
             var _this = this;
             _this.cur_parent = index;
@@ -11628,6 +11648,10 @@ exports.f = Object.getOwnPropertyNames || function getOwnPropertyNames(O) {
         },
 
         // 点击二级菜单
+        click_child2: function click_child2(_id) {
+            this.sec_linkage_default_value = _id;
+            this._choose();
+        },
         click_child: function click_child(item, index) {
             var _this = this;
             _this.cur_child = index;
@@ -11649,8 +11673,8 @@ exports.f = Object.getOwnPropertyNames || function getOwnPropertyNames(O) {
                 _this.isbeforeActive = false;
                 _this.show = false;
             }, 600);
-            __WEBPACK_IMPORTED_MODULE_1__common_js_Tool__["a" /* default */].removecss(document.body, "overflow");
-            __WEBPACK_IMPORTED_MODULE_1__common_js_Tool__["a" /* default */].removecss(document.body, "height");
+            __WEBPACK_IMPORTED_MODULE_2__common_js_Tool__["a" /* default */].removecss(document.body, "overflow");
+            __WEBPACK_IMPORTED_MODULE_2__common_js_Tool__["a" /* default */].removecss(document.body, "height");
             return _this.callback(1);
         },
 
@@ -11662,14 +11686,47 @@ exports.f = Object.getOwnPropertyNames || function getOwnPropertyNames(O) {
                 _this.isbeforeActive = false;
                 _this.show = false;
             }, 600);
-            __WEBPACK_IMPORTED_MODULE_1__common_js_Tool__["a" /* default */].removecss(document.body, "overflow");
-            __WEBPACK_IMPORTED_MODULE_1__common_js_Tool__["a" /* default */].removecss(document.body, "height");
+            __WEBPACK_IMPORTED_MODULE_2__common_js_Tool__["a" /* default */].removecss(document.body, "overflow");
+            __WEBPACK_IMPORTED_MODULE_2__common_js_Tool__["a" /* default */].removecss(document.body, "height");
             var obj = [];
             _this.backObj.forEach(function (item, index) {
                 obj[index] = item;
             });
             return _this.callback(0, obj);
-        }
+        },
+        _choose: function _choose() {
+            this._clear();
+            var first_id = this.first_linkage_default_value;
+            var sec_id = this.sec_linkage_default_value;
+            if (!first_id) {
+                first_id = this.first_linkage_arry[0]["id"];
+            }
+            this.idMap[first_id]["select"] = true;
+            console.log(first_id, "first_id");
+            var firs_choose = this.idMap[first_id];
+            console.log(firs_choose, "first_choose");
+            var name = firs_choose["listname"];
+            var array = this.allMap[name] || [];
+
+            this.sec_linkage_arry = array;
+
+            // 设置二级选中默认id
+
+            if (!sec_id) {
+                sec_id = this.sec_linkage_arry[0]["id"];
+            }
+
+            this.idMap[sec_id]["select"] = true;
+            console.log(__WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_json_stringify___default()(this.idMap[sec_id]));
+        },
+        _clear: function _clear() {
+            for (var key in this.idMap) {
+                this.idMap[key].select = false;
+            }
+        },
+
+        // 滚动到选中的id
+        _scroll_to_choose: function _scroll_to_choose() {}
     },
     watch: {
         'show': function show(val) {
@@ -15184,10 +15241,13 @@ if (false) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__src_area_linkage_vue__ = __webpack_require__(130);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__lib_touch__ = __webpack_require__(54);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__common_js_Tool__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_get_iterator__ = __webpack_require__(136);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_get_iterator___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_get_iterator__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__src_area_linkage_vue__ = __webpack_require__(130);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__lib_touch__ = __webpack_require__(54);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__common_js_Tool__ = __webpack_require__(8);
+
 /**
  * Created by lipan04 on 2018/4/21.
  */
@@ -15198,7 +15258,7 @@ if (false) {
 
 
 var instance = void 0;
-var linkagestructor = __WEBPACK_IMPORTED_MODULE_0_vue__["a" /* default */].extend(__WEBPACK_IMPORTED_MODULE_1__src_area_linkage_vue__["a" /* default */]);
+var linkagestructor = __WEBPACK_IMPORTED_MODULE_1_vue__["a" /* default */].extend(__WEBPACK_IMPORTED_MODULE_2__src_area_linkage_vue__["a" /* default */]);
 var dataStroge = [];
 var id_to_listname = {};
 var search_parent = {};
@@ -15227,7 +15287,7 @@ var area_linkage = function area_linkage(a, fun) {
 
     instance.url = url;
     if (dataStroge == "") {
-        Object(__WEBPACK_IMPORTED_MODULE_2__lib_touch__["a" /* default */])(url, { "cityname": a.key }, function callback(ret) {
+        Object(__WEBPACK_IMPORTED_MODULE_3__lib_touch__["a" /* default */])(url, { "cityname": a.key }, function callback(ret) {
             var temparr = null;
             temparr = ret.data.datastr;
             temparr = JSON.parse(temparr);
@@ -15249,7 +15309,58 @@ var area_linkage = function area_linkage(a, fun) {
     }
 
     function get_data(dataStroge, id_to_listname) {
+        // console.log(JSON.stringify(dataStroge))
+
         parent_obj = dataStroge[0][dataStroge[0].city];
+        var city_obj = dataStroge[0];
+        var city_key = city_obj.city;
+        console.log(city_key, "bejjing");
+        var first_linkage_arry = city_obj[city_key];
+        // var first_linkage_arry=city_obj[city_key];
+
+        instance.allMap = city_obj;
+        // console.log(first_linkage_arry,"bbbbbbbb")
+        instance.first_linkage_arry = first_linkage_arry;
+        instance.first_linkage_default_value = a.first_key_default;
+        instance.sec_linkage_default_value = a.sec_key_default;
+
+        var idMap = {};
+        for (var key in city_obj) {
+            var item = city_obj[key];
+            if (item instanceof Array) {
+                var _iteratorNormalCompletion = true;
+                var _didIteratorError = false;
+                var _iteratorError = undefined;
+
+                try {
+                    for (var _iterator = __WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_get_iterator___default()(item), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+                        var it = _step.value;
+
+                        var _id = it.id;
+
+                        idMap[_id] = it;
+                    }
+                } catch (err) {
+                    _didIteratorError = true;
+                    _iteratorError = err;
+                } finally {
+                    try {
+                        if (!_iteratorNormalCompletion && _iterator.return) {
+                            _iterator.return();
+                        }
+                    } finally {
+                        if (_didIteratorError) {
+                            throw _iteratorError;
+                        }
+                    }
+                }
+            }
+        }
+        instance.idMap = idMap;
+
+        instance._choose();
+
+        return;
         if (a.first_key_default && a.first_key_default != "") {
             //如果第一个参数存在,则一级默认选中的是a.first_key_default对应的对象，二级数据也是a.first_key_default下对应的数据
             var temp_parent_obj = {};
@@ -15329,8 +15440,8 @@ var area_linkage = function area_linkage(a, fun) {
                     text: parent_obj[0].name || null
                 };
                 instance.backObj[0] = tempObj;
-                var key = dataStroge[0][dataStroge[0]["city"]][0].listname;
-                child_obj = dataStroge[0][key];
+                var _key = dataStroge[0][dataStroge[0]["city"]][0].listname;
+                child_obj = dataStroge[0][_key];
                 tempObj = {
                     paraname: instance.dataObj.sec_key,
                     name: child_obj[0].listname || null,
@@ -15455,8 +15566,8 @@ var area_linkage = function area_linkage(a, fun) {
     //
     // });
 
-    __WEBPACK_IMPORTED_MODULE_3__common_js_Tool__["a" /* default */].css(document.body, "overflow", "hidden");
-    __WEBPACK_IMPORTED_MODULE_3__common_js_Tool__["a" /* default */].css(document.body, "height", "100vh");
+    __WEBPACK_IMPORTED_MODULE_4__common_js_Tool__["a" /* default */].css(document.body, "overflow", "hidden");
+    __WEBPACK_IMPORTED_MODULE_4__common_js_Tool__["a" /* default */].css(document.body, "height", "100vh");
     instance.show = true;
     instance.isbeforeActive = true;
     setTimeout(function () {
@@ -15641,14 +15752,19 @@ var render = function() {
                 _c(
                   "ul",
                   { staticClass: "left" },
-                  _vm._l(_vm.parent_obj, function(item, index) {
+                  _vm._l(_vm.first_linkage_arry, function(item, index) {
                     return _c(
                       "li",
                       {
-                        class: { btnactive: index == _vm.cur_parent },
+                        class: {
+                          btnactive: item.id == _vm.first_linkage_default_value
+                        },
                         on: {
-                          click: function($event) {
+                          click_bk: function($event) {
                             _vm.click_parent(item, index)
+                          },
+                          click: function($event) {
+                            _vm.click_parent2(item.id)
                           }
                         }
                       },
@@ -15666,14 +15782,19 @@ var render = function() {
                 _c(
                   "ul",
                   { staticClass: "right" },
-                  _vm._l(_vm.child_obj, function(item, index) {
+                  _vm._l(_vm.sec_linkage_arry, function(item, index) {
                     return _c(
                       "li",
                       {
-                        class: { btnactive: index == _vm.cur_child },
+                        class: {
+                          btnactive: item.id == _vm.sec_linkage_default_value
+                        },
                         on: {
-                          click: function($event) {
+                          click_bk: function($event) {
                             _vm.click_child(item, index)
+                          },
+                          click: function($event) {
+                            _vm.click_child2(item.id)
                           }
                         }
                       },
@@ -15705,6 +15826,94 @@ if (false) {
     require("vue-hot-reload-api")      .rerender("data-v-019b7608", esExports)
   }
 }
+
+/***/ }),
+/* 134 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = { "default": __webpack_require__(135), __esModule: true };
+
+/***/ }),
+/* 135 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var core = __webpack_require__(12);
+var $JSON = core.JSON || (core.JSON = { stringify: JSON.stringify });
+module.exports = function stringify(it) { // eslint-disable-line no-unused-vars
+  return $JSON.stringify.apply($JSON, arguments);
+};
+
+
+/***/ }),
+/* 136 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = { "default": __webpack_require__(137), __esModule: true };
+
+/***/ }),
+/* 137 */
+/***/ (function(module, exports, __webpack_require__) {
+
+__webpack_require__(100);
+__webpack_require__(94);
+module.exports = __webpack_require__(138);
+
+
+/***/ }),
+/* 138 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var anObject = __webpack_require__(16);
+var get = __webpack_require__(139);
+module.exports = __webpack_require__(12).getIterator = function (it) {
+  var iterFn = get(it);
+  if (typeof iterFn != 'function') throw TypeError(it + ' is not iterable!');
+  return anObject(iterFn.call(it));
+};
+
+
+/***/ }),
+/* 139 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var classof = __webpack_require__(140);
+var ITERATOR = __webpack_require__(11)('iterator');
+var Iterators = __webpack_require__(30);
+module.exports = __webpack_require__(12).getIteratorMethod = function (it) {
+  if (it != undefined) return it[ITERATOR]
+    || it['@@iterator']
+    || Iterators[classof(it)];
+};
+
+
+/***/ }),
+/* 140 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// getting tag from 19.1.3.6 Object.prototype.toString()
+var cof = __webpack_require__(43);
+var TAG = __webpack_require__(11)('toStringTag');
+// ES3 wrong here
+var ARG = cof(function () { return arguments; }()) == 'Arguments';
+
+// fallback for IE11 Script Access Denied error
+var tryGet = function (it, key) {
+  try {
+    return it[key];
+  } catch (e) { /* empty */ }
+};
+
+module.exports = function (it) {
+  var O, T, B;
+  return it === undefined ? 'Undefined' : it === null ? 'Null'
+    // @@toStringTag case
+    : typeof (T = tryGet(O = Object(it), TAG)) == 'string' ? T
+    // builtinTag case
+    : ARG ? cof(O)
+    // ES3 arguments fallback
+    : (B = cof(O)) == 'Object' && typeof O.callee == 'function' ? 'Arguments' : B;
+};
+
 
 /***/ })
 /******/ ]);

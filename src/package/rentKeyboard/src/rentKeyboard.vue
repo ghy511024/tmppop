@@ -366,7 +366,6 @@
                     } else if (_type == "confirm") {
                         _this.handleConfirm();
                     }
-
                 }
             });
 

@@ -146,19 +146,14 @@
                         <li class="btnactive">{{title}}</li>
                     </ul>
                     <ul class="left">
-                        <li v-for="(item,index) in first_linkage_arry"
-                            :class="{btnactive:item.id==first_linkage_default_value}"
-                            @click_bk="click_parent(item,index)"
-                            @click="click_parent2(item.id)">
+                        <li v-for="(item,index) in parent_obj" :class="{btnactive:index==cur_parent}"
+                            @click="click_parent(item,index)">
                             {{item.name}}
                         </li>
                     </ul>
                     <ul class="right">
-                        <li v-for="(item,index) in sec_linkage_arry"
-                            :class="{btnactive:item.id==sec_linkage_default_value}"
-                            @click_bk="click_child(item,index)"
-                            @click="click_child2(item.id)"
-                        >
+                        <li v-for="(item,index) in child_obj" :class="{btnactive:index==cur_child}"
+                            @click="click_child(item,index)">
                             {{item.name}}
                         </li>
                     </ul>
@@ -188,9 +183,9 @@
                 dataObj: {},//级联数值选项
                 dataStroge: [],//所有数据列表
 
-
                 allMap: {},// eg:{bj:[{"listname": "chaoyang", "name": "朝阳", "id": "1142"}],chaoyang:[...]}
                 idMap: {},
+
                 first_linkage_arry: [],
                 sec_linkage_arry: [],
                 first_linkage_default_value: "",
@@ -222,10 +217,6 @@
             },//处理点击背景关闭键盘时，防止冒泡
 
             // 点击一级菜单
-            click_parent2(_id){
-                this.first_linkage_default_value = _id;
-                this._choose();
-            },
             click_parent(item, index) {
                 let _this = this;
                 _this.cur_parent = index;
@@ -248,10 +239,6 @@
                 _this.backObj[1] = tempobj;
             },
             // 点击二级菜单
-            click_child2(_id){
-                this.sec_linkage_default_value = _id;
-                this._choose();
-            },
             click_child(item, index) {
                 let _this = this;
                 _this.cur_child = index;
@@ -295,41 +282,19 @@
 
 
             _choose(){
-                this._clear();
                 var first_id = this.first_linkage_default_value;
-                var sec_id = this.sec_linkage_default_value;
-                if (!first_id) {
-                    first_id = this.first_linkage_arry[0]["id"]
+                if (!!first_id) {
+                    first_id = this.first_linkage_arry[0].id
                 }
-                this.idMap[first_id]["select"] = true;
-                console.log(first_id, "first_id");
                 var firs_choose = this.idMap[first_id];
-                console.log(firs_choose, "first_choose");
+                console.log(firs_choose);
                 var name = firs_choose["listname"];
-                var array = this.allMap[name] || [];
-
+                var array = this.allMap[name];
+                console.log(array, "?????");
                 this.sec_linkage_arry = array;
 
-                // 设置二级选中默认id
-
-                if (!sec_id) {
-                    sec_id = this.sec_linkage_arry[0]["id"];
-                }
-
-                this.idMap[sec_id]["select"] = true;
-                console.log(JSON.stringify(this.idMap[sec_id]));
-
-            },
-            _clear(){
-                for (var key in this.idMap) {
-                    this.idMap[key].select = false;
-                }
-            },
-            // 滚动到选中的id
-            _scroll_to_choose(){
 
             }
-
         },
         watch: {
             'show'(val) {

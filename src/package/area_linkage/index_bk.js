@@ -62,17 +62,15 @@ let area_linkage = (a, fun) => {
 
 
     function get_data(dataStroge, id_to_listname) {
-        // console.log(JSON.stringify(dataStroge))
+        console.log(JSON.stringify(dataStroge))
 
         parent_obj = dataStroge[0][dataStroge[0].city]
         var city_obj = dataStroge[0];
         var city_key = city_obj.city;
-        console.log(city_key,"bejjing")
         var first_linkage_arry = city_obj[city_key];
         // var first_linkage_arry=city_obj[city_key];
 
-        instance.allMap = city_obj;
-        // console.log(first_linkage_arry,"bbbbbbbb")
+        instance.allMap = first_linkage_arry;
         instance.first_linkage_arry = first_linkage_arry;
         instance.first_linkage_default_value = a.first_key_default;
         instance.sec_linkage_default_value = a.sec_key_default;
@@ -83,16 +81,13 @@ let area_linkage = (a, fun) => {
             if (item instanceof Array) {
                 for (var it of item) {
                     var _id = it.id;
-
-                    idMap[_id] = it;
+                    idMap[_id] = item;
                 }
             }
         }
         instance.idMap = idMap;
 
-        instance._choose();
-
-        return ;
+        this._choose();
         if (a.first_key_default && (a.first_key_default != "")) {//如果第一个参数存在,则一级默认选中的是a.first_key_default对应的对象，二级数据也是a.first_key_default下对应的数据
             let temp_parent_obj = {};
             let temp_child_obj = {};
@@ -155,12 +150,10 @@ let area_linkage = (a, fun) => {
                 };
                 instance.backObj[1] = tempObj;
             }
-        }
-        else {
+        } else {
             if (a.sec_key_default && (a.sec_key_default != "")) {//如果第一个参数不存在，第二个参数存在
 
-            }
-            else {//如果两个参数都不存在，则一级默认选中的是city对应下数据的第一项，二级数据是一级数据选中的对象下第一个数据
+            } else {//如果两个参数都不存在，则一级默认选中的是city对应下数据的第一项，二级数据是一级数据选中的对象下第一个数据
                 instance.cur_parent = 0;
                 instance.cur_child = 0;
                 // parent_obj = dataStroge[0][dataStroge[0].city];
