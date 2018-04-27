@@ -8536,48 +8536,6 @@ if (typeof __g == 'number') __g = global; // eslint-disable-line no-undef
 
 /***/ }),
 /* 5 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var anObject = __webpack_require__(16);
-var IE8_DOM_DEFINE = __webpack_require__(39);
-var toPrimitive = __webpack_require__(22);
-var dP = Object.defineProperty;
-
-exports.f = __webpack_require__(6) ? Object.defineProperty : function defineProperty(O, P, Attributes) {
-  anObject(O);
-  P = toPrimitive(P, true);
-  anObject(Attributes);
-  if (IE8_DOM_DEFINE) try {
-    return dP(O, P, Attributes);
-  } catch (e) { /* empty */ }
-  if ('get' in Attributes || 'set' in Attributes) throw TypeError('Accessors not supported!');
-  if ('value' in Attributes) O[P] = Attributes.value;
-  return O;
-};
-
-
-/***/ }),
-/* 6 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// Thank's IE8 for his funny defineProperty
-module.exports = !__webpack_require__(14)(function () {
-  return Object.defineProperty({}, 'a', { get: function () { return 7; } }).a != 7;
-});
-
-
-/***/ }),
-/* 7 */
-/***/ (function(module, exports) {
-
-var hasOwnProperty = {}.hasOwnProperty;
-module.exports = function (it, key) {
-  return hasOwnProperty.call(it, key);
-};
-
-
-/***/ }),
-/* 8 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -8646,12 +8604,54 @@ var Tool = {
 // Tool.css(str, "color", "sdf");
 
 /***/ }),
+/* 6 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var anObject = __webpack_require__(16);
+var IE8_DOM_DEFINE = __webpack_require__(39);
+var toPrimitive = __webpack_require__(22);
+var dP = Object.defineProperty;
+
+exports.f = __webpack_require__(7) ? Object.defineProperty : function defineProperty(O, P, Attributes) {
+  anObject(O);
+  P = toPrimitive(P, true);
+  anObject(Attributes);
+  if (IE8_DOM_DEFINE) try {
+    return dP(O, P, Attributes);
+  } catch (e) { /* empty */ }
+  if ('get' in Attributes || 'set' in Attributes) throw TypeError('Accessors not supported!');
+  if ('value' in Attributes) O[P] = Attributes.value;
+  return O;
+};
+
+
+/***/ }),
+/* 7 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// Thank's IE8 for his funny defineProperty
+module.exports = !__webpack_require__(14)(function () {
+  return Object.defineProperty({}, 'a', { get: function () { return 7; } }).a != 7;
+});
+
+
+/***/ }),
+/* 8 */
+/***/ (function(module, exports) {
+
+var hasOwnProperty = {}.hasOwnProperty;
+module.exports = function (it, key) {
+  return hasOwnProperty.call(it, key);
+};
+
+
+/***/ }),
 /* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var dP = __webpack_require__(5);
+var dP = __webpack_require__(6);
 var createDesc = __webpack_require__(17);
-module.exports = __webpack_require__(6) ? function (object, key, value) {
+module.exports = __webpack_require__(7) ? function (object, key, value) {
   return dP.f(object, key, createDesc(1, value));
 } : function (object, key, value) {
   object[key] = value;
@@ -8726,7 +8726,7 @@ var global = __webpack_require__(4);
 var core = __webpack_require__(12);
 var ctx = __webpack_require__(74);
 var hide = __webpack_require__(9);
-var has = __webpack_require__(7);
+var has = __webpack_require__(8);
 var PROTOTYPE = 'prototype';
 
 var $export = function (type, name, source) {
@@ -8968,8 +8968,8 @@ module.exports = {};
 /* 31 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var def = __webpack_require__(5).f;
-var has = __webpack_require__(7);
+var def = __webpack_require__(6).f;
+var has = __webpack_require__(8);
 var TAG = __webpack_require__(11)('toStringTag');
 
 module.exports = function (it, tag, stat) {
@@ -8992,7 +8992,7 @@ var global = __webpack_require__(4);
 var core = __webpack_require__(12);
 var LIBRARY = __webpack_require__(29);
 var wksExt = __webpack_require__(32);
-var defineProperty = __webpack_require__(5).f;
+var defineProperty = __webpack_require__(6).f;
 module.exports = function (name) {
   var $Symbol = core.Symbol || (core.Symbol = LIBRARY ? {} : global.Symbol || {});
   if (name.charAt(0) != '_' && !(name in $Symbol)) defineProperty($Symbol, name, { value: wksExt.f(name) });
@@ -9147,9 +9147,9 @@ module.exports = function (name) {
                 key: "bj",
                 //                        url: "http://m.58.com/sublocals/",
                 first_key: "quyu",
-                sec_key: "diduan",
-                first_key_default: "1144",
-                sec_key_default: "5129"
+                sec_key: "diduan"
+                //                        first_key_default:"1144",
+                //                        sec_key_default:"5129",
             };
             this.$area_linkage(param, function (ret, data) {
                 // ret==0 点击确定
@@ -9408,7 +9408,7 @@ process.umask = function() { return 0; };
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_object_assign__ = __webpack_require__(38);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_object_assign___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_object_assign__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__common_js_Tool__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__common_js_Tool__ = __webpack_require__(5);
 
 //
 //
@@ -9572,7 +9572,7 @@ module.exports = { "default": __webpack_require__(72), __esModule: true };
 /* 39 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = !__webpack_require__(6) && !__webpack_require__(14)(function () {
+module.exports = !__webpack_require__(7) && !__webpack_require__(14)(function () {
   return Object.defineProperty(__webpack_require__(40)('div'), 'a', { get: function () { return 7; } }).a != 7;
 });
 
@@ -9594,7 +9594,7 @@ module.exports = function (it) {
 /* 41 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var has = __webpack_require__(7);
+var has = __webpack_require__(8);
 var toIObject = __webpack_require__(10);
 var arrayIndexOf = __webpack_require__(77)(false);
 var IE_PROTO = __webpack_require__(25)('IE_PROTO');
@@ -10283,7 +10283,7 @@ exports.f = Object.getOwnPropertyNames || function getOwnPropertyNames(O) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__common_js_Tool__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__common_js_Tool__ = __webpack_require__(5);
 //
 //
 //
@@ -11086,7 +11086,7 @@ exports.f = Object.getOwnPropertyNames || function getOwnPropertyNames(O) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__common_js_Tool__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__common_js_Tool__ = __webpack_require__(5);
 //
 //
 //
@@ -11359,7 +11359,7 @@ exports.f = Object.getOwnPropertyNames || function getOwnPropertyNames(O) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__lib_touch__ = __webpack_require__(54);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__common_js_Tool__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__common_js_Tool__ = __webpack_require__(5);
 //
 //
 //
@@ -12360,7 +12360,7 @@ if (false) {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__src_popup_select_vue__ = __webpack_require__(69);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__common_js_Tool__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__common_js_Tool__ = __webpack_require__(5);
 /**
  * Created by lipan04 on 2018/4/11.
  */
@@ -13293,7 +13293,7 @@ module.exports = function defineProperty(it, key, desc) {
 
 var $export = __webpack_require__(15);
 // 19.1.2.4 / 15.2.3.6 Object.defineProperty(O, P, Attributes)
-$export($export.S + $export.F * !__webpack_require__(6), 'Object', { defineProperty: __webpack_require__(5).f });
+$export($export.S + $export.F * !__webpack_require__(7), 'Object', { defineProperty: __webpack_require__(6).f });
 
 
 /***/ }),
@@ -13523,7 +13523,7 @@ if (false) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_typeof___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_typeof__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vue__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__src_rentKeyboard_vue__ = __webpack_require__(115);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__common_js_Tool__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__common_js_Tool__ = __webpack_require__(5);
 
 
 /**
@@ -13693,11 +13693,11 @@ module.exports = function (Constructor, NAME, next) {
 /* 97 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var dP = __webpack_require__(5);
+var dP = __webpack_require__(6);
 var anObject = __webpack_require__(16);
 var getKeys = __webpack_require__(18);
 
-module.exports = __webpack_require__(6) ? Object.defineProperties : function defineProperties(O, Properties) {
+module.exports = __webpack_require__(7) ? Object.defineProperties : function defineProperties(O, Properties) {
   anObject(O);
   var keys = getKeys(Properties);
   var length = keys.length;
@@ -13721,7 +13721,7 @@ module.exports = document && document.documentElement;
 /***/ (function(module, exports, __webpack_require__) {
 
 // 19.1.2.9 / 15.2.3.2 Object.getPrototypeOf(O)
-var has = __webpack_require__(7);
+var has = __webpack_require__(8);
 var toObject = __webpack_require__(44);
 var IE_PROTO = __webpack_require__(25)('IE_PROTO');
 var ObjectProto = Object.prototype;
@@ -13842,8 +13842,8 @@ module.exports = __webpack_require__(12).Symbol;
 
 // ECMAScript 6 symbols shim
 var global = __webpack_require__(4);
-var has = __webpack_require__(7);
-var DESCRIPTORS = __webpack_require__(6);
+var has = __webpack_require__(8);
+var DESCRIPTORS = __webpack_require__(7);
 var $export = __webpack_require__(15);
 var redefine = __webpack_require__(47);
 var META = __webpack_require__(107).KEY;
@@ -13864,7 +13864,7 @@ var createDesc = __webpack_require__(17);
 var _create = __webpack_require__(48);
 var gOPNExt = __webpack_require__(110);
 var $GOPD = __webpack_require__(111);
-var $DP = __webpack_require__(5);
+var $DP = __webpack_require__(6);
 var $keys = __webpack_require__(18);
 var gOPD = $GOPD.f;
 var dP = $DP.f;
@@ -14081,8 +14081,8 @@ setToStringTag(global.JSON, 'JSON', true);
 
 var META = __webpack_require__(19)('meta');
 var isObject = __webpack_require__(13);
-var has = __webpack_require__(7);
-var setDesc = __webpack_require__(5).f;
+var has = __webpack_require__(8);
+var setDesc = __webpack_require__(6).f;
 var id = 0;
 var isExtensible = Object.isExtensible || function () {
   return true;
@@ -14199,11 +14199,11 @@ var pIE = __webpack_require__(20);
 var createDesc = __webpack_require__(17);
 var toIObject = __webpack_require__(10);
 var toPrimitive = __webpack_require__(22);
-var has = __webpack_require__(7);
+var has = __webpack_require__(8);
 var IE8_DOM_DEFINE = __webpack_require__(39);
 var gOPD = Object.getOwnPropertyDescriptor;
 
-exports.f = __webpack_require__(6) ? gOPD : function getOwnPropertyDescriptor(O, P) {
+exports.f = __webpack_require__(7) ? gOPD : function getOwnPropertyDescriptor(O, P) {
   O = toIObject(O);
   P = toPrimitive(P, true);
   if (IE8_DOM_DEFINE) try {
@@ -14816,7 +14816,7 @@ if (false) {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__src_two_linkage_vue__ = __webpack_require__(125);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__common_js_Tool__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__common_js_Tool__ = __webpack_require__(5);
 /**
  * Created by lipan04 on 2018/4/20.
  */
@@ -15159,7 +15159,7 @@ if (false) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__src_area_linkage_vue__ = __webpack_require__(130);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__lib_touch__ = __webpack_require__(54);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__common_js_Tool__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__common_js_Tool__ = __webpack_require__(5);
 /**
  * Created by lipan04 on 2018/4/21.
  */
@@ -15173,6 +15173,7 @@ var instance = void 0;
 var linkagestructor = __WEBPACK_IMPORTED_MODULE_0_vue__["a" /* default */].extend(__WEBPACK_IMPORTED_MODULE_1__src_area_linkage_vue__["a" /* default */]);
 var dataStroge = [];
 var id_to_listname = {};
+var search_parent = {};
 
 var initInstance = function initInstance(bottom) {
     instance = new linkagestructor({
@@ -15192,6 +15193,7 @@ var area_linkage = function area_linkage(a, fun) {
     instance.callback = fun;
     var parent_obj = [];
     var child_obj = [];
+    var think = [];
     var tempObj = {};
     var backObj = [];
 
@@ -15205,11 +15207,11 @@ var area_linkage = function area_linkage(a, fun) {
             var key = temparr[0].city;
             temparr[0][key].forEach(function (item) {
                 id_to_listname[item.id] = item.listname;
-                // let child_key=item.listname;
-                // let curobj=temparr[0][child_key];
-                // curobj.forEach(function(cur_item){
-                //     id_to_listname[cur_item.id]=cur_item.listname;
-                // })
+                var child_key = item.listname;
+                var curobj = temparr[0][child_key];
+                curobj.forEach(function (cur_item) {
+                    search_parent[cur_item.id] = item.listname;
+                });
             });
             instance.dataStroge = dataStroge;
             get_data(dataStroge, id_to_listname);
@@ -15231,15 +15233,17 @@ var area_linkage = function area_linkage(a, fun) {
                     for (var cur_item in dataStroge[0]) {
                         if (cur_item == id_to_listname[a.first_key_default]) {
                             child_obj = dataStroge[0][cur_item];
+                            // console.log(think=="")
                         }
                     }
                 }
             });
+
             tempObj = {
                 paraname: instance.dataObj.first_key,
-                name: temp_parent_obj.listname,
-                value: temp_parent_obj.id,
-                text: temp_parent_obj.name
+                name: temp_parent_obj.listname || null,
+                value: temp_parent_obj.id || null,
+                text: temp_parent_obj.name || null
             };
             if (instance.cur_parent > 5) {
                 var temp = {};
@@ -15283,26 +15287,30 @@ var area_linkage = function area_linkage(a, fun) {
                 instance.backObj[1] = tempObj;
             }
         } else {
-            //如果两个参数都不存在，则一级默认选中的是city对应下数据的第一项，二级数据是一级数据选中的对象下第一个数据
-            instance.cur_parent = 0;
-            instance.cur_child = 0;
-            parent_obj = dataStroge[0][dataStroge[0].city];
-            tempObj = {
-                paraname: instance.dataObj.first_key,
-                name: parent_obj[0].listname,
-                value: parent_obj[0].id,
-                text: parent_obj[0].name
-            };
-            instance.backObj[0] = tempObj;
-            var key = dataStroge[0][dataStroge[0]["city"]][0].listname;
-            child_obj = dataStroge[0][key];
-            tempObj = {
-                paraname: instance.dataObj.sec_key,
-                name: child_obj[0].listname,
-                value: child_obj[0].id,
-                text: child_obj[0].name
-            };
-            instance.backObj[1] = tempObj;
+            if (a.sec_key_default && a.sec_key_default != "") {//如果第一个参数不存在，第二个参数存在
+
+            } else {
+                //如果两个参数都不存在，则一级默认选中的是city对应下数据的第一项，二级数据是一级数据选中的对象下第一个数据
+                instance.cur_parent = 0;
+                instance.cur_child = 0;
+                // parent_obj = dataStroge[0][dataStroge[0].city];
+                tempObj = {
+                    paraname: instance.dataObj.first_key,
+                    name: parent_obj[0].listname || null,
+                    value: parent_obj[0].id || null,
+                    text: parent_obj[0].name || null
+                };
+                instance.backObj[0] = tempObj;
+                var key = dataStroge[0][dataStroge[0]["city"]][0].listname;
+                child_obj = dataStroge[0][key];
+                tempObj = {
+                    paraname: instance.dataObj.sec_key,
+                    name: child_obj[0].listname || null,
+                    value: child_obj[0].id | null,
+                    text: child_obj[0].name || null
+                };
+                instance.backObj[1] = tempObj;
+            }
         }
         instance.parent_obj = parent_obj;
         instance.child_obj = child_obj;
