@@ -9148,9 +9148,9 @@ module.exports = function (name) {
                 key: "bj",
                 //                        url: "http://m.58.com/sublocals/",
                 first_key: "quyu",
-                sec_key: "diduan",
-                first_key_default: "1144",
-                sec_key_default: "5129"
+                sec_key: "diduan"
+                //                        first_key_default:"1144",
+                //                        sec_key_default:"5129",
             };
             this.$area_linkage(param, function (ret, data) {
                 // ret==0 点击确定
@@ -15200,6 +15200,7 @@ var instance = void 0;
 var linkagestructor = __WEBPACK_IMPORTED_MODULE_0_vue__["a" /* default */].extend(__WEBPACK_IMPORTED_MODULE_1__src_area_linkage_vue__["a" /* default */]);
 var dataStroge = [];
 var id_to_listname = {};
+var search_parent = {};
 
 var initInstance = function initInstance(bottom) {
     instance = new linkagestructor({
@@ -15219,6 +15220,7 @@ var area_linkage = function area_linkage(a, fun) {
     instance.callback = fun;
     var parent_obj = [];
     var child_obj = [];
+    var think = [];
     var tempObj = {};
     var backObj = [];
 
@@ -15232,11 +15234,11 @@ var area_linkage = function area_linkage(a, fun) {
             var key = temparr[0].city;
             temparr[0][key].forEach(function (item) {
                 id_to_listname[item.id] = item.listname;
-                // let child_key=item.listname;
-                // let curobj=temparr[0][child_key];
-                // curobj.forEach(function(cur_item){
-                //     id_to_listname[cur_item.id]=cur_item.listname;
-                // })
+                var child_key = item.listname;
+                var curobj = temparr[0][child_key];
+                curobj.forEach(function (cur_item) {
+                    search_parent[cur_item.id] = item.listname;
+                });
             });
             instance.dataStroge = dataStroge;
             get_data(dataStroge, id_to_listname);
@@ -15258,15 +15260,17 @@ var area_linkage = function area_linkage(a, fun) {
                     for (var cur_item in dataStroge[0]) {
                         if (cur_item == id_to_listname[a.first_key_default]) {
                             child_obj = dataStroge[0][cur_item];
+                            // console.log(think=="")
                         }
                     }
                 }
             });
+
             tempObj = {
                 paraname: instance.dataObj.first_key,
-                name: temp_parent_obj.listname,
-                value: temp_parent_obj.id,
-                text: temp_parent_obj.name
+                name: temp_parent_obj.listname || null,
+                value: temp_parent_obj.id || null,
+                text: temp_parent_obj.name || null
             };
             if (instance.cur_parent > 5) {
                 var temp = {};
@@ -15310,26 +15314,30 @@ var area_linkage = function area_linkage(a, fun) {
                 instance.backObj[1] = tempObj;
             }
         } else {
-            //如果两个参数都不存在，则一级默认选中的是city对应下数据的第一项，二级数据是一级数据选中的对象下第一个数据
-            instance.cur_parent = 0;
-            instance.cur_child = 0;
-            parent_obj = dataStroge[0][dataStroge[0].city];
-            tempObj = {
-                paraname: instance.dataObj.first_key,
-                name: parent_obj[0].listname,
-                value: parent_obj[0].id,
-                text: parent_obj[0].name
-            };
-            instance.backObj[0] = tempObj;
-            var key = dataStroge[0][dataStroge[0]["city"]][0].listname;
-            child_obj = dataStroge[0][key];
-            tempObj = {
-                paraname: instance.dataObj.sec_key,
-                name: child_obj[0].listname,
-                value: child_obj[0].id,
-                text: child_obj[0].name
-            };
-            instance.backObj[1] = tempObj;
+            if (a.sec_key_default && a.sec_key_default != "") {//如果第一个参数不存在，第二个参数存在
+
+            } else {
+                //如果两个参数都不存在，则一级默认选中的是city对应下数据的第一项，二级数据是一级数据选中的对象下第一个数据
+                instance.cur_parent = 0;
+                instance.cur_child = 0;
+                // parent_obj = dataStroge[0][dataStroge[0].city];
+                tempObj = {
+                    paraname: instance.dataObj.first_key,
+                    name: parent_obj[0].listname || null,
+                    value: parent_obj[0].id || null,
+                    text: parent_obj[0].name || null
+                };
+                instance.backObj[0] = tempObj;
+                var key = dataStroge[0][dataStroge[0]["city"]][0].listname;
+                child_obj = dataStroge[0][key];
+                tempObj = {
+                    paraname: instance.dataObj.sec_key,
+                    name: child_obj[0].listname || null,
+                    value: child_obj[0].id | null,
+                    text: child_obj[0].name || null
+                };
+                instance.backObj[1] = tempObj;
+            }
         }
         instance.parent_obj = parent_obj;
         instance.child_obj = child_obj;

@@ -203,11 +203,11 @@
                         title: "区域",
                         key: "bj",
 //                        url: "http://m.58.com/sublocals/",
-                    first_key: "quyu",
-                    sec_key: "diduan",
-                    first_key_default: "1144",
-                    sec_key_default: "5129",
-                };
+                        first_key: "quyu",
+                        sec_key: "diduan",
+//                        first_key_default:"1144",
+//                        sec_key_default:"5129",
+                    };
                 this.$area_linkage(param, function (ret, data) {
                     // ret==0 点击确定
                     // ret==1 取消
