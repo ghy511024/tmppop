@@ -22,7 +22,7 @@
                 rentKeyoardData: {
                     dataArrSel: {
                         value: 0,
-                        unit_position:"top",//默认单位再数字后面，当参数是top时候，单位在 title后面
+                        unit_position: "top",//默认单位再数字后面，当参数是top时候，单位在 title后面
                     },
 
                     dataArr: [
@@ -97,7 +97,8 @@
                             ],
                         },
                     ],
-                },
+                }
+                ,
             }
         },
         created: function () {
@@ -119,7 +120,7 @@
                     selec_type: "radio",
                     //list_type： single_text multi_text
                     list_type: "",
-                    default_value:"2|3",
+                    default_value: "2|3",
                     option: [
                         {"title": "房东", "text": "房屋所有者，具备认证房本资质", value: "1"},
                         {"title": "转租", "text": "转让自己承租的房子", value: "2"},
@@ -136,7 +137,7 @@
                 });
             },
             rentKeyboard(){
-                this.$rentKeyboard(this.rentKeyoardData, (status,res) => {
+                this.$rentKeyboard(this.rentKeyoardData, (status, res) => {
                     console.log("返回的输入控件数据为")
                     console.log(status);
                     console.log(res);
@@ -152,8 +153,8 @@
                     title: "行业",
                     first_key: "hangye",
                     sec_key: "zhonlei",
-                    first_key_default:"511575",
-                    sec_key_default:"511602",
+                    first_key_default: "511575",
+                    sec_key_default: "511602",
                     option: [
                         {
                             "value": "511574",
@@ -219,11 +220,7 @@
                     console.log(ret)
                     console.log(data)
                 });
-
-
             },
-
-
             lou_picker(){
                 var def = {
                     defaultType: "single",//single,multi 单层|多层
@@ -238,7 +235,6 @@
                     console.log('返回楼层选择数据为：', res, data);
                 });
             }
-
         }
     }
 </script>

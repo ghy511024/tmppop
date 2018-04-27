@@ -241,17 +241,17 @@
             },
             // 点击取消
             close_click() {
-                let _this=this;
+                let _this = this;
                 _this._close();
                 return _this.callback(1);
             },
             // 点击完成
             decision_click() {
-                let _this=this;
+                let _this = this;
                 _this._close();
-                let array=[];
-                _this.backobj.forEach(function(item,index){
-                    array[index]=item;
+                let array = [];
+                _this.backobj.forEach(function (item, index) {
+                    array[index] = item;
                 })
                 return _this.callback(0, array);
             },
