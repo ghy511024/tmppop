@@ -154,9 +154,11 @@
             /* E按钮显示区域 */
         }
     }
+
     .router-fade-enter-active, .router-fade-leave-active {
         transition: opacity .3s;
     }
+
     .router-fade-enter, .router-fade-leave-active {
         opacity: 0;
     }
@@ -183,11 +185,15 @@
         <div class="rent-component" v-bind:class="{beforeActive:isbeforeActive, active:isactive}" @click="close_click">
             <div class="rent-component-main" @click.stop="handleClickMain">
                 <!-- S值区域 -->
-                <div class="value-area">
-                    <div class="single-value" :class="{'active': index == dataArrSel.value}" v-for="(item, index) in c_dataArr" @click="handleClickSingleValue(index)">
+                <div class="value-area" ref="value_area">
+                    <div class="single-value" :class="{'active': index == dataArrSel.value}"
+                         v-for="(item, index) in c_dataArr" @click="handleClickSingleValue(index)"
+                         :_index="index"
+                    >
                         <div class="single-value-shadow"></div>
-                        <span class="value-area-title">{{item.title}}{{dataArrSel.unit_position=="top"?'('+item.current_unit_text+')':""}}</span>
-                        <span class="value-area-val" :class="{'placeholder': !item.defaultValue}">{{item.defaultValue? item.defaultValue:item.placeholder}}{{dataArrSel.unit_position!="top"?item.current_unit_text:""}}</span>
+                        <span class="value-area-title">{{item.title}}{{dataArrSel.unit_position == "top" ? '(' + item.current_unit_text + ')' : ""}}</span>
+                        <span class="value-area-val"
+                              :class="{'placeholder': !item.defaultValue}">{{item.defaultValue ? item.defaultValue : item.placeholder}}{{dataArrSel.unit_position != "top" ? item.current_unit_text : ""}}</span>
                     </div>
                 </div>
                 <!-- E值区域 -->
@@ -197,7 +203,8 @@
                 <!-- S单位区域 -->
                 <div class="unit-area" v-if="isArray(current_units)">
                     租金单位:
-                    <span class="single-unit" :class="{'active': unit.selected}" v-for="unit in current_units" @click="handleClickUnit(unit)">{{unit.text}}</span>
+                    <span class="single-unit" :class="{'active': unit.selected}" v-for="unit in current_units"
+                          @click="handleClickUnit(unit)">{{unit.text}}</span>
                 </div>
                 <!-- E单位区域 -->
                 <!-- S按钮区域 -->
@@ -205,28 +212,28 @@
                     <div class="left-btns">
                         <table class="left-btns-table" cellspacing="0" id="table" ref="tab">
                             <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>2</td>
-                                    <td>3</td>
-                                    <td class="del-btn" rowspan="2" @click="handleDel">删除</td>
-                                </tr>
-                                <tr>
-                                    <td>4</td>
-                                    <td>5</td>
-                                    <td>6</td>
-                                </tr>
-                                <tr>
-                                    <td>7</td>
-                                    <td>8</td>
-                                    <td>9</td>
-                                    <td class="confirm-btn" rowspan="2" @click="handleConfirm">确定</td>
-                                </tr>
-                                <tr>
-                                    <td></td>
-                                    <td>0</td>
-                                    <td>.</td>
-                                </tr>
+                            <tr>
+                                <td _type="number">1</td>
+                                <td _type="number">2</td>
+                                <td _type="number">3</td>
+                                <td class="del-btn" rowspan="2" _type="del">删除</td>
+                            </tr>
+                            <tr>
+                                <td _type="number">4</td>
+                                <td _type="number">5</td>
+                                <td _type="number">6</td>
+                            </tr>
+                            <tr>
+                                <td _type="number">7</td>
+                                <td _type="number">8</td>
+                                <td _type="number">9</td>
+                                <td class="confirm-btn" rowspan="2" _type="confirm">确定</td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td _type="number">0</td>
+                                <td _type="number">.</td>
+                            </tr>
                             </tbody>
                         </table>
                     </div>
@@ -246,19 +253,20 @@
                 show: false,
                 isbeforeActive: false,
                 isactive: false,
-                curindex:0,
+                curindex: 0,
                 dataArrSel: {//默认选择的
 //                    value: 0,
                 },
                 dataArr: [//几个数值选项
                 ],
-                callback: () => {},
+                callback: () => {
+                },
             }
         },
         computed: {
             c_demo() {
                 let _this = this,
-                      res = '';
+                    res = '';
                 return res;
             },
             c_dataArr() {
@@ -266,7 +274,7 @@
                 if (_this.dataArr && _this.dataArr.length && _this.isArray(_this.dataArr)) {
                     _this.dataArr.map((item) => {
                         if (item.defaultUnit && item.defaultUnit.length) {
-                            if (_this.isArray(item.defaultUnit)) { 
+                            if (_this.isArray(item.defaultUnit)) {
                                 item.defaultUnit.map((unit) => {
                                     if (unit.selected) {
                                         item.current_unit_text = unit.text;
@@ -285,7 +293,7 @@
             // dataArr中当前显示的
             current_data() {
                 let _this = this,
-                      res = null;
+                    res = null;
                 if (_this.dataArr && _this.dataArr.length && _this.isArray(_this.dataArr)) {
                     res = _this.dataArr[_this.dataArrSel.value];
                 }
@@ -297,7 +305,7 @@
             // 当前的所有单位
             current_units() {
                 let _this = this,
-                      res = [];
+                    res = [];
                 if (_this.current_data) {
                     if (_this.current_data.defaultUnit && _this.current_data.defaultUnit.length) {
                         res = _this.current_data.defaultUnit;
@@ -308,7 +316,7 @@
             //当前选中的单位
             current_unit() {
                 let _this = this,
-                      res = [];
+                    res = [];
                 if (_this.current_data) {
                     if (_this.current_data.defaultUnit && _this.current_data.defaultUnit.length) {
                         if (_this.isArray(_this.current_data.defaultUnit)) {
@@ -323,7 +331,7 @@
             //当前显示的租金
             c_value() {
                 let _this = this,
-                      res = '';
+                    res = '';
                 if (_this.current_data) {
                     res = _this.current_data.defaultValue;
                 }
@@ -332,7 +340,7 @@
             //当前提醒
             c_suggest() {
                 let _this = this,
-                      res = '';
+                    res = '';
                 if (_this.current_data) {
                     res = _this.current_data.suggest;
                 }
@@ -341,19 +349,50 @@
 
         },
         mounted() {
-            let _this=this;
-            let table=_this.$refs.tab;
-            table.addEventListener("click",function(ev){
-             let event= ev||window.event;
-             let target=event.target||event.srcElement;
-             if(target.nodeName.toLowerCase()=="td"){
-                     _this.handleClick(target.innerHTML);
-             }
-             });
+            let _this = this;
+            let table = _this.$refs.tab;
+            table.addEventListener("touchstart", function (ev) {
+                let event = ev || window.event;
+                let target = event.target || event.srcElement;
+                ev.stopPropagation();
+                ev.preventDefault();
+                if (target.nodeName.toLowerCase() == "td") {
+                    var _type = target.getAttribute("_type")
+                    if (_type == "number") {
+                        _this.handleClick(target.innerHTML);
+                    } else if (_type == "del") {
+                        _this.handleDel();
+                    } else if (_type == "confirm") {
+                        _this.handleConfirm();
+                    }
+
+                }
+            });
+
+            // 区域选择点击
+            var value_area = this.$refs.value_area;
+            value_area.addEventListener("touchstart", function (ev) {
+                let event = ev || window.event;
+                let target = event.target || event.srcElement;
+                ev.stopPropagation();
+                ev.preventDefault();
+                var _index = target.getAttribute("_index")||"";
+                if(!_index){
+                    var p=target.parentNode;
+                    _index=p.getAttribute("_index")||"";
+                }
+                _this.handleClickSingleValue(_index);
+//                if (_type == "number") {
+//                    _this.handleClick(target.innerHTML);
+//                } else if (_type == "del") {
+//                    _this.handleDel();
+//                } else if (_type == "confirm") {
+//                    _this.handleConfirm();
+//                }
+            });
 
         },
         methods: {
-
             // 点击取消
             close_click() {
                 this._close();
@@ -376,7 +415,7 @@
             handleClickSingleValue(index) {
                 let _this = this;
                 _this.dataArrSel.value = index;
-                _this.curindex=index;
+                _this.curindex = index;
             },
             handleClickUnit(item) {
                 let _this = this;
@@ -393,16 +432,16 @@
                  * 如果defaultValue有“.”，则比较“.”后面的位数（dot_length）和dot_max_len,如果dot_length>=dot_max_len,则不能添加数字,如果已经有小数点，再添加小数点不能添加
                  * */
                 if (_this.dataArr && _this.isArray(_this.dataArr)) {
-                    let defaultValue=_this.dataArr[_this.dataArrSel.value].defaultValue;
-                    let max_len=this.dataArr[_this.curindex].max_len?_this.dataArr[_this.curindex].max_len:5;//小数点前面的max_len
-                    let dot_max_len=this.dataArr[_this.curindex].dot_max_len?_this.dataArr[_this.curindex].dot_max_len:2;//小数点后面的max_len
-                    let ispoint=defaultValue.indexOf(".");//查找是否存在小数点
-                    let cur_not=(val!="."&&defaultValue.length>=max_len);//当前不是小数点且length>=max_len,则不能添加数字
-                    let cur_yes=(val=="."&&max_len<defaultValue.length&&defaultValue.length<=(max_len+1));//当前点击是小数点,length>max_len,则不能添加数字
-                    let dot_length=defaultValue.length-1-ispoint;//在存在小数点时候，defaultValue中小数点后面的位数
-                    if((ispoint==-1&&(cur_not||cur_yes))||(ispoint!=-1&&(dot_length>=dot_max_len))||(ispoint!=-1&&(val=="."))){
+                    let defaultValue = _this.dataArr[_this.dataArrSel.value].defaultValue;
+                    let max_len = this.dataArr[_this.curindex].max_len ? _this.dataArr[_this.curindex].max_len : 5;//小数点前面的max_len
+                    let dot_max_len = this.dataArr[_this.curindex].dot_max_len ? _this.dataArr[_this.curindex].dot_max_len : 2;//小数点后面的max_len
+                    let ispoint = defaultValue.indexOf(".");//查找是否存在小数点
+                    let cur_not = (val != "." && defaultValue.length >= max_len);//当前不是小数点且length>=max_len,则不能添加数字
+                    let cur_yes = (val == "." && max_len < defaultValue.length && defaultValue.length <= (max_len + 1));//当前点击是小数点,length>max_len,则不能添加数字
+                    let dot_length = defaultValue.length - 1 - ispoint;//在存在小数点时候，defaultValue中小数点后面的位数
+                    if ((ispoint == -1 && (cur_not || cur_yes)) || (ispoint != -1 && (dot_length >= dot_max_len)) || (ispoint != -1 && (val == "."))) {
                         _this.dataArr[_this.dataArrSel.value].defaultValue = _this.c_value;
-                    }else{
+                    } else {
                         _this.dataArr[_this.dataArrSel.value].defaultValue = (String(_this.c_value) + val);
                     }
                 }
@@ -410,20 +449,20 @@
             handleDel() {
                 let _this = this;
                 if (_this.c_value) {
-                    _this.dataArr[_this.dataArrSel.value].defaultValue = _this.c_value.substring(0, _this.c_value.length -1);
+                    _this.dataArr[_this.dataArrSel.value].defaultValue = _this.c_value.substring(0, _this.c_value.length - 1);
                 } else {
                     return;
                 }
             },
             handleConfirm() {
                 let _this = this,
-                      resData = [];//返回值数组
+                    resData = [];//返回值数组
                 // 如果最后一位是小数点，自动去掉
-                if (_this.c_value && _this.c_value.substring(_this.c_value.length -1) == '.') {
-                    _this.dataArr[_this.dataArrSel.value].defaultValue = _this.c_value.substring(0, _this.c_value.length -1);
+                if (_this.c_value && _this.c_value.substring(_this.c_value.length - 1) == '.') {
+                    _this.dataArr[_this.dataArrSel.value].defaultValue = _this.c_value.substring(0, _this.c_value.length - 1);
                 }
                 // 调用callback返回值
-                
+
                 if (_this.dataArr && _this.dataArr.length) {
                     _this.dataArr.map((item) => {
                         if (item.defaultUnit && item.defaultUnit.length) {//有单位
@@ -455,11 +494,12 @@
                     });
                 }
                 // console.log('处理后的数据：', resData);
-                _this.callback(0,resData);
+                _this.callback(0, resData);
                 // 隐藏键盘
                 _this._close();
             },
-            handleClickMain() {},//处理点击背景关闭键盘时，防止冒泡
+            handleClickMain() {
+            },//处理点击背景关闭键盘时，防止冒泡
         },
     }
 </script>

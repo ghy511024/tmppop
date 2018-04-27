@@ -230,24 +230,19 @@
             },
             // 点击取消
             close_click() {
-                let _this=this;
+                let _this = this;
                 _this._close();
                 return _this.callback(1);
             },
             // 点击完成
             decision_click() {
-<<<<<<< HEAD
-                this._close();
-                return this.callback(0, this.backobj);
-=======
-                let _this=this;
+                let _this = this;
                 _this._close();
-                let array=[];
-                _this.backobj.forEach(function(item,index){
-                    array[index]=item;
+                let array = [];
+                _this.backobj.forEach(function (item, index) {
+                    array[index] = item;
                 })
                 return _this.callback(0, array);
->>>>>>> 03fe161b0f3394cf0c1b12e7cbeff8114b1b637a
             },
             _close(){
                 let _this = this;

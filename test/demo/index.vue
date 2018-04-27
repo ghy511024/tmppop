@@ -22,7 +22,7 @@
                 rentKeyoardData: {
                     dataArrSel: {
                         value: 0,
-                        unit_position:"top",//默认单位再数字后面，当参数是top时候，单位在 title后面
+                        unit_position: "top",//默认单位再数字后面，当参数是top时候，单位在 title后面
                     },
 
                     dataArr: [
@@ -62,22 +62,6 @@
                             placeholder: "请填写2",
                             type: "zujin2"
                         }
-<<<<<<< HEAD
-                        ,
-                        {
-                            defaultValue: "123",
-//                            defaultUnit: [{"text": "元/㎡.天", "value": "3", "selected": true}, {
-//                                "text": "元/月",
-//                                "value": "1",
-//                            }],
-                            defaultUnit: "m",
-                            suggest: "请填写租金2",
-                            title: "租金2",
-                            placeholder: "请填写2",
-                            type: "zujin2"
-                        }
-=======
->>>>>>> 03fe161b0f3394cf0c1b12e7cbeff8114b1b637a
                     ],
                 },
                 secondLinkageData: {
@@ -113,7 +97,8 @@
                             ],
                         },
                     ],
-                },
+                }
+                ,
             }
         },
         created: function () {
@@ -135,7 +120,7 @@
                     selec_type: "radio",
                     //list_type： single_text multi_text
                     list_type: "",
-                    default_value:"2|3",
+                    default_value: "2|3",
                     option: [
                         {"title": "房东", "text": "房屋所有者，具备认证房本资质", value: "1"},
                         {"title": "转租", "text": "转让自己承租的房子", value: "2"},
@@ -152,7 +137,7 @@
                 });
             },
             rentKeyboard(){
-                this.$rentKeyboard(this.rentKeyoardData, (status,res) => {
+                this.$rentKeyboard(this.rentKeyoardData, (status, res) => {
                     console.log("返回的输入控件数据为")
                     console.log(status);
                     console.log(res);
@@ -168,8 +153,8 @@
                     title: "行业",
                     first_key: "hangye",
                     sec_key: "zhonlei",
-                    first_key_default:"511575",
-                    sec_key_default:"511602",
+                    first_key_default: "511575",
+                    sec_key_default: "511602",
                     option: [
                         {
                             "value": "511574",
@@ -218,11 +203,11 @@
                         title: "区域",
                         key: "bj",
 //                        url: "http://m.58.com/sublocals/",
-                        first_key: "quyu",
-                        sec_key: "diduan",
-                        first_key_default:"1144",
-                        sec_key_default:"5129",
-                    };
+                    first_key: "quyu",
+                    sec_key: "diduan",
+                    first_key_default: "1144",
+                    sec_key_default: "5129",
+                };
                 this.$area_linkage(param, function (ret, data) {
                     // ret==0 点击确定
                     // ret==1 取消
@@ -231,13 +216,7 @@
                     console.log(data)
                 });
             },
-<<<<<<< HEAD
-            test6(){
-=======
-
-
             lou_picker(){
->>>>>>> 03fe161b0f3394cf0c1b12e7cbeff8114b1b637a
                 var def = {
                     defaultType: "single",//single,multi 单层|多层
                     datasouce: ['-2,99', '-2,99', '1,99'],
