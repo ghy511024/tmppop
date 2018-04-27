@@ -2,16 +2,20 @@
     .rent-component {
         width: 100vw;
         height: 100vh;
-        background: rgba(0, 0, 0, 0.6);
+        transition: all 0.4s ease;
+        /*background: rgba(0, 0, 0, 0.6);*/
         position: fixed;
         top: 0;
         left: 0;
         .rent-component-main {
             position: absolute;
+            z-index: 1;
             bottom: 0;
             left: 0;
             width: 100%;
             background: #fff;
+            transition: all 0.4s ease;
+            transform: translateY(100%);
             /* S值显示区域 */
             .value-area {
                 height: 100px;
@@ -58,7 +62,7 @@
                         display: block;
                         width: 100%;
                         text-align: center;
-                        font-size: 22px;
+                        font-size: 18px;
                         color: #fc5638;
                         &.placeholder {
                             color: #999;
@@ -92,21 +96,22 @@
                 box-sizing: border-box;
                 padding: 0 14px;
                 text-align: left;
+                border-bottom: 1px solid #e3e3e4;
                 .single-unit {
                     display: inline-block;
-                    width: 80px;
-                    height: 36px;
-                    line-height: 36px;
-                    border-radius: 80px;
+                    width: 70px;
+                    height: 28px;
+                    line-height: 28px;
+                    border-radius: 70px;
                     text-align: center;
-                    font-size: 15px;
-                    color: #333;
-                    background: #eee;
+                    font-size: 14px;
+                    color: #999999;
+                    background: #f6f6f6;
                     &:not(:last-child) {
                         margin-right: 8px;
                     }
                     &.active {
-                        background: red;
+                        background: #fc5638;
                         color: #fff;
                     }
                 }
@@ -155,17 +160,34 @@
     .router-fade-enter, .router-fade-leave-active {
         opacity: 0;
     }
+
+    .rent-component.beforeActive {
+        display: block;
+        background: transparent;
+    }
+
+    .rent-component.beforeActive .rent-component-main {
+        transform: translateY(100%);
+    }
+
+    .rent-component.active {
+        background: rgba(0, 0, 0, 0.3);
+    }
+
+    .rent-component.active .rent-component-main {
+        transform: translateY(0);
+    }
 </style>
 <template>
-    <div>
-        <div class="rent-component" v-if="visible" @click.stop="hide">
+    <div v-show="show">
+        <div class="rent-component" v-bind:class="{beforeActive:isbeforeActive, active:isactive}" @click="close_click">
             <div class="rent-component-main" @click.stop="handleClickMain">
                 <!-- S值区域 -->
                 <div class="value-area">
                     <div class="single-value" :class="{'active': index == dataArrSel.value}" v-for="(item, index) in c_dataArr" @click="handleClickSingleValue(index)">
                         <div class="single-value-shadow"></div>
-                        <span class="value-area-title">{{item.title}}</span>
-                        <span class="value-area-val" :class="{'placeholder': !item.defaultValue}">{{item.defaultValue ? item.defaultValue + item.current_unit_text : item.placeholder}}</span>
+                        <span class="value-area-title">{{item.title}}{{dataArrSel.unit_position=="top"?'('+item.current_unit_text+')':""}}</span>
+                        <span class="value-area-val" :class="{'placeholder': !item.defaultValue}">{{item.defaultValue? item.defaultValue:item.placeholder}}{{dataArrSel.unit_position!="top"?item.current_unit_text:""}}</span>
                     </div>
                 </div>
                 <!-- E值区域 -->
@@ -216,13 +238,17 @@
 </template>
 
 <script>
+    import Tool from '../../../common/js/Tool'
     export default {
         name: 'RentComponent',
         data () {
             return {
-                visible: false,
+                show: false,
+                isbeforeActive: false,
+                isactive: false,
+                curindex:0,
                 dataArrSel: {//默认选择的
-                    value: 0,
+//                    value: 0,
                 },
                 dataArr: [//几个数值选项
                 ],
@@ -262,9 +288,10 @@
                       res = null;
                 if (_this.dataArr && _this.dataArr.length && _this.isArray(_this.dataArr)) {
                     res = _this.dataArr[_this.dataArrSel.value];
-                } else {
-                    console.error && console.error('错误，请传入正确的数组：dataArr');
                 }
+//                  else {
+//                    console.error && console.error('错误，请传入正确的数组：dataArr');
+//                }
                 return res;
             },
             // 当前的所有单位
@@ -313,15 +340,30 @@
             },
         },
         methods: {
+
+            // 点击取消
+            close_click() {
+                this._close();
+                return this.callback(1);
+            },
+            _close(){
+                let _this = this;
+                _this.isactive = false;
+                setTimeout(function () {
+                    _this.isbeforeActive = false;
+                    _this.show = false;
+                }, 600);
+                Tool.removecss(document.body, "overflow");
+                Tool.removecss(document.body, "height");
+            },
             isArray(obj) {
                 return Object.prototype.toString.call(obj) === '[object Array]';
             },
-            hide() {
-                this.visible = false;
-            },
+
             handleClickSingleValue(index) {
                 let _this = this;
                 _this.dataArrSel.value = index;
+                _this.curindex=index;
             },
             handleClickUnit(item) {
                 let _this = this;
@@ -333,8 +375,19 @@
             },
             handleClick(val) {
                 let _this = this;
+                /*
+                 * 如果defaultValue没有“.”，且当前点击不是".",则判断如果length>=max_len,则不能添加数字，如果当前点击是“.”则判断length>max_len,则不能添加数字
+                 * 如果defaultValue有“.”，则比较“.”后面的位数（dot_length）和dot_max_len,如果dot_length>=dot_max_len,则不能添加数字,如果已经有小数点，再添加小数点不能添加
+                 * */
                 if (_this.dataArr && _this.isArray(_this.dataArr)) {
-                    if(_this.dataArr[_this.dataArrSel.value].defaultValue.length>4){
+                    let defaultValue=_this.dataArr[_this.dataArrSel.value].defaultValue;
+                    let max_len=this.dataArr[_this.curindex].max_len?_this.dataArr[_this.curindex].max_len:5;//小数点前面的max_len
+                    let dot_max_len=this.dataArr[_this.curindex].dot_max_len?_this.dataArr[_this.curindex].dot_max_len:2;//小数点后面的max_len
+                    let ispoint=defaultValue.indexOf(".");//查找是否存在小数点
+                    let cur_not=(val!="."&&defaultValue.length>=max_len);//当前不是小数点且length>=max_len,则不能添加数字
+                    let cur_yes=(val=="."&&max_len<defaultValue.length&&defaultValue.length<=(max_len+1));//当前点击是小数点,length>max_len,则不能添加数字
+                    let dot_length=defaultValue.length-1-ispoint;//在存在小数点时候，defaultValue中小数点后面的位数
+                    if((ispoint==-1&&(cur_not||cur_yes))||(ispoint!=-1&&(dot_length>=dot_max_len))||(ispoint!=-1&&(val=="."))){
                         _this.dataArr[_this.dataArrSel.value].defaultValue = _this.c_value;
                     }else{
                         _this.dataArr[_this.dataArrSel.value].defaultValue = (String(_this.c_value) + val);
@@ -389,9 +442,9 @@
                     });
                 }
                 // console.log('处理后的数据：', resData);
-                _this.callback(resData);
+                _this.callback(0,resData);
                 // 隐藏键盘
-                _this.visible = false;
+                _this._close();
             },
             handleClickMain() {},//处理点击背景关闭键盘时，防止冒泡
         },

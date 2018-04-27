@@ -3,6 +3,7 @@
  */
 import Vue from 'vue';
 import Popup_select from './src/popup_select.vue';
+import Tool from '../../common/js/Tool'
 
 let instance;
 let DialogConstructor = Vue.extend(Popup_select);
@@ -43,6 +44,8 @@ let popup_select = (a,fun) => {
     if(!instance.selec_type){
         instance.selec_type="radio"
     }
+    Tool.css( document.body,"overflow","hidden");
+    Tool.css( document.body,"height","100vh");
     instance.isbeforeActive=true;
     setTimeout (function () {
         instance.isactive=true;

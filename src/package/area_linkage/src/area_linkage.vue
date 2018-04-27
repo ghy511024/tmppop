@@ -134,7 +134,7 @@
 </style>
 <template>
     <div v-show="show">
-        <div class="linkage" v-bind:class="{beforeActive:isbeforeActive, active:isactive}" @click="close_click" ref="picker">
+        <div class="linkage" v-bind:class="{beforeActive:isbeforeActive, active:isactive}" @click="close_click" >
             <div class="linkage-warp" @click.stop="stop">
                 <div class="linkage-title">
                     {{title}}
@@ -166,13 +166,15 @@
 
 <script>
     import _ajax from  "../lib/touch";
+    import Tool from '../../../common/js/Tool'
     export default {
-        name: 'two_linkage',
+        name: 'area_linkage',
         data () {
             return {
                 show: false,
                 isbeforeActive: false,
                 isactive: false,
+                url:null,
                 cur_parent: 0,//选中的父级索引值
                 cur_child: 0,//选中的子级索引值
                 parent_obj: [],//父级数组数据
@@ -184,10 +186,7 @@
             }
         },
         mounted(){
-            this.$refs.picker.addEventListener("touchmove", function(evt){
-                evt.stopPropagation()
-                evt.preventDefault()
-            })
+
         },
         created(){
         },
@@ -215,26 +214,27 @@
                 _this.cur_child = 0;
                 let tempobj={};
                 tempobj={
-                    paramname:_this.dataObj.pname_1||null,
+                    paraname:_this.dataObj.first_key||null,
                     name: item.listname||null,
                     value: item.id||null,
                     text: item.name||null
                 };
                 _this.backObj[0]=tempobj;
-                _ajax(_this.dataObj.url, {"cityname":item.listname}, function callback(ret){
+                _ajax(_this.url, {"cityname":item.listname}, function callback(ret){
                     let temparr=null;
                     temparr=ret.data.datastr;
                     temparr = JSON.parse(temparr);
                     let key=temparr[0].city;
                     _this.child_obj=temparr[0][key];
                     tempobj={
-                        paramname:_this.dataObj.pname_2||null,
+                        paraname:_this.dataObj.sec_key||null,
                         name: _this.child_obj[0].listname||null,
                         value: _this.child_obj[0].id||null,
                         text: _this.child_obj[0].name||null
                     };
                     _this.backObj[1]=tempobj;
                 });
+
             },
             // 点击二级菜单
             click_child(item, index) {
@@ -242,13 +242,12 @@
                 _this.cur_child = index;
                 let tempobj={};
                 tempobj={
-                    paramname:_this.dataObj.pname_2||null,
+                    paraname:_this.dataObj.sec_key||null,
                     name: item.listname||null,
                     value: item.id||null,
                     text: item.name||null
                 };
                 _this.backObj[1]=tempobj;
-                console.log()
             },
             // 点击取消
             close_click() {
@@ -258,6 +257,8 @@
                     _this.isbeforeActive = false;
                     _this.show = false;
                 }, 600)
+                Tool.removecss(document.body, "overflow");
+                Tool.removecss(document.body, "height");
                 return _this.callback(1);
             },
             // 点击完成
@@ -268,7 +269,13 @@
                     _this.isbeforeActive = false;
                     _this.show = false;
                 }, 600);
-                return _this.callback(0, _this.backObj);
+                Tool.removecss(document.body, "overflow");
+                Tool.removecss(document.body, "height");
+                let obj = [];
+                _this.backObj.forEach(function(item,index){
+                    obj[index] = item;
+                });
+                return _this.callback(0, obj);
             },
 
         },

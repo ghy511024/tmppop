@@ -26,6 +26,7 @@
 </template>
 
 <script>
+    import Tool from '../../../common/js/Tool'
     export default {
         name: 'app',
         data() {
@@ -85,6 +86,13 @@
             },
             stop(){
             },
+            copy(obj){
+                var newobj = {};
+                for ( var attr in obj) {
+                    newobj[attr] = obj[attr];
+                }
+                return newobj;
+            },
             decision_click(){
                 let _this=this;
                 if(_this.selec_type=="radio"){
@@ -94,7 +102,11 @@
                         _this.show = false;
                     }, 600)
 //                        console.log("确定:   "+_this.currentobj.title);
-                    return _this.callback(0,_this.currentobj);
+                    Tool.removecss(document.body, "overflow");
+                    Tool.removecss(document.body, "height");
+                    let obj={};
+                    obj=_this.copy(this.currentobj);
+                    return _this.callback(0,obj);
                 }else if(_this.selec_type=="checkbox"){
                     _this.isactive = false;
                     setTimeout(function () {
@@ -106,7 +118,13 @@
 //                        for(let i =0;i<_this.muli_currentobj.length;i++){
 //                            console.log(_this.muli_currentobj[i].title);
 //                        }
-                    return _this.callback(0,_this.muli_currentobj);
+                    Tool.removecss(document.body, "overflow");
+                    Tool.removecss(document.body, "height");
+                    let array=[];
+                    _this.muli_currentobj.forEach(function(item,index){
+                        array[index]=item;
+                    })
+                    return _this.callback(0,array);
                 }
 
             },
@@ -124,7 +142,9 @@
                 setTimeout(function () {
                     _this.isbeforeActive = false;
                     _this.show = false;
-                }, 600)
+                }, 600);
+                Tool.removecss(document.body, "overflow");
+                Tool.removecss(document.body, "height");
                 return _this.callback(1);
             },
 

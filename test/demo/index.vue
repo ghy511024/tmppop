@@ -6,13 +6,13 @@
 </style>
 <template>
     <div class="main">
-        <button @click="test1">测试dialog</button>
-        <button @click="test2">测试popup_select</button>
-        <button @click="test3">测试输入控件</button>
-        <button @click="test4">测试二级联动控件</button>
-        <button @click="test5">二级联动new</button>
-        <button @click="test7">区域二级联动new</button>
-        <button @click="test6">楼层选择</button>
+        <!--<button @click="test1">测试dialog</button>-->
+        <button @click="popup_select">popup_select</button>
+        <button @click="rentKeyboard">输入控件</button>
+        <!--<button @click="test4">测试二级联动控件</button>-->
+        <button @click="two_linkage">二级联动</button>
+        <button @click="area_linkage">区域二级联动</button>
+        <button @click="lou_picker">楼层选择</button>
     </div>
 </template>
 <script>
@@ -21,42 +21,48 @@
             return {
                 rentKeyoardData: {
                     dataArrSel: {
-                        value: 0
+                        value: 0,
+                        unit_position:"top",//默认单位再数字后面，当参数是top时候，单位在 title后面
                     },
-                    dataArr_bk: [
-                        {
-                            defaultValue: "123",
-                            defaultUnit: [{"text": "元/㎡.天", "value": "3"}, {
-                                "text": "元/月",
-                                "value": "1",
-                                "selected": true
-                            }],
-                            suggest: "请填写租金1",
-                            title: "租金1",
-                            placeholder: "请填写1",
-                            type: "zujin1"
-                        },
-//                        {
-//                            defaultValue: "123",
-//                            defaultUnit: [{"text": "元/㎡.天", "value": "3", "selected": true}, {
-//                                "text": "元/月",
-//                                "value": "1",
-//                            }],
-//                            suggest: "请填写租金2",
-//                            title: "租金2",
-//                            placeholder: "请填写2",
-//                            type: "zujin2"
-//                        }
-                    ],
+
                     dataArr: [
                         {
+//                            max_len:4,
+//                            dot_max_len:3,
                             defaultValue: "123",
                             defaultUnit: "m",
                             suggest: "请填写租金1",
                             title: "租金1",
                             placeholder: "请填写1",
                             type: "zujin1"
+                        },
+                        {
+//                            max_len:4,
+//                            dot_max_len:3,
+                            defaultValue: "123",
+                            defaultUnit: [{"text": "元/㎡.天", "value": "3", "selected": true}, {
+                                "text": "元/月",
+                                "value": "1",
+                            }],
+                            suggest: "请填写租金2",
+                            title: "租金2",
+                            placeholder: "请填写2",
+                            type: "zujin2"
+                        },
+                        {
+//                            max_len:4,
+//                            dot_max_len:3,
+                            defaultValue: "123",
+                            defaultUnit: [{"text": "元/㎡.天", "value": "3", "selected": true}, {
+                                "text": "元/月",
+                                "value": "1",
+                            }],
+                            suggest: "请填写租金2",
+                            title: "租金2",
+                            placeholder: "请填写2",
+                            type: "zujin2"
                         }
+<<<<<<< HEAD
                         ,
                         {
                             defaultValue: "123",
@@ -70,6 +76,8 @@
                             placeholder: "请填写2",
                             type: "zujin2"
                         }
+=======
+>>>>>>> 03fe161b0f3394cf0c1b12e7cbeff8114b1b637a
                     ],
                 },
                 secondLinkageData: {
@@ -115,16 +123,16 @@
 
         },
         methods: {
-            test1(){
-                this.$dialog({
-                    content: "haha"
-                });
-            },
-            test2(){
+//            test1(){
+//                this.$dialog({
+//                    content: "haha"
+//                });
+//            },
+            popup_select(){
                 let data = {
                     title: "选择您的身份",
                     //type：radio checkbox
-                    selec_type: "",
+                    selec_type: "radio",
                     //list_type： single_text multi_text
                     list_type: "",
                     option: [
@@ -137,26 +145,30 @@
                     ],
                 };
                 this.$popup_select(data, function (status, data) { //data是返回的数据，status是确定还是取消状态
+                    console.log("单选多选弹窗控件数据为")
                     console.log(status);
                     console.log(data)
                 });
             },
-            test3(){
-                this.$rentKeyboard(this.rentKeyoardData, (res) => {
-                    console.log(this.rentKeyoardData);
-                    console.log('返回数据为：', res);
+            rentKeyboard(){
+                this.$rentKeyboard(this.rentKeyoardData, (status,res) => {
+                    console.log("返回的输入控件数据为")
+                    console.log(status);
+                    console.log(res);
                 });
             },
-            test4(){
-                this.$secondLinkage(this.secondLinkageData, (res) => {
-                    console.log('返回数据为：', res);
-                });
-            },
-            test5(){
+//            test4(){
+//                this.$secondLinkage(this.secondLinkageData, (res) => {
+//                    console.log('返回数据为：', res);
+//                });
+//            },
+            two_linkage(){
                 let param = {
                     title: "行业",
-                    pname_1: "hangye",
-                    pname_2: "zhonlei",
+                    first_key: "hangye",
+                    sec_key: "zhonlei",
+                    first_key_default:"511575",
+                    sec_key_default:"511602",
                     option: [
                         {
                             "value": "511574",
@@ -192,42 +204,39 @@
                 this.$two_linkage(param, function (ret, data) {
                     // ret==0 点击确定
                     // ret==1 取消
+                    console.log("返回的二级联动数据为")
                     console.log(ret)
                     console.log(data)
-
 
                 });
             },
 
-            test7(){
+            area_linkage(){
                 let param =
                     {
                         title: "区域",
                         key: "bj",
-                        url: "http://m.58.com/sublocals/",
-                        pname_1: "quyu",
-                        pname_2: "diduan"
+//                        url: "http://m.58.com/sublocals/",
+                        first_key: "quyu",
+                        sec_key: "diduan",
+                        first_key_default:"1144",
+                        sec_key_default:"5124",
                     };
                 this.$area_linkage(param, function (ret, data) {
                     // ret==0 点击确定
                     // ret==1 取消
-
-//                    data = [{
-//                        paramname: "quyu",
-//                        name: "chaoyang",
-//                        value: "1142",
-//                        text: "朝阳"
-//                    }, {
-//                        paramname: "diduan",
-//                        name: "chaoyanggongyuan",
-//                        value: "5999",
-//                        text: "朝阳公园"
-//                    }]
+                    console.log("返回的区域二级联动数据为")
                     console.log(ret)
                     console.log(data)
                 });
             },
+<<<<<<< HEAD
             test6(){
+=======
+
+
+            lou_picker(){
+>>>>>>> 03fe161b0f3394cf0c1b12e7cbeff8114b1b637a
                 var def = {
                     defaultType: "single",//single,multi 单层|多层
                     datasouce: ['-2,99', '-2,99', '1,99'],
@@ -238,7 +247,7 @@
                     placeholder: "请选择"
                 }
                 this.$lou_picker(def, (res, data) => {
-                    console.log('返回数据为：', res, data);
+                    console.log('返回楼层选择数据为：', res, data);
                 });
             }
         }

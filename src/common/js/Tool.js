@@ -47,7 +47,7 @@ var Tool = {
         var reg = new RegExp("(^\\s*|;\\s*)(" + key + ")\\s*(:.*?)(;|!)", "gi")
         var b = reg.test(style);
         if (!b) {
-            style += ";" + key + ":" + value;
+            // style += ";" + key + ":" + value;
             el.style.cssText = style;
         } else {
             var t = style.replace(reg, function (_, $1, $2, $3) {
