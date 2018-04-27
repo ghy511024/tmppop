@@ -32,14 +32,17 @@ let area_linkage = (a, fun) => {
     instance.callback = fun;
     let parent_obj = [];
     let child_obj = [];
+<<<<<<< HEAD
     let think = [];
+=======
+>>>>>>> 49db59e5e64a359e84f191230800e1c2962fed2d
     let tempObj = {};
     let backObj = [];
 
     instance.url = url;
     if (dataStroge == "") {
         _ajax(url, {"cityname": a.key}, function callback(ret) {
-            let temparr = null;
+            let temparr = "";
             temparr = ret.data.datastr;
             temparr = JSON.parse(temparr);
             dataStroge = temparr;
@@ -106,9 +109,52 @@ let area_linkage = (a, fun) => {
                             // console.log(think=="")
                         }
                     }
+                });
+                if(temp_parent_obj!=""){
+                    tempObj = {
+                        paraname: instance.dataObj.first_key||"",
+                        name: temp_parent_obj.listname||"",
+                        value: temp_parent_obj.id||"",
+                        text: temp_parent_obj.name||""
+                    };
+                    instance.backObj[0] = tempObj;
+                    if (instance.cur_parent > 5) {
+                        let temp = {};
+                        temp = parent_obj[0];
+                        parent_obj[0] = parent_obj[instance.cur_parent];
+                        parent_obj[instance.cur_parent] = temp;
+                        instance.cur_parent = 0;
+                    }
+                }else{
+                    child_obj="";
+                    instance.backObj[0];
                 }
-            });
-
+                if(child_obj!=""){
+                    if (a.sec_key_default && (a.sec_key_default != "")) {//如果第二个参数存在，则二级选中的是a.sec_key_default对应的对象
+                        child_obj.forEach(function (item, index) {
+                            if (item.id == a.sec_key_default) {
+                                instance.cur_child = index;
+                                temp_child_obj = item;
+                            }
+                        });
+                        if(temp_child_obj!=""){
+                            tempObj = {
+                                paraname: instance.dataObj.sec_key||"",
+                                name: temp_child_obj.listname||"",
+                                value: temp_child_obj.id||"",
+                                text: temp_child_obj.name||""
+                            };
+                            if (instance.cur_child > 5) {
+                                let temp = {};
+                                temp = child_obj[0];
+                                child_obj[0] = child_obj[instance.cur_child];
+                                child_obj[instance.cur_child] = temp;
+                                instance.cur_child = 0;
+                            }
+                            instance.backObj[1] = tempObj;
+                        }else{
+                            instance.backObj[1]=""
+                        }
 
             tempObj = {
                 paraname: instance.dataObj.first_key,
@@ -130,19 +176,6 @@ let area_linkage = (a, fun) => {
                         instance.cur_child = index;
                         temp_child_obj = item;
                     }
-                });
-                tempObj = {
-                    paraname: instance.dataObj.sec_key,
-                    name: temp_child_obj.listname,
-                    value: temp_child_obj.id,
-                    text: temp_child_obj.name
-                };
-                if (instance.cur_child > 5) {
-                    let temp = {};
-                    temp = child_obj[0];
-                    child_obj[0] = child_obj[instance.cur_child];
-                    child_obj[instance.cur_child] = temp;
-                    instance.cur_child = 0;
                 }
                 instance.backObj[1] = tempObj;
             } else {//如果第一个参数存在，第二个参数不存在，则二级选中的是a.first_key_default下对应的数据第一项
@@ -182,121 +215,17 @@ let area_linkage = (a, fun) => {
                 instance.backObj[1] = tempObj;
             }
 
+                }
+            }
+        }else{
+            parent_obj="";
+            child_obj=""
         }
+
         instance.parent_obj = parent_obj;
         instance.child_obj = child_obj;
     }
 
-    // _ajax(url, {"cityname":a.key}, function callback(ret){
-    //     let temparr=null;
-    //     temparr=ret.data.datastr;
-    //     temparr = JSON.parse(temparr);
-    //     let key=temparr[0].city;
-    //     parent_obj=temparr[0][key];
-    //     instance.parent_obj=parent_obj;
-    //     let temp_parent_obj={};
-    //     let temp_child_obj={};
-    //     if(a.first_key_default&&(a.first_key_default!="")){
-    //         parent_obj.forEach(function(item,index){
-    //             if(item.id==a.first_key_default){
-    //                 instance.cur_parent=index;
-    //                 temp_parent_obj=item;
-    //             }
-    //         });
-    //         tempObj={
-    //             paraname: instance.dataObj.first_key,
-    //             name: temp_parent_obj.listname,
-    //             value: temp_parent_obj.id,
-    //             text: temp_parent_obj.name
-    //         };
-    //         if(instance.cur_parent>5){
-    //             let temp={};
-    //             temp=parent_obj[0];
-    //             parent_obj[0]=parent_obj[instance.cur_parent];
-    //             parent_obj[instance.cur_parent]=temp;
-    //             instance.cur_parent=0;
-    //             instance.parent_obj=parent_obj
-    //         }
-    //         instance.backObj[0]=tempObj;
-    //         if(a.sec_key_default&&(a.sec_key_default!="")){
-    //             _ajax(url, {"cityname":parent_obj[instance.cur_parent].listname}, function callback(ret){
-    //                 let temparr=null;
-    //                 temparr=ret.data.datastr;
-    //                 temparr = JSON.parse(temparr);
-    //                 let key=temparr[0].city;
-    //                 child_obj=temparr[0][key];
-    //                 instance.child_obj=child_obj;
-    //                 child_obj.forEach(function(item,index){
-    //                     if(item.id==a.sec_key_default){
-    //                         instance.cur_child=index;
-    //                         temp_child_obj=item;
-    //                     }
-    //                 });
-    //                 tempObj={
-    //                     paraname: instance.dataObj.sec_key,
-    //                     name: temp_child_obj.listname,
-    //                     value: temp_child_obj.id,
-    //                     text: temp_child_obj.name
-    //                 };
-    //                 instance.backObj[1]=tempObj;
-    //                 if(instance.cur_child>5){
-    //                     let temp_child={};
-    //                     temp_child=parent_obj[0];
-    //                     child_obj[0]=child_obj[instance.cur_child];
-    //                     child_obj[instance.cur_child]=temp_child;
-    //                     instance.cur_child=0;
-    //                     instance.child_obj
-    //                 }
-    //             });
-    //
-    //         }else{
-    //             _ajax(url, {"cityname":parent_obj[instance.cur_parent].listname}, function callback(ret){
-    //                 let temparr=null;
-    //                 temparr=ret.data.datastr;
-    //                 temparr = JSON.parse(temparr);
-    //                 let key=temparr[0].city;
-    //                 child_obj=temparr[0][key];
-    //                 instance.child_obj=child_obj;
-    //                 tempObj={
-    //                     paraname: instance.dataObj.sec_key,
-    //                     name: child_obj[0].listname,
-    //                     value: child_obj[0].id,
-    //                     text: child_obj[0].name
-    //                 };
-    //                 instance.cur_child=0;
-    //                 instance.backObj[1]=tempObj;
-    //             });
-    //         }
-    //
-    //     }else{
-    //         tempObj={
-    //             paraname: instance.dataObj.first_key,
-    //             name: instance.parent_obj[0].listname,
-    //             value: instance.parent_obj[0].id,
-    //             text: instance.parent_obj[0].name
-    //         };
-    //         instance.backObj[0]=tempObj;
-    //         _ajax(url, {"cityname":parent_obj[0].listname}, function callback(ret){
-    //             let temparr=null;
-    //             temparr=ret.data.datastr;
-    //             temparr = JSON.parse(temparr);
-    //             let key=temparr[0].city;
-    //             child_obj=temparr[0][key];
-    //             instance.child_obj=child_obj;
-    //             tempObj={
-    //                 paraname: instance.dataObj.sec_key,
-    //                 name: instance.child_obj[0].listname,
-    //                 value: instance.child_obj[0].id,
-    //                 text: instance.child_obj[0].name
-    //             };
-    //             instance.backObj[1]=tempObj;
-    //             instance.cur_parent=0;
-    //             instance.cur_parent=0;
-    //         });
-    //
-    //     }
-    //
-    // });
 
     Tool.css(document.body, "overflow", "hidden");
     Tool.css(document.body, "height", "100vh");

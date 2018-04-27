@@ -9132,6 +9132,10 @@ module.exports = function (name) {
                     "value": "511575",
                     "title": "种类",
                     "option": [{ "text": "美容院", "value": "511599" }, { "text": "美发店", "value": "511600" }, { "text": "美甲店", "value": "511601" }, { "text": "SPA馆", "value": "511602" }]
+                }, {
+                    "text": "其他",
+                    "value": "511596",
+                    "title": "种类"
                 }]
             };
             this.$two_linkage(param, function (ret, data) {
@@ -9145,7 +9149,7 @@ module.exports = function (name) {
         area_linkage: function area_linkage() {
             var param = {
                 title: "区域",
-                key: "bj",
+                key: "ankang",
                 //                        url: "http://m.58.com/sublocals/",
                 first_key: "quyu",
                 sec_key: "diduan"
@@ -11329,18 +11333,28 @@ exports.f = Object.getOwnPropertyNames || function getOwnPropertyNames(O) {
             _this.cur_child = 0;
             var tempobj = {};
             tempobj = {
-                paraname: _this.dataObj.first_key || null,
-                value: item.value || null,
-                text: item.text || "暂无数据"
+                paraname: _this.dataObj.first_key || "",
+                value: item.value || "",
+                text: item.text || ""
             };
             _this.backobj[0] = tempobj;
-            _this.temp = item.option || [];
-            tempobj = {
-                paraname: _this.dataObj.sec_key || null,
-                value: _this.temp[0].value || null,
-                text: _this.temp[0].text || "暂无数据"
-            };
-            _this.backobj[1] = tempobj;
+            if (item.option && item.option != "") {
+                _this.temp = item.option || "";
+                tempobj = {
+                    paraname: _this.dataObj.sec_key || "",
+                    value: _this.temp[0].value || "",
+                    text: _this.temp[0].text || ""
+                };
+                _this.backobj[1] = tempobj;
+            } else {
+                _this.temp = "";
+                tempobj = {
+                    paraname: _this.dataObj.sec_key || "",
+                    value: "",
+                    text: ""
+                };
+                _this.backobj[1] = tempobj;
+            }
         },
 
         // 点击二级菜单
@@ -11349,9 +11363,9 @@ exports.f = Object.getOwnPropertyNames || function getOwnPropertyNames(O) {
             _this.cur_child = index;
             var tempobj = {};
             tempobj = {
-                paraname: _this.dataObj.sec_key || null,
-                value: item.value || null,
-                text: item.text || "暂无数据"
+                paraname: _this.dataObj.sec_key || "",
+                value: item.value || "",
+                text: item.text || ""
             };
             _this.backobj[1] = tempobj;
         },
@@ -11394,433 +11408,8 @@ exports.f = Object.getOwnPropertyNames || function getOwnPropertyNames(O) {
 });
 
 /***/ }),
-/* 53 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_json_stringify__ = __webpack_require__(134);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_json_stringify___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_json_stringify__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__lib_touch__ = __webpack_require__(54);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__common_js_Tool__ = __webpack_require__(8);
-
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-
-
-/* harmony default export */ __webpack_exports__["a"] = ({
-    name: 'area_linkage',
-    data: function data() {
-        return {
-            show: false,
-            isbeforeActive: false,
-            isactive: false,
-            url: null,
-            cur_parent: 0, //选中的父级索引值
-            cur_child: 0, //选中的子级索引值
-            parent_obj: [], //父级数组数据
-            child_obj: [], //子级数组数据
-            backObj: [], //返回的数据
-            dataObj: {}, //级联数值选项
-            dataStroge: [], //所有数据列表
-
-
-            allMap: {}, // eg:{bj:[{"listname": "chaoyang", "name": "朝阳", "id": "1142"}],chaoyang:[...]}
-            idMap: {},
-            first_linkage_arry: [],
-            sec_linkage_arry: [],
-            first_linkage_default_value: "",
-            sec_linkage_default_value: "",
-            callback: function callback() {}
-        };
-    },
-    mounted: function mounted() {},
-    created: function created() {},
-
-    computed: {
-        title: function title() {
-            var ret = "区域";
-            if (this.dataObj.title) {
-                ret = this.dataObj.title;
-            }
-            return ret;
-        }
-    },
-
-    methods: {
-        stop: function stop() {},
-        //处理点击背景关闭键盘时，防止冒泡
-
-        // 点击一级菜单
-        click_parent2: function click_parent2(_id) {
-            this.first_linkage_default_value = _id;
-            this._choose();
-        },
-        click_parent: function click_parent(item, index) {
-            var _this = this;
-            _this.cur_parent = index;
-            _this.cur_child = 0;
-            var tempobj = {};
-            tempobj = {
-                paraname: _this.dataObj.first_key || null,
-                name: item.listname || null,
-                value: item.id || null,
-                text: item.name || null
-            };
-            _this.backObj[0] = tempobj;
-            _this.child_obj = _this.dataStroge[0][item.listname];
-            tempobj = {
-                paraname: _this.dataObj.sec_key || null,
-                name: _this.child_obj[0].listname || null,
-                value: _this.child_obj[0].id || null,
-                text: _this.child_obj[0].name || null
-            };
-            _this.backObj[1] = tempobj;
-        },
-
-        // 点击二级菜单
-        click_child2: function click_child2(_id) {
-            this.sec_linkage_default_value = _id;
-            this._choose();
-        },
-        click_child: function click_child(item, index) {
-            var _this = this;
-            _this.cur_child = index;
-            var tempobj = {};
-            tempobj = {
-                paraname: _this.dataObj.sec_key || null,
-                name: item.listname || null,
-                value: item.id || null,
-                text: item.name || null
-            };
-            _this.backObj[1] = tempobj;
-        },
-
-        // 点击取消
-        close_click: function close_click() {
-            var _this = this;
-            _this.isactive = false;
-            setTimeout(function () {
-                _this.isbeforeActive = false;
-                _this.show = false;
-            }, 600);
-            __WEBPACK_IMPORTED_MODULE_2__common_js_Tool__["a" /* default */].removecss(document.body, "overflow");
-            __WEBPACK_IMPORTED_MODULE_2__common_js_Tool__["a" /* default */].removecss(document.body, "height");
-            return _this.callback(1);
-        },
-
-        // 点击完成
-        decision_click: function decision_click() {
-            var _this = this;
-            _this.isactive = false;
-            setTimeout(function () {
-                _this.isbeforeActive = false;
-                _this.show = false;
-            }, 600);
-            __WEBPACK_IMPORTED_MODULE_2__common_js_Tool__["a" /* default */].removecss(document.body, "overflow");
-            __WEBPACK_IMPORTED_MODULE_2__common_js_Tool__["a" /* default */].removecss(document.body, "height");
-            var obj = [];
-            _this.backObj.forEach(function (item, index) {
-                obj[index] = item;
-            });
-            return _this.callback(0, obj);
-        },
-        _choose: function _choose() {
-            this._clear();
-            var first_id = this.first_linkage_default_value;
-            var sec_id = this.sec_linkage_default_value;
-            if (!first_id) {
-                first_id = this.first_linkage_arry[0]["id"];
-            }
-            this.idMap[first_id]["select"] = true;
-            console.log(first_id, "first_id");
-            var firs_choose = this.idMap[first_id];
-            console.log(firs_choose, "first_choose");
-            var name = firs_choose["listname"];
-            var array = this.allMap[name] || [];
-
-            this.sec_linkage_arry = array;
-
-            // 设置二级选中默认id
-
-            if (!sec_id) {
-                sec_id = this.sec_linkage_arry[0]["id"];
-            }
-
-            this.idMap[sec_id]["select"] = true;
-            console.log(__WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_json_stringify___default()(this.idMap[sec_id]));
-        },
-        _clear: function _clear() {
-            for (var key in this.idMap) {
-                this.idMap[key].select = false;
-            }
-        },
-
-        // 滚动到选中的id
-        _scroll_to_choose: function _scroll_to_choose() {}
-    },
-    watch: {
-        'show': function show(val) {
-            if (val) {}
-        }
-    }
-});
-
-/***/ }),
-/* 54 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-var _native_ajax = function _native_ajax(options) {
-    options = options || {};
-    if (!options.url || !options.callback) {
-        throw new Error("参数不合法");
-    }
-
-    //创建 script 标签并加入到页面中
-    var callbackName = ('jsonp_' + Math.random()).replace(".", "");
-    var oHead = document.getElementsByTagName('head')[0];
-    options.data[options.callback] = callbackName;
-    var params = formatParams(options.data);
-    var oS = document.createElement('script');
-    oHead.appendChild(oS);
-
-    //创建jsonp回调函数
-    window[callbackName] = function (json) {
-        oHead.removeChild(oS);
-        clearTimeout(oS.timer);
-        window[callbackName] = null;
-        options.success && options.success(json);
-    };
-
-    //发送请求
-    oS.src = options.url + '?' + params;
-
-    //超时处理
-    if (options.time) {
-        oS.timer = setTimeout(function () {
-            window[callbackName] = null;
-            oHead.removeChild(oS);
-            options.fail && options.fail({ message: "超时" });
-        }, time);
-    }
-
-    //格式化参数
-    function formatParams(data) {
-        var arr = [];
-        for (var name in data) {
-            arr.push(encodeURIComponent(name) + '=' + encodeURIComponent(data[name]));
-        }
-        return arr.join('&');
-    }
-};
-var _ajax = function _ajax(url, param, _success) {
-    var result;
-    _native_ajax({
-        url: url,
-        data: param,
-        callback: "callback",
-        error: function error(jqXHR, textStatus, errorThrown) {
-            if (typeof _success == "function") {
-                result = { ret: -1 };
-                _success(result);
-            }
-        },
-        success: function success(ret) {
-            if (typeof ret == "string") {
-                try {
-                    ret = JSON.parse(ret);
-                    result = {
-                        ret: 0,
-                        data: ret
-                    };
-                } catch (e) {
-                    result = { ret: -1 };
-                }
-            } else {
-                result = {
-                    ret: 0,
-                    data: ret
-                };
-            }
-            if (typeof _success == "function") {
-                _success(result);
-            }
-        }
-    });
-};
-/* harmony default export */ __webpack_exports__["a"] = (_ajax);
-
-/***/ }),
+/* 53 */,
+/* 54 */,
 /* 55 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -11835,6 +11424,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__src_package_secondLinkage_index__ = __webpack_require__(119);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__src_package_two_linkage_index__ = __webpack_require__(124);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__src_package_area_linkage_index__ = __webpack_require__(129);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__src_package_area_linkage_index___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_8__src_package_area_linkage_index__);
 
 
 
@@ -11851,7 +11441,7 @@ __WEBPACK_IMPORTED_MODULE_1_vue__["a" /* default */].use(__WEBPACK_IMPORTED_MODU
 __WEBPACK_IMPORTED_MODULE_1_vue__["a" /* default */].use(__WEBPACK_IMPORTED_MODULE_5__src_package_rentKeyboard_index__["a" /* default */]);
 __WEBPACK_IMPORTED_MODULE_1_vue__["a" /* default */].use(__WEBPACK_IMPORTED_MODULE_6__src_package_secondLinkage_index__["a" /* default */]);
 __WEBPACK_IMPORTED_MODULE_1_vue__["a" /* default */].use(__WEBPACK_IMPORTED_MODULE_7__src_package_two_linkage_index__["a" /* default */]);
-__WEBPACK_IMPORTED_MODULE_1_vue__["a" /* default */].use(__WEBPACK_IMPORTED_MODULE_8__src_package_area_linkage_index__["a" /* default */]);
+__WEBPACK_IMPORTED_MODULE_1_vue__["a" /* default */].use(__WEBPACK_IMPORTED_MODULE_8__src_package_area_linkage_index__["default"]);
 
 new __WEBPACK_IMPORTED_MODULE_1_vue__["a" /* default */]({
     el: '#app',
@@ -14927,70 +14517,91 @@ var two_linkage = function two_linkage(a, fun) {
 
     instance.dataObj = _defobj["dataObj"];
     instance.callback = fun;
-    var cur_parent = void 0;
-    var cur_child = void 0;
+    var cur_parent = [];
+    var cur_child = [];
     var tempobj = {};
-    if (a.first_key_default && a.first_key_default != "") {
-        var temp_parent_text = null;
-        var cur_parent_index = 0;
-        a.option.forEach(function (item, index) {
-            if (item.value == a.first_key_default) {
-                temp_parent_text = a.option[index].text;
-                cur_parent = index;
-                cur_parent_index = index;
-            }
-        });
-        tempobj = {
-            paraname: instance.dataObj.first_key || null,
-            value: a.first_key_default || null,
-            text: temp_parent_text || "暂无数据"
-        };
-        instance.backobj[0] = tempobj;
-        instance.temp = a.option[cur_parent_index].option;
-        if (a.sec_key_default && a.sec_key_default != "") {
-            var cur_child_index = 0;
-            var temp_child_text = null;
-            a.option[cur_parent_index].option.forEach(function (item, index) {
-                if (item.value == a.sec_key_default) {
-                    temp_child_text = a.option[cur_parent_index].option[index].text;
-                    cur_child = index;
-                    cur_child_index = index;
+    if (a.option && a.option != "") {
+        if (a.first_key_default && a.first_key_default != "") {
+            var temp_parent_text = "";
+            var cur_parent_index = 0;
+            a.option.forEach(function (item, index) {
+                if (item.value == a.first_key_default) {
+                    temp_parent_text = a.option[index].text;
+                    cur_parent = index;
+                    cur_parent_index = index;
                 }
             });
             tempobj = {
-                paraname: instance.dataObj.first_key || null,
-                value: a.sec_key_default || null,
-                text: temp_child_text || "暂无数据"
+                paraname: instance.dataObj.first_key || "",
+                value: a.first_key_default || "",
+                text: temp_parent_text || ""
             };
-            instance.backobj[1] = tempobj;
+            instance.backobj[0] = tempobj;
+            if (a.option[cur_parent_index].option && a.option[cur_parent_index].option != "") {
+                instance.temp = a.option[cur_parent_index].option;
+                if (a.sec_key_default && a.sec_key_default != "") {
+                    var cur_child_index = 0;
+                    var temp_child_text = "";
+                    a.option[cur_parent_index].option.forEach(function (item, index) {
+                        if (item.value == a.sec_key_default) {
+                            temp_child_text = a.option[cur_parent_index].option[index].text;
+                            cur_child = index;
+                            cur_child_index = index;
+                        }
+                    });
+                    tempobj = {
+                        paraname: instance.dataObj.sec_key || "",
+                        value: a.sec_key_default || "",
+                        text: temp_child_text || ""
+                    };
+                    instance.backobj[1] = tempobj;
+                } else {
+                    tempobj = {
+                        paraname: instance.dataObj.sec_key || "",
+                        value: a.option[cur_parent_index].option[0].value || "",
+                        text: a.option[cur_parent_index].option[0].text || ""
+                    };
+                    instance.backobj[1] = tempobj;
+                    cur_child = 0;
+                }
+            } else {
+                tempobj = {
+                    paraname: instance.dataObj.sec_key || "",
+                    value: "",
+                    text: ""
+                };
+                instance.backobj[1] = tempobj;
+            }
         } else {
             tempobj = {
-                paraname: instance.dataObj.first_key || null,
-                value: a.option[cur_parent_index].option[0].value || null,
-                text: a.option[cur_parent_index].option[0].text || "暂无数据"
+                paraname: instance.dataObj.first_key || "",
+                value: instance.dataObj.option[0].value || "",
+                text: instance.dataObj.option[0].text || ""
             };
-            instance.backobj[1] = tempobj;
-            cur_child = 0;
+            instance.backobj[0] = tempobj;
+            cur_parent = 0;
+            if (instance.dataObj.option[0].option || instance.dataObj.option[0].option != "") {
+                if (instance.dataObj.option[0]) {
+                    tempobj = {
+                        paraname: instance.dataObj.sec_key || "",
+                        value: instance.dataObj.option[0].option[0].value || "",
+                        text: instance.dataObj.option[0].option[0].text || ""
+                    };
+                }
+                instance.backobj[1] = tempobj;
+                instance.temp = instance.dataObj.option[0].option;
+                cur_child = 0;
+            } else {
+                tempobj = {
+                    paraname: instance.dataObj.sec_key || "",
+                    value: "",
+                    text: ""
+                };
+                instance.backobj[1] = tempobj;
+            }
         }
-    } else {
-        tempobj = {
-            paraname: instance.dataObj.first_key || null,
-            value: instance.dataObj.option[0].value || null,
-            text: instance.dataObj.option[0].text || "暂无数据"
-        };
-        instance.backobj[0] = tempobj;
-        if (instance.dataObj.option[0]) {
-            tempobj = {
-                paraname: instance.dataObj.sec_key || null,
-                value: instance.dataObj.option[0].option[0].value || null,
-                text: instance.dataObj.option[0].option[0].text || "暂无数据"
-            };
-        }
-        instance.backobj[1] = tempobj;
-        instance.temp = instance.dataObj.option[0].option;
-        cur_parent = 0;
-        cur_child = 0;
     }
+
     instance.cur_parent = cur_parent;
     instance.cur_child = cur_child;
     __WEBPACK_IMPORTED_MODULE_2__common_js_Tool__["a" /* default */].css(document.body, "overflow", "hidden");
@@ -15238,682 +14849,10 @@ if (false) {
 
 /***/ }),
 /* 129 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(module, __webpack_exports__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_get_iterator__ = __webpack_require__(136);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_get_iterator___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_get_iterator__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__src_area_linkage_vue__ = __webpack_require__(130);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__lib_touch__ = __webpack_require__(54);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__common_js_Tool__ = __webpack_require__(8);
-
-/**
- * Created by lipan04 on 2018/4/21.
- */
-
-
-
-
-
-
-var instance = void 0;
-var linkagestructor = __WEBPACK_IMPORTED_MODULE_1_vue__["a" /* default */].extend(__WEBPACK_IMPORTED_MODULE_2__src_area_linkage_vue__["a" /* default */]);
-var dataStroge = [];
-var id_to_listname = {};
-var search_parent = {};
-
-var initInstance = function initInstance(bottom) {
-    instance = new linkagestructor({
-        el: document.createElement('div')
-    });
-    document.body.appendChild(instance.$el);
-};
-
-var area_linkage = function area_linkage(a, fun) {
-
-    var _defobj = {
-        dataObj: a
-    };
-    a.callback = function (ret) {};
-    var url = location.protocol + "//m.58.com/sublocals/";
-    instance.dataObj = _defobj["dataObj"];
-    instance.callback = fun;
-    var parent_obj = [];
-    var child_obj = [];
-    var think = [];
-    var tempObj = {};
-    var backObj = [];
-
-    instance.url = url;
-    if (dataStroge == "") {
-        Object(__WEBPACK_IMPORTED_MODULE_3__lib_touch__["a" /* default */])(url, { "cityname": a.key }, function callback(ret) {
-            var temparr = null;
-            temparr = ret.data.datastr;
-            temparr = JSON.parse(temparr);
-            dataStroge = temparr;
-            var key = temparr[0].city;
-            temparr[0][key].forEach(function (item) {
-                id_to_listname[item.id] = item.listname;
-                var child_key = item.listname;
-                var curobj = temparr[0][child_key];
-                curobj.forEach(function (cur_item) {
-                    search_parent[cur_item.id] = item.listname;
-                });
-            });
-            instance.dataStroge = dataStroge;
-            get_data(dataStroge, id_to_listname);
-        });
-    } else {
-        get_data(dataStroge, id_to_listname);
-    }
-
-    function get_data(dataStroge, id_to_listname) {
-        // console.log(JSON.stringify(dataStroge))
-
-        parent_obj = dataStroge[0][dataStroge[0].city];
-        var city_obj = dataStroge[0];
-        var city_key = city_obj.city;
-        console.log(city_key, "bejjing");
-        var first_linkage_arry = city_obj[city_key];
-        // var first_linkage_arry=city_obj[city_key];
-
-        instance.allMap = city_obj;
-        // console.log(first_linkage_arry,"bbbbbbbb")
-        instance.first_linkage_arry = first_linkage_arry;
-        instance.first_linkage_default_value = a.first_key_default;
-        instance.sec_linkage_default_value = a.sec_key_default;
-
-        var idMap = {};
-        for (var key in city_obj) {
-            var item = city_obj[key];
-            if (item instanceof Array) {
-                var _iteratorNormalCompletion = true;
-                var _didIteratorError = false;
-                var _iteratorError = undefined;
-
-                try {
-                    for (var _iterator = __WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_get_iterator___default()(item), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-                        var it = _step.value;
-
-                        var _id = it.id;
-
-                        idMap[_id] = it;
-                    }
-                } catch (err) {
-                    _didIteratorError = true;
-                    _iteratorError = err;
-                } finally {
-                    try {
-                        if (!_iteratorNormalCompletion && _iterator.return) {
-                            _iterator.return();
-                        }
-                    } finally {
-                        if (_didIteratorError) {
-                            throw _iteratorError;
-                        }
-                    }
-                }
-            }
-        }
-        instance.idMap = idMap;
-
-        instance._choose();
-
-        return;
-        if (a.first_key_default && a.first_key_default != "") {
-            //如果第一个参数存在,则一级默认选中的是a.first_key_default对应的对象，二级数据也是a.first_key_default下对应的数据
-            var temp_parent_obj = {};
-            var temp_child_obj = {};
-            parent_obj.forEach(function (item, index) {
-                if (item.id == a.first_key_default) {
-                    instance.cur_parent = index;
-                    temp_parent_obj = item;
-                    for (var cur_item in dataStroge[0]) {
-                        if (cur_item == id_to_listname[a.first_key_default]) {
-                            child_obj = dataStroge[0][cur_item];
-                            // console.log(think=="")
-                        }
-                    }
-                }
-            });
-
-            tempObj = {
-                paraname: instance.dataObj.first_key,
-                name: temp_parent_obj.listname || null,
-                value: temp_parent_obj.id || null,
-                text: temp_parent_obj.name || null
-            };
-            if (instance.cur_parent > 5) {
-                var temp = {};
-                temp = parent_obj[0];
-                parent_obj[0] = parent_obj[instance.cur_parent];
-                parent_obj[instance.cur_parent] = temp;
-                instance.cur_parent = 0;
-            }
-            instance.backObj[0] = tempObj;
-            if (a.sec_key_default && a.sec_key_default != "") {
-                //如果第二个参数存在，则二级选中的是a.sec_key_default对应的对象
-                child_obj.forEach(function (item, index) {
-                    if (item.id == a.sec_key_default) {
-                        instance.cur_child = index;
-                        temp_child_obj = item;
-                    }
-                });
-                tempObj = {
-                    paraname: instance.dataObj.sec_key,
-                    name: temp_child_obj.listname,
-                    value: temp_child_obj.id,
-                    text: temp_child_obj.name
-                };
-                if (instance.cur_child > 5) {
-                    var _temp = {};
-                    _temp = child_obj[0];
-                    child_obj[0] = child_obj[instance.cur_child];
-                    child_obj[instance.cur_child] = _temp;
-                    instance.cur_child = 0;
-                }
-                instance.backObj[1] = tempObj;
-            } else {
-                //如果第一个参数存在，第二个参数不存在，则二级选中的是a.first_key_default下对应的数据第一项
-                instance.cur_child = 0;
-                tempObj = {
-                    paraname: instance.dataObj.sec_key,
-                    name: child_obj[0].listname,
-                    value: child_obj[0].id,
-                    text: child_obj[0].name
-                };
-                instance.backObj[1] = tempObj;
-            }
-        } else {
-            if (a.sec_key_default && a.sec_key_default != "") {//如果第一个参数不存在，第二个参数存在
-
-            } else {
-                //如果两个参数都不存在，则一级默认选中的是city对应下数据的第一项，二级数据是一级数据选中的对象下第一个数据
-                instance.cur_parent = 0;
-                instance.cur_child = 0;
-                // parent_obj = dataStroge[0][dataStroge[0].city];
-                tempObj = {
-                    paraname: instance.dataObj.first_key,
-                    name: parent_obj[0].listname || null,
-                    value: parent_obj[0].id || null,
-                    text: parent_obj[0].name || null
-                };
-                instance.backObj[0] = tempObj;
-                var _key = dataStroge[0][dataStroge[0]["city"]][0].listname;
-                child_obj = dataStroge[0][_key];
-                tempObj = {
-                    paraname: instance.dataObj.sec_key,
-                    name: child_obj[0].listname || null,
-                    value: child_obj[0].id | null,
-                    text: child_obj[0].name || null
-                };
-                instance.backObj[1] = tempObj;
-            }
-        }
-        instance.parent_obj = parent_obj;
-        instance.child_obj = child_obj;
-    }
-
-    // _ajax(url, {"cityname":a.key}, function callback(ret){
-    //     let temparr=null;
-    //     temparr=ret.data.datastr;
-    //     temparr = JSON.parse(temparr);
-    //     let key=temparr[0].city;
-    //     parent_obj=temparr[0][key];
-    //     instance.parent_obj=parent_obj;
-    //     let temp_parent_obj={};
-    //     let temp_child_obj={};
-    //     if(a.first_key_default&&(a.first_key_default!="")){
-    //         parent_obj.forEach(function(item,index){
-    //             if(item.id==a.first_key_default){
-    //                 instance.cur_parent=index;
-    //                 temp_parent_obj=item;
-    //             }
-    //         });
-    //         tempObj={
-    //             paraname: instance.dataObj.first_key,
-    //             name: temp_parent_obj.listname,
-    //             value: temp_parent_obj.id,
-    //             text: temp_parent_obj.name
-    //         };
-    //         if(instance.cur_parent>5){
-    //             let temp={};
-    //             temp=parent_obj[0];
-    //             parent_obj[0]=parent_obj[instance.cur_parent];
-    //             parent_obj[instance.cur_parent]=temp;
-    //             instance.cur_parent=0;
-    //             instance.parent_obj=parent_obj
-    //         }
-    //         instance.backObj[0]=tempObj;
-    //         if(a.sec_key_default&&(a.sec_key_default!="")){
-    //             _ajax(url, {"cityname":parent_obj[instance.cur_parent].listname}, function callback(ret){
-    //                 let temparr=null;
-    //                 temparr=ret.data.datastr;
-    //                 temparr = JSON.parse(temparr);
-    //                 let key=temparr[0].city;
-    //                 child_obj=temparr[0][key];
-    //                 instance.child_obj=child_obj;
-    //                 child_obj.forEach(function(item,index){
-    //                     if(item.id==a.sec_key_default){
-    //                         instance.cur_child=index;
-    //                         temp_child_obj=item;
-    //                     }
-    //                 });
-    //                 tempObj={
-    //                     paraname: instance.dataObj.sec_key,
-    //                     name: temp_child_obj.listname,
-    //                     value: temp_child_obj.id,
-    //                     text: temp_child_obj.name
-    //                 };
-    //                 instance.backObj[1]=tempObj;
-    //                 if(instance.cur_child>5){
-    //                     let temp_child={};
-    //                     temp_child=parent_obj[0];
-    //                     child_obj[0]=child_obj[instance.cur_child];
-    //                     child_obj[instance.cur_child]=temp_child;
-    //                     instance.cur_child=0;
-    //                     instance.child_obj
-    //                 }
-    //             });
-    //
-    //         }else{
-    //             _ajax(url, {"cityname":parent_obj[instance.cur_parent].listname}, function callback(ret){
-    //                 let temparr=null;
-    //                 temparr=ret.data.datastr;
-    //                 temparr = JSON.parse(temparr);
-    //                 let key=temparr[0].city;
-    //                 child_obj=temparr[0][key];
-    //                 instance.child_obj=child_obj;
-    //                 tempObj={
-    //                     paraname: instance.dataObj.sec_key,
-    //                     name: child_obj[0].listname,
-    //                     value: child_obj[0].id,
-    //                     text: child_obj[0].name
-    //                 };
-    //                 instance.cur_child=0;
-    //                 instance.backObj[1]=tempObj;
-    //             });
-    //         }
-    //
-    //     }else{
-    //         tempObj={
-    //             paraname: instance.dataObj.first_key,
-    //             name: instance.parent_obj[0].listname,
-    //             value: instance.parent_obj[0].id,
-    //             text: instance.parent_obj[0].name
-    //         };
-    //         instance.backObj[0]=tempObj;
-    //         _ajax(url, {"cityname":parent_obj[0].listname}, function callback(ret){
-    //             let temparr=null;
-    //             temparr=ret.data.datastr;
-    //             temparr = JSON.parse(temparr);
-    //             let key=temparr[0].city;
-    //             child_obj=temparr[0][key];
-    //             instance.child_obj=child_obj;
-    //             tempObj={
-    //                 paraname: instance.dataObj.sec_key,
-    //                 name: instance.child_obj[0].listname,
-    //                 value: instance.child_obj[0].id,
-    //                 text: instance.child_obj[0].name
-    //             };
-    //             instance.backObj[1]=tempObj;
-    //             instance.cur_parent=0;
-    //             instance.cur_parent=0;
-    //         });
-    //
-    //     }
-    //
-    // });
-
-    __WEBPACK_IMPORTED_MODULE_4__common_js_Tool__["a" /* default */].css(document.body, "overflow", "hidden");
-    __WEBPACK_IMPORTED_MODULE_4__common_js_Tool__["a" /* default */].css(document.body, "height", "100vh");
-    instance.show = true;
-    instance.isbeforeActive = true;
-    setTimeout(function () {
-        instance.isactive = true;
-    }, 60);
-};
-
-/* harmony default export */ __webpack_exports__["a"] = ({
-    install: function install(Vue, options) {
-        initInstance();
-        Vue.prototype.$area_linkage = area_linkage;
-    }
-});
-
-/***/ }),
-/* 130 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_area_linkage_vue__ = __webpack_require__(53);
-/* unused harmony namespace reexport */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_019b7608_hasScoped_true_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_area_linkage_vue__ = __webpack_require__(133);
-var disposed = false
-function injectStyle (ssrContext) {
-  if (disposed) return
-  __webpack_require__(131)
-}
-var normalizeComponent = __webpack_require__(2)
-/* script */
-
-
-/* template */
-
-/* template functional */
-var __vue_template_functional__ = false
-/* styles */
-var __vue_styles__ = injectStyle
-/* scopeId */
-var __vue_scopeId__ = "data-v-019b7608"
-/* moduleIdentifier (server only) */
-var __vue_module_identifier__ = null
-var Component = normalizeComponent(
-  __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_area_linkage_vue__["a" /* default */],
-  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_019b7608_hasScoped_true_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_area_linkage_vue__["a" /* default */],
-  __vue_template_functional__,
-  __vue_styles__,
-  __vue_scopeId__,
-  __vue_module_identifier__
-)
-Component.options.__file = "src\\package\\area_linkage\\src\\area_linkage.vue"
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-019b7608", Component.options)
-  } else {
-    hotAPI.reload("data-v-019b7608", Component.options)
-  }
-  module.hot.dispose(function (data) {
-    disposed = true
-  })
-})()}
-
-/* harmony default export */ __webpack_exports__["a"] = (Component.exports);
-
-
-/***/ }),
-/* 131 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(132);
-if(typeof content === 'string') content = [[module.i, content, '']];
-if(content.locals) module.exports = content.locals;
-// add the styles to the DOM
-var update = __webpack_require__(1)("7c42c9f6", content, false, {});
-// Hot Module Replacement
-if(false) {
- // When the styles change, update the <style> tags
- if(!content.locals) {
-   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-019b7608\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../node_modules/sass-loader/lib/loader.js!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./area_linkage.vue", function() {
-     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-019b7608\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../node_modules/sass-loader/lib/loader.js!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./area_linkage.vue");
-     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-     update(newContent);
-   });
- }
- // When the module is disposed, remove the <style> tags
- module.hot.dispose(function() { update(); });
-}
-
-/***/ }),
-/* 132 */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(0)(false);
-// imports
-
-
-// module
-exports.push([module.i, "\n@charset \"UTF-8\";\n/*\r\nTo change this license header, choose License Headers in Project Properties.\r\nTo change this template file, choose Tools | Templates\r\nand open the template in the editor.\r\n*/\n/* \r\n    Created on : 2017-8-31, 23:11:17\r\n    Author     : ghy\r\n*/\n/**\r\n * @param $line       超出显示省略号的行数，默认：1\r\n * @param $substract  为预留区域百分比%，默认：0\r\n */\n/*\r\nTo change this license header, choose License Headers in Project Properties.\r\nTo change this template file, choose Tools | Templates\r\nand open the template in the editor.\r\n*/\n/* \r\n    Created on : 2017-8-31, 23:12:32\r\n    Author     : ghy\r\n*/\n/* @author 龚虹宇 */\n/** -------------------------------------------\r\n    Generic Mixins\r\n    ------------------------------------------- **/\n/**\r\n * Adds prefixed version of values in a property\r\n */\n*[data-v-019b7608] {\n  margin: 0px;\n  padding: 0px;\n  list-style: none;\n}\n.linkage[data-v-019b7608] {\n  width: 100%;\n  height: 100%;\n  position: fixed;\n  top: 0px;\n  -webkit-transition: all 0.4s ease;\n  transition: all 0.4s ease;\n  /*background: rgba(0,0,0,0.4);*/\n}\n.linkage .linkage-warp[data-v-019b7608] {\n  z-index: 1;\n  -webkit-transition: all 0.4s ease;\n  transition: all 0.4s ease;\n  position: absolute;\n  width: 100%;\n  bottom: 0px;\n  background: #ffffff;\n  -webkit-transform: translateY(100%);\n          transform: translateY(100%);\n}\n.linkage .linkage-title[data-v-019b7608] {\n  height: 1.2rem;\n  background: #f9fafc;\n  text-align: center;\n  font-size: 0.37333rem;\n  color: #999999;\n  line-height: 1.2rem;\n  position: relative;\n}\n.linkage .linkage-title[data-v-019b7608]:after {\n  content: \"\";\n  position: absolute;\n  top: 0;\n  left: 0;\n  border: 1px solid #e3e3e4;\n  box-sizing: border-box;\n  width: 200%;\n  height: 200%;\n  -webkit-transform: scale(0.5);\n  transform: scale(0.5);\n  -webkit-transform-origin: left top;\n  transform-origin: left top;\n}\n.linkage .linkage-title .linkage-sure[data-v-019b7608], .linkage .linkage-title .linkage-cancel[data-v-019b7608] {\n  position: absolute;\n  z-index: 1;\n  width: 1.6rem;\n  height: 1.2rem;\n  line-height: 1.22667rem;\n  color: #ff552e;\n  top: 0px;\n  right: 0px;\n}\n.linkage .linkage-title .linkage-sure.linkage-cancel[data-v-019b7608], .linkage .linkage-title .linkage-cancel.linkage-cancel[data-v-019b7608] {\n  right: auto;\n  left: 0px;\n  color: #7b7b7b;\n}\n.linkage .linkage-list[data-v-019b7608] {\n  widtH: 100%;\n  height: 7.46668rem;\n  overflow: hidden;\n  overflow-y: scroll;\n}\nul[data-v-019b7608] {\n  height: 7.46668rem;\n  position: absolute;\n  z-index: 10;\n  list-style: none;\n  top: 1.2rem;\n  overflow: hidden;\n  overflow-y: scroll;\n  width: 33.3%;\n  border-right: 1px solid #e3e3e4;\n}\nul li[data-v-019b7608] {\n    position: relative;\n    height: 1.3rem;\n    line-height: 1.3rem;\n    font-size: 0.34667rem;\n    color: rgba(0, 0, 0, .75);\n}\nul.left[data-v-019b7608] {\n  left: 33.3%;\n}\nul.right[data-v-019b7608] {\n  right: 0;\n}\nul li[data-v-019b7608] {\n  padding: 0 10px;\n}\n.btnactive[data-v-019b7608] {\n  background: #f6f6f6;\n  color: #ff552e;\n  margin: 0 1px;\n}\n.linkage.beforeActive[data-v-019b7608] {\n  display: block;\n  background: transparent;\n}\n.linkage.beforeActive .linkage-warp[data-v-019b7608] {\n  -webkit-transform: translateY(100%);\n          transform: translateY(100%);\n}\n.linkage.active[data-v-019b7608] {\n  background: rgba(0, 0, 0, .3);\n}\n.linkage.active .linkage-warp[data-v-019b7608] {\n  -webkit-transform: translateY(0);\n          transform: translateY(0);\n}\n", ""]);
-
-// exports
-
-
-/***/ }),
-/* 133 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    {
-      directives: [
-        { name: "show", rawName: "v-show", value: _vm.show, expression: "show" }
-      ]
-    },
-    [
-      _c(
-        "div",
-        {
-          staticClass: "linkage",
-          class: { beforeActive: _vm.isbeforeActive, active: _vm.isactive },
-          on: { click: _vm.close_click }
-        },
-        [
-          _c(
-            "div",
-            {
-              staticClass: "linkage-warp",
-              on: {
-                click: function($event) {
-                  $event.stopPropagation()
-                  return _vm.stop($event)
-                }
-              }
-            },
-            [
-              _c("div", { staticClass: "linkage-title" }, [
-                _vm._v(
-                  "\n                " +
-                    _vm._s(_vm.title) +
-                    "\n                "
-                ),
-                _c(
-                  "div",
-                  {
-                    staticClass: "linkage-sure",
-                    attrs: { id: "linkage-sure" },
-                    on: { click: _vm.decision_click }
-                  },
-                  [_vm._v("确定")]
-                ),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  {
-                    staticClass: "linkage-cancel",
-                    attrs: { id: "linkage-cancel" },
-                    on: { click: _vm.close_click }
-                  },
-                  [_vm._v("取消")]
-                )
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "linkage-list" }, [
-                _c("ul", [
-                  _c("li", { staticClass: "btnactive" }, [
-                    _vm._v(_vm._s(_vm.title))
-                  ])
-                ]),
-                _vm._v(" "),
-                _c(
-                  "ul",
-                  { staticClass: "left" },
-                  _vm._l(_vm.first_linkage_arry, function(item, index) {
-                    return _c(
-                      "li",
-                      {
-                        class: {
-                          btnactive: item.id == _vm.first_linkage_default_value
-                        },
-                        on: {
-                          click_bk: function($event) {
-                            _vm.click_parent(item, index)
-                          },
-                          click: function($event) {
-                            _vm.click_parent2(item.id)
-                          }
-                        }
-                      },
-                      [
-                        _vm._v(
-                          "\n                        " +
-                            _vm._s(item.name) +
-                            "\n                    "
-                        )
-                      ]
-                    )
-                  })
-                ),
-                _vm._v(" "),
-                _c(
-                  "ul",
-                  { staticClass: "right" },
-                  _vm._l(_vm.sec_linkage_arry, function(item, index) {
-                    return _c(
-                      "li",
-                      {
-                        class: {
-                          btnactive: item.id == _vm.sec_linkage_default_value
-                        },
-                        on: {
-                          click_bk: function($event) {
-                            _vm.click_child(item, index)
-                          },
-                          click: function($event) {
-                            _vm.click_child2(item.id)
-                          }
-                        }
-                      },
-                      [
-                        _vm._v(
-                          "\n                        " +
-                            _vm._s(item.name) +
-                            "\n                    "
-                        )
-                      ]
-                    )
-                  })
-                )
-              ])
-            ]
-          )
-        ]
-      )
-    ]
-  )
-}
-var staticRenderFns = []
-render._withStripped = true
-var esExports = { render: render, staticRenderFns: staticRenderFns }
-/* harmony default export */ __webpack_exports__["a"] = (esExports);
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-019b7608", esExports)
-  }
-}
-
-/***/ }),
-/* 134 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = { "default": __webpack_require__(135), __esModule: true };
-
-/***/ }),
-/* 135 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var core = __webpack_require__(12);
-var $JSON = core.JSON || (core.JSON = { stringify: JSON.stringify });
-module.exports = function stringify(it) { // eslint-disable-line no-unused-vars
-  return $JSON.stringify.apply($JSON, arguments);
-};
-
-
-/***/ }),
-/* 136 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = { "default": __webpack_require__(137), __esModule: true };
-
-/***/ }),
-/* 137 */
-/***/ (function(module, exports, __webpack_require__) {
-
-__webpack_require__(100);
-__webpack_require__(94);
-module.exports = __webpack_require__(138);
-
-
-/***/ }),
-/* 138 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var anObject = __webpack_require__(16);
-var get = __webpack_require__(139);
-module.exports = __webpack_require__(12).getIterator = function (it) {
-  var iterFn = get(it);
-  if (typeof iterFn != 'function') throw TypeError(it + ' is not iterable!');
-  return anObject(iterFn.call(it));
-};
-
-
-/***/ }),
-/* 139 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var classof = __webpack_require__(140);
-var ITERATOR = __webpack_require__(11)('iterator');
-var Iterators = __webpack_require__(30);
-module.exports = __webpack_require__(12).getIteratorMethod = function (it) {
-  if (it != undefined) return it[ITERATOR]
-    || it['@@iterator']
-    || Iterators[classof(it)];
-};
-
-
-/***/ }),
-/* 140 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// getting tag from 19.1.3.6 Object.prototype.toString()
-var cof = __webpack_require__(43);
-var TAG = __webpack_require__(11)('toStringTag');
-// ES3 wrong here
-var ARG = cof(function () { return arguments; }()) == 'Arguments';
-
-// fallback for IE11 Script Access Denied error
-var tryGet = function (it, key) {
-  try {
-    return it[key];
-  } catch (e) { /* empty */ }
-};
-
-module.exports = function (it) {
-  var O, T, B;
-  return it === undefined ? 'Undefined' : it === null ? 'Null'
-    // @@toStringTag case
-    : typeof (T = tryGet(O = Object(it), TAG)) == 'string' ? T
-    // builtinTag case
-    : ARG ? cof(O)
-    // ES3 arguments fallback
-    : (B = cof(O)) == 'Object' && typeof O.callee == 'function' ? 'Arguments' : B;
-};
-
+throw new Error("Module build failed: SyntaxError: E:/develop/workespace/58git/fangapp-release-pop/src/package/area_linkage/index.js: Unexpected token (35:0)\n\n\u001b[0m \u001b[90m 33 | \u001b[39m    let parent_obj \u001b[33m=\u001b[39m []\u001b[33m;\u001b[39m\n \u001b[90m 34 | \u001b[39m    let child_obj \u001b[33m=\u001b[39m []\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 35 | \u001b[39m\u001b[33m<<\u001b[39m\u001b[33m<<\u001b[39m\u001b[33m<<\u001b[39m\u001b[33m<\u001b[39m \u001b[33mHEAD\u001b[39m\n \u001b[90m    | \u001b[39m\u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 36 | \u001b[39m    let think \u001b[33m=\u001b[39m []\u001b[33m;\u001b[39m\n \u001b[90m 37 | \u001b[39m\u001b[33m===\u001b[39m\u001b[33m===\u001b[39m\u001b[33m=\u001b[39m\n \u001b[90m 38 | \u001b[39m\u001b[33m>>>\u001b[39m\u001b[33m>>>\u001b[39m\u001b[33m>\u001b[39m \u001b[35m49\u001b[39mdb59e5e64a359e84f191230800e1c2962fed2d\u001b[0m\n");
 
 /***/ })
 /******/ ]);
