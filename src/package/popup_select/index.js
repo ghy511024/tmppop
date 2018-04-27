@@ -45,9 +45,10 @@ let popup_select = (a,fun) => {
     }
     if(a.default_value&&a.default_value!=""){
         if(instance.selec_type=="radio"){
-            instance.select_map[a.default_value]=true;
+            let arr1=a.default_value.split("|");
+            instance.select_map[arr1[0]]=true;
             a.option.forEach(function(item){
-                if(item.value==a.default_value){
+                if(item.value==arr1[0]){
                     instance.currentobj=item;
                 }
             });

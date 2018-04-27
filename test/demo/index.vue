@@ -116,7 +116,7 @@
                 let data = {
                     title: "选择您的身份",
                     //type：radio checkbox
-                    selec_type: "checkbox",
+                    selec_type: "radio",
                     //list_type： single_text multi_text
                     list_type: "",
                     default_value:"2|3",
@@ -205,7 +205,7 @@
                         first_key: "quyu",
                         sec_key: "diduan",
                         first_key_default:"1144",
-                        sec_key_default:"5124",
+                        sec_key_default:"5129",
                     };
                 this.$area_linkage(param, function (ret, data) {
                     // ret==0 点击确定

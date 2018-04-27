@@ -203,29 +203,29 @@
                 <!-- S按钮区域 -->
                 <div class="btns-area">
                     <div class="left-btns">
-                        <table class="left-btns-table" cellspacing="0">
+                        <table class="left-btns-table" cellspacing="0" id="table" ref="tab">
                             <tbody>
                                 <tr>
-                                    <td @click="handleClick('1')">1</td>
-                                    <td @click="handleClick('2')">2</td>
-                                    <td @click="handleClick('3')">3</td>
+                                    <td>1</td>
+                                    <td>2</td>
+                                    <td>3</td>
                                     <td class="del-btn" rowspan="2" @click="handleDel">删除</td>
                                 </tr>
                                 <tr>
-                                    <td @click="handleClick('4')">4</td>
-                                    <td @click="handleClick('5')">5</td>
-                                    <td @click="handleClick('6')">6</td>
+                                    <td>4</td>
+                                    <td>5</td>
+                                    <td>6</td>
                                 </tr>
                                 <tr>
-                                    <td @click="handleClick('7')">7</td>
-                                    <td @click="handleClick('8')">8</td>
-                                    <td @click="handleClick('9')">9</td>
+                                    <td>7</td>
+                                    <td>8</td>
+                                    <td>9</td>
                                     <td class="confirm-btn" rowspan="2" @click="handleConfirm">确定</td>
                                 </tr>
                                 <tr>
                                     <td></td>
-                                    <td @click="handleClick('0')">0</td>
-                                    <td @click="handleClick('.')">.</td>
+                                    <td>0</td>
+                                    <td>.</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -338,6 +338,19 @@
                 }
                 return res;
             },
+
+        },
+        mounted() {
+            let _this=this;
+            let table=_this.$refs.tab;
+            table.addEventListener("click",function(ev){
+             let event= ev||window.event;
+             let target=event.target||event.srcElement;
+             if(target.nodeName.toLowerCase()=="td"){
+                     _this.handleClick(target.innerHTML);
+             }
+             });
+
         },
         methods: {
 
