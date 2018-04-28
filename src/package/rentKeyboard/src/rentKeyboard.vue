@@ -351,6 +351,9 @@
         mounted() {
             let _this = this;
             let table = _this.$refs.tab;
+            // 不要问为啥加一个空的touch 监听，部分机型，主要解决部分机型，点击无响应，原理未知.
+            document.addEventListener("touchstart", function (evt) {
+            })
             table.addEventListener("touchstart", function (ev) {
                 let event = ev || window.event;
                 let target = event.target || event.srcElement;
