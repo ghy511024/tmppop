@@ -11683,6 +11683,17 @@ exports.f = Object.getOwnPropertyNames || function getOwnPropertyNames(O) {
             };
             _this.backObj[1] = tempobj;
         },
+        click_parent2: function click_parent2(_id) {
+            this.first_linkage_default_value = _id;
+            this.sec_linkage_default_value = "";
+            this._choose();
+        },
+
+        // 点击二级菜单
+        click_child2: function click_child2(_id) {
+            this.sec_linkage_default_value = _id;
+            this._choose();
+        },
 
         // 点击取消
         close_click: function close_click() {
@@ -15575,7 +15586,6 @@ var render = function() {
                         _vm._v(
                           "\n                        " +
                             _vm._s(item.name) +
-                            _vm._s(item.id) +
                             "\n                    "
                         )
                       ]
@@ -15606,7 +15616,6 @@ var render = function() {
                         _vm._v(
                           "\n                        " +
                             _vm._s(item.name) +
-                            _vm._s(item.id) +
                             "\n                    "
                         )
                       ]
