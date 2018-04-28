@@ -152,7 +152,7 @@
                             :ref="'area_linkage_'+item.id"
                             :_id="item.id"
                         >
-                            {{item.name}}{{item.id}}
+                            {{item.name}}
                         </li>
                     </ul>
                     <ul class="right">
@@ -162,7 +162,7 @@
                             :ref="'area_linkage_'+item.id"
                             :_id="item.id"
                         >
-                            {{item.name}}{{item.id}}
+                            {{item.name}}
                         </li>
                     </ul>
                 </div>
@@ -182,11 +182,7 @@
                 show: false,
                 isbeforeActive: false,
                 isactive: false,
-<<<<<<< HEAD
                 url:"",
-=======
-                url: null,
->>>>>>> eea3ad1f2f6cd9caaba45fc691eeca77f064a5d4
                 cur_parent: 0,//选中的父级索引值
                 cur_child: 0,//选中的子级索引值
                 parent_obj: [],//父级数组数据
@@ -231,7 +227,7 @@
             },//处理点击背景关闭键盘时，防止冒泡
 
             // 点击一级菜单
-<<<<<<< HEAD
+
             click_parent(item, index) {
                 let _this = this;
                 _this.cur_parent = index;
@@ -268,15 +264,15 @@
             click_child(item, index) {
                 let _this = this;
                 _this.cur_child = index;
-                let tempobj={};
-                tempobj={
-                    paraname:_this.dataObj.sec_key||"",
-                    name: item.listname||"",
-                    value: item.id||"",
-                    text: item.name||""
+                let tempobj = {};
+                tempobj = {
+                    paraname: _this.dataObj.sec_key || "",
+                    name: item.listname || "",
+                    value: item.id || "",
+                    text: item.name || ""
                 };
-                _this.backObj[1]=tempobj;
-=======
+                _this.backObj[1] = tempobj;
+            },
             click_parent2(_id){
                 this.first_linkage_default_value = _id;
                 this.sec_linkage_default_value = "";
@@ -286,7 +282,6 @@
             click_child2(_id){
                 this.sec_linkage_default_value = _id;
                 this._choose();
->>>>>>> eea3ad1f2f6cd9caaba45fc691eeca77f064a5d4
             },
             // 点击取消
             close_click() {
