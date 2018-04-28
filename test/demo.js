@@ -11636,53 +11636,6 @@ exports.f = Object.getOwnPropertyNames || function getOwnPropertyNames(O) {
     methods: {
         stop: function stop() {},
         //处理点击背景关闭键盘时，防止冒泡
-
-        // 点击一级菜单
-        click_parent: function click_parent(item, index) {
-            var _this = this;
-            _this.cur_parent = index;
-            _this.cur_child = 0;
-            var tempobj = {};
-            tempobj = {
-                paraname: _this.dataObj.first_key || "",
-                name: item.listname || "",
-                value: item.id || "",
-                text: item.name || ""
-            };
-            _this.backObj[0] = tempobj;
-            _this.child_obj = _this.dataStroge[0][item.listname];
-            if (_this.child_obj && _this.child_obj.length != 0) {
-                tempobj = {
-                    paraname: _this.dataObj.sec_key || "",
-                    name: _this.child_obj[0].listname || "",
-                    value: _this.child_obj[0].id || "",
-                    text: _this.child_obj[0].name || ""
-                };
-                _this.backObj[1] = tempobj;
-            } else {
-                tempobj = {
-                    paraname: _this.dataObj.sec_key || "",
-                    name: "",
-                    value: "",
-                    text: ""
-                };
-                _this.backObj[1] = tempobj;
-            }
-        },
-
-        // 点击二级菜单
-        click_child: function click_child(item, index) {
-            var _this = this;
-            _this.cur_child = index;
-            var tempobj = {};
-            tempobj = {
-                paraname: _this.dataObj.sec_key || "",
-                name: item.listname || "",
-                value: item.id || "",
-                text: item.name || ""
-            };
-            _this.backObj[1] = tempobj;
-        },
         click_parent2: function click_parent2(_id) {
             this.first_linkage_default_value = _id;
             this.sec_linkage_default_value = "";
@@ -11693,20 +11646,6 @@ exports.f = Object.getOwnPropertyNames || function getOwnPropertyNames(O) {
         click_child2: function click_child2(_id) {
             this.sec_linkage_default_value = _id;
             this._choose();
-        },
-
-        // 点击取消
-        close_click: function close_click() {
-            var _this = this;
-            _this.isactive = false;
-            setTimeout(function () {
-                _this.isbeforeActive = false;
-                _this.show = false;
-            }, 600);
-            __WEBPACK_IMPORTED_MODULE_1__common_js_Tool__["a" /* default */].removecss(document.body, "overflow");
-            __WEBPACK_IMPORTED_MODULE_1__common_js_Tool__["a" /* default */].removecss(document.body, "height");
-
-            return _this.callback(1);
         },
 
         // 点击完成
