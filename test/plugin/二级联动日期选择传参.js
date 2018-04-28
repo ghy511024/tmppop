@@ -8,11 +8,12 @@ var param = [
         key: "bj",
         url: "http://m.58.com/sublocals/?cityname=",
         pname_1: "quyu",
-        pname_2: "diduan"
+        pname_2: "diduan",
+
     }
 ]
 // 请求接口示例
-var ret = {
+var ret = [{
     "city": "bj",
     "bj": [
             {"listname": "chaoyang", "name": "朝阳", "id": "1142"},
@@ -29,7 +30,7 @@ var ret = {
         [
             {"listname": "dongzhimen", "name": "东直门", "id": "1156"}
         ]
-};
+}];
 
 
 this.$riqixuanze(param, function (ret, data) {
