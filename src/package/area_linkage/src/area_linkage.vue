@@ -245,13 +245,13 @@
                     var first_choose = this.idMap[this.first_linkage_default_value] || {};
                     var sec_choose = this.idMap[this.sec_linkage_default_value] || {};
                     var obj1 = {
-                        paramname: this.first_key,
+                        paraname: this.first_key,
                         name: first_choose["listname"] || "",
                         value: first_choose["id"] || "",
                         text: first_choose["name"] || "",
                     }
                     var obj2 = {
-                        paramname: this.sec_key,
+                        paraname: this.sec_key,
                         name: sec_choose["listname"] || "",
                         value: sec_choose["id"] || "",
                         text: sec_choose["name"] || "",
@@ -304,6 +304,7 @@
                         ret = -2
                     }
                 }
+
                 // 计算二级选中id
                 if (ret == 0) {
                     this.sec_linkage_arry = sec_array;
@@ -358,7 +359,6 @@
                     dom[0].parentNode.scrollTop = dom_ofset_h - dom_parent_h + p_px;
                 }
             }
-
         },
         watch: {
             'show'(val) {

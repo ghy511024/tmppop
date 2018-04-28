@@ -352,7 +352,6 @@
             let _this = this;
             let table = _this.$refs.tab;
             table.addEventListener("touchstart", function (ev) {
-                console.log("ceshi..")
                 let event = ev || window.event;
                 let target = event.target || event.srcElement;
                 ev.stopPropagation();

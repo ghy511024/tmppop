@@ -10700,7 +10700,6 @@ exports.f = Object.getOwnPropertyNames || function getOwnPropertyNames(O) {
         var _this = this;
         var table = _this.$refs.tab;
         table.addEventListener("touchstart", function (ev) {
-            console.log("ceshi..");
             var event = ev || window.event;
             var target = event.target || event.srcElement;
             ev.stopPropagation();
@@ -11707,13 +11706,13 @@ exports.f = Object.getOwnPropertyNames || function getOwnPropertyNames(O) {
                 var first_choose = this.idMap[this.first_linkage_default_value] || {};
                 var sec_choose = this.idMap[this.sec_linkage_default_value] || {};
                 var obj1 = {
-                    paramname: this.first_key,
+                    paraname: this.first_key,
                     name: first_choose["listname"] || "",
                     value: first_choose["id"] || "",
                     text: first_choose["name"] || ""
                 };
                 var obj2 = {
-                    paramname: this.sec_key,
+                    paraname: this.sec_key,
                     name: sec_choose["listname"] || "",
                     value: sec_choose["id"] || "",
                     text: sec_choose["name"] || ""
@@ -11765,6 +11764,7 @@ exports.f = Object.getOwnPropertyNames || function getOwnPropertyNames(O) {
                     ret = -2;
                 }
             }
+
             // 计算二级选中id
             if (ret == 0) {
                 this.sec_linkage_arry = sec_array;
