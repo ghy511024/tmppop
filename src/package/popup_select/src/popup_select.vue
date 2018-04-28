@@ -66,7 +66,7 @@
                         _this.muli_currentobj.push(_this.option[index]);
                     } else {//点击的之前状态是true时候，当前就是取消状态，删除存储中当前数据（遍历时候记住当前元素在存储中的下标，遍历结束后删除该元素）
                         let length = _this.muli_currentobj.length || 0;
-                        let deleti = null;
+                        let deleti = "";
                         for (let i = 0; i < length; i++) {
                             let value_obj = _this.muli_currentobj[i].value;
                             let value_cur = value;
@@ -74,7 +74,7 @@
                                 deleti = i;
                             }
                         }
-                            if (deleti!=null) {
+                            if (deleti!="") {
                                  _this.muli_currentobj.splice(deleti, 1);
                             }
 

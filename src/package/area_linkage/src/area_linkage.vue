@@ -174,7 +174,7 @@
                 show: false,
                 isbeforeActive: false,
                 isactive: false,
-                url:null,
+                url:"",
                 cur_parent: 0,//选中的父级索引值
                 cur_child: 0,//选中的子级索引值
                 parent_obj: [],//父级数组数据
@@ -215,20 +215,31 @@
                 _this.cur_child = 0;
                 let tempobj={};
                 tempobj={
-                    paraname:_this.dataObj.first_key||null,
-                    name: item.listname||null,
-                    value: item.id||null,
-                    text: item.name||null
+                    paraname:_this.dataObj.first_key||"",
+                    name: item.listname||"",
+                    value: item.id||"",
+                    text: item.name||""
                 };
                 _this.backObj[0]=tempobj;
                 _this.child_obj=_this.dataStroge[0][item.listname];
-                tempobj = {
-                    paraname: _this.dataObj.sec_key || null,
-                    name: _this.child_obj[0].listname || null,
-                    value: _this.child_obj[0].id || null,
-                    text: _this.child_obj[0].name || null
-                };
-                _this.backObj[1] = tempobj;
+                if( _this.child_obj&& _this.child_obj.length!=0){
+                    tempobj = {
+                        paraname: _this.dataObj.sec_key || "",
+                        name: _this.child_obj[0].listname || "",
+                        value: _this.child_obj[0].id || "",
+                        text: _this.child_obj[0].name || ""
+                    };
+                    _this.backObj[1] = tempobj;
+                }else{
+                    tempobj = {
+                        paraname: _this.dataObj.sec_key || "",
+                        name: "",
+                        value:  "",
+                        text:  ""
+                    };
+                    _this.backObj[1] = tempobj;
+                }
+
             },
             // 点击二级菜单
             click_child(item, index) {
@@ -236,10 +247,10 @@
                 _this.cur_child = index;
                 let tempobj={};
                 tempobj={
-                    paraname:_this.dataObj.sec_key||null,
-                    name: item.listname||null,
-                    value: item.id||null,
-                    text: item.name||null
+                    paraname:_this.dataObj.sec_key||"",
+                    name: item.listname||"",
+                    value: item.id||"",
+                    text: item.name||""
                 };
                 _this.backObj[1]=tempobj;
             },
