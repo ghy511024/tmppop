@@ -65,21 +65,19 @@
                 else {//复选框时候状态取反
                     if (!_this.select_map[value]) {//点击的之前状态是false时候，当前就是选中状态，添加当前数据进存储
                         _this.muli_currentobj.push(_this.option[index]);
-                        console.log("多选取反数据,添加",_this.muli_currentobj)
                     } else {//点击的之前状态是true时候，当前就是取消状态，删除存储中当前数据（遍历时候记住当前元素在存储中的下标，遍历结束后删除该元素）
                         let length = _this.muli_currentobj.length || 0;
-                        let deleti = "";
+                        let deleti="";
+                        let value_cur = value;
                         for (let i = 0; i < length; i++) {
                             let value_obj = _this.muli_currentobj[i].value;
-                            let value_cur = value;
                             if (value_obj == value_cur) {
                                 deleti = i;
                             }
                         }
-                        if (deleti != "") {
+                        if (deleti !== "") {
                             _this.muli_currentobj.splice(deleti, 1);
                         }
-                        console.log("多选取反数据，删除",_this.muli_currentobj)
 
                     }
                     _this.select_map[value] = !_this.select_map[value];

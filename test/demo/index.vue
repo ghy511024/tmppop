@@ -120,7 +120,7 @@
                     selec_type: "checkbox",
                     //list_type： single_text multi_text
                     list_type: "",
-                    default_value: "2|3",
+                    default_value: "1|2|3",
                     option: [
                         {"title": "房东", "text": "房屋所有者，具备认证房本资质", value: "1"},
                         {"title": "转租", "text": "转让自己承租的房子", value: "2"},
