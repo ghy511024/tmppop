@@ -95,6 +95,7 @@
             stop(){
 
             },//处理点击背景关闭键盘时，防止冒泡
+<<<<<<< HEAD
 
             // 点击一级菜单
             /*click_parent(item, index) {
@@ -142,6 +143,8 @@
                 };
                 _this.backObj[1] = tempobj;
             },*/
+=======
+>>>>>>> 49f4284576c84e6d14391486e5be9b969b66b087
             click_parent2(_id){
                 this.first_linkage_default_value = _id;
                 this.sec_linkage_default_value = "";
@@ -152,7 +155,10 @@
                 this.sec_linkage_default_value = _id;
                 this._choose();
             },
+<<<<<<< HEAD
 
+=======
+>>>>>>> 49f4284576c84e6d14391486e5be9b969b66b087
             // 点击完成
             decision_click(type) {
                 let _this = this;
@@ -188,8 +194,6 @@
 
                 _this.callback(op, retarry);
             },
-
-
             _choose(){
                 this._clear();
                 let ret = 0;
@@ -223,6 +227,7 @@
                         ret = -2
                     }
                 }
+
                 // 计算二级选中id
                 if (ret == 0) {
                     this.sec_linkage_arry = sec_array;
@@ -277,7 +282,6 @@
                     dom[0].parentNode.scrollTop = dom_ofset_h - dom_parent_h + p_px;
                 }
             }
-
         },
         watch: {
             'show'(val) {

@@ -29,7 +29,7 @@
                         {
 //                            max_len:4,
 //                            dot_max_len:3,
-                            defaultValue: "123",
+                            defaultValue: "",
                             defaultUnit: "m",
                             suggest: "请填写租金1",
                             title: "租金1",
@@ -39,7 +39,7 @@
                         {
 //                            max_len:4,
 //                            dot_max_len:3,
-                            defaultValue: "123",
+                            defaultValue: "",
                             defaultUnit: [{"text": "元/㎡.天", "value": "3", "selected": true}, {
                                 "text": "元/月",
                                 "value": "1",
@@ -52,7 +52,7 @@
                         {
 //                            max_len:4,
 //                            dot_max_len:3,
-                            defaultValue: "123",
+                            defaultValue: "",
                             defaultUnit: [{"text": "元/㎡.天", "value": "3", "selected": true}, {
                                 "text": "元/月",
                                 "value": "1",
