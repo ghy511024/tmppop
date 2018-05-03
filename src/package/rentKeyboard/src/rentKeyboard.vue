@@ -249,14 +249,18 @@
                  * */
                 if (_this.dataArr && _this.isArray(_this.dataArr)) {
                     let defaultValue = _this.dataArr[_this.dataArrSel.value].defaultValue;
-                    let max_len = (this.dataArr[_this.curindex] || {}).max_len || 5;//小数点前面的max_len
-                    let dot_max_len = (this.dataArr[_this.curindex] || {}).dot_max_len || 5;//小数点后面的max_len
+                    let max_len = (_this.dataArr[_this.curindex] || {}).max_len || 5;//小数点前面的max_len
+                    let dot_max_len = (_this.dataArr[_this.curindex] || {}).dot_max_len ;//小数点后面的max_len
+                    if((typeof dot_max_len)!="number"){
+                        dot_max_len=2;
+                    }
                     let ispoint = defaultValue.indexOf(".");//查找是否存在小数点
 
                     let cur_not = (val != "." && defaultValue.length >= max_len);//当前不是小数点且length>=max_len,则不能添加数字
                     let cur_yes = (val == "." && max_len < defaultValue.length && defaultValue.length <= (max_len + 1));//当前点击是小数点,length>max_len,则不能添加数字
                     let dot_length = defaultValue.length - 1 - ispoint;//在存在小数点时候，defaultValue中小数点后面的位数
-                    if ((ispoint == -1 && (cur_not || cur_yes)) || (ispoint != -1 && (dot_length >= dot_max_len)) || (ispoint != -1 && (val == "."))) {
+                    console.log("(dot_max_len==0&&val == '.')",(dot_max_len==0&&val == "."))
+                    if ((ispoint == -1 && (cur_not || cur_yes)) || (ispoint != -1 && (dot_length >= dot_max_len)) || (ispoint != -1 && (val == "."))||(dot_max_len==0&&val == ".")) {
                         _this.dataArr[_this.dataArrSel.value].defaultValue = _this.c_value;
                     } else {
                         _this.dataArr[_this.dataArrSel.value].defaultValue = (String(_this.c_value) + val);
