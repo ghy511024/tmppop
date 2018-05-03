@@ -65,6 +65,7 @@
                 else {//复选框时候状态取反
                     if (!_this.select_map[value]) {//点击的之前状态是false时候，当前就是选中状态，添加当前数据进存储
                         _this.muli_currentobj.push(_this.option[index]);
+                        console.log("多选取反数据,添加",_this.muli_currentobj)
                     } else {//点击的之前状态是true时候，当前就是取消状态，删除存储中当前数据（遍历时候记住当前元素在存储中的下标，遍历结束后删除该元素）
                         let length = _this.muli_currentobj.length || 0;
                         let deleti = "";
@@ -78,6 +79,7 @@
                         if (deleti != "") {
                             _this.muli_currentobj.splice(deleti, 1);
                         }
+                        console.log("多选取反数据，删除",_this.muli_currentobj)
 
                     }
                     _this.select_map[value] = !_this.select_map[value];
@@ -99,25 +101,31 @@
                 let op = type == "sure" ? 0 : -1;
 
                 if (_this.selec_type == "radio") {
-                    let obj;
+                    let obj = {};
                     obj = _this.copy(this.currentobj);
                     _this.select_map[(obj || {})["value"]] = false;
                     _this.style_close();
-                    if(op==0){
+                    if (op == 0) {
                         return _this.callback(op, obj);
-                    }else{
+                    } else {
                         return _this.callback(op);
                     }
 
                 } else if (_this.selec_type == "checkbox") {
-                    let array;
-                    if (op == 0) {
-                        _this.muli_currentobj.forEach(function (item, index) {
-                            array[index] = _this.copy(item);
-                        })
-                    }
+                    let array = [];
+
+                    _this.muli_currentobj.forEach(function (item, index) {
+                        array[index] = _this.copy(item);
+                        _this.select_map[(_this.muli_currentobj[index] || {})["value"]] = false;
+                    });
+                    _this.muli_currentobj=[];
                     _this.style_close();
-                    return _this.callback(op, array);
+                    if (op == 0) {
+                        return _this.callback(op, array);
+                    } else {
+                        return _this.callback(op);
+                    }
+
                 }
             },
             style_close(){

@@ -117,7 +117,7 @@
                 let data = {
                     title: "选择您的身份",
                     //type：radio checkbox
-                    selec_type: "radio",
+                    selec_type: "checkbox",
                     //list_type： single_text multi_text
                     list_type: "",
                     default_value: "2|3",

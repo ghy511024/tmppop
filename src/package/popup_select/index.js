@@ -65,6 +65,7 @@ let popup_select = (a, fun) => {
             });
 
         });
+        console.log("初始化",instance.muli_currentobj)
     }
 
     Tool.css(document.body, "overflow", "hidden");
