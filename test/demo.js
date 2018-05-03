@@ -9131,8 +9131,8 @@ module.exports = function (name) {
                 title: "行业",
                 first_key: "hangye",
                 sec_key: "zhonlei",
-                first_key_default: "511575",
-                sec_key_default: "511602",
+                first_key_default: "511574",
+                sec_key_default: "511598",
                 option: [{
                     "value": "511574",
                     "text": "餐饮美食",
@@ -9160,13 +9160,13 @@ module.exports = function (name) {
         area_linkage: function area_linkage() {
             var param = {
                 title: "区域",
-                //                        key: "ankang",
-                key: "bj",
+                key: "ankang",
+                //                        key: "bj",
                 //                        url: "http://m.58.com/sublocals/",
                 first_key: "quyu",
-                sec_key: "diduan",
-                first_key_default: "1144",
-                sec_key_default: "6031"
+                sec_key: "diduan"
+                //                        first_key_default:"1144",
+                //                        sec_key_default:"6031",
             };
             this.$area_linkage(param, function (ret, data) {
                 // ret==0 点击确定
@@ -9522,50 +9522,33 @@ process.umask = function() { return 0; };
             }
             return newobj;
         },
-        decision_click: function decision_click() {
+        close: function close(type) {
             var _this = this;
-            if (_this.selec_type == "radio") {
-                _this.isactive = false;
-                setTimeout(function () {
-                    _this.isbeforeActive = false;
-                    _this.show = false;
-                }, 600);
-                //                        console.log("确定:   "+_this.currentobj.title);
-                __WEBPACK_IMPORTED_MODULE_1__common_js_Tool__["a" /* default */].removecss(document.body, "overflow");
-                __WEBPACK_IMPORTED_MODULE_1__common_js_Tool__["a" /* default */].removecss(document.body, "height");
-                var obj = {};
-                obj = _this.copy(this.currentobj);
-                return _this.callback(0, obj);
-            } else if (_this.selec_type == "checkbox") {
-                _this.isactive = false;
-                setTimeout(function () {
-                    _this.isbeforeActive = false;
-                    _this.show = false;
-                }, 600);
+            var op = type == "sure" ? 0 : -1;
 
-                //                        console.log("确定按钮----=----"+"当前选中元素如下:   ")
-                //                        for(let i =0;i<_this.muli_currentobj.length;i++){
-                //                            console.log(_this.muli_currentobj[i].title);
-                //                        }
-                __WEBPACK_IMPORTED_MODULE_1__common_js_Tool__["a" /* default */].removecss(document.body, "overflow");
-                __WEBPACK_IMPORTED_MODULE_1__common_js_Tool__["a" /* default */].removecss(document.body, "height");
-                var array = [];
-                _this.muli_currentobj.forEach(function (item, index) {
-                    array[index] = _this.copy(item);
-                });
-                return _this.callback(0, array);
+            if (_this.selec_type == "radio") {
+                var obj = void 0;
+                obj = _this.copy(this.currentobj);
+                _this.select_map[(obj || {})["value"]] = false;
+                _this.style_close();
+                if (op == 0) {
+                    return _this.callback(op, obj);
+                } else {
+                    return _this.callback(op);
+                }
+            } else if (_this.selec_type == "checkbox") {
+                var array = void 0;
+                if (op == 0) {
+                    _this.muli_currentobj.forEach(function (item, index) {
+                        array[index] = _this.copy(item);
+                    });
+                }
+                _this.style_close();
+                return _this.callback(op, array);
             }
         },
-        close_click: function close_click() {
+        style_close: function style_close() {
             var _this = this;
-            if (_this.selec_type == "radio") {
-                //                        console.log("取消:   "+_this.currentobj.title);
-            } else if (_this.selec_type == "checkbox") {
-                //                        console.log("取消按钮---=----"+"当前选中元素如下:   ")
-                //                        for(let i =0;i<_this.muli_currentobj.length;i++){
-                //                            console.log(_this.muli_currentobj[i].title);
-                //                    }
-            }
             _this.isactive = false;
             setTimeout(function () {
                 _this.isbeforeActive = false;
@@ -9573,7 +9556,6 @@ process.umask = function() { return 0; };
             }, 600);
             __WEBPACK_IMPORTED_MODULE_1__common_js_Tool__["a" /* default */].removecss(document.body, "overflow");
             __WEBPACK_IMPORTED_MODULE_1__common_js_Tool__["a" /* default */].removecss(document.body, "height");
-            return _this.callback(1);
         }
     },
     watch: {}
@@ -9659,279 +9641,6 @@ module.exports = function (it) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__lib_touch__ = __webpack_require__(87);
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -10340,185 +10049,6 @@ exports.f = Object.getOwnPropertyNames || function getOwnPropertyNames(O) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__common_js_Tool__ = __webpack_require__(5);
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -11223,133 +10753,6 @@ exports.f = Object.getOwnPropertyNames || function getOwnPropertyNames(O) {
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["a"] = ({
@@ -11359,12 +10762,13 @@ exports.f = Object.getOwnPropertyNames || function getOwnPropertyNames(O) {
             show: false,
             isbeforeActive: false,
             isactive: false,
-            cur_parent: 0,
-            cur_child: 0,
-            backobj: [],
-            dataObj: {//级联数值选项
-            },
-            temp: [],
+            map: {},
+            data_obj: {},
+            first_key_index: "",
+            sec_key_index: "",
+            first_key_default: "",
+            sec_key_default: "",
+            child_array: [],
             callback: function callback() {}
         };
     },
@@ -11379,65 +10783,144 @@ exports.f = Object.getOwnPropertyNames || function getOwnPropertyNames(O) {
         // 点击一级菜单
         click_parent: function click_parent(item, index) {
             var _this = this;
-            _this.cur_parent = index;
-            _this.cur_child = 0;
-            var tempobj = {};
-            tempobj = {
-                paraname: _this.dataObj.first_key || "",
-                value: item.value || "",
-                text: item.text || ""
-            };
-            _this.backobj[0] = tempobj;
-            if (item.option && item.option != "") {
-                _this.temp = item.option || "";
-                tempobj = {
-                    paraname: _this.dataObj.sec_key || "",
-                    value: _this.temp[0].value || "",
-                    text: _this.temp[0].text || ""
-                };
-                _this.backobj[1] = tempobj;
-            } else {
-                _this.temp = "";
-                tempobj = {
-                    paraname: _this.dataObj.sec_key || "",
-                    value: "",
-                    text: ""
-                };
-                _this.backobj[1] = tempobj;
+            _this.first_key_default = item.value;
+            _this.first_key_index = index;
+            if (_this.map[item.value] && _this.map[item.value].length > 0) {
+                _this.sec_key_index = 0;
+                _this.sec_key_default = (_this.map[item.value][0] || {})["value"];
             }
+            _this.choose();
         },
 
         // 点击二级菜单
         click_child: function click_child(item, index) {
             var _this = this;
-            _this.cur_child = index;
-            var tempobj = {};
-            tempobj = {
-                paraname: _this.dataObj.sec_key || "",
-                value: item.value || "",
-                text: item.text || ""
-            };
-            _this.backobj[1] = tempobj;
+            _this.sec_key_default = item.value;
+            _this.sec_key_index = index;
+            _this.choose();
         },
 
-        // 点击取消
-        close_click: function close_click() {
+
+        //计算被选中的value
+        choose: function choose() {
             var _this = this;
-            _this._close();
-            return _this.callback(1);
+            var ret = 0;
+
+            var first_value = _this.first_key_default;
+            var sec_value = _this.sec_key_default;
+
+            //计算一级选中的value
+            if (ret == 0) {
+                if (!first_value) {
+                    first_value = (_this.data_obj.option[0] || {})["value"];
+                    _this.first_key_index = 0;
+                }
+                if (first_value) {
+                    //赋值
+                    _this.first_key_default = first_value;
+                    _this.data_obj.option.forEach(function (item, index) {
+                        if (item.value == _this.first_key_default) {
+                            _this.first_key_index = index;
+                        }
+                    });
+                } else {
+                    ret = -1;
+                }
+            }
+
+            //寻找二级数组
+            if (ret == 0) {
+                var temp = _this.map[_this.first_key_default] || "";
+                if (temp && temp.length > 0) {
+                    _this.child_array = _this.map[_this.first_key_default];
+                } else {
+                    _this.child_array = [];
+                    ret = -2;
+                }
+            }
+
+            //计算二级选中value
+            if (ret == 0) {
+                if (!sec_value) {
+                    sec_value = (_this.child_array[0] || {})["value"];
+                    _this.sec_key_index = 0;
+                }
+                if (!sec_value) {
+                    ret = -3;
+                }
+            }
+            //赋值
+            if (ret == 0) {
+                _this.sec_key_default = sec_value;
+                _this.child_array.forEach(function (item, index) {
+                    if (item.value == _this.sec_key_default) {
+                        _this.sec_key_index = index;
+                    }
+                });
+            }
+            _this._scroll_to_choose();
         },
 
-        // 点击完成
-        decision_click: function decision_click() {
+
+        // 滚动到选中的id
+        _scroll_to_choose: function _scroll_to_choose() {
             var _this = this;
-            _this._close();
-            var array = [];
-            _this.backobj.forEach(function (item, index) {
-                array[index] = item;
+            _this.$nextTick(function () {
+                var first_id = this.first_key_default;
+                var sec_id = this.sec_key_default;
+
+                var dom1 = this.$refs["two_linkage_" + first_id];
+                var dom2 = this.$refs["two_linkage_" + sec_id];
+                if (!!dom1) {
+                    this._scroll_dom(dom1, 200);
+                }
+                if (!!dom2) {
+                    this._scroll_dom(dom2, 150);
+                }
             });
-            return _this.callback(0, array);
+
+            //            console.log(dom1.)
         },
-        _close: function _close() {
+        _scroll_dom: function _scroll_dom(dom, p_px) {
+            var dom_parent_h = dom[0].parentNode.offsetHeight;
+            var dom_parent_scroll = dom[0].parentNode.scrollTop;
+            var dom_ofset_h = dom[0].offsetTop;
+            // 上超出
+            if (dom - dom_ofset_h > 0) {
+                dom[0].parentNode.scrollTop = dom_parent_scroll - (dom_parent_scroll - dom_ofset_h);
+            }
+            // 下隐藏
+            else if (dom_ofset_h - dom_parent_scroll > dom_parent_h) {
+                    dom[0].parentNode.scrollTop = dom_ofset_h - dom_parent_h + p_px;
+                }
+        },
+        close: function close(type) {
+            var opticy = type == "sure" ? 0 : -1;
+            var _this = this;
+            var backarr = [];
+            if (opticy == 0) {
+                var first_choose = _this.data_obj.option[_this.first_key_index];
+                var sec_choose = {};
+                if (first_choose.option && first_choose.option.length > 0) {
+                    sec_choose = first_choose.option[_this.sec_key_index] || {};
+                }
+                var obj1 = {
+                    paraname: _this.data_obj.first_key,
+                    text: first_choose.text || "",
+                    value: first_choose.value || ""
+                };
+                var obj2 = {
+                    paraname: _this.data_obj.sec_key,
+                    text: sec_choose.text || "",
+                    value: sec_choose.value || ""
+                };
+                backarr.push(obj1);
+                backarr.push(obj2);
+            }
+            _this.style_close();
+            return _this.callback(opticy, backarr);
+        },
+        style_close: function style_close() {
             var _this = this;
             _this.isactive = false;
             setTimeout(function () {
@@ -11508,136 +10991,6 @@ exports.f = Object.getOwnPropertyNames || function getOwnPropertyNames(O) {
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -11648,14 +11001,14 @@ exports.f = Object.getOwnPropertyNames || function getOwnPropertyNames(O) {
             show: false,
             isbeforeActive: false,
             isactive: false,
-            url: "",
-            cur_parent: 0, //选中的父级索引值
-            cur_child: 0, //选中的子级索引值
-            parent_obj: [], //父级数组数据
-            child_obj: [], //子级数组数据
-            backObj: [], //返回的数据
-            dataObj: {}, //级联数值选项
-            dataStroge: [], //所有数据列表
+            //                url:"",
+            //                cur_parent: 0,//选中的父级索引值
+            //                cur_child: 0,//选中的子级索引值
+            //                parent_obj: [],//父级数组数据
+            //                child_obj: [],//子级数组数据
+            //                backObj: [],//返回的数据
+            //                dataObj: {},//级联数值选项
+            //                dataStroge: [],//所有数据列表
 
             //=================华丽的分割线===============
             first_key: "", // quyu
@@ -11673,13 +11026,14 @@ exports.f = Object.getOwnPropertyNames || function getOwnPropertyNames(O) {
     created: function created() {},
 
     computed: {
-        title: function title() {
-            var ret = "区域";
-            if (this.dataObj.title) {
-                ret = this.dataObj.title;
-            }
-            return ret;
-        }
+        //            title(){
+        //                let ret = "区域";
+        //                if (this.dataObj.title) {
+        //                    ret = this.dataObj.title;
+        //                }
+        //                return ret;
+        //            },
+
     },
 
     methods: {
@@ -11687,21 +11041,20 @@ exports.f = Object.getOwnPropertyNames || function getOwnPropertyNames(O) {
         //处理点击背景关闭键盘时，防止冒泡
 
         // 点击一级菜单
-
-        click_parent: function click_parent(item, index) {
-            var _this = this;
+        /*click_parent(item, index) {
+            let _this = this;
             _this.cur_parent = index;
             _this.cur_child = 0;
-            var tempobj = {};
-            tempobj = {
-                paraname: _this.dataObj.first_key || "",
-                name: item.listname || "",
-                value: item.id || "",
-                text: item.name || ""
+            let tempobj={};
+            tempobj={
+                paraname:_this.dataObj.first_key||"",
+                name: item.listname||"",
+                value: item.id||"",
+                text: item.name||""
             };
-            _this.backObj[0] = tempobj;
-            _this.child_obj = _this.dataStroge[0][item.listname];
-            if (_this.child_obj && _this.child_obj.length != 0) {
+            _this.backObj[0]=tempobj;
+            _this.child_obj=_this.dataStroge[0][item.listname];
+            if( _this.child_obj&& _this.child_obj.length!=0){
                 tempobj = {
                     paraname: _this.dataObj.sec_key || "",
                     name: _this.child_obj[0].listname || "",
@@ -11709,22 +11062,21 @@ exports.f = Object.getOwnPropertyNames || function getOwnPropertyNames(O) {
                     text: _this.child_obj[0].name || ""
                 };
                 _this.backObj[1] = tempobj;
-            } else {
+            }else{
                 tempobj = {
                     paraname: _this.dataObj.sec_key || "",
                     name: "",
-                    value: "",
-                    text: ""
+                    value:  "",
+                    text:  ""
                 };
                 _this.backObj[1] = tempobj;
             }
-        },
-
+         },
         // 点击二级菜单
-        click_child: function click_child(item, index) {
-            var _this = this;
+        click_child(item, index) {
+            let _this = this;
             _this.cur_child = index;
-            var tempobj = {};
+            let tempobj = {};
             tempobj = {
                 paraname: _this.dataObj.sec_key || "",
                 name: item.listname || "",
@@ -11732,7 +11084,7 @@ exports.f = Object.getOwnPropertyNames || function getOwnPropertyNames(O) {
                 text: item.name || ""
             };
             _this.backObj[1] = tempobj;
-        },
+        },*/
         click_parent2: function click_parent2(_id) {
             this.first_linkage_default_value = _id;
             this.sec_linkage_default_value = "";
@@ -11745,19 +11097,6 @@ exports.f = Object.getOwnPropertyNames || function getOwnPropertyNames(O) {
             this._choose();
         },
 
-        // 点击取消
-        close_click: function close_click() {
-            var _this = this;
-            _this.isactive = false;
-            setTimeout(function () {
-                _this.isbeforeActive = false;
-                _this.show = false;
-            }, 600);
-            __WEBPACK_IMPORTED_MODULE_1__common_js_Tool__["a" /* default */].removecss(document.body, "overflow");
-            __WEBPACK_IMPORTED_MODULE_1__common_js_Tool__["a" /* default */].removecss(document.body, "height");
-
-            return _this.callback(1);
-        },
 
         // 点击完成
         decision_click: function decision_click(type) {
@@ -11769,13 +11108,13 @@ exports.f = Object.getOwnPropertyNames || function getOwnPropertyNames(O) {
                 var first_choose = this.idMap[this.first_linkage_default_value] || {};
                 var sec_choose = this.idMap[this.sec_linkage_default_value] || {};
                 var obj1 = {
-                    paramname: this.first_key,
+                    paraname: this.first_key,
                     name: first_choose["listname"] || "",
                     value: first_choose["id"] || "",
                     text: first_choose["name"] || ""
                 };
                 var obj2 = {
-                    paramname: this.sec_key,
+                    paraname: this.sec_key,
                     name: sec_choose["listname"] || "",
                     value: sec_choose["id"] || "",
                     text: sec_choose["name"] || ""
@@ -11802,7 +11141,7 @@ exports.f = Object.getOwnPropertyNames || function getOwnPropertyNames(O) {
 
             var firs_choose;
             var sec_array;
-            var hasChange = false;
+            //                var hasChange = false;
 
             // 计算一级选中id
             if (ret == 0) {
@@ -12658,29 +11997,29 @@ var popup_select = function popup_select(a, fun) {
     if (!instance.selec_type) {
         instance.selec_type = "radio";
     }
-    if (a.default_value && a.default_value != "") {
-        if (instance.selec_type == "radio") {
-            var arr1 = a.default_value.split("|");
-            instance.select_map[arr1[0]] = true;
-            a.option.forEach(function (item) {
-                if (item.value == arr1[0]) {
-                    instance.currentobj = item;
+
+    if (instance.selec_type == "radio") {
+        var arr1 = a.default_value.split("|");
+        instance.select_map[arr1[0]] = true;
+        a.option.forEach(function (item) {
+            if (item.value == arr1[0]) {
+                instance.currentobj = item;
+            }
+        });
+    } else {
+        var arr = a.default_value.split("|");
+        arr.forEach(function (item) {
+            instance.select_map[item] = true;
+        });
+        a.option.forEach(function (item) {
+            arr.forEach(function (default_value) {
+                if (item.value == default_value) {
+                    instance.muli_currentobj.push(item);
                 }
             });
-        } else {
-            var arr = a.default_value.split("|");
-            arr.forEach(function (item) {
-                instance.select_map[item] = true;
-            });
-            a.option.forEach(function (item) {
-                arr.forEach(function (default_value) {
-                    if (item.value == default_value) {
-                        instance.muli_currentobj.push(item);
-                    }
-                });
-            });
-        }
+        });
     }
+
     __WEBPACK_IMPORTED_MODULE_2__common_js_Tool__["a" /* default */].css(document.body, "overflow", "hidden");
     __WEBPACK_IMPORTED_MODULE_2__common_js_Tool__["a" /* default */].css(document.body, "height", "100vh");
     instance.isbeforeActive = true;
@@ -12703,11 +12042,11 @@ var popup_select = function popup_select(a, fun) {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_13_7_1_vue_loader_lib_selector_type_script_index_0_popup_select_vue__ = __webpack_require__(38);
 /* unused harmony namespace reexport */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_13_7_1_vue_loader_lib_template_compiler_index_id_data_v_d0f06cf0_hasScoped_false_buble_transforms_node_modules_vue_loader_13_7_1_vue_loader_lib_selector_type_template_index_0_popup_select_vue__ = __webpack_require__(82);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_13_7_1_vue_loader_lib_template_compiler_index_id_data_v_d0f06cf0_hasScoped_true_buble_transforms_node_modules_vue_loader_13_7_1_vue_loader_lib_selector_type_template_index_0_popup_select_vue__ = __webpack_require__(142);
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(72)
+  __webpack_require__(140)
 }
 var normalizeComponent = __webpack_require__(2)
 /* script */
@@ -12720,12 +12059,12 @@ var __vue_template_functional__ = false
 /* styles */
 var __vue_styles__ = injectStyle
 /* scopeId */
-var __vue_scopeId__ = null
+var __vue_scopeId__ = "data-v-d0f06cf0"
 /* moduleIdentifier (server only) */
 var __vue_module_identifier__ = null
 var Component = normalizeComponent(
   __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_13_7_1_vue_loader_lib_selector_type_script_index_0_popup_select_vue__["a" /* default */],
-  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_13_7_1_vue_loader_lib_template_compiler_index_id_data_v_d0f06cf0_hasScoped_false_buble_transforms_node_modules_vue_loader_13_7_1_vue_loader_lib_selector_type_template_index_0_popup_select_vue__["a" /* default */],
+  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_13_7_1_vue_loader_lib_template_compiler_index_id_data_v_d0f06cf0_hasScoped_true_buble_transforms_node_modules_vue_loader_13_7_1_vue_loader_lib_selector_type_template_index_0_popup_select_vue__["a" /* default */],
   __vue_template_functional__,
   __vue_styles__,
   __vue_scopeId__,
@@ -12753,46 +12092,8 @@ if (false) {(function () {
 
 
 /***/ }),
-/* 72 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(73);
-if(typeof content === 'string') content = [[module.i, content, '']];
-if(content.locals) module.exports = content.locals;
-// add the styles to the DOM
-var update = __webpack_require__(1)("5db82a9f", content, false, {});
-// Hot Module Replacement
-if(false) {
- // When the styles change, update the <style> tags
- if(!content.locals) {
-   module.hot.accept("!!../../../../node_modules/_css-loader@0.28.11@css-loader/index.js!../../../../node_modules/_vue-loader@13.7.1@vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-d0f06cf0\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../node_modules/_sass-loader@6.0.7@sass-loader/lib/loader.js!../../../../node_modules/_vue-loader@13.7.1@vue-loader/lib/selector.js?type=styles&index=0!./popup_select.vue", function() {
-     var newContent = require("!!../../../../node_modules/_css-loader@0.28.11@css-loader/index.js!../../../../node_modules/_vue-loader@13.7.1@vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-d0f06cf0\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../node_modules/_sass-loader@6.0.7@sass-loader/lib/loader.js!../../../../node_modules/_vue-loader@13.7.1@vue-loader/lib/selector.js?type=styles&index=0!./popup_select.vue");
-     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-     update(newContent);
-   });
- }
- // When the module is disposed, remove the <style> tags
- module.hot.dispose(function() { update(); });
-}
-
-/***/ }),
-/* 73 */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(0)(false);
-// imports
-
-
-// module
-exports.push([module.i, "\n@charset \"UTF-8\";\n/*\r\nTo change this license header, choose License Headers in Project Properties.\r\nTo change this template file, choose Tools | Templates\r\nand open the template in the editor.\r\n*/\n/* \r\n    Created on : 2017-8-31, 23:11:17\r\n    Author     : ghy\r\n*/\n/**\r\n * @param $line       超出显示省略号的行数，默认：1\r\n * @param $substract  为预留区域百分比%，默认：0\r\n */\n/*\r\nTo change this license header, choose License Headers in Project Properties.\r\nTo change this template file, choose Tools | Templates\r\nand open the template in the editor.\r\n*/\n/* \r\n    Created on : 2017-8-31, 23:12:32\r\n    Author     : ghy\r\n*/\n/* @author 龚虹宇 */\n/** -------------------------------------------\r\n    Generic Mixins\r\n    ------------------------------------------- **/\n/**\r\n * Adds prefixed version of values in a property\r\n */\n* {\n  margin: 0px;\n  padding: 0px;\n  list-style: none;\n}\n.pop-select {\n  width: 100%;\n  height: 100%;\n  position: fixed;\n  top: 0px;\n  -webkit-transition: all 0.4s ease;\n  transition: all 0.4s ease;\n  /*background: rgba(0,0,0,0.4);*/\n}\n.pop-select .pop-wrap {\n  z-index: 1;\n  -webkit-transition: all 0.4s ease;\n  transition: all 0.4s ease;\n  position: absolute;\n  width: 100%;\n  bottom: 0px;\n  background: #ffffff;\n  -webkit-transform: translateY(100%);\n          transform: translateY(100%);\n}\n.pop-select .pop-title {\n  height: 1.2rem;\n  background: #f9fafc;\n  text-align: center;\n  font-size: 0.37333rem;\n  color: #999999;\n  line-height: 1.2rem;\n  position: relative;\n}\n.pop-select .pop-title:after {\n  content: \"\";\n  position: absolute;\n  top: 0;\n  left: 0;\n  border: 1px solid #e3e3e4;\n  box-sizing: border-box;\n  width: 200%;\n  height: 200%;\n  -webkit-transform: scale(0.5);\n  transform: scale(0.5);\n  -webkit-transform-origin: left top;\n  transform-origin: left top;\n}\n.pop-select .pop-title .pop-sure, .pop-select .pop-title .pop-cancel {\n  position: absolute;\n  z-index: 1;\n  width: 1.6rem;\n  height: 1.2rem;\n  line-height: 1.22667rem;\n  color: #ff552e;\n  top: 0px;\n  right: 0px;\n}\n.pop-select .pop-title .pop-sure.pop-cancel, .pop-select .pop-title .pop-cancel.pop-cancel {\n  right: auto;\n  left: 0px;\n  color: #7b7b7b;\n}\n.pop-select .pop-list {\n  widtH: 100%;\n  max-height: 7.46668rem;\n  overflow: hidden;\n  overflow-y: scroll;\n}\n.pop-select .pop-list ul {\n  width: 9.33333rem;\n  margin: 0 auto;\n}\n.pop-select .pop-list ul li {\n  width: 100%;\n  height: 1.86667rem;\n  position: relative;\n}\n.pop-select .pop-list ul li:after {\n  border-radius: 0px;\n  content: \"\";\n  position: absolute;\n  top: 0;\n  left: 0;\n  z-index: -1;\n  border-bottom: 1px solid #f1f1f1;\n  box-sizing: border-box;\n  width: 200%;\n  height: 200%;\n  -webkit-transform: scale(0.5);\n  transform: scale(0.5);\n  -webkit-transform-origin: left top;\n  transform-origin: left top;\n}\n.pop-select .pop-list ul li .pop-info {\n  position: absolute;\n  top: 0.4rem;\n  font-size: 0.45333rem;\n  color: #333333;\n  left: 0.06667rem;\n}\n.pop-select .pop-list ul li .pop-single-info {\n  position: absolute;\n  top: 50%;\n  margin-top: -11px;\n  font-size: 0.45333rem;\n  color: #333333;\n  left: 0.06667rem;\n}\n.pop-select .pop-list ul li .pop-desc {\n  font-size: 0.32rem;\n  position: absolute;\n  left: 0.06667rem;\n  top: 0.98667rem;\n  color: #7b7b7b;\n}\n.pop-select .pop-list ul li .pop-arrow {\n  position: absolute;\n  right: 0.26667rem;\n  width: 22px;\n  height: 22px;\n  top: 50%;\n  margin-top: -11px;\n  background-image: url(\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACwAAAAsCAMAAAApWqozAAAASFBMVEUAAADHx87IyM7IyM7Kys/IyM7Jyc/IyNHKytHW1tb////Hx87IyM3IyM3IyM7IyM3Jyc7IyM7Jyc7Ly9HIyNPHx83IyM3Hx81MCBRBAAAAF3RSTlMA8qt/QttXOCQMAennw7+ZjYNtLBf2kCIzlTUAAAEGSURBVDjLjJFbbsMwDAQpUpIl+R07mfvftEBdFE7ih+ZzMSB2QfmgNLMOwbkw6NwUucKPHTu60Z+qTQ+EKfqUc/JxCkDfHKpJobVlHy3WgqaDBg5n+TPN5nBfXR6gqxywKjzeoxfYyfZi8Hq/+4xySnzub3uIckGE/97JYXKJ4ZJsKFqu5aLo3y9wq9ywOrbv9JjcYvTbujbfy7n93ThiUoExipSOpUZe6Io0BKki0MjMVCdPzKLEOjmiMuDrZM8ggVQnJ4I4cp2ccT+V1TkBAAAIxDD/rqMhOwPP0VZxtVED1urqKHXuCtJEtMI/b1UPOygoyAy+BoyD3IH5aGIE1Gp7aZaOAVpkFMUoYaaBAAAAAElFTkSuQmCC\");\n  background-size: cover;\n}\n.pop-select .pop-list ul li.active .pop-arrow {\n  background-image: url(\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACwAAAAsCAMAAAApWqozAAAAPFBMVEUAAAD/VS7/VjH/VzL/VS7/Vi//VS7/VS//VS//VS7/VS7/Vi//Vy//WjX/VS7/VS7/Yz//4tv/////m4Tfv1CvAAAAD3RSTlMA8UQ459nDv62lmYNtIpDE1s/TAAAA6klEQVQ4y53VS5KDMAwEUPmP7ZAmk/vfdRaZcoKITDO95ZWqjGVJdEKvJTmXSu1BpvEt4iOxeZOGjEPy9/Lrgq9Z1qP1Dkac1/aGSW57e8c0d7auru1xGj/+gzvHbv3DC4gsLxtA5XU7mcP5/HTbc3fGNrWPn6GbiMS5fWyjB0UCa4EgnbboUmmLKoW2KJJoiySOtnAf+Llpe8Bp2PHZsEhSFLAtilQobVpU6VDatOgSoPTO6o6OSps2jhZ9a8uijeZ/a2XVA897bdl8/cHyo4AfMtfHFz8Y+ZHLD/Ora4JfQPxq+//S5NfxLzPrWEC1LMpOAAAAAElFTkSuQmCC\");\n}\n.pop-select.beforeActive {\n  display: block;\n  background: transparent;\n}\n.pop-select.beforeActive .pop-wrap {\n  -webkit-transform: translateY(100%);\n          transform: translateY(100%);\n}\n.pop-select.active {\n  background: rgba(0, 0, 0, .3);\n}\n.pop-select.active .pop-wrap {\n  -webkit-transform: translateY(0);\n          transform: translateY(0);\n}\n", ""]);
-
-// exports
-
-
-/***/ }),
+/* 72 */,
+/* 73 */,
 /* 74 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -12942,155 +12243,7 @@ module.exports = function (index, length) {
 
 
 /***/ }),
-/* 82 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    {
-      directives: [
-        { name: "show", rawName: "v-show", value: _vm.show, expression: "show" }
-      ],
-      ref: "picker"
-    },
-    [
-      _c(
-        "div",
-        {
-          staticClass: "pop-select",
-          class: { beforeActive: _vm.isbeforeActive, active: _vm.isactive },
-          on: { click: _vm.close_click }
-        },
-        [
-          _c(
-            "div",
-            {
-              staticClass: "pop-wrap",
-              on: {
-                click: function($event) {
-                  $event.stopPropagation()
-                  return _vm.stop($event)
-                }
-              }
-            },
-            [
-              _c("div", { staticClass: "pop-title" }, [
-                _vm._v(_vm._s(_vm.title) + "\n                "),
-                _c(
-                  "div",
-                  {
-                    staticClass: "pop-sure",
-                    attrs: { id: "pop-sure" },
-                    on: { click: _vm.decision_click }
-                  },
-                  [_vm._v("确定")]
-                ),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  {
-                    staticClass: "pop-cancel",
-                    attrs: { id: "pop-cancel" },
-                    on: { click: _vm.close_click }
-                  },
-                  [_vm._v("取消")]
-                )
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "pop-list" }, [
-                _c(
-                  "ul",
-                  _vm._l(_vm.option, function(item, index) {
-                    return _c(
-                      "li",
-                      {
-                        class: { active: _vm.select_map[item.value] },
-                        attrs: { "shenfen-id": "jsptpl-style" },
-                        on: {
-                          click: function($event) {
-                            _vm.add_class(item.value, index)
-                          }
-                        }
-                      },
-                      [
-                        _c(
-                          "div",
-                          {
-                            directives: [
-                              {
-                                name: "show",
-                                rawName: "v-show",
-                                value: _vm.single_text,
-                                expression: "single_text"
-                              }
-                            ],
-                            staticClass: "pop-single-info"
-                          },
-                          [_vm._v(_vm._s(item.text))]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "div",
-                          {
-                            directives: [
-                              {
-                                name: "show",
-                                rawName: "v-show",
-                                value: _vm.multi_text,
-                                expression: "multi_text"
-                              }
-                            ],
-                            staticClass: "pop-info"
-                          },
-                          [_vm._v(_vm._s(item.title))]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "div",
-                          {
-                            directives: [
-                              {
-                                name: "show",
-                                rawName: "v-show",
-                                value: _vm.multi_text,
-                                expression: "multi_text"
-                              }
-                            ],
-                            staticClass: "pop-desc"
-                          },
-                          [_vm._v(_vm._s(item.text))]
-                        ),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "pop-arrow" })
-                      ]
-                    )
-                  })
-                )
-              ])
-            ]
-          )
-        ]
-      )
-    ]
-  )
-}
-var staticRenderFns = []
-render._withStripped = true
-var esExports = { render: render, staticRenderFns: staticRenderFns }
-/* harmony default export */ __webpack_exports__["a"] = (esExports);
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-    require("vue-loader/node_modules/vue-hot-reload-api")      .rerender("data-v-d0f06cf0", esExports)
-  }
-}
-
-/***/ }),
+/* 82 */,
 /* 83 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -15010,6 +14163,9 @@ if (false) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__src_two_linkage_vue__ = __webpack_require__(125);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__common_js_Tool__ = __webpack_require__(5);
 /**
+ * Created by lipan04 on 2018/4/28.
+ */
+/**
  * Created by lipan04 on 2018/4/20.
  */
 
@@ -15028,99 +14184,39 @@ var initInstance = function initInstance(bottom) {
 
 var two_linkage = function two_linkage(a, fun) {
 
-    var _defobj = {
-        dataObj: a
-    };
+    instance.data_obj = a;
 
-    instance.dataObj = _defobj["dataObj"];
+    instance.first_key_default = a.first_key_default;
+    instance.sec_key_default = a.sec_key_default;
+
     instance.callback = fun;
-    var cur_parent = [];
-    var cur_child = [];
-    var tempobj = {};
-    if (a.option && a.option != "") {
-        if (a.first_key_default && a.first_key_default != "") {
-            var temp_parent_text = "";
-            var cur_parent_index = 0;
-            a.option.forEach(function (item, index) {
-                if (item.value == a.first_key_default) {
-                    temp_parent_text = a.option[index].text;
-                    cur_parent = index;
-                    cur_parent_index = index;
-                }
-            });
-            tempobj = {
-                paraname: instance.dataObj.first_key || "",
-                value: a.first_key_default || "",
-                text: temp_parent_text || ""
+
+    var map = {};
+    var select_value = void 0;
+    if (a.option && a.option.length > 0) {
+        a.option.forEach(function (item, index) {
+            map[item.value] = item.option || "";
+            //寻找第一个默认值的索引
+            instance.first_key_index = 0;
+            if (a.first_key_default == item.value) {
+                instance.first_key_index = index;
+                select_value = item.value;
             };
-            instance.backobj[0] = tempobj;
-            if (a.option[cur_parent_index].option && a.option[cur_parent_index].option != "") {
-                instance.temp = a.option[cur_parent_index].option;
-                if (a.sec_key_default && a.sec_key_default != "") {
-                    var cur_child_index = 0;
-                    var temp_child_text = "";
-                    a.option[cur_parent_index].option.forEach(function (item, index) {
-                        if (item.value == a.sec_key_default) {
-                            temp_child_text = a.option[cur_parent_index].option[index].text;
-                            cur_child = index;
-                            cur_child_index = index;
-                        }
-                    });
-                    tempobj = {
-                        paraname: instance.dataObj.sec_key || "",
-                        value: a.sec_key_default || "",
-                        text: temp_child_text || ""
-                    };
-                    instance.backobj[1] = tempobj;
-                } else {
-                    tempobj = {
-                        paraname: instance.dataObj.sec_key || "",
-                        value: a.option[cur_parent_index].option[0].value || "",
-                        text: a.option[cur_parent_index].option[0].text || ""
-                    };
-                    instance.backobj[1] = tempobj;
-                    cur_child = 0;
-                }
-            } else {
-                tempobj = {
-                    paraname: instance.dataObj.sec_key || "",
-                    value: "",
-                    text: ""
-                };
-                instance.backobj[1] = tempobj;
+        });
+    }
+    //寻找第二个默认值的索引
+    if (map[select_value] && map[select_value].length > 0) {
+        instance.sec_key_index = 0;
+        map[select_value].forEach(function (item, index) {
+            if (item.value == a.sec_key_default) {
+                instance.sec_key_index = index;
             }
-        } else {
-            tempobj = {
-                paraname: instance.dataObj.first_key || "",
-                value: instance.dataObj.option[0].value || "",
-                text: instance.dataObj.option[0].text || ""
-            };
-            instance.backobj[0] = tempobj;
-            cur_parent = 0;
-            if (instance.dataObj.option[0].option || instance.dataObj.option[0].option != "") {
-                if (instance.dataObj.option[0]) {
-                    tempobj = {
-                        paraname: instance.dataObj.sec_key || "",
-                        value: instance.dataObj.option[0].option[0].value || "",
-                        text: instance.dataObj.option[0].option[0].text || ""
-                    };
-                }
-                instance.backobj[1] = tempobj;
-                instance.temp = instance.dataObj.option[0].option;
-                cur_child = 0;
-            } else {
-                tempobj = {
-                    paraname: instance.dataObj.sec_key || "",
-                    value: "",
-                    text: ""
-                };
-                instance.backobj[1] = tempobj;
-            }
-        }
+        });
     }
 
-    instance.cur_parent = cur_parent;
-    instance.cur_child = cur_child;
+    instance.map = map;
+    instance.choose();
+
     __WEBPACK_IMPORTED_MODULE_2__common_js_Tool__["a" /* default */].css(document.body, "overflow", "hidden");
     __WEBPACK_IMPORTED_MODULE_2__common_js_Tool__["a" /* default */].css(document.body, "height", "100vh");
     instance.show = true;
@@ -15255,7 +14351,7 @@ var render = function() {
         {
           staticClass: "linkage",
           class: { beforeActive: _vm.isbeforeActive, active: _vm.isactive },
-          on: { click: _vm.close_click }
+          on: { click: _vm.close }
         },
         [
           _c(
@@ -15271,13 +14367,17 @@ var render = function() {
             },
             [
               _c("div", { staticClass: "linkage-title" }, [
-                _vm._v(_vm._s(_vm.dataObj.title) + "\n                "),
+                _vm._v(_vm._s(_vm.data_obj.title) + "\n                "),
                 _c(
                   "div",
                   {
                     staticClass: "linkage-sure",
                     attrs: { id: "linkage-sure" },
-                    on: { click: _vm.decision_click }
+                    on: {
+                      click: function($event) {
+                        _vm.close("sure")
+                      }
+                    }
                   },
                   [_vm._v("确定")]
                 ),
@@ -15287,7 +14387,7 @@ var render = function() {
                   {
                     staticClass: "linkage-cancel",
                     attrs: { id: "linkage-cancel" },
-                    on: { click: _vm.close_click }
+                    on: { click: _vm.close }
                   },
                   [_vm._v("取消")]
                 )
@@ -15297,11 +14397,16 @@ var render = function() {
                 _c(
                   "ul",
                   { staticClass: "left" },
-                  _vm._l(_vm.dataObj.option, function(item, index) {
+                  _vm._l(_vm.data_obj.option, function(item, index) {
                     return _c(
                       "li",
                       {
-                        class: { btnactive: index == _vm.cur_parent },
+                        ref: "two_linkage_" + item.value,
+                        refInFor: true,
+                        class: {
+                          btnactive: item.value == _vm.first_key_default
+                        },
+                        attrs: { _id: item.value },
                         on: {
                           click: function($event) {
                             _vm.click_parent(item, index)
@@ -15324,11 +14429,14 @@ var render = function() {
                 _c(
                   "ul",
                   { staticClass: "right" },
-                  _vm._l(_vm.temp, function(item, index) {
+                  _vm._l(_vm.child_array, function(item, index) {
                     return _c(
                       "li",
                       {
-                        class: { btnactive: index == _vm.cur_child },
+                        ref: "two_linkage_" + item.value,
+                        refInFor: true,
+                        class: { btnactive: item.value == _vm.sec_key_default },
+                        attrs: { _id: item.value },
                         on: {
                           click: function($event) {
                             _vm.click_child(item, index)
@@ -15388,9 +14496,6 @@ if (false) {
 
 var instance = void 0;
 var linkagestructor = __WEBPACK_IMPORTED_MODULE_1_vue__["a" /* default */].extend(__WEBPACK_IMPORTED_MODULE_2__src_area_linkage_vue__["a" /* default */]);
-var dataStroge = [];
-var id_to_listname = {};
-var search_parent = {};
 
 var initInstance = function initInstance(bottom) {
     instance = new linkagestructor({
@@ -15436,7 +14541,6 @@ var area_linkage = function area_linkage(param, fun) {
                             var it = _step.value;
 
                             var _id = it.id;
-
                             idMap[_id] = it;
                         }
                     } catch (err) {
@@ -15468,8 +14572,6 @@ var area_linkage = function area_linkage(param, fun) {
             }, 60);
         }
     });
-
-    function get_data(dataStroge, id_to_listname) {}
 };
 
 /* harmony default export */ __webpack_exports__["a"] = ({
@@ -15684,11 +14786,7 @@ var render = function() {
             },
             [
               _c("div", { staticClass: "linkage-title" }, [
-                _vm._v(
-                  "\n                " +
-                    _vm._s(_vm.title) +
-                    "\n                "
-                ),
+                _vm._v("\n                区域\n                "),
                 _c(
                   "div",
                   {
@@ -15715,11 +14813,7 @@ var render = function() {
               ]),
               _vm._v(" "),
               _c("div", { staticClass: "linkage-list" }, [
-                _c("ul", [
-                  _c("li", { staticClass: "btnactive" }, [
-                    _vm._v(_vm._s(_vm.title))
-                  ])
-                ]),
+                _vm._m(0),
                 _vm._v(" "),
                 _c(
                   "ul",
@@ -15788,7 +14882,14 @@ var render = function() {
     ]
   )
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("ul", [_c("li", { staticClass: "btnactive" }, [_vm._v("区域")])])
+  }
+]
 render._withStripped = true
 var esExports = { render: render, staticRenderFns: staticRenderFns }
 /* harmony default export */ __webpack_exports__["a"] = (esExports);
@@ -15839,6 +14940,199 @@ var DataApi = {
     }
 };
 /* harmony default export */ __webpack_exports__["a"] = (DataApi);
+
+/***/ }),
+/* 140 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(141);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(1)("759e8e18", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../node_modules/_css-loader@0.28.11@css-loader/index.js!../../../../node_modules/_vue-loader@13.7.1@vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-d0f06cf0\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../node_modules/_sass-loader@6.0.7@sass-loader/lib/loader.js!../../../../node_modules/_vue-loader@13.7.1@vue-loader/lib/selector.js?type=styles&index=0!./popup_select.vue", function() {
+     var newContent = require("!!../../../../node_modules/_css-loader@0.28.11@css-loader/index.js!../../../../node_modules/_vue-loader@13.7.1@vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-d0f06cf0\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../node_modules/_sass-loader@6.0.7@sass-loader/lib/loader.js!../../../../node_modules/_vue-loader@13.7.1@vue-loader/lib/selector.js?type=styles&index=0!./popup_select.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 141 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(0)(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n@charset \"UTF-8\";\n/*\r\nTo change this license header, choose License Headers in Project Properties.\r\nTo change this template file, choose Tools | Templates\r\nand open the template in the editor.\r\n*/\n/* \r\n    Created on : 2017-8-31, 23:11:17\r\n    Author     : ghy\r\n*/\n/**\r\n * @param $line       超出显示省略号的行数，默认：1\r\n * @param $substract  为预留区域百分比%，默认：0\r\n */\n/*\r\nTo change this license header, choose License Headers in Project Properties.\r\nTo change this template file, choose Tools | Templates\r\nand open the template in the editor.\r\n*/\n/* \r\n    Created on : 2017-8-31, 23:12:32\r\n    Author     : ghy\r\n*/\n/* @author 龚虹宇 */\n/** -------------------------------------------\r\n    Generic Mixins\r\n    ------------------------------------------- **/\n/**\r\n * Adds prefixed version of values in a property\r\n */\n*[data-v-d0f06cf0] {\n  margin: 0px;\n  padding: 0px;\n  list-style: none;\n}\n.pop-select[data-v-d0f06cf0] {\n  width: 100%;\n  height: 100%;\n  position: fixed;\n  top: 0px;\n  -webkit-transition: all 0.4s ease;\n  transition: all 0.4s ease;\n  /*background: rgba(0,0,0,0.4);*/\n}\n.pop-select .pop-wrap[data-v-d0f06cf0] {\n  z-index: 1;\n  -webkit-transition: all 0.4s ease;\n  transition: all 0.4s ease;\n  position: absolute;\n  width: 100%;\n  bottom: 0px;\n  background: #ffffff;\n  -webkit-transform: translateY(100%);\n          transform: translateY(100%);\n}\n.pop-select .pop-title[data-v-d0f06cf0] {\n  height: 1.2rem;\n  background: #f9fafc;\n  text-align: center;\n  font-size: 0.37333rem;\n  color: #999999;\n  line-height: 1.2rem;\n  position: relative;\n}\n.pop-select .pop-title[data-v-d0f06cf0]:after {\n  content: \"\";\n  position: absolute;\n  top: 0;\n  left: 0;\n  border: 1px solid #e3e3e4;\n  box-sizing: border-box;\n  width: 200%;\n  height: 200%;\n  -webkit-transform: scale(0.5);\n  transform: scale(0.5);\n  -webkit-transform-origin: left top;\n  transform-origin: left top;\n}\n.pop-select .pop-title .pop-sure[data-v-d0f06cf0], .pop-select .pop-title .pop-cancel[data-v-d0f06cf0] {\n  position: absolute;\n  z-index: 1;\n  width: 1.6rem;\n  height: 1.2rem;\n  line-height: 1.22667rem;\n  color: #ff552e;\n  top: 0px;\n  right: 0px;\n}\n.pop-select .pop-title .pop-sure.pop-cancel[data-v-d0f06cf0], .pop-select .pop-title .pop-cancel.pop-cancel[data-v-d0f06cf0] {\n  right: auto;\n  left: 0px;\n  color: #7b7b7b;\n}\n.pop-select .pop-list[data-v-d0f06cf0] {\n  widtH: 100%;\n  max-height: 7.46668rem;\n  overflow: hidden;\n  overflow-y: scroll;\n}\n.pop-select .pop-list ul[data-v-d0f06cf0] {\n  width: 9.33333rem;\n  margin: 0 auto;\n}\n.pop-select .pop-list ul li[data-v-d0f06cf0] {\n  width: 100%;\n  height: 1.86667rem;\n  position: relative;\n}\n.pop-select .pop-list ul li[data-v-d0f06cf0]:after {\n  border-radius: 0px;\n  content: \"\";\n  position: absolute;\n  top: 0;\n  left: 0;\n  z-index: -1;\n  border-bottom: 1px solid #f1f1f1;\n  box-sizing: border-box;\n  width: 200%;\n  height: 200%;\n  -webkit-transform: scale(0.5);\n  transform: scale(0.5);\n  -webkit-transform-origin: left top;\n  transform-origin: left top;\n}\n.pop-select .pop-list ul li .pop-info[data-v-d0f06cf0] {\n  position: absolute;\n  top: 0.4rem;\n  font-size: 0.45333rem;\n  color: #333333;\n  left: 0.06667rem;\n}\n.pop-select .pop-list ul li .pop-single-info[data-v-d0f06cf0] {\n  position: absolute;\n  top: 50%;\n  margin-top: -11px;\n  font-size: 0.45333rem;\n  color: #333333;\n  left: 0.06667rem;\n}\n.pop-select .pop-list ul li .pop-desc[data-v-d0f06cf0] {\n  font-size: 0.32rem;\n  position: absolute;\n  left: 0.06667rem;\n  top: 0.98667rem;\n  color: #7b7b7b;\n}\n.pop-select .pop-list ul li .pop-arrow[data-v-d0f06cf0] {\n  position: absolute;\n  right: 0.26667rem;\n  width: 22px;\n  height: 22px;\n  top: 50%;\n  margin-top: -11px;\n  background-image: url(\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACwAAAAsCAMAAAApWqozAAAASFBMVEUAAADHx87IyM7IyM7Kys/IyM7Jyc/IyNHKytHW1tb////Hx87IyM3IyM3IyM7IyM3Jyc7IyM7Jyc7Ly9HIyNPHx83IyM3Hx81MCBRBAAAAF3RSTlMA8qt/QttXOCQMAennw7+ZjYNtLBf2kCIzlTUAAAEGSURBVDjLjJFbbsMwDAQpUpIl+R07mfvftEBdFE7ih+ZzMSB2QfmgNLMOwbkw6NwUucKPHTu60Z+qTQ+EKfqUc/JxCkDfHKpJobVlHy3WgqaDBg5n+TPN5nBfXR6gqxywKjzeoxfYyfZi8Hq/+4xySnzub3uIckGE/97JYXKJ4ZJsKFqu5aLo3y9wq9ywOrbv9JjcYvTbujbfy7n93ThiUoExipSOpUZe6Io0BKki0MjMVCdPzKLEOjmiMuDrZM8ggVQnJ4I4cp2ccT+V1TkBAAAIxDD/rqMhOwPP0VZxtVED1urqKHXuCtJEtMI/b1UPOygoyAy+BoyD3IH5aGIE1Gp7aZaOAVpkFMUoYaaBAAAAAElFTkSuQmCC\");\n  background-size: cover;\n}\n.pop-select .pop-list ul li.active .pop-arrow[data-v-d0f06cf0] {\n  background-image: url(\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACwAAAAsCAMAAAApWqozAAAAPFBMVEUAAAD/VS7/VjH/VzL/VS7/Vi//VS7/VS//VS//VS7/VS7/Vi//Vy//WjX/VS7/VS7/Yz//4tv/////m4Tfv1CvAAAAD3RSTlMA8UQ459nDv62lmYNtIpDE1s/TAAAA6klEQVQ4y53VS5KDMAwEUPmP7ZAmk/vfdRaZcoKITDO95ZWqjGVJdEKvJTmXSu1BpvEt4iOxeZOGjEPy9/Lrgq9Z1qP1Dkac1/aGSW57e8c0d7auru1xGj/+gzvHbv3DC4gsLxtA5XU7mcP5/HTbc3fGNrWPn6GbiMS5fWyjB0UCa4EgnbboUmmLKoW2KJJoiySOtnAf+Llpe8Bp2PHZsEhSFLAtilQobVpU6VDatOgSoPTO6o6OSps2jhZ9a8uijeZ/a2XVA897bdl8/cHyo4AfMtfHFz8Y+ZHLD/Ora4JfQPxq+//S5NfxLzPrWEC1LMpOAAAAAElFTkSuQmCC\");\n}\n.pop-select.beforeActive[data-v-d0f06cf0] {\n  display: block;\n  background: transparent;\n}\n.pop-select.beforeActive .pop-wrap[data-v-d0f06cf0] {\n  -webkit-transform: translateY(100%);\n          transform: translateY(100%);\n}\n.pop-select.active[data-v-d0f06cf0] {\n  background: rgba(0, 0, 0, .3);\n}\n.pop-select.active .pop-wrap[data-v-d0f06cf0] {\n  -webkit-transform: translateY(0);\n          transform: translateY(0);\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 142 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    {
+      directives: [
+        { name: "show", rawName: "v-show", value: _vm.show, expression: "show" }
+      ],
+      ref: "picker"
+    },
+    [
+      _c(
+        "div",
+        {
+          staticClass: "pop-select",
+          class: { beforeActive: _vm.isbeforeActive, active: _vm.isactive },
+          on: { click: _vm.close }
+        },
+        [
+          _c(
+            "div",
+            {
+              staticClass: "pop-wrap",
+              on: {
+                click: function($event) {
+                  $event.stopPropagation()
+                  return _vm.stop($event)
+                }
+              }
+            },
+            [
+              _c("div", { staticClass: "pop-title" }, [
+                _vm._v(_vm._s(_vm.title) + "\n                "),
+                _c(
+                  "div",
+                  {
+                    staticClass: "pop-sure",
+                    attrs: { id: "pop-sure" },
+                    on: {
+                      click: function($event) {
+                        _vm.close("sure")
+                      }
+                    }
+                  },
+                  [_vm._v("确定")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  {
+                    staticClass: "pop-cancel",
+                    attrs: { id: "pop-cancel" },
+                    on: { click: _vm.close }
+                  },
+                  [_vm._v("取消")]
+                )
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "pop-list" }, [
+                _c(
+                  "ul",
+                  _vm._l(_vm.option, function(item, index) {
+                    return _c(
+                      "li",
+                      {
+                        class: { active: _vm.select_map[item.value] },
+                        attrs: { "shenfen-id": "jsptpl-style" },
+                        on: {
+                          click: function($event) {
+                            _vm.add_class(item.value, index)
+                          }
+                        }
+                      },
+                      [
+                        _c(
+                          "div",
+                          {
+                            directives: [
+                              {
+                                name: "show",
+                                rawName: "v-show",
+                                value: _vm.single_text,
+                                expression: "single_text"
+                              }
+                            ],
+                            staticClass: "pop-single-info"
+                          },
+                          [_vm._v(_vm._s(item.text))]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          {
+                            directives: [
+                              {
+                                name: "show",
+                                rawName: "v-show",
+                                value: _vm.multi_text,
+                                expression: "multi_text"
+                              }
+                            ],
+                            staticClass: "pop-info"
+                          },
+                          [_vm._v(_vm._s(item.title))]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          {
+                            directives: [
+                              {
+                                name: "show",
+                                rawName: "v-show",
+                                value: _vm.multi_text,
+                                expression: "multi_text"
+                              }
+                            ],
+                            staticClass: "pop-desc"
+                          },
+                          [_vm._v(_vm._s(item.text))]
+                        ),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "pop-arrow" })
+                      ]
+                    )
+                  })
+                )
+              ])
+            ]
+          )
+        ]
+      )
+    ]
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+var esExports = { render: render, staticRenderFns: staticRenderFns }
+/* harmony default export */ __webpack_exports__["a"] = (esExports);
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-loader/node_modules/vue-hot-reload-api")      .rerender("data-v-d0f06cf0", esExports)
+  }
+}
 
 /***/ })
 /******/ ]);

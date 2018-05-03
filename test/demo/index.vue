@@ -153,8 +153,8 @@
                     title: "行业",
                     first_key: "hangye",
                     sec_key: "zhonlei",
-                    first_key_default: "511575",
-                    sec_key_default: "511602",
+                    first_key_default: "511574",
+                    sec_key_default: "511598",
                     option: [
                         {
                             "value": "511574",
@@ -206,13 +206,13 @@
                 let param =
                     {
                         title: "区域",
-//                        key: "ankang",
-                        key: "bj",
+                        key: "ankang",
+//                        key: "bj",
 //                        url: "http://m.58.com/sublocals/",
                         first_key: "quyu",
                         sec_key: "diduan",
-                        first_key_default:"1144",
-                        sec_key_default:"6031",
+//                        first_key_default:"1144",
+//                        sec_key_default:"6031",
                     };
                 this.$area_linkage(param, function (ret, data) {
                     // ret==0 点击确定

@@ -10,9 +10,7 @@ import Tool from '../../common/js/Tool'
 
 let instance;
 let linkagestructor = Vue.extend(Area_linkage);
-let dataStroge = [];
-let id_to_listname = {};
-let search_parent = {};
+
 
 let initInstance = (bottom) => {
     instance = new linkagestructor({
@@ -52,7 +50,6 @@ let area_linkage = (param, fun) => {
                 if (item instanceof Array) {
                     for (var it of item) {
                         var _id = it.id;
-
                         idMap[_id] = it;
                     }
                 }
@@ -72,10 +69,6 @@ let area_linkage = (param, fun) => {
         }
     })
 
-    function get_data(dataStroge, id_to_listname) {
-
-
-    }
 
 
 };
