@@ -205,13 +205,6 @@
                     _index = p.getAttribute("_index") || "";
                 }
                 _this.handleClickSingleValue(_index);
-//                if (_type == "number") {
-//                    _this.handleClick(target.innerHTML);
-//                } else if (_type == "del") {
-//                    _this.handleDel();
-//                } else if (_type == "confirm") {
-//                    _this.handleConfirm();
-//                }
             });
 
         },
@@ -256,9 +249,10 @@
                  * */
                 if (_this.dataArr && _this.isArray(_this.dataArr)) {
                     let defaultValue = _this.dataArr[_this.dataArrSel.value].defaultValue;
-                    let max_len = this.dataArr[_this.curindex].max_len ? _this.dataArr[_this.curindex].max_len : 5;//小数点前面的max_len
-                    let dot_max_len = this.dataArr[_this.curindex].dot_max_len ? _this.dataArr[_this.curindex].dot_max_len : 2;//小数点后面的max_len
+                    let max_len = (this.dataArr[_this.curindex] || {}).max_len || 5;//小数点前面的max_len
+                    let dot_max_len = (this.dataArr[_this.curindex] || {}).dot_max_len || 5;//小数点后面的max_len
                     let ispoint = defaultValue.indexOf(".");//查找是否存在小数点
+
                     let cur_not = (val != "." && defaultValue.length >= max_len);//当前不是小数点且length>=max_len,则不能添加数字
                     let cur_yes = (val == "." && max_len < defaultValue.length && defaultValue.length <= (max_len + 1));//当前点击是小数点,length>max_len,则不能添加数字
                     let dot_length = defaultValue.length - 1 - ispoint;//在存在小数点时候，defaultValue中小数点后面的位数
