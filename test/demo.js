@@ -9044,7 +9044,7 @@ module.exports = function (name) {
 
                 dataArr: [{
                     max_len: 4,
-                    dot_max_len: 0,
+                    dot_max_len: 1,
                     defaultValue: "",
                     defaultUnit: "m",
                     suggest: "请填写租金1",
