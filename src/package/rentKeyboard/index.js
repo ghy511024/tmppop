@@ -32,7 +32,7 @@ let _rentKeyboard = (a, fun) => {
         dataArr: a.dataArr,
     };
 
-    //debugger;
+
     instance.dataArrSel = _defobj["dataArrSel"];
     instance.dataArr = copyArr(_defobj["dataArr"]);
     instance.curindex = instance.dataArrSel.value || 0;

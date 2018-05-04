@@ -52,7 +52,7 @@
                         {
                             max_len:4,
                             dot_max_len:0,
-                            defaultValue: "",
+                            defaultValue: "23",
                             defaultUnit: [{"text": "元/㎡.天", "value": "3", "selected": true}, {
                                 "text": "元/月",
                                 "value": "1",

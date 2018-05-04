@@ -12,7 +12,7 @@
                          :_index="index"
                     >
                         <div class="single-value-shadow"></div>
-                        <span class="value-area-title">{{item.title}}{{dataArrSel.unit_position == "top" ? '(' + item.current_unit_text + ')' : ""}}</span>
+                        <span class="value-area-title">{{item.title}}{{(dataArrSel.unit_position == "top"&&item.current_unit_text!="") ? '(' + item.current_unit_text + ')' : ""}}</span>
                         <span class="value-area-val"
                               :class="{'placeholder': !item.defaultValue}">{{item.defaultValue ? item.defaultValue : item.placeholder}}{{dataArrSel.unit_position != "top" ? item.current_unit_text : ""}}</span>
                     </div>
@@ -94,16 +94,30 @@
                 let _this = this;
                 if (_this.dataArr && _this.dataArr.length && _this.isArray(_this.dataArr)) {
                     _this.dataArr.map((item) => {
+
                         if (item.defaultUnit && item.defaultUnit.length) {
                             if (_this.isArray(item.defaultUnit)) {
                                 item.defaultUnit.map((unit) => {
                                     if (unit.selected) {
-                                        item.current_unit_text = unit.text;
+                                        item.temp_current_unit_text = unit.text;
+
+                                        if(item.defaultValue==""){
+                                            item.current_unit_text=""
+                                        }else{
+                                            item.current_unit_text=item.temp_current_unit_text;
+                                        }
+
                                     }
                                     return unit;
                                 });
                             } else {
-                                item.current_unit_text = item.defaultUnit;
+                                item.temp_current_unit_text = item.defaultUnit;
+
+                                if(item.defaultValue==""){
+                                    item.current_unit_text=""
+                                }else{
+                                    item.current_unit_text=item.temp_current_unit_text;
+                                }
                             }
                         }
                         return item;
@@ -259,7 +273,6 @@
                     let cur_not = (val != "." && defaultValue.length >= max_len);//当前不是小数点且length>=max_len,则不能添加数字
                     let cur_yes = (val == "." && max_len < defaultValue.length && defaultValue.length <= (max_len + 1));//当前点击是小数点,length>max_len,则不能添加数字
                     let dot_length = defaultValue.length - 1 - ispoint;//在存在小数点时候，defaultValue中小数点后面的位数
-                    console.log("(dot_max_len==0&&val == '.')",(dot_max_len==0&&val == "."))
                     if ((ispoint == -1 && (cur_not || cur_yes)) || (ispoint != -1 && (dot_length >= dot_max_len)) || (ispoint != -1 && (val == "."))||(dot_max_len==0&&val == ".")) {
                         _this.dataArr[_this.dataArrSel.value].defaultValue = _this.c_value;
                     } else {
