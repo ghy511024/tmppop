@@ -5,11 +5,11 @@ import Vue from 'vue';
 import RentKeyboard from './src/rentKeyboard.vue';
 import Tool from '../../common/js/Tool'
 
-function copyArr(arr){
-    return arr.map((e)=>{
-        if(typeof e === 'object'){
-            return Object.assign({},e)
-        }else{
+function copyArr(arr) {
+    return arr.map((e) => {
+        if (typeof e === 'object') {
+            return Object.assign({}, e)
+        } else {
             return e
         }
     })
@@ -25,18 +25,20 @@ let initInstance = (bottom) => {
     document.body.appendChild(instance.$el);
 };
 
-let _rentKeyboard = (a,fun) => {
+let _rentKeyboard = (a, fun) => {
 
-    let _defobj={
-        dataArrSel: a.dataArrSel,
+    let _defobj = {
+        dataArrSel: a.dataArrSel || 0,
         dataArr: a.dataArr,
     };
-    //debugger;
+
+
     instance.dataArrSel = _defobj["dataArrSel"];
     instance.dataArr = copyArr(_defobj["dataArr"]);
+    instance.curindex = instance.dataArrSel.value || 0;
     instance.callback = fun;
-    Tool.css( document.body,"overflow","hidden");
-    Tool.css( document.body,"height","100vh");
+    Tool.css(document.body, "overflow", "hidden");
+    Tool.css(document.body, "height", "100vh");
     //出现键盘
     instance.show = true;
     instance.isbeforeActive = true;

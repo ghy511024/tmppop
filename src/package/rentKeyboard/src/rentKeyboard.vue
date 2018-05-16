@@ -1,184 +1,5 @@
 <style rel="stylesheet/less" lang="less" scoped>
-    .rent-component {
-        width: 100vw;
-        height: 100vh;
-        transition: all 0.4s ease;
-        /*background: rgba(0, 0, 0, 0.6);*/
-        position: fixed;
-        top: 0;
-        left: 0;
-        .rent-component-main {
-            position: absolute;
-            z-index: 1;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            background: #fff;
-            transition: all 0.4s ease;
-            transform: translateY(100%);
-            /* S值显示区域 */
-            .value-area {
-                height: 100px;
-                display: -moz-box;
-                display: -webkit-box;
-                -moz-box-align: center;
-                -webkit-box-align: center;
-                box-align: center;
-                -moz-box-pack: justify;
-                -webkit-box-pack: justify;
-                box-pack: justify;
-                .single-value {
-                    flex: 1;
-                    width: 0;
-                    position: relative;
-                    height: 100%;
-                    box-sizing: border-box;
-                    .single-value-shadow {
-                        width: 0;
-                        height: 0;
-                        position: absolute;
-                        top: -1px;
-                        left: 0;
-                    }
-                    &.active {
-                        border-top: 3px solid #fc5638;
-                        .single-value-shadow {
-                            width: 100%;
-                            height: 100%;
-                            background: linear-gradient(rgba(244, 199, 255, 0.1), rgba(255, 255, 255, 0));
-                        }
-                    }
-                    .value-area-title {
-                        display: block;
-                        text-align: center;
-                        width: 100%;
-                        height: 28px;
-                        line-height: 28px;
-                        font-size: 14px;
-                        color: #999999;
-                        margin-top: 14px;
-                    }
-                    .value-area-val {
-                        display: block;
-                        width: 100%;
-                        text-align: center;
-                        font-size: 18px;
-                        color: #fc5638;
-                        &.placeholder {
-                            color: #999;
-                        }
-                    }
-                }
-            }
-            /* E值显示区域 */
-            /* S提醒显示区域 */
-            .tip-area {
-                text-align: center;
-                width: 100%;
-                height: 50px;
-                line-height: 50px;
-                border-top: 1px solid #e3e3e4;
-                border-bottom: 1px solid #e3e3e4;
-                background: #f9fafc;
-                text-align: center;
-                font-size: 15px;
-                color: #999;
-            }
-            /* E提醒显示区域 */
-            /* S单位显示区域 */
-            .unit-area {
-                text-align: center;
-                width: 100%;
-                height: 50px;
-                line-height: 50px;
-                font-size: 16px;
-                color: #666;
-                box-sizing: border-box;
-                padding: 0 14px;
-                text-align: left;
-                border-bottom: 1px solid #e3e3e4;
-                .single-unit {
-                    display: inline-block;
-                    width: 70px;
-                    height: 28px;
-                    line-height: 28px;
-                    border-radius: 70px;
-                    text-align: center;
-                    font-size: 14px;
-                    color: #999999;
-                    background: #f6f6f6;
-                    &:not(:last-child) {
-                        margin-right: 8px;
-                    }
-                    &.active {
-                        background: #fc5638;
-                        color: #fff;
-                    }
-                }
-            }
-            /* E单位显示区域 */
-            /* S按钮显示区域 */
-            .btns-area {
-                text-align: center;
-                width: 100%;
-                overflow: hidden;
-                .left-btns {
-                    float: left;
-                    width: 100%;
-                    .left-btns-table {
-                        width: 100%;
-                        tr {
-                            height: 70px;
-                            td {
-                                font-size: 24px;
-                                color: #000;
-                                border-right: 1px solid #e3e3e4;
-                                border-bottom: 1px solid #e3e3e4;
-                            }
-                            .del-btn {
-                                width: 100px;
-                                background: #eaecf0;
-                                color: #222;
-                                font-size: 16px;
-                            }
-                            .confirm-btn {
-                                width: 100px;
-                                background: #fc5638;
-                                color: #fff;
-                                font-size: 16px;
-                            }
-                        }
-                    }
-                }
-            }
-            /* E按钮显示区域 */
-        }
-    }
-
-    .router-fade-enter-active, .router-fade-leave-active {
-        transition: opacity .3s;
-    }
-
-    .router-fade-enter, .router-fade-leave-active {
-        opacity: 0;
-    }
-
-    .rent-component.beforeActive {
-        display: block;
-        background: transparent;
-    }
-
-    .rent-component.beforeActive .rent-component-main {
-        transform: translateY(100%);
-    }
-
-    .rent-component.active {
-        background: rgba(0, 0, 0, 0.3);
-    }
-
-    .rent-component.active .rent-component-main {
-        transform: translateY(0);
-    }
+    @import "../../../common/css/components/rentKeyboard";
 </style>
 <template>
     <div v-show="show">
@@ -191,7 +12,7 @@
                          :_index="index"
                     >
                         <div class="single-value-shadow"></div>
-                        <span class="value-area-title">{{item.title}}{{dataArrSel.unit_position == "top" ? '(' + item.current_unit_text + ')' : ""}}</span>
+                        <span class="value-area-title">{{item.title}}{{(dataArrSel.unit_position == "top"&&item.current_unit_text!="") ? '(' + item.current_unit_text + ')' : ""}}</span>
                         <span class="value-area-val"
                               :class="{'placeholder': !item.defaultValue}">{{item.defaultValue ? item.defaultValue : item.placeholder}}{{dataArrSel.unit_position != "top" ? item.current_unit_text : ""}}</span>
                     </div>
@@ -273,16 +94,30 @@
                 let _this = this;
                 if (_this.dataArr && _this.dataArr.length && _this.isArray(_this.dataArr)) {
                     _this.dataArr.map((item) => {
+
                         if (item.defaultUnit && item.defaultUnit.length) {
                             if (_this.isArray(item.defaultUnit)) {
                                 item.defaultUnit.map((unit) => {
                                     if (unit.selected) {
-                                        item.current_unit_text = unit.text;
+                                        item.temp_current_unit_text = unit.text;
+
+                                        if(item.defaultValue==""){
+                                            item.current_unit_text=""
+                                        }else{
+                                            item.current_unit_text=item.temp_current_unit_text;
+                                        }
+
                                     }
                                     return unit;
                                 });
                             } else {
-                                item.current_unit_text = item.defaultUnit;
+                                item.temp_current_unit_text = item.defaultUnit;
+
+                                if(item.defaultValue==""){
+                                    item.current_unit_text=""
+                                }else{
+                                    item.current_unit_text=item.temp_current_unit_text;
+                                }
                             }
                         }
                         return item;
@@ -351,8 +186,10 @@
         mounted() {
             let _this = this;
             let table = _this.$refs.tab;
+            // 不要问为啥加一个空的touch 监听，部分机型，主要解决部分机型，点击无响应，原理未知.
+            document.addEventListener("touchstart", function (evt) {
+            })
             table.addEventListener("touchstart", function (ev) {
-                console.log("ceshi..")
                 let event = ev || window.event;
                 let target = event.target || event.srcElement;
                 ev.stopPropagation();
@@ -382,13 +219,6 @@
                     _index = p.getAttribute("_index") || "";
                 }
                 _this.handleClickSingleValue(_index);
-//                if (_type == "number") {
-//                    _this.handleClick(target.innerHTML);
-//                } else if (_type == "del") {
-//                    _this.handleDel();
-//                } else if (_type == "confirm") {
-//                    _this.handleConfirm();
-//                }
             });
 
         },
@@ -433,13 +263,17 @@
                  * */
                 if (_this.dataArr && _this.isArray(_this.dataArr)) {
                     let defaultValue = _this.dataArr[_this.dataArrSel.value].defaultValue;
-                    let max_len = this.dataArr[_this.curindex].max_len ? _this.dataArr[_this.curindex].max_len : 5;//小数点前面的max_len
-                    let dot_max_len = this.dataArr[_this.curindex].dot_max_len ? _this.dataArr[_this.curindex].dot_max_len : 2;//小数点后面的max_len
+                    let max_len = (_this.dataArr[_this.curindex] || {}).max_len || 5;//小数点前面的max_len
+                    let dot_max_len = (_this.dataArr[_this.curindex] || {}).dot_max_len ;//小数点后面的max_len
+                    if((typeof dot_max_len)!="number"){
+                        dot_max_len=2;
+                    }
                     let ispoint = defaultValue.indexOf(".");//查找是否存在小数点
+
                     let cur_not = (val != "." && defaultValue.length >= max_len);//当前不是小数点且length>=max_len,则不能添加数字
                     let cur_yes = (val == "." && max_len < defaultValue.length && defaultValue.length <= (max_len + 1));//当前点击是小数点,length>max_len,则不能添加数字
                     let dot_length = defaultValue.length - 1 - ispoint;//在存在小数点时候，defaultValue中小数点后面的位数
-                    if ((ispoint == -1 && (cur_not || cur_yes)) || (ispoint != -1 && (dot_length >= dot_max_len)) || (ispoint != -1 && (val == "."))) {
+                    if ((ispoint == -1 && (cur_not || cur_yes)) || (ispoint != -1 && (dot_length >= dot_max_len)) || (ispoint != -1 && (val == "."))||(dot_max_len==0&&val == ".")) {
                         _this.dataArr[_this.dataArrSel.value].defaultValue = _this.c_value;
                     } else {
                         _this.dataArr[_this.dataArrSel.value].defaultValue = (String(_this.c_value) + val);

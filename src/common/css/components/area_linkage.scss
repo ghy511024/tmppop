@@ -1,0 +1,128 @@
+* {
+  margin: 0px;
+  padding: 0px;
+  list-style: none
+}
+
+.linkage {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0px;
+  transition: all 0.4s ease;
+  /*background: rgba(0,0,0,0.4);*/
+}
+
+.linkage .linkage-warp {
+  z-index: 1;
+  transition: all 0.4s ease;
+  position: absolute;
+  width: 100%;
+  bottom: 0px;
+  background: #ffffff;
+  transform: translateY(100%);
+}
+
+.linkage .linkage-title {
+  height: 1.2rem;
+  background: #f9fafc;
+  text-align: center;
+  font-size: 0.37333rem;
+  color: #999999;
+  line-height: 1.2rem;
+  position: relative;
+}
+
+.linkage .linkage-title:after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  border: 1px solid #e3e3e4;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  width: 200%;
+  height: 200%;
+  -webkit-transform: scale(0.5);
+  transform: scale(0.5);
+  -webkit-transform-origin: left top;
+  transform-origin: left top;
+}
+
+.linkage .linkage-title .linkage-sure, .linkage .linkage-title .linkage-cancel {
+  position: absolute;
+  z-index: 1;
+  width: 1.6rem;
+  height: 1.2rem;
+  line-height: 1.22667rem;
+  color: #ff552e;
+  top: 0px;
+  right: 0px;
+}
+
+.linkage .linkage-title .linkage-sure.linkage-cancel, .linkage .linkage-title .linkage-cancel.linkage-cancel {
+  right: auto;
+  left: 0px;
+  color: #7b7b7b;
+}
+
+.linkage .linkage-list {
+  widtH: 100%;
+  height: 7.46668rem;
+  overflow: hidden;
+  overflow-y: scroll;
+}
+
+ul {
+  height: 7.46668rem;
+  position: absolute;
+  z-index: 10;
+  list-style: none;
+  top: rem(90px);
+  overflow: hidden;
+  overflow-y: scroll;
+  width: 33.3%;
+  border-right: 1px solid #e3e3e4;
+  li {
+    position: relative;
+    height: 1.3rem;
+    line-height: 1.3rem;
+    font-size: rem(26px);
+    color: rgba(0, 0, 0, 0.75);
+  }
+}
+
+ul.left {
+  left: 33.3%;
+}
+
+ul.right {
+  right: 0;
+}
+
+ul li {
+  padding: 0 10px;
+}
+
+.btnactive {
+  background: #f6f6f6;
+  color: #ff552e;
+  margin: 0 1px;
+}
+
+.linkage.beforeActive {
+  display: block;
+  background: transparent;
+}
+
+.linkage.beforeActive .linkage-warp {
+  transform: translateY(100%);
+}
+
+.linkage.active {
+  background: rgba(0, 0, 0, 0.3);
+}
+
+.linkage.active .linkage-warp {
+  transform: translateY(0);
+}

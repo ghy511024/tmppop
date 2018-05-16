@@ -1,149 +1,19 @@
 <style lang="scss" type="text/scss" scoped>
     @import "../../../common/css/mixin";
-
-    * {
-        margin: 0px;
-        padding: 0px;
-        list-style: none
-    }
-
-    .linkage {
-        width: 100%;
-        height: 100%;
-        position: fixed;
-        top: 0px;
-        transition: all 0.4s ease;
-        /*background: rgba(0,0,0,0.4);*/
-    }
-
-    .linkage .linkage-warp {
-        z-index: 1;
-        transition: all 0.4s ease;
-        position: absolute;
-        width: 100%;
-        bottom: 0px;
-        background: #ffffff;
-        transform: translateY(100%);
-    }
-
-    .linkage .linkage-title {
-        height: 1.2rem;
-        background: #f9fafc;
-        text-align: center;
-        font-size: 0.37333rem;
-        color: #999999;
-        line-height: 1.2rem;
-        position: relative;
-    }
-
-    .linkage .linkage-title:after {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: 0;
-        border: 1px solid #e3e3e4;
-        -webkit-box-sizing: border-box;
-        box-sizing: border-box;
-        width: 200%;
-        height: 200%;
-        -webkit-transform: scale(0.5);
-        transform: scale(0.5);
-        -webkit-transform-origin: left top;
-        transform-origin: left top;
-    }
-
-    .linkage .linkage-title .linkage-sure, .linkage .linkage-title .linkage-cancel {
-        position: absolute;
-        z-index: 1;
-        width: 1.6rem;
-        height: 1.2rem;
-        line-height: 1.22667rem;
-        color: #ff552e;
-        top: 0px;
-        right: 0px;
-    }
-
-    .linkage .linkage-title .linkage-sure.linkage-cancel, .linkage .linkage-title .linkage-cancel.linkage-cancel {
-        right: auto;
-        left: 0px;
-        color: #7b7b7b;
-    }
-
-    .linkage .linkage-list {
-        widtH: 100%;
-        height: 7.46668rem;
-        overflow: hidden;
-        overflow-y: scroll;
-    }
-
-    ul {
-        height: 7.46668rem;
-        position: absolute;
-        z-index: 10;
-        list-style: none;
-        top: rem(90px);
-        overflow: hidden;
-        overflow-y: scroll;
-        width: 33.3%;
-        border-right: 1px solid #e3e3e4;
-        li {
-            position: relative;
-            height: 1.3rem;
-            line-height: 1.3rem;
-            font-size: rem(26px);
-            color: rgba(0, 0, 0, 0.75);
-        }
-    }
-
-    ul.left {
-        left: 33.3%;
-    }
-
-    ul.right {
-        right: 0;
-    }
-
-    ul li {
-        padding: 0 10px;
-    }
-
-    .btnactive {
-        background: #f6f6f6;
-        color: #ff552e;
-        margin: 0 1px;
-    }
-
-    .linkage.beforeActive {
-        display: block;
-        background: transparent;
-    }
-
-    .linkage.beforeActive .linkage-warp {
-        transform: translateY(100%);
-    }
-
-    .linkage.active {
-        background: rgba(0, 0, 0, 0.3);
-    }
-
-    .linkage.active .linkage-warp {
-        transform: translateY(0);
-    }
-
-
+    @import "../../../common/css/components/area_linkage";
 </style>
 <template>
     <div v-show="show">
         <div class="linkage" v-bind:class="{beforeActive:isbeforeActive, active:isactive}" @click="decision_click">
             <div class="linkage-warp" @click.stop="stop">
                 <div class="linkage-title">
-                    {{title}}
+                    区域
                     <div class="linkage-sure" id="linkage-sure" @click="decision_click('sure')">确定</div>
                     <div class="linkage-cancel" id="linkage-cancel" @click="decision_click">取消</div>
                 </div>
                 <div class="linkage-list">
                     <ul>
-                        <li class="btnactive">{{title}}</li>
+                        <li class="btnactive">区域</li>
                     </ul>
                     <ul class="left">
                         <li v-for="(item,index) in first_linkage_arry"
@@ -182,14 +52,14 @@
                 show: false,
                 isbeforeActive: false,
                 isactive: false,
-                url: null,
-                cur_parent: 0,//选中的父级索引值
-                cur_child: 0,//选中的子级索引值
-                parent_obj: [],//父级数组数据
-                child_obj: [],//子级数组数据
-                backObj: [],//返回的数据
-                dataObj: {},//级联数值选项
-                dataStroge: [],//所有数据列表
+//                url:"",
+//                cur_parent: 0,//选中的父级索引值
+//                cur_child: 0,//选中的子级索引值
+//                parent_obj: [],//父级数组数据
+//                child_obj: [],//子级数组数据
+//                backObj: [],//返回的数据
+//                dataObj: {},//级联数值选项
+//                dataStroge: [],//所有数据列表
 
                 //=================华丽的分割线===============
                 first_key: "",// quyu
@@ -210,13 +80,13 @@
         created(){
         },
         computed: {
-            title(){
-                let ret = "区域";
-                if (this.dataObj.title) {
-                    ret = this.dataObj.title;
-                }
-                return ret;
-            },
+//            title(){
+//                let ret = "区域";
+//                if (this.dataObj.title) {
+//                    ret = this.dataObj.title;
+//                }
+//                return ret;
+//            },
 
         },
 
@@ -226,7 +96,6 @@
 
             },//处理点击背景关闭键盘时，防止冒泡
 
-            // 点击一级菜单
             click_parent2(_id){
                 this.first_linkage_default_value = _id;
                 this.sec_linkage_default_value = "";
@@ -237,19 +106,7 @@
                 this.sec_linkage_default_value = _id;
                 this._choose();
             },
-            // 点击取消
-            close_click() {
-                let _this = this;
-                _this.isactive = false;
-                setTimeout(function () {
-                    _this.isbeforeActive = false;
-                    _this.show = false;
-                }, 600);
-                Tool.removecss(document.body, "overflow");
-                Tool.removecss(document.body, "height");
 
-                return _this.callback(1);
-            },
             // 点击完成
             decision_click(type) {
                 let _this = this;
@@ -260,13 +117,13 @@
                     var first_choose = this.idMap[this.first_linkage_default_value] || {};
                     var sec_choose = this.idMap[this.sec_linkage_default_value] || {};
                     var obj1 = {
-                        paramname: this.first_key,
+                        paraname: this.first_key,
                         name: first_choose["listname"] || "",
                         value: first_choose["id"] || "",
                         text: first_choose["name"] || "",
                     }
                     var obj2 = {
-                        paramname: this.sec_key,
+                        paraname: this.sec_key,
                         name: sec_choose["listname"] || "",
                         value: sec_choose["id"] || "",
                         text: sec_choose["name"] || "",
@@ -285,8 +142,6 @@
 
                 _this.callback(op, retarry);
             },
-
-
             _choose(){
                 this._clear();
                 let ret = 0;
@@ -295,7 +150,7 @@
 
                 var firs_choose;
                 var sec_array;
-                var hasChange = false;
+//                var hasChange = false;
 
                 // 计算一级选中id
                 if (ret == 0) {
@@ -304,7 +159,6 @@
                     }
                     if (!!first_id) {
                         this.first_linkage_default_value = first_id
-
                     } else {
                         ret = -1;
                     }
@@ -321,6 +175,7 @@
                         ret = -2
                     }
                 }
+
                 // 计算二级选中id
                 if (ret == 0) {
                     this.sec_linkage_arry = sec_array;
@@ -375,7 +230,6 @@
                     dom[0].parentNode.scrollTop = dom_ofset_h - dom_parent_h + p_px;
                 }
             }
-
         },
         watch: {
             'show'(val) {

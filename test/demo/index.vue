@@ -27,9 +27,9 @@
 
                     dataArr: [
                         {
-//                            max_len:4,
-//                            dot_max_len:3,
-                            defaultValue: "123",
+                            max_len:4,
+                            dot_max_len:1,
+                            defaultValue: "",
                             defaultUnit: "m",
                             suggest: "请填写租金1",
                             title: "租金1",
@@ -37,9 +37,9 @@
                             type: "zujin1"
                         },
                         {
-//                            max_len:4,
-//                            dot_max_len:3,
-                            defaultValue: "123",
+                            max_len:4,
+                            dot_max_len:0,
+                            defaultValue: "",
                             defaultUnit: [{"text": "元/㎡.天", "value": "3", "selected": true}, {
                                 "text": "元/月",
                                 "value": "1",
@@ -50,9 +50,9 @@
                             type: "zujin2"
                         },
                         {
-//                            max_len:4,
-//                            dot_max_len:3,
-                            defaultValue: "123",
+                            max_len:4,
+                            dot_max_len:0,
+                            defaultValue: "23",
                             defaultUnit: [{"text": "元/㎡.天", "value": "3", "selected": true}, {
                                 "text": "元/月",
                                 "value": "1",
@@ -117,10 +117,10 @@
                 let data = {
                     title: "选择您的身份",
                     //type：radio checkbox
-                    selec_type: "radio",
+                    selec_type: "checkbox",
                     //list_type： single_text multi_text
                     list_type: "",
-                    default_value: "2|3",
+                    default_value: "1|2|3",
                     option: [
                         {"title": "房东", "text": "房屋所有者，具备认证房本资质", value: "1"},
                         {"title": "转租", "text": "转让自己承租的房子", value: "2"},
@@ -153,8 +153,8 @@
                     title: "行业",
                     first_key: "hangye",
                     sec_key: "zhonlei",
-                    first_key_default: "511575",
-                    sec_key_default: "511602",
+                    first_key_default: "511574",
+                    sec_key_default: "511598",
                     option: [
                         {
                             "value": "511574",
@@ -211,8 +211,8 @@
 //                        url: "http://m.58.com/sublocals/",
                         first_key: "quyu",
                         sec_key: "diduan",
-                        first_key_default:"1144",
-                        sec_key_default:"6031",
+//                        first_key_default:"1144",
+//                        sec_key_default:"6031",
                     };
                 this.$area_linkage(param, function (ret, data) {
                     // ret==0 点击确定

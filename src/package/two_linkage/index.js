@@ -1,4 +1,7 @@
 /**
+ * Created by lipan04 on 2018/4/28.
+ */
+/**
  * Created by lipan04 on 2018/4/20.
  */
 import Vue from 'vue';
@@ -17,104 +20,41 @@ let initInstance = (bottom) => {
 
 let two_linkage = (a, fun) => {
 
-    let _defobj = {
-        dataObj: a,
-    };
+    instance.data_obj = a;
 
+    instance.first_key_default = a.first_key_default;
+    instance.sec_key_default = a.sec_key_default;
 
-    instance.dataObj = _defobj["dataObj"];
     instance.callback = fun;
-    let cur_parent=[];
-    let cur_child=[];
-    let tempobj = {};
-    if(a.option&&a.option!=""){
-        if(a.first_key_default&&(a.first_key_default!="")){
-            let temp_parent_text="";
-            let cur_parent_index=0;
-            a.option.forEach(function(item,index){
-                if(item.value==a.first_key_default){
-                    temp_parent_text=a.option[index].text;
-                    cur_parent = index;
-                    cur_parent_index=index;
-                }
-            });
-            tempobj = {
-                paraname: instance.dataObj.first_key || "",
-                value: a.first_key_default || "",
-                text: temp_parent_text || "",
-            };
-            instance.backobj[0] = tempobj;
-            if(a.option[cur_parent_index].option&&a.option[cur_parent_index].option!=""){
-                instance.temp = a.option[cur_parent_index].option;
-                if(a.sec_key_default&&(a.sec_key_default!="")){
-                    let cur_child_index=0;
-                    let temp_child_text="";
-                    a.option[cur_parent_index].option.forEach(function(item,index){
-                        if(item.value==a.sec_key_default){
-                            temp_child_text=a.option[cur_parent_index].option[index].text;
-                            cur_child = index;
-                            cur_child_index=index;
-                        }
-                    });
-                    tempobj = {
-                        paraname: instance.dataObj.sec_key || "",
-                        value: a.sec_key_default || "",
-                        text: temp_child_text || "",
-                    };
-                    instance.backobj[1] = tempobj;
-                }else{
-                    tempobj = {
-                        paraname: instance.dataObj.sec_key || "",
-                        value: a.option[cur_parent_index].option[0].value || "",
-                        text: a.option[cur_parent_index].option[0].text || "",
-                    };
-                    instance.backobj[1] = tempobj;
-                    cur_child=0;
-                }
-            }else{
-                tempobj = {
-                    paraname: instance.dataObj.sec_key || "",
-                    value:  "",
-                    text:  "",
-                };
-                instance.backobj[1] = tempobj;
-            }
-            
-        }else{
-            tempobj = {
-                paraname: instance.dataObj.first_key || "",
-                value: instance.dataObj.option[0].value || "",
-                text: instance.dataObj.option[0].text || "",
-            };
-            instance.backobj[0] = tempobj;
-            cur_parent = 0;
-            if(instance.dataObj.option[0].option||instance.dataObj.option[0].option!=""){
-                if (instance.dataObj.option[0]) {
-                    tempobj = {
-                        paraname: instance.dataObj.sec_key || "",
-                        value: instance.dataObj.option[0].option[0].value || "",
-                        text: instance.dataObj.option[0].option[0].text || "",
-                    };
-                }
-                instance.backobj[1] = tempobj;
-                instance.temp = instance.dataObj.option[0].option;
-                cur_child = 0;
-            }else{
-                tempobj = {
-                    paraname: instance.dataObj.sec_key || "",
-                    value: "",
-                    text:"",
-                };
-                instance.backobj[1] = tempobj;
-            }
 
-        }
+    let map={};
+    let select_value;
+    if(a.option&&a.option.length>0){
+        a.option.forEach(function(item,index){
+            map[item.value]=item.option||"";
+            //寻找第一个默认值的索引
+            instance.first_key_index=0;
+            if(a.first_key_default==item.value){
+                instance.first_key_index=index;
+                select_value=item.value;
+            };
+        })
+    }
+    //寻找第二个默认值的索引
+    if(map[select_value]&&map[select_value].length>0){
+        instance.sec_key_index=0;
+        map[select_value].forEach(function(item,index){
+            if(item.value==a.sec_key_default){
+                instance.sec_key_index=index;
+            }
+        });
     }
 
-    instance.cur_parent=cur_parent;
-    instance.cur_child=cur_child;
-    Tool.css( document.body,"overflow","hidden");
-    Tool.css( document.body,"height","100vh");
+    instance.map=map;
+    instance.choose();
+
+    Tool.css(document.body, "overflow", "hidden");
+    Tool.css(document.body, "height", "100vh");
     instance.show = true;
     instance.isbeforeActive = true;
     setTimeout(function () {

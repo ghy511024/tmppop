@@ -1,162 +1,35 @@
 <style lang="scss" type="text/scss" scoped>
     @import "../../../common/css/mixin";
-
-    * {
-        margin: 0px;
-        padding: 0px;
-        list-style: none
-    }
-
-    .linkage {
-        width: 100%;
-        height: 100%;
-        position: fixed;
-        top: 0px;
-        transition: all 0.4s ease;
-        /*background: rgba(0,0,0,0.4);*/
-    }
-
-    .linkage .linkage-warp {
-        z-index: 1;
-        transition: all 0.4s ease;
-        position: absolute;
-        width: 100%;
-        bottom: 0px;
-        background: #ffffff;
-        transform: translateY(100%);
-    }
-
-    .linkage .linkage-title {
-        height: 1.2rem;
-        background: #f9fafc;
-        text-align: center;
-        font-size: 0.37333rem;
-        color: #999999;
-        line-height: 1.2rem;
-        position: relative;
-    }
-
-    .linkage .linkage-title:after {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: 0;
-        border: 1px solid #e3e3e4;
-        -webkit-box-sizing: border-box;
-        box-sizing: border-box;
-        width: 200%;
-        height: 200%;
-        -webkit-transform: scale(0.5);
-        transform: scale(0.5);
-        -webkit-transform-origin: left top;
-        transform-origin: left top;
-    }
-
-    .linkage .linkage-title .linkage-sure, .linkage .linkage-title .linkage-cancel {
-        position: absolute;
-        z-index: 1;
-        width: 1.6rem;
-        height: 1.2rem;
-        line-height: 1.22667rem;
-        color: #ff552e;
-        top: 0px;
-        right: 0px;
-    }
-
-    .linkage .linkage-title .linkage-sure.linkage-cancel, .linkage .linkage-title .linkage-cancel.linkage-cancel {
-        right: auto;
-        left: 0px;
-        color: #7b7b7b;
-    }
-
-    .linkage .linkage-list {
-        widtH: 100%;
-        height: 7.46668rem;
-
-    }
-
-    .border {
-        display: block;
-        position: absolute;
-        z-index: -1;
-        width: 50%;
-        height: 100%;
-        border-right: 1px solid #f6f6f6;
-    }
-
-    ul {
-        height: 7.46668rem;
-        width: 50%;
-        position: absolute;
-        z-index: 10;
-        list-style: none;
-        top: rem(90px);
-        overflow: hidden;
-        overflow-y: scroll;
-        li {
-            position: relative;
-            height: 1.3rem;
-            line-height: 1.3rem;
-            font-size: rem(26px);
-            color: rgba(0, 0, 0, 0.75);
-        }
-    }
-
-    ul.left {
-        left: 0;
-    }
-
-    ul.right {
-        right: 0;
-    }
-
-    ul li {
-        padding: 0 10px;
-    }
-
-    .btnactive {
-        background: #f6f6f6;
-        color: #ff552e;
-    }
-
-    .linkage.beforeActive {
-        display: block;
-        background: transparent;
-    }
-
-    .linkage.beforeActive .linkage-warp {
-        transform: translateY(100%);
-    }
-
-    .linkage.active {
-        background: rgba(0, 0, 0, 0.3);
-    }
-
-    .linkage.active .linkage-warp {
-        transform: translateY(0);
-    }
-
-
+    @import "../../../common/css/components/two_linkage";
 </style>
 <template>
     <div v-show="show">
-        <div class="linkage" v-bind:class="{beforeActive:isbeforeActive, active:isactive}" @click="close_click">
+        <div class="linkage" v-bind:class="{beforeActive:isbeforeActive, active:isactive}" @click="close">
             <div class="linkage-warp" @click.stop="stop">
-                <div class="linkage-title">{{dataObj.title}}
-                    <div class="linkage-sure" id="linkage-sure" @click="decision_click">确定</div>
-                    <div class="linkage-cancel" id="linkage-cancel" @click="close_click">取消</div>
+                <div class="linkage-title">{{data_obj.title}}
+                    <div class="linkage-sure" id="linkage-sure" @click="close('sure')">确定</div>
+                    <div class="linkage-cancel" id="linkage-cancel" @click="close">取消</div>
                 </div>
                 <div class="linkage-list">
                     <ul class="left">
-                        <li v-for="(item,index) in dataObj.option" :class="{btnactive:index==cur_parent}"
-                            @click="click_parent(item,index)">
+                        <li v-for="(item,index) in data_obj.option"
+                            :class="{btnactive:item.value==first_key_default}"
+                            @click="click_parent(item,index)"
+                            :ref="'two_linkage_'+item.value"
+                            :_id="item.value"
+                        >
                             {{item.text}}
                         </li>
+
                     </ul>
                     <span class="border"></span>
                     <ul class="right">
-                        <li v-for="(item,index) in temp" :class="{btnactive:index==cur_child}"
-                            @click="click_child(item,index)">
+                        <li v-for="(item,index) in child_array"
+                            :class="{btnactive:item.value==sec_key_default}"
+                            @click="click_child(item,index)"
+                            :ref="'two_linkage_'+item.value"
+                            :_id="item.value"
+                        >
                             {{item.text}}
                         </li>
                     </ul>
@@ -176,18 +49,18 @@
                 show: false,
                 isbeforeActive: false,
                 isactive: false,
-                cur_parent: 0,
-                cur_child: 0,
-                backobj: [],
-                dataObj: {//级联数值选项
-                },
-                temp: [],
+                map: {},
+                data_obj: {},
+                first_key_index: "",
+                sec_key_index: "",
+                first_key_default: "",
+                sec_key_default: "",
+                child_array: [],
                 callback: () => {
                 },
             }
         },
         mounted(){
-
         },
         creat(){
         },
@@ -199,63 +72,144 @@
             // 点击一级菜单
             click_parent(item, index) {
                 let _this = this;
-                _this.cur_parent = index;
-                _this.cur_child = 0;
-                let tempobj = {};
-                tempobj = {
-                    paraname: _this.dataObj.first_key || "",
-                    value: item.value || "",
-                    text: item.text || "",
-                };
-                _this.backobj[0] = tempobj;
-                if(item.option&&item.option!=""){
-                    _this.temp = item.option || "";
-                    tempobj = {
-                        paraname: _this.dataObj.sec_key || "",
-                        value: _this.temp[0].value || "",
-                        text: _this.temp[0].text || "",
-                    };
-                    _this.backobj[1] = tempobj;
-                }else{
-                    _this.temp=""
-                    tempobj = {
-                        paraname: _this.dataObj.sec_key || "",
-                        value: "",
-                        text:  "",
-                    };
-                    _this.backobj[1] = tempobj;
+                _this.first_key_default = item.value;
+                _this.first_key_index = index;
+                if (_this.map[item.value] && _this.map[item.value].length > 0) {
+                    _this.sec_key_index = 0;
+                    _this.sec_key_default = (_this.map[item.value][0] || {})["value"];
                 }
-
+                _this.choose();
             },
             // 点击二级菜单
             click_child(item, index) {
                 let _this = this;
-                _this.cur_child = index;
-                let tempobj = {};
-                tempobj = {
-                    paraname: _this.dataObj.sec_key || "",
-                    value: item.value || "",
-                    text: item.text || "",
-                };
-                _this.backobj[1] = tempobj;
+                _this.sec_key_default = item.value;
+                _this.sec_key_index = index;
+                _this.choose();
             },
-            // 点击取消
-            close_click() {
+
+            //计算被选中的value
+            choose(){
                 let _this = this;
-                _this._close();
-                return _this.callback(1);
+                let ret = 0;
+
+                let first_value = _this.first_key_default;
+                let sec_value = _this.sec_key_default;
+
+                //计算一级选中的value
+                if (ret == 0) {
+                    if (!first_value) {
+                        first_value = (_this.data_obj.option[0] || {})["value"];
+                        _this.first_key_index = 0;
+                    }
+                    if (first_value) {//赋值
+                        _this.first_key_default = first_value;
+                        _this.data_obj.option.forEach(function (item, index) {
+                            if (item.value == _this.first_key_default) {
+                                _this.first_key_index = index;
+                            }
+                        });
+
+                    } else {
+                        ret = -1;
+                    }
+                }
+
+                //寻找二级数组
+                if (ret == 0) {
+                    let temp = _this.map[_this.first_key_default] || "";
+                    if (temp && temp.length > 0) {
+                        _this.child_array = _this.map[_this.first_key_default];
+                    } else {
+                        _this.child_array = [];
+                        ret = -2;
+                    }
+                }
+
+                //计算二级选中value
+                if (ret == 0) {
+                    if (!sec_value) {
+                        sec_value = (_this.child_array[0] || {})["value"]
+                        _this.sec_key_index = 0;
+                    }
+                    if (!sec_value) {
+                        ret = -3;
+                    }
+                }
+                //赋值
+                if (ret == 0) {
+                    _this.sec_key_default = sec_value;
+                    _this.child_array.forEach(function (item, index) {
+                        if (item.value == _this.sec_key_default) {
+                            _this.sec_key_index = index;
+                        }
+                    })
+                }
+                _this._scroll_to_choose();
+
             },
-            // 点击完成
-            decision_click() {
-                let _this = this;
-                _this._close();
-                let array = [];
-                _this.backobj.forEach(function (item, index) {
-                    array[index] = item;
+
+            // 滚动到选中的id
+            _scroll_to_choose(){
+                var _this = this;
+                _this.$nextTick(function () {
+                    var first_id = this.first_key_default;
+                    var sec_id = this.sec_key_default;
+
+                    var dom1 = this.$refs["two_linkage_" + first_id];
+                    var dom2 = this.$refs["two_linkage_" + sec_id];
+                    if (!!dom1) {
+                        this._scroll_dom(dom1, 200);
+                    }
+                    if (!!dom2) {
+                        this._scroll_dom(dom2, 150);
+                    }
                 })
-                return _this.callback(0, array);
+
+
+//            console.log(dom1.)
             },
-            _close(){
+            _scroll_dom(dom, p_px){
+                var dom_parent_h = dom[0].parentNode.offsetHeight;
+                var dom_parent_scroll = dom[0].parentNode.scrollTop;
+                var dom_ofset_h = dom[0].offsetTop;
+                // 上超出
+                if (dom - dom_ofset_h > 0) {
+                    dom[0].parentNode.scrollTop = dom_parent_scroll - (dom_parent_scroll - dom_ofset_h);
+                }
+                // 下隐藏
+                else if (dom_ofset_h - dom_parent_scroll > dom_parent_h) {
+                    dom[0].parentNode.scrollTop = dom_ofset_h - dom_parent_h + p_px;
+                }
+            },
+            close(type){
+                let opticy = type == "sure" ? 0 : -1;
+                let _this = this;
+                let backarr = [];
+                if (opticy == 0) {
+                    let first_choose = _this.data_obj.option[_this.first_key_index];
+                    let sec_choose = {};
+                    if (first_choose.option && first_choose.option.length > 0) {
+                        sec_choose = (first_choose.option[_this.sec_key_index]) || {};
+                    }
+                    let obj1 = {
+                        paraname: _this.data_obj.first_key,
+                        text: first_choose.text || "",
+                        value: first_choose.value || ""
+                    };
+                    let obj2 = {
+                        paraname: _this.data_obj.sec_key,
+                        text: sec_choose.text || "",
+                        value: sec_choose.value || ""
+                    };
+                    backarr.push(obj1);
+                    backarr.push(obj2);
+                }
+                _this.style_close();
+                return _this.callback(opticy, backarr)
+            },
+
+            style_close(){
                 let _this = this;
                 _this.isactive = false;
                 setTimeout(function () {
